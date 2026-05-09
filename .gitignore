@@ -1,0 +1,18 @@
+# Python virtual environment
+.venv/
+
+# Bytecode cache
+__pycache__/
+*.pyc
+*.pyo
+
+# PyInstaller build artifacts
+build/
+dist/
+
+# IDE settings
+.idea/
+
+# System files
+Thumbs.db
+Desktop.ini

@@ -1,0 +1,18 @@
+{
+    "Settings": {
+        "Bitrate": "10000k",
+        "Language": "zh_CN",
+        "OpenFolder": true,
+        "StreamCopy": true,
+        "UseGPU": false
+    },
+    "QFluentWidgets": {
+        "FontFamilies": [
+            "Segoe UI",
+            "Microsoft YaHei",
+            "PingFang SC"
+        ],
+        "ThemeColor": "#ff009faa",
+        "ThemeMode": "Dark"
+    }
+}
