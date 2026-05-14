@@ -7,6 +7,7 @@ import tempfile
 import subprocess
 import re
 import uuid
+import json
 import imageio_ffmpeg
 
 
@@ -30,7 +31,7 @@ def _parse_duration_hms(stderr_text):
 def get_video_duration(ffmpeg_bin, video_path):
     # Primary: fast ffmpeg probe
     cmd = [ffmpeg_bin, "-i", video_path]
-    process = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, errors='ignore')
+    process = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, errors='replace')
     duration = _parse_duration_hms(process.stderr)
     if duration is not None:
         return duration
@@ -41,7 +42,7 @@ def get_video_duration(ffmpeg_bin, video_path):
         process = subprocess.run(
             [ffprobe_bin, "-v", "quiet", "-show_entries", "format=duration",
              "-of", "csv=p=0", video_path],
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, errors='ignore', timeout=30
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, errors='replace', timeout=30
         )
         val = process.stdout.strip()
         if val:
@@ -59,7 +60,7 @@ def extract_audio(ffmpeg_bin, input_path, output_path, sr):
         "-vn", "-acodec", "pcm_s16le", "-ar", str(sr), "-ac", "1",
         output_path
     ]
-    process = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, errors='ignore')
+    process = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, errors='replace')
     if process.returncode != 0:
         raise RuntimeError(f"FFmpeg底层音频提取崩溃: \n{process.stderr}")
 
@@ -153,6 +154,21 @@ def find_offset(video_path, music_path, sr=22050, confidence_threshold=None):
                 pass
 
 
+def _has_audio_stream(ffprobe_bin, input_path):
+    """Return True if the media file has at least one audio stream."""
+    try:
+        result = subprocess.run(
+            [ffprobe_bin, "-v", "quiet", "-print_format", "json",
+             "-show_streams", "-select_streams", "a", input_path],
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            text=True, errors='replace', timeout=15
+        )
+        info = json.loads(result.stdout)
+        return len(info.get("streams", [])) > 0
+    except Exception:
+        return True  # assume audio exists if probe fails
+
+
 def mix_and_export(video_path, music_path, offset, output_path, vol_original=1.0, vol_music=1.0,
                    use_gpu=False, bitrate="10000k", manual_offset=0.0, stream_copy=True,
                    tr=None, ui_log_callback=None, ui_progress_callback=None):
@@ -172,10 +188,17 @@ def mix_and_export(video_path, music_path, offset, output_path, vol_original=1.0
         abs_delay = abs(final_offset)
         music_filter = f"aformat=channel_layouts=stereo,volume={vol_music},atrim=start={abs_delay},asetpts=PTS-STARTPTS"
 
-    filter_complex = f"[0:a:0]volume={vol_original}[a0];[1:a:0]{music_filter}[a1];[a0][a1]amix=inputs=2:duration=first[aout]"
+    # 探测视频音轨：无声视频时仅使用音乐轨
+    ffprobe_bin = ffmpeg_bin.replace("ffmpeg", "ffprobe")
+    if _has_audio_stream(ffprobe_bin, video_path):
+        filter_complex = f"[0:a:0]volume={vol_original}[a0];[1:a:0]{music_filter}[a1];[a0][a1]amix=inputs=2:duration=first[aout]"
+    else:
+        filter_complex = f"[1:a:0]{music_filter}[aout]"
 
     cmd = [
         ffmpeg_bin, "-y",
+        "-fflags", "+genpts",
+        "-avoid_negative_ts", "make_zero",
         "-i", video_path,
         "-i", music_path,
         "-filter_complex", filter_complex,
@@ -192,20 +215,29 @@ def mix_and_export(video_path, music_path, offset, output_path, vol_original=1.0
         if ui_log_callback:
             ui_log_callback(tr("log_encode_mode", vcodec, bitrate))
 
+    # 剥离源文件私有元数据 (如 iPhone QuickTime atoms)，优化 MP4 结构
+    cmd.extend(["-map_metadata", "-1", "-movflags", "+faststart"])
     cmd.append(output_path)
 
     if ui_log_callback:
         ui_log_callback(tr("log_target_offset", final_offset))
 
-    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, errors='ignore')
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, errors='replace')
 
     start_time_real = time.time()
     error_log = []
+    critical_errors = []
 
     for line in process.stdout:
-        error_log.append(line.strip())
+        stripped = line.strip()
+        error_log.append(stripped)
         if len(error_log) > 50:
             error_log.pop(0)
+
+        # 捕获含严重错误关键词的行，独立保存用于诊断
+        lowline = stripped.lower()
+        if any(kw in lowline for kw in ('error', 'failed', 'invalid')):
+            critical_errors.append(stripped)
 
         time_match = re.search(r"time=(\d+):(\d+):(\d+\.\d+)", line)
         if time_match and ui_progress_callback:
@@ -226,7 +258,11 @@ def mix_and_export(video_path, music_path, offset, output_path, vol_original=1.0
     process.wait()
 
     if process.returncode != 0:
-        err_msg = "\n".join(error_log)
+        if critical_errors:
+            err_msg = "CRITICAL:\n" + "\n".join(critical_errors[-20:])
+            err_msg += "\n\n--- tail ---\n" + "\n".join(error_log)
+        else:
+            err_msg = "\n".join(error_log)
         raise RuntimeError(tr("err_ffmpeg_crash", err_msg))
 
     if ui_progress_callback:
