@@ -642,7 +642,7 @@ class SettingInterface(ScrollArea):
             parent=self.general_group
         )
         self.lang_combo.setToolTip(i18n.tr("set_lang_tooltip"))
-        self.lang_combo.comboBox.currentIndexChanged.connect(self._on_lang_changed)
+        self.lang_combo.optionChanged.connect(self._on_lang_changed)
 
         self.folder_switch = SwitchSettingCard(
             icon=FIF.FOLDER, title=i18n.tr("set_folder"), content=i18n.tr("set_folder_desc"),
@@ -680,8 +680,8 @@ class SettingInterface(ScrollArea):
         self.layout.addWidget(self.video_group)
         self.layout.addStretch(1)
 
-    def _on_lang_changed(self, index):
-        lang_code = list(LANG_OPTIONS.keys())[index]
+    def _on_lang_changed(self, config_item):
+        lang_code = config_item.value
         if lang_code == i18n.locale:
             return
         InfoBar.success(
