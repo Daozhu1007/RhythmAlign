@@ -16,7 +16,7 @@
   <img src="https://img.shields.io/badge/version-v1.0.0--Preview-orange" alt="Version">
   <img src="https://img.shields.io/badge/platform-Windows%2010%2F11-blue" alt="Platform">
   <img src="https://img.shields.io/badge/python-3.9%2B-blue" alt="Python">
-  <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
+  <img src="https://img.shields.io/badge/license-CC%20BY--NC%204.0-lightgrey" alt="License">
 </p>
 
 <p align="center">
