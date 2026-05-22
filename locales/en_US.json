@@ -1,5 +1,5 @@
 {
-    "app_title": "RhythmAlign v1.0",
+    "app_title": "RhythmAlign v1.0.0-Preview",
     "tab_sync": "Auto Sync",
     "tab_analyze": "Analyze Only",
     "tab_about": "About",
@@ -63,7 +63,7 @@
     "status_calc": "Calculating...",
     "hint_analyzing_wave": "Analyzing audio waveform features...",
 
-    "about_ver": "v1.0 Stable",
+    "about_ver": "v1.0.0-Preview",
     "about_author_title": "About Author & Contact",
     "about_author": "Developer: Limitime",
     "about_desc": "Indie developer & rhythm game enthusiast. This tool helps players easily solve the problem of hand-cam audio syncing.",
@@ -91,6 +91,9 @@
     "set_folder_desc": "Automatically open the folder after processing is complete.",
     "set_lang": "Language (界面语言)",
     "set_lang_desc": "Select interface language (Requires restart)",
+    "set_lang_tooltip": "Click to switch between 中文 / English UI",
+    "set_lang_changed": "Language Changed",
+    "set_lang_restart": "Please restart the application for the language change to take effect",
     "lang_zh": "简体中文",
     "lang_en": "English",
 

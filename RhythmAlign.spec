@@ -1,9 +1,12 @@
 # -*- mode: python ; coding: utf-8 -*-
 from PyInstaller.utils.hooks import copy_metadata
 
-datas = []
+datas = [
+    ('assets', 'assets'),
+    ('locales', 'locales'),
+    ('config.json', '.'),
+]
 datas += copy_metadata('imageio_ffmpeg')
-
 
 a = Analysis(
     ['ui_main.py'],
@@ -36,7 +39,7 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['logo.ico'],
+    icon='assets/logo.ico',
 )
 coll = COLLECT(
     exe,

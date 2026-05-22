@@ -4,9 +4,17 @@ import subprocess
 import json
 
 if getattr(sys, 'frozen', False):
-    app_dir = os.path.dirname(sys.executable)
+    _BASE_DIR = sys._MEIPASS
 else:
-    app_dir = os.path.dirname(os.path.abspath(__file__))
+    _BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
+def resource_path(relative_path):
+    """Return absolute path to a bundled resource (assets, locales, etc.).
+
+    Works both in dev mode and when packaged by PyInstaller (via sys._MEIPASS).
+    """
+    return os.path.join(_BASE_DIR, relative_path)
 
 from PyQt6.QtGui import QPixmap, QIcon, QDesktopServices
 from PyQt6.QtCore import Qt, QThread, pyqtSignal, QUrl
@@ -27,7 +35,7 @@ class I18nManager:
         self.load_language()
 
     def load_language(self):
-        lang_file = os.path.join(app_dir, "locales", f"{self.locale}.json")
+        lang_file = resource_path(f"locales/{self.locale}.json")
         try:
             if os.path.exists(lang_file):
                 with open(lang_file, 'r', encoding='utf-8') as f:
@@ -65,7 +73,7 @@ class AppConfig(QConfig):
     stream_copy = ConfigItem("Settings", "StreamCopy", True, BoolValidator())
 
 cfg = AppConfig()
-qconfig.load(os.path.join(app_dir, "config.json"), cfg)
+qconfig.load(resource_path("config.json"), cfg)
 qconfig.set(qconfig.themeMode, Theme.DARK)
 
 # 启动全局翻译官
@@ -94,7 +102,7 @@ class BrandingWidget(QWidget):
 
         self.icon_label = QLabel(self)
         self.icon_label.setStyleSheet("background: transparent;")
-        logo_path = "logo.png"
+        logo_path = resource_path("assets/logo.png")
         if os.path.exists(logo_path):
             pixmap = QPixmap(logo_path)
             self.icon_label.setPixmap(scale_pixmap_to_height(pixmap, 20, self))
@@ -499,7 +507,7 @@ class AboutInterface(ScrollArea):
 
         logo_label = QLabel()
         logo_label.setStyleSheet("background: transparent;")
-        pixmap = QPixmap("logo.png")
+        pixmap = QPixmap(resource_path("assets/logo.png"))
         if not pixmap.isNull():
             logo_label.setPixmap(scale_pixmap_to_height(pixmap, 60, self))
         top_layout.addWidget(logo_label)
@@ -528,8 +536,8 @@ class AboutInterface(ScrollArea):
                 btn.setIcon(fallback_icon)
             return btn
 
-        btn_github = create_branding_button("github.png", "GitHub", FIF.SHARE)
-        btn_bilibili = create_branding_button("bilibili.png", "Bilibili", FIF.SHARE)
+        btn_github = create_branding_button(resource_path("assets/github.png"), "GitHub", FIF.SHARE)
+        btn_bilibili = create_branding_button(resource_path("assets/bilibili.png"), "Bilibili", FIF.SHARE)
         btn_qq = PushButton(FIF.CHAT, "QQ群")
         btn_donate = PushButton(FIF.HEART, "赞助")
 
@@ -633,6 +641,8 @@ class SettingInterface(ScrollArea):
             texts=[i18n.tr(LANG_OPTIONS[code]) for code in LANG_OPTIONS],
             parent=self.general_group
         )
+        self.lang_combo.setToolTip(i18n.tr("set_lang_tooltip"))
+        self.lang_combo.comboBox.currentIndexChanged.connect(self._on_lang_changed)
 
         self.folder_switch = SwitchSettingCard(
             icon=FIF.FOLDER, title=i18n.tr("set_folder"), content=i18n.tr("set_folder_desc"),
@@ -670,6 +680,18 @@ class SettingInterface(ScrollArea):
         self.layout.addWidget(self.video_group)
         self.layout.addStretch(1)
 
+    def _on_lang_changed(self, index):
+        lang_code = list(LANG_OPTIONS.keys())[index]
+        if lang_code == i18n.locale:
+            return
+        InfoBar.success(
+            title=i18n.tr("set_lang_changed"),
+            content=i18n.tr("set_lang_restart"),
+            duration=5000,
+            parent=self,
+            position=InfoBarPosition.TOP
+        )
+
 
 # ================= 6. 框架组装 =================
 class RhythmAlignApp(FluentWindow):
@@ -678,7 +700,7 @@ class RhythmAlignApp(FluentWindow):
         setTheme(Theme.DARK)
 
         self.setWindowTitle(i18n.tr("app_title"))
-        self.setWindowIcon(QIcon(os.path.join(app_dir, "logo.ico")))
+        self.setWindowIcon(QIcon(resource_path("assets/logo.ico")))
         self.resize(1050, 720)
         self.setMinimumSize(1024, 550)
 
@@ -730,7 +752,7 @@ if __name__ == '__main__':
         pass
 
     app = QApplication(sys.argv)
-    app.setWindowIcon(QIcon(os.path.join(app_dir, "logo.ico")))
+    app.setWindowIcon(QIcon(resource_path("assets/logo.ico")))
 
     window = RhythmAlignApp()
     window.show()

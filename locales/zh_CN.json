@@ -1,5 +1,5 @@
 {
-    "app_title": "RhythmAlign v1.0",
+    "app_title": "RhythmAlign v1.0.0-Preview",
     "tab_sync": "手元对齐",
     "tab_analyze": "纯分析模式",
     "tab_about": "关于",
@@ -63,7 +63,7 @@
     "status_calc": "计算中...",
     "hint_analyzing_wave": "正在分析音频波形特征...",
 
-    "about_ver": "v1.0 正式版",
+    "about_ver": "v1.0.0-Preview 预览版",
     "about_author_title": "关于作者 & 联系方式",
     "about_author": "开发者：Limitime",
     "about_desc": "热爱音游（尤其是舞萌DX和Arcaea）的独立开发者。此工具旨在帮助音游玩家轻松应对后期手元音频对齐的难题。",
@@ -91,6 +91,9 @@
     "set_folder_desc": "处理完成后自动打开文件所在的文件夹",
     "set_lang": "界面语言 (Language)",
     "set_lang_desc": "选择软件显示的语言 (重启后生效)",
+    "set_lang_tooltip": "点击切换中 / English 界面语言",
+    "set_lang_changed": "语言已更改",
+    "set_lang_restart": "请重启应用以使语言设置生效",
     "lang_zh": "简体中文",
     "lang_en": "English",
 

@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(chmod +x \"D:/Code/RhythmAlign/.git/hooks/commit-msg\")",
+      "Bash(echo -e \"test commit message\\\\n\\\\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\")",
+      "Bash(.git/hooks/commit-msg /tmp/test-msg.txt)",
+      "Read(//tmp/**)",
+      "Bash(mkdir -p \"$HOME/.git-global-hooks\")",
+      "Bash(cp \"D:/Code/RhythmAlign/.git/hooks/commit-msg\" \"$HOME/.git-global-hooks/commit-msg\")",
+      "Bash(chmod +x \"$HOME/.git-global-hooks/commit-msg\")",
+      "Bash(git config:*)",
+      "Read(//d/Code/RhythmAlign/$HOME/**)",
+      "Bash(git -C \"D:/Code/portfolio\" log --oneline -3)",
+      "Bash(git -C \"D:/Code/portfolio\" remote -v)",
+      "Bash(git -C \"D:/Code/portfolio\" status -s)",
+      "Bash(git -C \"D:/Code/Limitime-QFluentKit\" remote -v)",
+      "Bash(git -C \"D:/Code/Limitime-QFluentKit\" status -s)",
+      "Bash(git -C \"D:/Code/KeanSeatsCatcher\" remote -v)",
+      "Bash(git -C \"D:/Code/KeanSeatsCatcher\" status -s)",
+      "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --msg-filter 'sed \"\"/^Co-Authored-By:/d\"\"' -- --all)",
+      "Bash(git -C \"D:/Code/RhythmAlign\" log --all --oneline --grep=\"Co-Authored-By\")",
+      "Bash(git -C \"D:/Code/Limitime-QFluentKit\" log --all --oneline --grep=\"Co-Authored-By\")",
+      "Bash(git -C \"D:/Code/KeanSeatsCatcher\" log --all --oneline --grep=\"Co-Authored-By\")",
+      "Bash(git -C \"D:/Code/portfolio\" log --all --oneline --grep=\"Co-Authored-By\")",
+      "Bash(git -C \"D:/Code/NotImporntantRepos/DockerNeed/pintos\" log --all --oneline --grep=\"Co-Authored-By\")",
+      "Bash(git -C \"D:/Code/NotImporntantRepos/ok-wuthering-waves\" log --all --oneline --grep=\"Co-Authored-By\")",
+      "Bash(git -C \"D:/Code/PyFluentKit\" log --all --oneline --grep=\"Co-Authored-By\")",
+      "Bash(git -C \"D:/Code/RhythmAlign\" log --oneline --all --grep=\"Co-Authored-By\")",
+      "Bash(git -C \"D:/Code/RhythmAlign\" for-each-ref)",
+      "Bash(for repo:*)",
+      "Bash(do echo:*)",
+      "Bash(git -C \"$repo\" for-each-ref --format=\"%\\(refname\\)\" \"refs/original/\")",
+      "Bash(while read:*)",
+      "Bash(do git:*)",
+      "Bash(echo \"deleted: $ref\")",
+      "Bash(done)",
+      "Bash(git:*)",
+      "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --tag-name-filter cat --msg-filter 'sed \"\"\"\"/^Co-Authored-By:/d\"\"\"\"' -- --all)"
+    ]
+  }
+}
