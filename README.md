@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <img src="screenshot.png" alt="RhythmAlign Screenshot" width="720" />
+  <img src="assets/screenshot_en.png" alt="RhythmAlign Interface" width="720" />
 </p>
 
 <p align="center">
