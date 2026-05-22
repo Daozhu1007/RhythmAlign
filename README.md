@@ -190,14 +190,18 @@ The app icon is cropped from the **"Tairitsu Duck" (对立鸭)** emoji sticker s
 
 ### Fair Use
 
-- Free and open-source (MIT). If you paid for a copy, request a refund.
+- Free for personal, non-commercial use. If you paid for a copy, request a refund.
 - Personal, non-commercial use only.
 
 ---
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+This project is licensed under the [CC BY-NC 4.0 License](LICENSE).
+
+**Personal and Non-Commercial use is completely free.** You are welcome to use this tool for your personal rhythm game handcam videos.
+
+**Commercial Use is STRICTLY PROHIBITED** without prior written permission and a commercial license. This includes, but is not limited to, using this tool for commissioned video editing, monetized studio productions, or redistributing the software for profit. For commercial licensing inquiries, please contact the author.
 
 ---
 
