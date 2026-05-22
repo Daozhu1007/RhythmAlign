@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <img src="logo.png" width="128" alt="Logo">
+  <img src="assets/logo.png" width="128" alt="Logo">
 </p>
 
 <h1 align="center">RhythmAlign</h1>
@@ -13,6 +13,7 @@
 </p>
 
 <p align="center">
+  <img src="https://img.shields.io/badge/version-v1.0.0--Preview-orange" alt="Version">
   <img src="https://img.shields.io/badge/platform-Windows%2010%2F11-blue" alt="Platform">
   <img src="https://img.shields.io/badge/python-3.9%2B-blue" alt="Python">
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
@@ -162,12 +163,17 @@ RhythmAlign/
 ├── ui_main.py              # GUI: Sync, Analyze, Settings, About tabs
 ├── auto_sync.py            # Alignment engine + ffmpeg export pipeline
 ├── diagnose_offset.py      # CLI diagnostic tool
+├── assets/
+│   ├── logo.png / logo.ico # App icons
+│   ├── github.png          # GitHub link icon
+│   └── bilibili.png        # Bilibili link icon
 ├── locales/
 │   ├── zh_CN.json
 │   └── en_US.json
 ├── requirements.txt
-├── logo.png / logo.ico
-└── config.json             # User settings (auto-generated)
+├── config.json             # User settings (auto-generated)
+├── RhythmAlign.spec        # PyInstaller spec
+└── RhythmAlign.iss         # Inno Setup installer script
 ```
 
 ---
@@ -196,7 +202,7 @@ MIT. See [LICENSE](LICENSE).
 ---
 
 <p align="center">
-  <a href="https://github.com/Daozhu1007/RhythmAlign"><img src="github.png" height="22"></a>
+  <a href="https://github.com/Daozhu1007/RhythmAlign"><img src="assets/github.png" height="22"></a>
   &nbsp;
-  <a href="https://space.bilibili.com/477852567"><img src="bilibili.png" height="22"></a>
+  <a href="https://space.bilibili.com/477852567"><img src="assets/bilibili.png" height="22"></a>
 </p>
