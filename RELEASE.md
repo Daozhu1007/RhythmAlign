@@ -20,12 +20,22 @@
    - 删除旧 `dist/` 目录。
    - 检查并确保 `config/config.json`（废弃）已不存在，仅保留根目录 `config.json`。
 
-2. 版本号更新（以目标版本号 `X.Y.Z` 为例）：
-   - 检查 `ui_main.py` 中是否有 `VERSION` / `__version__` 常量，如有则更新。
-   - 检查 `RhythmAlign.spec` 中是否有版本号引用，如有则更新。
-   - 更新 `RhythmAlign.iss` 中两处：
-     - `#define MyAppVersion "X.Y.Z"`（第 2 行）
-     - `OutputBaseFilename=RhythmAlign_vX.Y.Z_Setup`（第 19 行）
+2. 版本号更新（以目标版本号 `X.Y.Z` 为例，**每次 Release 必须逐项核对，不得跳过**）：
+
+   | 文件 | 位置 | 修改内容 |
+   |---|---|---|
+   | `locales/zh_CN.json` | `"app_title"` 键 | `"RhythmAlign vX.Y.Z"` |
+   | `locales/zh_CN.json` | `"about_ver"` 键 | `"vX.Y.Z"` |
+   | `locales/en_US.json` | `"app_title"` 键 | `"RhythmAlign vX.Y.Z"` |
+   | `locales/en_US.json` | `"about_ver"` 键 | `"vX.Y.Z"` |
+   | `README.md` | badge URL | `version-vX.Y.Z-blue` |
+   | `README_zh.md` | badge URL | `version-vX.Y.Z-blue` |
+   | `RhythmAlign.iss` | 第 2 行 | `#define MyAppVersion "X.Y.Z"` |
+   | `RhythmAlign.iss` | 第 19 行 | `OutputBaseFilename=RhythmAlign_vX.Y.Z_Setup` |
+   | `ui_main.py` | 搜索 `VERSION` | 如有版本常量则更新 |
+   | `RhythmAlign.spec` | 全文搜索 | 如有版本引用则更新 |
+
+   > 如果当前代码版本号已经是 `X.Y.Z`，则跳过该条目。但**必须逐条确认**，严禁假设"已经改过了"。
 
 ---
 

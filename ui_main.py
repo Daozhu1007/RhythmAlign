@@ -729,7 +729,7 @@ class RhythmAlignApp(FluentWindow):
         self.setMinimumSize(1024, 550)
 
         self.navigationInterface.setReturnButtonVisible(False)
-        self.navigationInterface.setExpandWidth(180)
+        self.navigationInterface.setExpandWidth(210)
 
         if hasattr(self, 'titleBar'):
             if hasattr(self.titleBar, 'iconLabel'):
