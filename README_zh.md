@@ -16,7 +16,7 @@
   <img src="https://img.shields.io/badge/version-v1.0.0--Preview-orange" alt="Version">
   <img src="https://img.shields.io/badge/platform-Windows%2010%2F11-blue" alt="Platform">
   <img src="https://img.shields.io/badge/python-3.9%2B-blue" alt="Python">
-  <img src="https://img.shields.io/badge/license-CC%20BY--NC%204.0-lightgrey" alt="License">
+  <img src="https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-lightgrey" alt="License">
 </p>
 
 <p align="center">
@@ -197,7 +197,7 @@ RhythmAlign/
 
 ## 协议与商用说明 (License)
 
-本项目采用 [CC BY-NC 4.0 协议](LICENSE) 进行授权。
+本项目采用 **[PolyForm Noncommercial License 1.0.0](LICENSE)** 协议发布。
 
 **个人及非商业性使用完全免费。** 欢迎您使用本工具制作个人的音游手元视频。
 

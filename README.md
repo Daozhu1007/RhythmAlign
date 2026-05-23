@@ -16,7 +16,7 @@
   <img src="https://img.shields.io/badge/version-v1.0.0--Preview-orange" alt="Version">
   <img src="https://img.shields.io/badge/platform-Windows%2010%2F11-blue" alt="Platform">
   <img src="https://img.shields.io/badge/python-3.9%2B-blue" alt="Python">
-  <img src="https://img.shields.io/badge/license-CC%20BY--NC%204.0-lightgrey" alt="License">
+  <img src="https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-lightgrey" alt="License">
 </p>
 
 <p align="center">
@@ -195,13 +195,15 @@ The app icon is cropped from the **"Tairitsu Duck" (对立鸭)** emoji sticker s
 
 ---
 
-## License
+## License & Commercial Use
 
-This project is licensed under the [CC BY-NC 4.0 License](LICENSE).
+This project is distributed under the **[PolyForm Noncommercial License 1.0.0](LICENSE)**.
 
-**Personal and Non-Commercial use is completely free.** You are welcome to use this tool for your personal rhythm game handcam videos.
+**Personal Use is completely FREE.** You are welcome to use this tool for your personal rhythm game handcam videos.
 
-**Commercial Use is STRICTLY PROHIBITED** without prior written permission and a commercial license. This includes, but is not limited to, using this tool for commissioned video editing, monetized studio productions, or redistributing the software for profit. For commercial licensing inquiries, please contact the author.
+**Commercial Use is STRICTLY PROHIBITED** under this license. This includes using this tool for commissioned video editing, monetized studio productions, or redistributing the software for profit.
+
+**For commercial licensing and inquiries, please contact the author to purchase a Commercial License.**
 
 ---
 
