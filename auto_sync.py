@@ -21,7 +21,7 @@ class CorrelationLowConfidenceError(RuntimeError):
 
 def _parse_duration_hms(stderr_text):
     """Parse HH:MM:SS.ms from ffmpeg/ffprobe stderr or stdout."""
-    match = re.search(r"Duration:\s*(\d+):(\d+):(\d+\.\d+)", stderr_text)
+    match = re.search(r"Duration:\s*(\d+):(\d+):(\d+(?:\.\d+)?)", stderr_text)
     if match:
         h, m, s = match.groups()
         return int(h) * 3600 + int(m) * 60 + float(s)
@@ -181,7 +181,9 @@ def mix_and_export(video_path, music_path, offset, output_path, vol_original=1.0
     # 使用正则原生提取时长
     total_duration = get_video_duration(ffmpeg_bin, video_path)
 
-    if final_offset >= 0:
+    if abs(final_offset) < 0.001:
+        music_filter = f"aformat=channel_layouts=stereo,volume={vol_music}"
+    elif final_offset > 0:
         delay_ms = int(final_offset * 1000)
         music_filter = f"aformat=channel_layouts=stereo,volume={vol_music},adelay={delay_ms}|{delay_ms}"
     else:

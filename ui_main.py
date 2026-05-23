@@ -50,9 +50,10 @@ class I18nManager:
         text = self.texts.get(key, key)
         if args:
             try:
-                text = text.format(*args)
+                return text.format(*args)
             except Exception:
                 print(f"I18n format error: key={key!r} args={args!r}", file=sys.stderr)
+                return f"{text} [{' | '.join(str(a) for a in args)}]"
         return text
 
 # ================= 1. 全局配置系统 =================
@@ -119,96 +120,119 @@ class BrandingWidget(QWidget):
 
 
 # ================= 2. 后台工作线程 =================
-class SyncWorker(QThread):
+class BaseMediaWorker(QThread):
+    """Template Method: 封装 find_offset 调用和异常处理。
+
+    子类只需实现 _on_offset_found(offset) 来定义找到偏移后的行为。
+    完成信号由子类自行定义（语义不同），基类只提供 log/progress 信号。
+    """
     log_signal = pyqtSignal(str, str)
     progress_signal = pyqtSignal(str, str, str)
+
+    def _emit_start(self, task_key, progress_val):
+        """子类可重写以定制启动时的信号发射序列。"""
+        self.progress_signal.emit(i18n.tr(task_key), progress_val, "--:--")
+        self.log_signal.emit("-" * 40, "normal")
+        self.log_signal.emit(i18n.tr("log_extract"), "normal")
+
+    def _run_find_offset(self):
+        """调用 find_offset 并返回结果；子类提供 v_path / m_path 属性。"""
+        return find_offset(self.v_path, self.m_path)
+
+    def _on_offset_found(self, offset):
+        """子类必须重写：定义找到偏移后的行为。"""
+        raise NotImplementedError
+
+    def _on_low_confidence(self, e):
+        """子类可重写：置信度过低时的处理。基类提供默认日志输出。"""
+        self.log_signal.emit(i18n.tr("err_low_confidence", e.z_score, e.threshold), "error")
+        self.log_signal.emit(i18n.tr("err_manual_fallback"), "normal")
+
+    def _on_error(self, e):
+        """子类可重写：通用异常处理。基类提供默认日志输出。"""
+        self.log_signal.emit(i18n.tr("err_run", str(e)), "error")
+
+    def run(self):
+        try:
+            self._emit_start(self._start_task_key, self._start_progress_val)
+            offset = self._run_find_offset()
+            self._on_offset_found(offset)
+        except CorrelationLowConfidenceError as e:
+            self._on_low_confidence(e)
+            self._fail()
+        except Exception as e:
+            self._on_error(e)
+            self._fail()
+
+    def _fail(self):
+        """子类必须重写：任务失败时的清理和信号发射。"""
+        raise NotImplementedError
+
+
+class SyncWorker(BaseMediaWorker):
     finished_signal = pyqtSignal(bool, str)
 
     def __init__(self, kwargs):
         super().__init__()
         self.kwargs = kwargs
+        self.v_path = kwargs['v_path']
+        self.m_path = kwargs['m_path']
+        self._start_task_key = "log_start_analyze"
+        self._start_progress_val = "0"
 
-    def run(self):
-        try:
-            self.progress_signal.emit(i18n.tr("log_start_analyze"), "0", "--:--")
-            self.log_signal.emit("-" * 40, "normal")
+    def _on_offset_found(self, offset):
+        manual_offset = self.kwargs['manual_offset']
 
-            v_path, m_path = self.kwargs['v_path'], self.kwargs['m_path']
-            manual_offset = self.kwargs['manual_offset']
+        dir_machine = i18n.tr("dir_right") if offset > 0 else (i18n.tr("dir_left") if offset < 0 else i18n.tr("dir_perfect"))
+        self.log_signal.emit(i18n.tr("log_raw_offset", offset, dir_machine), "normal")
 
-            self.log_signal.emit(i18n.tr("log_extract"), "normal")
-            offset = find_offset(v_path, m_path)
+        final_offset = offset + manual_offset
+        dir_final = i18n.tr("dir_right") if final_offset > 0 else (i18n.tr("dir_left") if final_offset < 0 else i18n.tr("dir_perfect"))
+        self.log_signal.emit(i18n.tr("log_final_offset", offset, manual_offset, final_offset, dir_final), "normal")
 
-            dir_machine = i18n.tr("dir_right") if offset > 0 else (i18n.tr("dir_left") if offset < 0 else i18n.tr("dir_perfect"))
-            self.log_signal.emit(i18n.tr("log_raw_offset", offset, dir_machine), "normal")
+        self.log_signal.emit(i18n.tr("log_render_start"), "normal")
 
-            final_offset = offset + manual_offset
-            dir_final = i18n.tr("dir_right") if final_offset > 0 else (i18n.tr("dir_left") if final_offset < 0 else i18n.tr("dir_perfect"))
-            self.log_signal.emit(i18n.tr("log_final_offset", offset, manual_offset, final_offset, dir_final), "normal")
+        def log_cb(msg):
+            self.log_signal.emit(msg, "normal")
 
-            self.log_signal.emit(i18n.tr("log_render_start"), "normal")
+        def prog_cb(task, pct, eta):
+            self.progress_signal.emit(task, str(pct), eta)
 
-            def log_cb(msg):
-                self.log_signal.emit(msg, "normal")
+        mix_and_export(
+            video_path=self.kwargs['v_path'], music_path=self.kwargs['m_path'],
+            offset=offset, output_path=self.kwargs['save_path'],
+            vol_original=self.kwargs['orig_vol'], vol_music=self.kwargs['music_vol'],
+            use_gpu=self.kwargs['use_gpu'], bitrate=self.kwargs['bitrate'],
+            manual_offset=manual_offset, stream_copy=self.kwargs['stream_copy'],
+            tr=i18n.tr, ui_log_callback=log_cb, ui_progress_callback=prog_cb,
+        )
 
-            def prog_cb(task, pct, eta):
-                self.progress_signal.emit(task, str(pct), eta)
+        self.progress_signal.emit(i18n.tr("task_done"), "100", "00:00")
+        self.finished_signal.emit(True, self.kwargs['save_path'])
 
-            mix_and_export(
-                video_path=v_path, music_path=m_path, offset=offset, output_path=self.kwargs['save_path'],
-                vol_original=self.kwargs['orig_vol'], vol_music=self.kwargs['music_vol'],
-                use_gpu=self.kwargs['use_gpu'], bitrate=self.kwargs['bitrate'],
-                manual_offset=manual_offset, stream_copy=self.kwargs['stream_copy'],
-                tr=i18n.tr, ui_log_callback=log_cb, ui_progress_callback=prog_cb
-            )
-
-            self.progress_signal.emit(i18n.tr("task_done"), "100", "00:00")
-            self.finished_signal.emit(True, self.kwargs['save_path'])
-
-        except CorrelationLowConfidenceError as e:
-            self.log_signal.emit(i18n.tr("err_low_confidence", e.z_score, e.threshold), "error")
-            self.log_signal.emit(i18n.tr("err_manual_fallback"), "normal")
-            self.progress_signal.emit(i18n.tr("task_failed"), "0", "--:--")
-            self.finished_signal.emit(False, "")
-
-        except Exception as e:
-            self.log_signal.emit(i18n.tr("err_run", str(e)), "error")
-            self.progress_signal.emit(i18n.tr("task_failed"), "0", "--:--")
-            self.finished_signal.emit(False, "")
+    def _fail(self):
+        self.progress_signal.emit(i18n.tr("task_failed"), "0", "--:--")
+        self.finished_signal.emit(False, "")
 
 
-class AnalyzeWorker(QThread):
-    log_signal = pyqtSignal(str, str)
-    progress_signal = pyqtSignal(str, str, str)
+class AnalyzeWorker(BaseMediaWorker):
     result_signal = pyqtSignal(bool, float)
 
     def __init__(self, v_path, m_path):
         super().__init__()
         self.v_path = v_path
         self.m_path = m_path
+        self._start_task_key = "log_analyzing_track"
+        self._start_progress_val = "50"
 
-    def run(self):
-        try:
-            self.progress_signal.emit(i18n.tr("log_analyzing_track"), "50", "--:--")
-            self.log_signal.emit("-" * 40, "normal")
-            self.log_signal.emit(i18n.tr("log_extract"), "normal")
+    def _on_offset_found(self, offset):
+        self.log_signal.emit(i18n.tr("log_analyze_ok", offset), "success")
+        self.progress_signal.emit(i18n.tr("analyze_done"), "100", "00:00")
+        self.result_signal.emit(True, offset)
 
-            offset = find_offset(self.v_path, self.m_path)
-
-            self.log_signal.emit(i18n.tr("log_analyze_ok", offset), "success")
-            self.progress_signal.emit(i18n.tr("analyze_done"), "100", "00:00")
-            self.result_signal.emit(True, offset)
-
-        except CorrelationLowConfidenceError as e:
-            self.log_signal.emit(i18n.tr("err_low_confidence", e.z_score, e.threshold), "error")
-            self.log_signal.emit(i18n.tr("err_manual_fallback"), "normal")
-            self.progress_signal.emit(i18n.tr("analyze_failed"), "0", "--:--")
-            self.result_signal.emit(False, 0.0)
-
-        except Exception as e:
-            self.log_signal.emit(i18n.tr("err_run", str(e)), "error")
-            self.progress_signal.emit(i18n.tr("analyze_failed"), "0", "--:--")
-            self.result_signal.emit(False, 0.0)
+    def _fail(self):
+        self.progress_signal.emit(i18n.tr("analyze_failed"), "0", "--:--")
+        self.result_signal.emit(False, 0.0)
 
 
 # ================= 3. 共享媒体界面基类 =================

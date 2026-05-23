@@ -7,7 +7,7 @@ import os
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from auto_sync import extract_audio, _parse_duration_hms
+from auto_sync import extract_audio, _parse_duration_hms, _align_chroma, _correlation_z_score
 import imageio_ffmpeg
 import librosa
 import subprocess
@@ -43,13 +43,12 @@ def check_chroma_variance(feat, label):
     return total_var
 
 
-def compute_correlation_quality(correlation, offset_seconds):
+def compute_correlation_quality(correlation, offset_seconds, z_score):
     """评估互相关结果的可靠性。"""
     peak_val = np.max(correlation)
     mean_val = np.mean(correlation)
     std_val = np.std(correlation)
     peak_to_mean = peak_val / mean_val if mean_val > 0 else 0
-    z_score = (peak_val - mean_val) / std_val if std_val > 0 else 0
 
     print(f"\n  互相关质量评估:")
     print(f"    峰值={peak_val:.2f}, 均值={mean_val:.2f}, 标准差={std_val:.2f}")
@@ -133,16 +132,9 @@ def diagnose(video_path, music_path):
         m_var = check_chroma_variance(feat_music, "音乐 Chroma")
 
         print(f"\n[5] 互相关分析")
-        from scipy import signal
-        correlation = np.zeros(feat_video.shape[1] + feat_music.shape[1] - 1)
-        for i in range(12):
-            correlation += signal.correlate(feat_music[i], feat_video[i], mode='full', method='fft')
+        result, z_score, correlation = _align_chroma(y_video, y_music, SR, HOP_LENGTH)
 
-        lag = np.argmax(correlation) - (feat_video.shape[-1] - 1)
-        offset = (lag * HOP_LENGTH) / SR
-        result = -offset
-
-        compute_correlation_quality(correlation, result)
+        compute_correlation_quality(correlation, result, z_score)
 
         print(f"\n[6] 诊断结论")
         print("-" * 40)
