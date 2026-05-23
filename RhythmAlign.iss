@@ -20,6 +20,7 @@ OutputBaseFilename=RhythmAlign-v1.0.0-Preview-Setup
 SetupIconFile=assets\logo.ico
 Compression=lzma2
 SolidCompression=yes
+LicenseFile=LICENSE
 WizardStyle=modern
 PrivilegesRequiredOverridesAllowed= dialog
 ArchitecturesInstallIn64BitMode=x64compatible

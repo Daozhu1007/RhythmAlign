@@ -188,11 +188,6 @@ The app icon is cropped from the **"Tairitsu Duck" (对立鸭)** emoji sticker s
 
 **Tairitsu (对立)** and all related character designs and intellectual property are owned by **lowiro**. RhythmAlign is an independent, non-commercial community tool — not affiliated with or endorsed by lowiro.
 
-### Fair Use
-
-- Free for personal, non-commercial use. If you paid for a copy, request a refund.
-- Personal, non-commercial use only.
-
 ---
 
 ## License & Commercial Use
