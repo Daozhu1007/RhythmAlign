@@ -138,6 +138,8 @@ python diagnose_offset.py "video.mp4" "music.mp3"
 3. Pick a volume preset or adjust sliders manually.
 4. Click **Full Export** and choose an output path.
 
+> **Tip:** For best results, use the exact same audio file that appears in the video (e.g., the original track from the arcade machine). Audio downloaded from YouTube or other sources may differ slightly from the in-game version, causing alignment errors of several seconds.
+
 ### Analyze Only
 
 Same input selection, but instead of exporting, you get the offset value displayed in large text — e.g. `+0.1234 s` or `-0.5678 s` — with an instruction for which direction to nudge the music track in your editor.
