@@ -2,6 +2,7 @@ import sys
 import os
 import subprocess
 import json
+import shutil
 
 if getattr(sys, 'frozen', False):
     _BASE_DIR = sys._MEIPASS
@@ -15,6 +16,16 @@ def resource_path(relative_path):
     Works both in dev mode and when packaged by PyInstaller (via sys._MEIPASS).
     """
     return os.path.join(_BASE_DIR, relative_path)
+
+
+def _user_config_path():
+    """Return the writable user config path (survives PyInstaller packaging)."""
+    if os.name == "nt":
+        base = os.environ.get("APPDATA", os.path.expanduser("~"))
+    else:
+        base = os.environ.get("XDG_CONFIG_HOME", os.path.expanduser("~/.config"))
+    dir_path = os.path.join(base, "RhythmAlign")
+    return os.path.join(dir_path, "config.json")
 
 from PyQt6.QtGui import QPixmap, QIcon, QDesktopServices
 from PyQt6.QtCore import Qt, QThread, pyqtSignal, QUrl
@@ -74,7 +85,15 @@ class AppConfig(QConfig):
     stream_copy = ConfigItem("Settings", "StreamCopy", True, BoolValidator())
 
 cfg = AppConfig()
-qconfig.load(resource_path("config.json"), cfg)
+
+_user_conf = _user_config_path()
+os.makedirs(os.path.dirname(_user_conf), exist_ok=True)
+if not os.path.exists(_user_conf):
+    default_conf = resource_path("config.json")
+    if os.path.exists(default_conf):
+        shutil.copy2(default_conf, _user_conf)
+
+qconfig.load(_user_conf, cfg)
 qconfig.set(qconfig.themeMode, Theme.DARK)
 
 # 启动全局翻译官
