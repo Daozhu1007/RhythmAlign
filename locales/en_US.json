@@ -38,8 +38,8 @@
 
     "log_start_analyze": "Analysis Phase",
     "log_extract": "Extracting audio features (Chroma)...",
-    "dir_right": "Delay music to right",
-    "dir_left": "Trim music to left",
+    "dir_right": "Delay replacement music",
+    "dir_left": "Trim replacement music start",
     "dir_perfect": "Perfect sync",
     "log_raw_offset": "Analysis complete: Algorithm raw offset: {0:+.4f}s ({1})",
     "log_final_offset": "Final sync: Alg {0:+.4f}s + Manual {1:+.4f}s = {2:+.4f}s ({3})",
@@ -55,9 +55,9 @@
     "analyze_done": "Analysis Complete",
     "analyze_failed": "Analysis Failed",
 
-    "hint_video_early": "Video starts early! In your editor, drag the pure music track to the RIGHT by {0:.4f} sec.",
-    "hint_music_early": "Music starts early! In your editor, drag the pure music track to the LEFT (or trim start) by {0:.4f} sec.",
-    "hint_perfect": "Perfectly synced! Video and audio start exactly together.",
+    "hint_video_early": "Positive offset: delay the replacement music by {0:.4f} sec.",
+    "hint_music_early": "Negative offset: trim {0:.4f} sec from the beginning of the replacement music.",
+    "hint_perfect": "Zero offset: no timing adjustment is required.",
     "msg_analyze_ok": "Alignment offset calculated",
     "msg_analyze_err": "Please check if your media files are corrupted.",
     "status_calc": "Calculating...",

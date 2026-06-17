@@ -38,8 +38,8 @@
 
     "log_start_analyze": "分析阶段",
     "log_extract": "提取音频特征 (Chroma)...",
-    "dir_right": "音乐需向右延迟",
-    "dir_left": "音乐需向左裁切",
+    "dir_right": "延迟替换音乐",
+    "dir_left": "裁掉替换音乐开头",
     "dir_perfect": "完美对齐",
     "log_raw_offset": "分析完成: 算法得出原始偏移量: {0:+.4f}s ({1})",
     "log_final_offset": "最终对齐: 算法 {0:+.4f}s + 手动 {1:+.4f}s = {2:+.4f}s ({3})",
@@ -55,9 +55,9 @@
     "analyze_done": "分析完成",
     "analyze_failed": "分析失败",
 
-    "hint_video_early": "视频开始得早！在剪辑软件中，请将纯净音频轨向右拖动 {0:.4f} 秒。",
-    "hint_music_early": "音乐开始得早！在剪辑软件中，请将纯净音频轨向左拖动（或裁切头部） {0:.4f} 秒。",
-    "hint_perfect": "完全同步！视频和音频起点一致，无需拖动。",
+    "hint_video_early": "正向偏移：将替换音乐延迟 {0:.4f} 秒。",
+    "hint_music_early": "负向偏移：从替换音乐开头裁掉 {0:.4f} 秒。",
+    "hint_perfect": "零偏移：无需进行时间调整。",
     "msg_analyze_ok": "已得出对齐偏移量",
     "msg_analyze_err": "请检查您的素材是否损坏。",
     "status_calc": "计算中...",

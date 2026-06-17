@@ -90,6 +90,7 @@ If Z-score < 2.0, the result is flagged as unreliable. If both strategies fail, 
 **Video export**
 - Stream copy (default): zero re-encode, zero quality loss, seconds to finish
 - Re-encode mode: NVIDIA NVENC with 6000k / 10000k / 20000k presets
+- Supports source videos with no audio track by exporting the video with the replacement music only
 - Three one-tap volume presets: Arcade, Mobile, Desktop
 
 **Mobile video hardening**
@@ -142,7 +143,7 @@ python diagnose_offset.py "video.mp4" "music.mp3"
 
 ### Analyze Only
 
-Same input selection, but instead of exporting, you get the offset value displayed in large text — e.g. `+0.1234 s` or `-0.5678 s` — with an instruction for which direction to nudge the music track in your editor.
+Same input selection, but instead of exporting, you get the offset value displayed in large text — e.g. `+0.1234 s` or `-0.5678 s`. A positive offset means delay the replacement music by that amount; a negative offset means trim that amount from the beginning of the replacement music.
 
 ### Settings
 

@@ -7,7 +7,6 @@ import tempfile
 import subprocess
 import re
 import uuid
-import json
 import imageio_ffmpeg
 
 
@@ -19,8 +18,12 @@ class CorrelationLowConfidenceError(RuntimeError):
         super().__init__(f"Correlation peak Z-score {z_score:.2f} below threshold {threshold:.1f}")
 
 
+class AudioStreamDetectionError(RuntimeError):
+    """Raised when FFmpeg cannot reliably determine whether an input has audio."""
+
+
 def _parse_duration_hms(stderr_text):
-    """Parse HH:MM:SS.ms from ffmpeg/ffprobe stderr or stdout."""
+    """Parse HH:MM:SS.ms from FFmpeg stderr or stdout."""
     match = re.search(r"Duration:\s*(\d+):(\d+):(\d+(?:\.\d+)?)", stderr_text)
     if match:
         h, m, s = match.groups()
@@ -30,27 +33,13 @@ def _parse_duration_hms(stderr_text):
 
 def get_video_duration(ffmpeg_bin, video_path):
     # Primary: fast ffmpeg probe
-    cmd = [ffmpeg_bin, "-i", video_path]
+    cmd = [ffmpeg_bin, "-hide_banner", "-i", video_path]
     process = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, errors='replace')
     duration = _parse_duration_hms(process.stderr)
     if duration is not None:
         return duration
 
-    # Fallback: ffprobe for container formats where ffmpeg -i can't parse Duration
-    ffprobe_bin = ffmpeg_bin.replace("ffmpeg", "ffprobe")
-    try:
-        process = subprocess.run(
-            [ffprobe_bin, "-v", "quiet", "-show_entries", "format=duration",
-             "-of", "csv=p=0", video_path],
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, errors='replace', timeout=30
-        )
-        val = process.stdout.strip()
-        if val:
-            return float(val)
-    except Exception:
-        pass
-
-    # Last resort: raise so the caller knows duration is unknown
+    # Last resort: raise so the caller knows duration is unknown.
     raise RuntimeError(f"Cannot determine duration of: {video_path}")
 
 
@@ -154,19 +143,53 @@ def find_offset(video_path, music_path, sr=22050, confidence_threshold=None):
                 pass
 
 
-def _has_audio_stream(ffprobe_bin, input_path):
-    """Return True if the media file has at least one audio stream."""
+def _has_audio_stream(ffmpeg_bin, input_path):
+    """Return whether the media file has audio, raising on unreadable inputs."""
     try:
         result = subprocess.run(
-            [ffprobe_bin, "-v", "quiet", "-print_format", "json",
-             "-show_streams", "-select_streams", "a", input_path],
+            [
+                ffmpeg_bin, "-nostdin", "-hide_banner", "-v", "error",
+                "-i", input_path,
+                "-map", "0:a:0",
+                "-frames:a", "1",
+                "-f", "null", "-"
+            ],
             stdout=subprocess.PIPE, stderr=subprocess.PIPE,
             text=True, errors='replace', timeout=15
         )
-        info = json.loads(result.stdout)
-        return len(info.get("streams", [])) > 0
+    except subprocess.TimeoutExpired as exc:
+        raise AudioStreamDetectionError(f"Timed out detecting audio stream in: {input_path}") from exc
+    except OSError as exc:
+        raise AudioStreamDetectionError(f"Unable to run FFmpeg for audio stream detection: {exc}") from exc
+
+    if result.returncode == 0:
+        return True
+
+    stderr_text = result.stderr.strip()
+    if "matches no streams" in stderr_text.lower():
+        return False
+
+    raise AudioStreamDetectionError(
+        f"Unable to determine audio stream presence for {input_path}:\n{stderr_text}"
+    )
+
+
+def _make_temporary_output_path(output_path):
+    output_path = os.path.abspath(output_path)
+    output_dir = os.path.dirname(output_path) or os.curdir
+    stem, ext = os.path.splitext(os.path.basename(output_path))
+    if not ext:
+        raise ValueError("Output path must include a media extension.")
+    temp_name = f".{stem}.{uuid.uuid4().hex}.partial{ext}"
+    return output_path, os.path.join(output_dir, temp_name)
+
+
+def _remove_file_if_exists(path):
+    try:
+        if os.path.exists(path):
+            os.remove(path)
     except Exception:
-        return True  # assume audio exists if probe fails
+        pass
 
 
 def mix_and_export(video_path, music_path, offset, output_path, vol_original=1.0, vol_music=1.0,
@@ -177,6 +200,7 @@ def mix_and_export(video_path, music_path, offset, output_path, vol_original=1.0
 
     ffmpeg_bin = imageio_ffmpeg.get_ffmpeg_exe()
     final_offset = offset + manual_offset
+    output_path, temp_output_path = _make_temporary_output_path(output_path)
 
     # 使用正则原生提取时长
     total_duration = get_video_duration(ffmpeg_bin, video_path)
@@ -191,8 +215,7 @@ def mix_and_export(video_path, music_path, offset, output_path, vol_original=1.0
         music_filter = f"aformat=channel_layouts=stereo,volume={vol_music},atrim=start={abs_delay},asetpts=PTS-STARTPTS"
 
     # 探测视频音轨：无声视频时仅使用音乐轨
-    ffprobe_bin = ffmpeg_bin.replace("ffmpeg", "ffprobe")
-    if _has_audio_stream(ffprobe_bin, video_path):
+    if _has_audio_stream(ffmpeg_bin, video_path):
         filter_complex = f"[0:a:0]volume={vol_original}[a0];[1:a:0]{music_filter}[a1];[a0][a1]amix=inputs=2:duration=first[aout]"
     else:
         filter_complex = f"[1:a:0]{music_filter}[aout]"
@@ -219,53 +242,59 @@ def mix_and_export(video_path, music_path, offset, output_path, vol_original=1.0
 
     # 剥离源文件私有元数据 (如 iPhone QuickTime atoms)，优化 MP4 结构
     cmd.extend(["-map_metadata", "-1", "-movflags", "+faststart"])
-    cmd.append(output_path)
+    cmd.append(temp_output_path)
 
     if ui_log_callback:
         ui_log_callback(tr("log_target_offset", final_offset))
 
-    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, errors='replace')
+    try:
+        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, errors='replace')
 
-    start_time_real = time.time()
-    error_log = []
-    critical_errors = []
+        start_time_real = time.time()
+        error_log = []
+        critical_errors = []
 
-    for line in process.stdout:
-        stripped = line.strip()
-        error_log.append(stripped)
-        if len(error_log) > 50:
-            error_log.pop(0)
+        for line in process.stdout:
+            stripped = line.strip()
+            error_log.append(stripped)
+            if len(error_log) > 50:
+                error_log.pop(0)
 
-        # 捕获含严重错误关键词的行，独立保存用于诊断
-        lowline = stripped.lower()
-        if any(kw in lowline for kw in ('error', 'failed', 'invalid')):
-            critical_errors.append(stripped)
+            # 捕获含严重错误关键词的行，独立保存用于诊断
+            lowline = stripped.lower()
+            if any(kw in lowline for kw in ('error', 'failed', 'invalid')):
+                critical_errors.append(stripped)
 
-        time_match = re.search(r"time=(\d+):(\d+):(\d+\.\d+)", line)
-        if time_match and ui_progress_callback:
-            h, m, s = time_match.groups()
-            current_sec = int(h) * 3600 + int(m) * 60 + float(s)
-            percent = min(int((current_sec / total_duration) * 100), 99)
+            time_match = re.search(r"time=(\d+):(\d+):(\d+\.\d+)", line)
+            if time_match and ui_progress_callback:
+                h, m, s = time_match.groups()
+                current_sec = int(h) * 3600 + int(m) * 60 + float(s)
+                percent = min(int((current_sec / total_duration) * 100), 99)
 
-            elapsed = time.time() - start_time_real
-            eta_str = tr("status_calc")
-            if percent > 0:
-                eta_sec = (elapsed / (percent / 100.0)) - elapsed
-                eta_m, eta_s = divmod(int(eta_sec), 60)
-                eta_str = f"{eta_m:02d}:{eta_s:02d}"
+                elapsed = time.time() - start_time_real
+                eta_str = tr("status_calc")
+                if percent > 0:
+                    eta_sec = (elapsed / (percent / 100.0)) - elapsed
+                    eta_m, eta_s = divmod(int(eta_sec), 60)
+                    eta_str = f"{eta_m:02d}:{eta_s:02d}"
 
-            task_name = tr("task_copy_ing") if stream_copy else tr("task_rendering")
-            ui_progress_callback(task_name, percent, eta_str)
+                task_name = tr("task_copy_ing") if stream_copy else tr("task_rendering")
+                ui_progress_callback(task_name, percent, eta_str)
 
-    process.wait()
+        process.wait()
 
-    if process.returncode != 0:
-        if critical_errors:
-            err_msg = "CRITICAL:\n" + "\n".join(critical_errors[-20:])
-            err_msg += "\n\n--- tail ---\n" + "\n".join(error_log)
-        else:
-            err_msg = "\n".join(error_log)
-        raise RuntimeError(tr("err_ffmpeg_crash", err_msg))
+        if process.returncode != 0:
+            if critical_errors:
+                err_msg = "CRITICAL:\n" + "\n".join(critical_errors[-20:])
+                err_msg += "\n\n--- tail ---\n" + "\n".join(error_log)
+            else:
+                err_msg = "\n".join(error_log)
+            raise RuntimeError(tr("err_ffmpeg_crash", err_msg))
+
+        os.replace(temp_output_path, output_path)
+    except Exception:
+        _remove_file_if_exists(temp_output_path)
+        raise
 
     if ui_progress_callback:
         ui_progress_callback(tr("task_done_export"), 100, "00:00")
