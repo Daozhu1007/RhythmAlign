@@ -83,6 +83,9 @@ def extract_audio(ffmpeg_bin, input_path, output_path, sr):
 #   1.0–2.0: weak peak, result may be unreliable
 #   > 2.0 : clear peak, result is trustworthy
 _CONFIDENCE_THRESHOLD = 2.0
+_FALLBACK_PEAK_RATIO_THRESHOLD = 1.05
+_INDEPENDENT_PEAK_SEPARATION_SECONDS = 1.5
+_HYBRID_ONSET_WEIGHT = 0.2
 _ANALYSIS_ESTIMATE_MIN_SECONDS = 4.0
 _ANALYSIS_ESTIMATE_MAX_SECONDS = 240.0
 _ANALYSIS_ESTIMATE_OVERHEAD_SECONDS = 2.0
@@ -118,15 +121,52 @@ def _correlation_z_score(correlation):
     return (np.max(correlation) - np.mean(correlation)) / std_val
 
 
+def _normalize_correlation(correlation):
+    """Normalize a correlation curve to zero mean and unit variance."""
+    std_val = np.std(correlation)
+    if std_val == 0:
+        return np.zeros_like(correlation)
+    return (correlation - np.mean(correlation)) / std_val
+
+
+def _correlate_feature_rows(feat_video, feat_music):
+    correlation = np.zeros(feat_video.shape[1] + feat_music.shape[1] - 1)
+    for i in range(feat_video.shape[0]):
+        correlation += signal.correlate(feat_music[i], feat_video[i], mode='full', method='fft')
+    return correlation
+
+
+def _independent_peak_ratio(correlation, min_separation_frames):
+    """Return best-peak / next-independent-peak ratio for ambiguity checks."""
+    if len(correlation) == 0:
+        return 0.0
+
+    order = np.argsort(correlation)[::-1]
+    best_idx = order[0]
+    best_val = correlation[best_idx]
+
+    second_val = None
+    for idx in order[1:]:
+        if abs(idx - best_idx) >= min_separation_frames:
+            second_val = correlation[idx]
+            break
+
+    if second_val is None:
+        return float("inf") if best_val > 0 else 0.0
+    if second_val <= 0:
+        return float("inf") if best_val > 0 else 0.0
+    return best_val / second_val
+
+
 def _align_chroma(y_video, y_music, sr, hop_length=512):
-    """Align using Chroma CENS features (pitch content)."""
+    """Align using Chroma CENS deltas (pitch-content changes)."""
     feat_video = librosa.feature.chroma_cens(y=y_video, sr=sr, hop_length=hop_length)
     feat_music = librosa.feature.chroma_cens(y=y_music, sr=sr, hop_length=hop_length)
 
-    correlation = np.zeros(feat_video.shape[1] + feat_music.shape[1] - 1)
-    for i in range(12):
-        correlation += signal.correlate(feat_music[i], feat_video[i], mode='full', method='fft')
+    feat_video = np.diff(feat_video, axis=1, prepend=feat_video[:, :1])
+    feat_music = np.diff(feat_music, axis=1, prepend=feat_music[:, :1])
 
+    correlation = _correlate_feature_rows(feat_video, feat_music)
     z_score = _correlation_z_score(correlation)
     lag = np.argmax(correlation) - (feat_video.shape[-1] - 1)
     offset_seconds = (lag * hop_length) / sr
@@ -142,6 +182,38 @@ def _align_onset(y_video, y_music, sr, hop_length=512):
 
     z_score = _correlation_z_score(correlation)
     lag = np.argmax(correlation) - (len(onset_video) - 1)
+    offset_seconds = (lag * hop_length) / sr
+    return -offset_seconds, z_score, correlation
+
+
+def _align_hybrid(y_video, y_music, sr, hop_length=512):
+    """Align with chroma deltas, lightly refined by centered onset evidence."""
+    feat_video = librosa.feature.chroma_cens(y=y_video, sr=sr, hop_length=hop_length)
+    feat_music = librosa.feature.chroma_cens(y=y_music, sr=sr, hop_length=hop_length)
+
+    feat_video = np.diff(feat_video, axis=1, prepend=feat_video[:, :1])
+    feat_music = np.diff(feat_music, axis=1, prepend=feat_music[:, :1])
+    chroma_corr = _correlate_feature_rows(feat_video, feat_music)
+
+    onset_video = librosa.onset.onset_strength(y=y_video, sr=sr, hop_length=hop_length)
+    onset_music = librosa.onset.onset_strength(y=y_music, sr=sr, hop_length=hop_length)
+    onset_corr = signal.correlate(
+        onset_music - np.mean(onset_music),
+        onset_video - np.mean(onset_video),
+        mode='full',
+        method='fft',
+    )
+
+    if len(chroma_corr) == len(onset_corr):
+        correlation = (
+            _normalize_correlation(chroma_corr)
+            + _HYBRID_ONSET_WEIGHT * _normalize_correlation(onset_corr)
+        )
+    else:
+        correlation = _normalize_correlation(chroma_corr)
+
+    z_score = _correlation_z_score(correlation)
+    lag = np.argmax(correlation) - (feat_video.shape[-1] - 1)
     offset_seconds = (lag * hop_length) / sr
     return -offset_seconds, z_score, correlation
 
@@ -165,17 +237,22 @@ def find_offset(video_path, music_path, sr=22050, confidence_threshold=None):
 
         hop_length = 512
 
-        # Strategy 1: Chroma CENS (pitch/harmony — best for clean, high-quality audio)
-        offset, z_score, _ = _align_chroma(y_video, y_music, sr, hop_length)
+        # Strategy 1: pitch-content changes plus a small onset refinement.
+        offset, z_score, _ = _align_hybrid(y_video, y_music, sr, hop_length)
         if z_score >= confidence_threshold:
             return offset
 
-        # Strategy 2: Onset envelope (rhythm/transients — robust to noisy recordings)
-        offset, onset_z, _ = _align_onset(y_video, y_music, sr, hop_length)
-        if onset_z >= confidence_threshold:
+        # Strategy 2: onset envelope for percussive/noisy recordings.
+        offset, onset_z, onset_corr = _align_onset(y_video, y_music, sr, hop_length)
+        min_peak_separation = max(
+            1,
+            int((_INDEPENDENT_PEAK_SEPARATION_SECONDS * sr) / hop_length),
+        )
+        onset_peak_ratio = _independent_peak_ratio(onset_corr, min_peak_separation)
+        if onset_z >= confidence_threshold and onset_peak_ratio >= _FALLBACK_PEAK_RATIO_THRESHOLD:
             return offset
 
-        # Both failed — report the better of the two Z-scores
+        # Both failed; report the better Z-score for the UI message.
         best_z = max(z_score, onset_z)
         raise CorrelationLowConfidenceError(best_z, confidence_threshold)
 

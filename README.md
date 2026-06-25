@@ -3,117 +3,116 @@
 </p>
 
 <p align="center">
-  <img src="assets/logo.png" width="128" alt="Logo">
+  <img src="assets/logo.png" width="128" alt="RhythmAlign logo">
 </p>
 
 <h1 align="center">RhythmAlign</h1>
 
 <p align="center">
-  Automated audio alignment tool for rhythm game handcam videos.
+  Automatic audio alignment for rhythm game handcam videos.
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-v1.0.2-blue" alt="Version">
+  <img src="https://img.shields.io/badge/version-v1.1.0-blue" alt="Version">
   <img src="https://img.shields.io/badge/platform-Windows%2010%2F11-blue" alt="Platform">
   <img src="https://img.shields.io/badge/python-3.9%2B-blue" alt="Python">
   <img src="https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-lightgrey" alt="License">
 </p>
 
 <p align="center">
-  <img src="assets/screenshot_en.png" width="720" alt="Interface">
+  <img src="assets/screenshot_en.png" width="720" alt="RhythmAlign interface">
 </p>
 
 ---
 
-## Why RhythmAlign?
+## Overview
 
-If you make rhythm game handcam content, you know the routine: you have a video recorded on your phone, and a separate high-quality music file. You need to replace the scratchy onboard audio with the clean track, perfectly synced. Doing this in a video editor means dragging waveforms by eye, rendering, checking, and re-adjusting — over and over. When the recording is from a noisy arcade or a phone mic pressed against a table, the waveform view is barely readable.
+RhythmAlign is built for one painful editing task: replacing noisy handcam audio with a clean music track while keeping the timing locked to the original video.
 
-RhythmAlign automates the entire process:
+Instead of dragging waveforms by eye, you select:
 
-1. Pick your video and your music file.
-2. The tool extracts both audio tracks, computes the sync offset in musical-feature space, and applies it.
-3. You get a new MP4 — video stream untouched (stream-copied), audio replaced with the synced mix.
+1. the handcam video,
+2. the clean reference music,
+3. an output path.
 
-It handles edge cases that break naive ffmpeg pipelines: variable frame rate (VFR) drift from phone videos, QuickTime edit-list metadata from iPhone MOV containers, and videos with no audio track at all.
+RhythmAlign extracts both audio tracks, estimates the offset in musical-feature space, and exports a new MP4. By default it stream-copies the video track, so the image quality is preserved and only the audio is rebuilt.
 
----
+## What's New in v1.1.0
 
-## How It Works
+v1.1.0 is a major alignment-engine update focused on rhythm game charts with repeated sections.
 
-RhythmAlign doesn't cross-correlate raw waveforms — that would fail as soon as the onboard mic and the studio track have different timbre or noise profiles. Instead it operates on features that are invariant to recording quality.
+The old fallback could be fooled by repeated beat patterns: a nearby phrase might look rhythmically correct but still be one beat or one section late. The new engine is much stricter about that class of failure.
 
-### Strategy 1 — Chroma (Pitch Matching)
+- **Hybrid alignment:** pitch-change matching is now the primary signal, with a small onset refinement.
+- **Chroma delta matching:** RhythmAlign compares changes in Chroma CENS over time instead of raw chroma blocks, reducing false matches from long repeated passages.
+- **Ambiguity rejection:** onset fallback now checks whether the best peak is clearly stronger than the next independent candidate before trusting it.
+- **Better diagnostics:** `diagnose_offset.py` reports an independent peak ratio, making repeated-pattern failures easier to spot.
 
-```python
-feat_video = librosa.feature.chroma_cens(y=y_video, sr=sr, hop_length=512)
-feat_music = librosa.feature.chroma_cens(y=y_music, sr=sr, hop_length=512)
-```
+This is the update that fixes the "looks aligned, but actually one beat late" failure mode seen in difficult handcam recordings.
 
-Chroma CENS maps audio to a 12-bin pitch-class vector per time frame, then smooths and normalizes across time. The result captures *which notes are playing* regardless of *how they were recorded*. Each of the 12 chroma bands is cross-correlated independently and summed:
+## How Alignment Works
 
-```python
-for i in range(12):
-    correlation += signal.correlate(feat_music[i], feat_video[i], mode='full', method='fft')
-```
+Raw waveform correlation is fragile. A phone microphone, arcade cabinet speakers, hand taps, compression, clipping, and background noise can make the recorded waveform look nothing like the clean music file.
 
-The peak position in the summed correlation gives the offset. This works reliably for clean recordings — desktop screen capture, line-in from a capture card.
+RhythmAlign works on musical features instead:
 
-### Strategy 2 — Onset (Rhythm Matching, Automatic Fallback)
+1. **Decode to analysis audio**
 
-```python
-onset_video = librosa.onset.onset_strength(y=y_video, sr=sr, hop_length=512)
-onset_music = librosa.onset.onset_strength(y=y_music, sr=sr, hop_length=512)
-```
+   FFmpeg extracts both inputs to mono PCM at the analysis sample rate.
 
-When Chroma fails the confidence check — typical for noisy phone recordings — the algorithm switches to Onset Strength. This tracks note attack transients: *when* notes hit, not *what* they are. It's a 1D signal per track, far more robust against ambient noise and clipping. Lower precision than Chroma, but it gets the job done where Chroma can't.
+2. **Track pitch-class movement**
 
-### Confidence Check
+   `librosa.feature.chroma_cens` maps audio into 12 pitch-class bands. RhythmAlign then uses frame-to-frame chroma deltas, so the correlation follows musical changes rather than static repeated texture.
 
-After computing the correlation, the algorithm measures the peak's Z-score:
+3. **Blend a small rhythmic cue**
 
-```python
-z_score = (max(correlation) - mean(correlation)) / std(correlation)
-```
+   Onset strength is normalized and blended lightly into the chroma-delta curve. It helps with noisy handcam recordings without letting repeated drum patterns dominate the decision.
 
-If Z-score < 2.0, the result is flagged as unreliable. If both strategies fail, the UI reports the error explicitly — it never silently exports a misaligned video.
+4. **Score confidence**
 
----
+   The selected peak must pass a Z-score gate. If the engine falls back to onset-only matching, the best peak must also beat the next independent candidate by a minimum ratio.
+
+5. **Export safely**
+
+   FFmpeg delays or trims the replacement music, mixes it with the original audio if requested, and writes a new MP4.
+
+Positive offset means the replacement music is delayed. Negative offset means the beginning of the replacement music is trimmed.
 
 ## Features
 
-**Audio alignment**
-- Dual-strategy engine: Chroma → Onset automatic fallback
-- Z-score confidence gate with explicit error reporting on failure
-- Manual offset slider (±500 ms) for edge cases
+**Alignment**
 
-**Video export**
-- Stream copy (default): zero re-encode, zero quality loss, seconds to finish
-- Re-encode mode: NVIDIA NVENC with 6000k / 10000k / 20000k presets
-- Supports source videos with no audio track by exporting the video with the replacement music only
-- Three one-tap volume presets: Arcade, Mobile, Desktop
+- Hybrid Chroma CENS delta + onset alignment engine
+- Z-score confidence gate
+- Independent peak-ratio check for repeated rhythm patterns
+- Analyze-only mode for checking the offset without exporting
+- Manual offset slider for final sub-frame taste adjustments
 
-**Mobile video hardening**
+**Export**
 
-| Problem | Fix applied |
-|---|---|
-| VFR timestamps cause A/V drift over time | `-fflags +genpts` regenerates uniform PTS |
-| Negative timestamps break player sync | `-avoid_negative_ts make_zero` |
-| QuickTime edit-list atoms corrupt the muxer | `-map_metadata -1` strips proprietary metadata |
-| moov atom at end blocks progressive streaming | `-movflags +faststart` |
+- Default video stream copy: no video re-encode, no quality loss
+- Optional re-encode mode with NVIDIA NVENC support
+- AAC audio output at 320 kbps
+- Handles videos with no original audio track
+- Cleans problematic metadata and timestamps for more reliable MP4 playback
 
-**Additional tools**
-- **Analyze-only mode:** compute the offset without exporting — paste the number into any editor timeline
-- **`diagnose_offset.py`:** CLI tool that prints Chroma variance, Z-score, audio stream metadata, and specific troubleshooting advice per metric
-- **Bilingual UI:** English / 简体中文, JSON-based i18n, no framework overhead
+**Workflow**
 
----
+- One-screen sync workbench
+- Quick volume presets for arcade, mobile, and desktop recordings
+- Bilingual UI: English and Simplified Chinese
+- CLI diagnostic tool for difficult file pairs
 
 ## Quick Start
 
-**Requirements:** Windows 10/11, Python 3.9+ (64-bit). FFmpeg is bundled via `imageio-ffmpeg`.
+Requirements:
 
-```bash
+- Windows 10/11
+- Python 3.9+ 64-bit
+- Dependencies from `requirements.txt`
+- FFmpeg is provided through `imageio-ffmpeg`
+
+```powershell
 git clone https://github.com/Daozhu1007/RhythmAlign.git
 cd RhythmAlign
 python -m venv .venv
@@ -122,91 +121,90 @@ pip install -r requirements.txt
 python ui_main.py
 ```
 
-Troubleshoot a difficult file pair:
+Run the test suite:
 
-```bash
-python diagnose_offset.py "video.mp4" "music.mp3"
+```powershell
+python -m pytest -q
 ```
-
----
 
 ## Usage
 
 ### Auto Sync
 
-1. Select your video file (MP4, MKV, MOV, AVI, FLV, WMV, WebM, TS).
-2. Select your reference music file (MP3, WAV, FLAC, M4A, AAC, OGG, WMA).
-3. Pick a volume preset or adjust sliders manually.
-4. Click **Full Export** and choose an output path.
+1. Select a video file: MP4, MKV, MOV, AVI, FLV, WMV, WebM, or TS.
+2. Select a reference audio file: MP3, WAV, FLAC, M4A, AAC, OGG, or WMA.
+3. Choose a volume preset or adjust volumes manually.
+4. Optionally set a manual offset in milliseconds.
+5. Click **Full Export** and choose the output path.
 
-> **Tip:** For best results, use the exact same audio file that appears in the video (e.g., the original track from the arcade machine). Audio downloaded from YouTube or other sources may differ slightly from the in-game version, causing alignment errors of several seconds.
+For best results, use the exact same music source as the one heard in the video. Different rips, edits, previews, or platform downloads can have intros, fades, mastering differences, or tiny cuts that no fixed-offset aligner can fully correct.
 
 ### Analyze Only
 
-Same input selection, but instead of exporting, you get the offset value displayed in large text — e.g. `+0.1234 s` or `-0.5678 s`. A positive offset means delay the replacement music by that amount; a negative offset means trim that amount from the beginning of the replacement music.
+Use **Analyze Only** when you want the offset without exporting. This is useful when you plan to do the final edit in another video editor.
 
-### Settings
+Example result:
 
-| Setting | Default | What it does |
-|---|---|---|
-| Language | 简体中文 | UI language (requires restart) |
-| Stream Copy | On | Skip video re-encode for instant export |
-| GPU Acceleration | Off | NVIDIA NVENC when transcoding |
-| Bitrate | 10000k | 6000k / 10000k / 20000k |
-| Open Output Folder | On | Auto-open after export |
-
-Settings persist to `config.json`.
-
----
-
-## Project Structure
-
+```text
++0.1234 s
 ```
+
+That means delaying the replacement music by `0.1234` seconds.
+
+### Diagnose Difficult Pairs
+
+```powershell
+python diagnose_offset.py "video.mp4" "music.mp3"
+```
+
+The diagnostic output includes audio duration, RMS/peak levels, Chroma variance, Z-score, independent peak ratio, and the calculated offset.
+
+## Reliability Notes
+
+RhythmAlign v1.1.0 is much more robust against repeated beat patterns, but it is still a fixed-offset aligner. It can still struggle when:
+
+- the reference music is not the same version as the video audio,
+- the video was cut in the middle,
+- the video has speed changes or long-term audio drift,
+- hand taps or cabinet noise overpower the music,
+- the song has extremely repetitive harmony and rhythm,
+- the clean track has a different intro, fade, or silence padding.
+
+For these cases, use `diagnose_offset.py`, Analyze Only mode, or a manual offset check before final export.
+
+## Project Layout
+
+```text
 RhythmAlign/
-├── ui_main.py              # GUI: Sync, Analyze, Settings, About tabs
-├── auto_sync.py            # Alignment engine + ffmpeg export pipeline
+├── ui_main.py              # PyQt GUI
+├── auto_sync.py            # Alignment engine and FFmpeg export pipeline
 ├── diagnose_offset.py      # CLI diagnostic tool
-├── assets/
-│   ├── logo.png / logo.ico # App icons
-│   ├── github.png          # GitHub link icon
-│   └── bilibili.png        # Bilibili link icon
-├── locales/
-│   ├── zh_CN.json
-│   └── en_US.json
+├── tests/                  # Export and alignment reliability tests
+├── assets/                 # App icon and screenshots
+├── locales/                # English and Chinese UI strings
 ├── requirements.txt
-├── config.json             # User settings (auto-generated)
-├── RhythmAlign.spec        # PyInstaller spec
+├── RhythmAlign.spec        # PyInstaller build config
 └── RhythmAlign.iss         # Inno Setup installer script
 ```
 
----
+## Build Notes
 
-## Copyright & Disclaimer
+The repository includes packaging files for PyInstaller and Inno Setup. The normal release flow is documented in [RELEASE.md](RELEASE.md).
 
-### App Icon
+## Copyright and Disclaimer
 
-The app icon is cropped from the **"Tairitsu Duck" (对立鸭)** emoji sticker series, created by **春也Haruya** ([Bilibili UID: 3280](https://space.bilibili.com/3280)). Used under a free open-source license granted by the original commissioner.
+The app icon is cropped from the "Tairitsu Duck" emoji sticker series, created by Haruya ([Bilibili UID: 3280](https://space.bilibili.com/3280)) and used under a free open-source permission granted by the original commissioner.
 
-### IP Notice
+Tairitsu and related character IP belong to lowiro. RhythmAlign is an independent, non-commercial community tool and is not affiliated with or endorsed by lowiro.
 
-**Tairitsu (对立)** and all related character designs and intellectual property are owned by **lowiro**. RhythmAlign is an independent, non-commercial community tool — not affiliated with or endorsed by lowiro.
+## License
 
----
+RhythmAlign is released under the [PolyForm Noncommercial License 1.0.0](LICENSE).
 
-## License & Commercial Use
-
-This project is distributed under the **[PolyForm Noncommercial License 1.0.0](LICENSE)**.
-
-**Personal Use is completely FREE.** You are welcome to use this tool for your personal rhythm game handcam videos.
-
-**Commercial Use is STRICTLY PROHIBITED** under this license. This includes using this tool for commissioned video editing, monetized studio productions, or redistributing the software for profit.
-
-**For commercial licensing and inquiries, please contact the author to purchase a Commercial License.**
-
----
+Personal, non-commercial use is free. Commercial use, paid editing services, monetized studio use, and redistribution for profit are prohibited unless separately licensed by the author.
 
 <p align="center">
-  <a href="https://github.com/Daozhu1007/RhythmAlign"><img src="assets/github.png" height="22"></a>
+  <a href="https://github.com/Daozhu1007/RhythmAlign"><img src="assets/github.png" height="22" alt="GitHub"></a>
   &nbsp;
-  <a href="https://space.bilibili.com/477852567"><img src="assets/bilibili.png" height="22"></a>
+  <a href="https://space.bilibili.com/477852567"><img src="assets/bilibili.png" height="22" alt="Bilibili"></a>
 </p>

@@ -4,12 +4,13 @@
 """
 import sys
 import os
+import shutil
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from auto_sync import (
     extract_audio, _parse_duration_hms, _align_chroma, _correlation_z_score,
-    _subprocess_no_window_kwargs,
+    _independent_peak_ratio, _subprocess_no_window_kwargs,
 )
 import imageio_ffmpeg
 import librosa
@@ -51,23 +52,38 @@ def compute_correlation_quality(correlation, offset_seconds, z_score):
     peak_val = np.max(correlation)
     mean_val = np.mean(correlation)
     std_val = np.std(correlation)
-    peak_to_mean = peak_val / mean_val if mean_val > 0 else 0
+    min_peak_separation = max(1, int((1.5 * SR) / HOP_LENGTH))
+    peak_ratio = _independent_peak_ratio(correlation, min_peak_separation)
 
     print(f"\n  互相关质量评估:")
     print(f"    峰值={peak_val:.2f}, 均值={mean_val:.2f}, 标准差={std_val:.2f}")
-    print(f"    峰值/均值比={peak_to_mean:.2f} (越高越可靠, <1.5 说明没有明显峰值)")
+    print(f"    独立峰值比={peak_ratio:.2f} (越高越可靠, <1.05 说明候选峰几乎并列)")
     print(f"    峰值 Z-score={z_score:.2f} (>5 通常可靠, <3 可能为噪声)")
     print(f"    计算偏移量={offset_seconds:+.4f}s")
 
     if z_score < 3:
         print(f"  >>> 警告: Z-score 很低，相关峰值可能是随机噪声！算法对这个文件对不可靠。")
-    if peak_to_mean < 1.5:
-        print(f"  >>> 警告: 没有明显的相关峰值，两个音频的 Chroma 特征可能不匹配。")
+    if peak_ratio < 1.05:
+        print("  >>> 警告: 最佳峰值与其他候选几乎并列，建议人工复核。")
+
+
+def _find_ffprobe_bin():
+    bundled_candidate = os.path.join(
+        os.path.dirname(FFMPEG),
+        "ffprobe.exe" if os.name == "nt" else "ffprobe",
+    )
+    if os.path.exists(bundled_candidate):
+        return bundled_candidate
+    return shutil.which("ffprobe")
 
 
 def check_video_audio_source(video_path):
     """检查视频音频轨的来源信息。"""
-    ffprobe_bin = FFMPEG.replace("ffmpeg", "ffprobe")
+    ffprobe_bin = _find_ffprobe_bin()
+    if ffprobe_bin is None:
+        print("\n  ffprobe 未找到，跳过视频音频轨元数据探测。")
+        return
+
     try:
         result = subprocess.run(
             [ffprobe_bin, "-v", "quiet", "-print_format", "json", "-show_format",
@@ -147,10 +163,10 @@ def diagnose(video_path, music_path):
 
         if result == 0.0 and v_var > 1e-8 and m_var > 1e-8:
             # 特征都有意义但偏移为 0
-            # 检查相关质量
-            peak_to_mean = np.max(correlation) / np.mean(correlation) if np.mean(correlation) > 0 else 0
+            min_peak_separation = max(1, int((1.5 * SR) / HOP_LENGTH))
+            peak_ratio = _independent_peak_ratio(correlation, min_peak_separation)
 
-            if peak_to_mean < 1.5:
+            if peak_ratio < 1.05:
                 print("结论: 互相关没有找到明显峰值，Chroma 特征匹配失败。")
                 print("原因: 视频中的音频和纯净音乐的音色差异太大（如外录噪音、")
                 print("      压缩失真），导致 Chroma CENS 特征无法正确匹配。")

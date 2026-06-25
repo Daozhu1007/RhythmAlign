@@ -3,117 +3,120 @@
 </p>
 
 <p align="center">
-  <img src="assets/logo.png" width="128" alt="Logo">
+  <img src="assets/logo.png" width="128" alt="RhythmAlign 图标">
 </p>
 
 <h1 align="center">RhythmAlign</h1>
 
 <p align="center">
-  音游手元自动化音频对齐工具，让制作高质量手元更轻松。
+  面向音游手元视频的自动音频对齐工具。
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-v1.0.2-blue" alt="Version">
+  <img src="https://img.shields.io/badge/version-v1.1.0-blue" alt="Version">
   <img src="https://img.shields.io/badge/platform-Windows%2010%2F11-blue" alt="Platform">
   <img src="https://img.shields.io/badge/python-3.9%2B-blue" alt="Python">
   <img src="https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-lightgrey" alt="License">
 </p>
 
 <p align="center">
-  <img src="assets/screenshot_zh.png" width="720" alt="软件界面">
+  <img src="assets/screenshot_zh.png" width="720" alt="RhythmAlign 界面">
 </p>
 
 ---
 
-## 为什么需要 RhythmAlign？
+## 项目简介
 
-做音游手元的朋友都懂这个流程：手机录了一段手元，手上还有一份高品质的原声音轨。你得把视频里嘈杂的外录音频替换成干净的纯音频，还得完美同步。在剪辑软件里手动操作，就是凭眼睛反复拖波形、渲染、检查、再微调——一遍又一遍。如果是在嘈杂的机厅录的、或是手机贴着桌子收音的，那波形图基本等于废纸，根本没法看。
+RhythmAlign 解决的是音游手元后期里最折磨人的一件事：把手机或相机录到的嘈杂原声，替换成干净的曲目音频，同时保持和画面严格同步。
 
-RhythmAlign 把这整件事自动化了：
+传统做法是在剪辑软件里盯着波形一点点拖、渲染、检查、再拖。遇到机厅噪声、手部敲击声、手机麦克风压缩、或者桌面共振，波形图经常几乎没有参考价值。
 
-1. 选中你的视频和纯音频文件。
-2. 工具提取两条音轨，在音乐特征空间中计算同步偏移量，自动应用。
-3. 输出一个全新的 MP4——视频流原封不动（流拷贝），音轨替换为已对齐的混音。
+RhythmAlign 把这个流程自动化：
 
-它还会自动处理那些让普通 ffmpeg 命令翻车的坑：手机视频的可变帧率漂移、iPhone MOV 的 QuickTime 编辑表元数据、以及根本没有音轨的无声视频。
+1. 选择手元视频。
+2. 选择干净的参考音乐。
+3. 选择导出路径。
 
----
+工具会自动提取两条音轨，在音乐特征空间中计算偏移量，然后导出新的 MP4。默认模式会直接复制原视频流，只重新封装音轨，因此画质不会因为导出而二次损失。
 
-## 工作原理
+## v1.1.0 更新亮点
 
-RhythmAlign 不对原始波形做互相关——机载麦克风和录音室音轨的音色、噪声剖面完全不同，直接做波形相关必挂无疑。它改在「与录音质量无关」的音乐特征空间中操作。
+v1.1.0 是一次重要的对齐引擎升级，重点修复音游谱面里最常见的一类失败：重复段落导致算法慢一拍、错一小节、或者锚到相似但错误的位置。
 
-### 策略一：Chroma（旋律匹配）
+旧版 fallback 在 Chroma 不够自信时，会让 onset 节奏匹配接管。对于鼓点和节奏型高度重复的曲目，这种策略容易把“节奏很像但位置错误”的片段当成最佳答案。
 
-```python
-feat_video = librosa.feature.chroma_cens(y=y_video, sr=sr, hop_length=512)
-feat_music = librosa.feature.chroma_cens(y=y_music, sr=sr, hop_length=512)
-```
+新版做了这些调整：
 
-Chroma CENS 将音频映射为每帧 12 维音高类别向量，再做时序平滑与归一化。得到的结果是「哪些音高在响」——完全不关心是怎么录的。对 12 个色度通道分别做互相关，然后求和：
+- **混合对齐引擎：** 以音高变化匹配为主，少量融合节奏起点信息。
+- **Chroma 差分匹配：** 不再直接比较整段 Chroma，而是比较 Chroma 随时间的变化，降低重复长段造成的假峰。
+- **候选峰唯一性检查：** onset fallback 必须证明第一峰明显强于第二个独立候选峰，否则不会盲信。
+- **诊断工具升级：** `diagnose_offset.py` 会输出独立峰值比，方便识别“多个候选几乎并列”的危险场景。
 
-```python
-for i in range(12):
-    correlation += signal.correlate(feat_music[i], feat_video[i], mode='full', method='fft')
-```
+这次更新针对的就是“看似算出了结果，但实际慢了一拍”的失败模式。
 
-相关曲线峰值所在位置即为时间偏移量。这条策略在干净录音下很稳——桌面内录、采集卡线路输入都没问题。
+## 对齐原理
 
-### 策略二：Onset（节拍匹配，自动回退）
+RhythmAlign 不直接对原始波形做互相关。手机麦克风、机台喇叭、敲击声、削波、压缩和环境噪声都会让录音波形与干净音源差异巨大，直接匹配波形非常容易失败。
 
-```python
-onset_video = librosa.onset.onset_strength(y=y_video, sr=sr, hop_length=512)
-onset_music = librosa.onset.onset_strength(y=y_music, sr=sr, hop_length=512)
-```
+新版对齐流程如下：
 
-当 Chroma 的置信度不达标时——在嘈杂的手机外录中很常见——算法自动切换为 Onset Strength。它追踪的是音符的瞬态起始：音符「何时」敲响，而不是「什么音」在响。一维信号，对噪声和削波极度鲁棒。精度不如 Chroma，但能在 Chroma 搞不定的场景下兜住底。
+1. **解码分析音频**
 
-### 置信度检验
+   通过 FFmpeg 将视频音轨和参考音乐解码为统一采样率的单声道 PCM。
 
-算出相关度曲线后，算法会测量峰值的 Z-score：
+2. **提取音高类别变化**
 
-```python
-z_score = (max(correlation) - mean(correlation)) / std(correlation)
-```
+   使用 `librosa.feature.chroma_cens` 将音频映射为 12 维音高类别特征，再计算逐帧差分，让算法关注“音乐在如何变化”，而不是某一段静态纹理有多像。
 
-Z-score < 2.0 的结果会被标记为不可靠。两条策略都失败时，UI 会直接报错——绝不静默地输出对齐歪了的结果。
+3. **轻量融合节奏信息**
 
----
+   onset strength 会被归一化后少量加入相关曲线，用来增强嘈杂手元录音中的节奏定位，但不会再单独支配结果。
 
-## 核心特性
+4. **置信度判断**
+
+   结果需要通过 Z-score 门槛。若进入 onset-only fallback，还必须通过独立峰值比检查，避免重复节奏骗过算法。
+
+5. **安全导出**
+
+   根据偏移量延迟或裁剪替换音乐，并通过 FFmpeg 重新封装为新 MP4。
+
+偏移量为正，表示需要延迟替换音乐；偏移量为负，表示需要裁掉替换音乐开头的一段。
+
+## 功能特性
 
 **音频对齐**
-- 双策略引擎：Chroma → Onset 自动回退
-- Z-score 置信门控，失败时明确报错，不暗中导出错位视频
-- 手动偏移微调滑块（±500 ms），应对极端情况
+
+- Chroma CENS 差分 + onset 轻量融合的混合对齐引擎
+- Z-score 置信度门控
+- 重复节奏候选峰唯一性检查
+- 纯分析模式：只计算偏移，不导出视频
+- 手动微调滑块，用于最终细调
 
 **视频导出**
-- 流拷贝（默认）：零重编码、零画质损失，几秒内完成封装
-- 重编码模式：NVIDIA NVENC 加速，6000k / 10000k / 20000k 三档码率
-- 支持无原音轨视频：导出时只使用替换音乐，不引用原视频音轨
-- 三档一键音量预设：街机 / 手机 / 桌面
 
-**手机视频加固**
+- 默认视频流直拷：不重编码，不损失画质
+- 可选重新编码模式，支持 NVIDIA NVENC
+- AAC 320 kbps 音频输出
+- 支持原视频没有音轨的情况
+- 自动处理 VFR 时间戳、负时间戳、QuickTime 私有元数据、moov atom 等常见封装问题
 
-| 问题 | 修复方式 |
-|---|---|
-| VFR 时间戳导致音画逐渐漂移 | `-fflags +genpts` 强制重建统一显示时间戳 |
-| 负时间戳导致不同播放器同步不一致 | `-avoid_negative_ts make_zero` |
-| QuickTime 编辑表元数据 atom 引发封装器报错 | `-map_metadata -1` 剥离全部私有元数据 |
-| moov atom 在文件尾部导致无法边下边播 | `-movflags +faststart` |
+**工作流**
 
-**附加工具**
-- **纯分析模式：** 只算偏移量不导出——把数值填进任意剪辑软件时间轴即可
-- **`diagnose_offset.py`：** 命令行诊断工具，输出 Chroma 方差、Z-score、音轨元数据，并针对每项指标给出具体排查建议
-- **中英双语界面：** 简体中文 / English，基于 JSON 的无框架 i18n 引擎
-
----
+- 一屏式手元对齐工作台
+- 街机、移动端、桌面端三档音量预设
+- 简体中文 / English 双语界面
+- 命令行诊断工具，方便分析疑难素材
 
 ## 快速开始
 
-**环境要求：** Windows 10/11，Python 3.9+（64 位）。FFmpeg 由 `imageio-ffmpeg` 自动捆绑提供。
+环境要求：
 
-```bash
+- Windows 10/11
+- Python 3.9+ 64 位
+- `requirements.txt` 中的依赖
+- FFmpeg 由 `imageio-ffmpeg` 自动提供
+
+```powershell
 git clone https://github.com/Daozhu1007/RhythmAlign.git
 cd RhythmAlign
 python -m venv .venv
@@ -122,89 +125,90 @@ pip install -r requirements.txt
 python ui_main.py
 ```
 
-诊断顽固文件对：
+运行测试：
 
-```bash
+```powershell
+python -m pytest -q
+```
+
+## 使用方法
+
+### 手元对齐
+
+1. 选择视频文件：MP4、MKV、MOV、AVI、FLV、WMV、WebM、TS。
+2. 选择参考音乐：MP3、WAV、FLAC、M4A、AAC、OGG、WMA。
+3. 选择音量预设，或手动调整原声与替换音乐音量。
+4. 如有需要，设置毫秒级手动微调。
+5. 点击 **完整导出**，选择输出路径。
+
+为了获得最佳结果，请尽量使用与视频中实际播放内容完全一致的音源。不同平台下载的音频、不同剪辑版本、带前导静音或淡入淡出的版本，都可能导致固定偏移无法完全对齐。
+
+### 纯分析模式
+
+如果只想得到偏移量，不想立刻导出视频，可以使用 **纯分析模式**。这个数值可以手动填入其他剪辑软件。
+
+示例：
+
+```text
++0.1234 秒
+```
+
+这表示需要将替换音乐延迟 `0.1234` 秒。
+
+### 诊断疑难素材
+
+```powershell
 python diagnose_offset.py "video.mp4" "music.mp3"
 ```
 
----
+诊断输出包括音频时长、RMS、峰值、Chroma 方差、Z-score、独立峰值比和计算出的偏移量。
 
-## 使用指南
+## 可靠性边界
 
-### 自动对齐
+v1.1.0 已经显著增强了对重复节奏的抵抗力，但 RhythmAlign 仍然是固定偏移对齐工具，不是万能修复器。以下场景仍可能需要人工检查：
 
-1. 选择视频文件（MP4、MKV、MOV、AVI、FLV、WMV、WebM、TS）。
-2. 选择参考音频文件（MP3、WAV、FLAC、M4A、AAC、OGG、WMA）。
-3. 选择音量预设或手动调整滑块。
-4. 点击**完整导出**，选择输出路径。
+- 参考音乐和视频中的音源不是同一个版本。
+- 视频中途被剪切过。
+- 视频存在变速、掉帧、长时间音频漂移。
+- 敲击声或环境噪声远大于音乐本体。
+- 曲目本身和声与节奏都极度重复。
+- 参考音乐开头有不同长度的静音、淡入或额外前奏。
 
-> **提示：** 为获得最佳对齐效果，请使用与视频中完全相同的音频源文件（如机台原音频）。从 YouTube 等平台下载的音频可能与游戏内版本存在差异，导致对齐偏差数秒。
-
-### 纯分析
-
-同样的输入方式，但不导出文件——结果以大号文字显示偏移量，例如 `+0.1234 s` 或 `-0.5678 s`。正向偏移表示将替换音乐延迟对应秒数；负向偏移表示从替换音乐开头裁掉对应秒数。
-
-### 设置项
-
-| 设置项 | 默认值 | 说明 |
-|---|---|---|
-| 界面语言 | 简体中文 | 切换语言（需重启） |
-| 视频流直拷 | 开 | 跳过视频重编码，近乎瞬时导出 |
-| GPU 加速渲染 | 关 | 转码时启用 NVIDIA NVENC |
-| 视频码率 | 10000k | 6000k / 10000k / 20000k |
-| 完成后打开文件夹 | 开 | 导出后自动打开目标目录 |
-
-设置持久化保存在 `config.json`。
-
----
+遇到这些情况，建议先用 `diagnose_offset.py` 或纯分析模式确认偏移，再进行最终导出。
 
 ## 项目结构
 
-```
+```text
 RhythmAlign/
-├── ui_main.py              # GUI：对齐、分析、设置、关于 四个标签页
-├── auto_sync.py            # 对齐引擎 + ffmpeg 导出管线
+├── ui_main.py              # PyQt 图形界面
+├── auto_sync.py            # 对齐引擎与 FFmpeg 导出管线
 ├── diagnose_offset.py      # 命令行诊断工具
-├── assets/
-│   ├── logo.png / logo.ico # 应用图标
-│   ├── github.png          # GitHub 链接图标
-│   └── bilibili.png        # B站 链接图标
-├── locales/
-│   ├── zh_CN.json
-│   └── en_US.json
+├── tests/                  # 导出与对齐可靠性测试
+├── assets/                 # 图标与截图
+├── locales/                # 中英文界面文案
 ├── requirements.txt
-├── config.json             # 用户设置（程序自动生成）
 ├── RhythmAlign.spec        # PyInstaller 打包配置
 └── RhythmAlign.iss         # Inno Setup 安装包脚本
 ```
 
----
+## 打包说明
 
-## 版权与免责声明
+项目包含 PyInstaller 与 Inno Setup 配置。完整发布流程见 [RELEASE.md](RELEASE.md)。
 
-### 应用图标
+## 版权与声明
 
-应用图标裁剪自 **"对立鸭"** 表情包系列，由画师 **春也Haruya**（[B站 UID: 3280](https://space.bilibili.com/3280)）创作。约稿方授予了免费开放使用授权，在此致谢。
+应用图标裁剪自 “Tairitsu Duck” 表情包系列，由画师 Haruya（[Bilibili UID: 3280](https://space.bilibili.com/3280)）创作，并基于约稿方授予的免费开源使用许可使用。
 
-### IP 声明
+Tairitsu 及相关角色 IP 归 lowiro 所有。RhythmAlign 是独立、非商业的社区工具，与 lowiro 官方无关，也未获得其背书。
 
-**对立（Tairitsu）** 及相关角色设计、知识产权归 **lowiro** 所有。RhythmAlign 为独立、非商业的社区同人工具，与 lowiro 无关，亦未获其背书。
+## 协议
 
----
+RhythmAlign 基于 [PolyForm Noncommercial License 1.0.0](LICENSE) 发布。
 
-## 协议与商用说明 (License)
-
-本项目采用 **[PolyForm Noncommercial License 1.0.0](LICENSE)** 协议发布。
-
-**个人及非商业性使用完全免费。** 欢迎您使用本工具制作个人的音游手元视频。
-
-**严禁任何未经授权的商业使用！** 包括但不限于：使用本工具接单代做视频、工作室盈利性产出、或将本软件二次打包售卖。如需商用，请务必联系作者购买商业授权。对于任何违规商用行为，作者保留追究法律责任的权利。
-
----
+个人与非商业用途免费。未经授权，禁止将本工具用于商业接单、工作室盈利产出、二次打包售卖或其他营利行为。如需商业授权，请联系作者。
 
 <p align="center">
-  <a href="https://github.com/Daozhu1007/RhythmAlign"><img src="assets/github.png" height="22"></a>
+  <a href="https://github.com/Daozhu1007/RhythmAlign"><img src="assets/github.png" height="22" alt="GitHub"></a>
   &nbsp;
-  <a href="https://space.bilibili.com/477852567"><img src="assets/bilibili.png" height="22"></a>
+  <a href="https://space.bilibili.com/477852567"><img src="assets/bilibili.png" height="22" alt="Bilibili"></a>
 </p>

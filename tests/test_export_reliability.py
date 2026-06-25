@@ -47,6 +47,41 @@ def test_no_window_kwargs_are_added_on_windows_without_overwriting(monkeypatch):
     assert kwargs["creationflags"] == 0x08000001
 
 
+def test_independent_peak_ratio_detects_ambiguous_repeated_peaks():
+    correlation = np.array([0.0, 10.0, 0.0, 9.9, 0.0])
+
+    ratio = auto_sync._independent_peak_ratio(correlation, min_separation_frames=2)
+
+    assert ratio < auto_sync._FALLBACK_PEAK_RATIO_THRESHOLD
+
+
+def test_independent_peak_ratio_accepts_clear_peak():
+    correlation = np.array([0.0, 10.0, 0.0, 6.0, 0.0])
+
+    ratio = auto_sync._independent_peak_ratio(correlation, min_separation_frames=2)
+
+    assert ratio > auto_sync._FALLBACK_PEAK_RATIO_THRESHOLD
+
+
+def test_find_offset_rejects_ambiguous_onset_fallback(monkeypatch):
+    ambiguous_correlation = np.zeros(200)
+    ambiguous_correlation[70] = 10.0
+    ambiguous_correlation[140] = 9.9
+
+    monkeypatch.setattr(auto_sync.imageio_ffmpeg, "get_ffmpeg_exe", lambda: "ffmpeg")
+    monkeypatch.setattr(auto_sync, "extract_audio", lambda *args: None)
+    monkeypatch.setattr(auto_sync.librosa, "load", lambda *args, **kwargs: (np.zeros(1024), 22050))
+    monkeypatch.setattr(auto_sync, "_align_hybrid", lambda *args: (0.0, 0.5, np.array([0.0])))
+    monkeypatch.setattr(
+        auto_sync,
+        "_align_onset",
+        lambda *args: (18.0, 3.0, ambiguous_correlation),
+    )
+
+    with pytest.raises(auto_sync.CorrelationLowConfidenceError):
+        auto_sync.find_offset("video.mp4", "music.mp3")
+
+
 def test_extract_audio_passes_no_window_flag_on_windows(monkeypatch):
     monkeypatch.setattr(auto_sync, "_IS_WINDOWS", True)
     monkeypatch.setattr(auto_sync.subprocess, "CREATE_NO_WINDOW", 0x08000000, raising=False)
