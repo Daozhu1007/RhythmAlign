@@ -105,6 +105,7 @@
     "task_done_export": "导出完成",
     "err_ffmpeg_crash": "FFmpeg底层渲染崩溃！报错详情:\n{0}",
     "msg_progress": "{0}: {1}% | 预计剩余: {2}",
+    "msg_progress_busy": "{0}: 进行中 | 预计剩余: {1}",
     "log_prefix_err": "错误: ",
     "log_prefix_ok": "成功: ",
     "log_saved_to": "处理成功！保存至: {0}"

@@ -3,6 +3,7 @@ import os
 import subprocess
 import json
 import shutil
+import time
 
 if getattr(sys, 'frozen', False):
     _BASE_DIR = sys._MEIPASS
@@ -28,15 +29,15 @@ def _user_config_path():
     return os.path.join(dir_path, "config.json")
 
 from PyQt6.QtGui import QPixmap, QIcon, QDesktopServices
-from PyQt6.QtCore import Qt, QThread, pyqtSignal, QUrl
+from PyQt6.QtCore import Qt, QThread, pyqtSignal, QUrl, QTimer
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QFileDialog, QLabel
 from qfluentwidgets import (FluentWindow, NavigationItemPosition, SubtitleLabel, BodyLabel, LineEdit, PushButton,
-                            Slider, TextEdit, ProgressBar, CardWidget, TitleLabel,
+                            Slider, TextEdit, ProgressBar, IndeterminateProgressBar, CardWidget, TitleLabel,
                             FluentIcon as FIF, setTheme, Theme, SwitchSettingCard,
                             OptionsSettingCard, SettingCardGroup, ScrollArea, InfoBar, InfoBarPosition,
                             QConfig, ConfigItem, OptionsConfigItem, OptionsValidator, BoolValidator, qconfig)
 
-from auto_sync import find_offset, mix_and_export, CorrelationLowConfidenceError
+from auto_sync import find_offset, mix_and_export, estimate_analysis_duration, CorrelationLowConfidenceError
 
 # ================= 0. 极简国际化 (I18n) 引擎 =================
 class I18nManager:
@@ -139,6 +140,44 @@ class BrandingWidget(QWidget):
 
 
 # ================= 2. 后台工作线程 =================
+INDETERMINATE_PROGRESS = "__indeterminate__"
+
+
+def format_eta(seconds):
+    if seconds is None:
+        return "--:--"
+
+    seconds = max(0, int(round(seconds)))
+    if seconds < 1:
+        return "<00:01"
+
+    minutes, seconds = divmod(seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    if hours:
+        return f"{hours}:{minutes:02d}:{seconds:02d}"
+    return f"{minutes:02d}:{seconds:02d}"
+
+
+def parse_eta_seconds(eta):
+    if not eta or eta == "--:--":
+        return None
+    if eta.startswith("<"):
+        return 0
+
+    try:
+        parts = [int(part) for part in eta.split(":")]
+    except ValueError:
+        return None
+
+    if len(parts) == 2:
+        minutes, seconds = parts
+        return minutes * 60 + seconds
+    if len(parts) == 3:
+        hours, minutes, seconds = parts
+        return hours * 3600 + minutes * 60 + seconds
+    return None
+
+
 class BaseMediaWorker(QThread):
     """Template Method: 封装 find_offset 调用和异常处理。
 
@@ -150,13 +189,19 @@ class BaseMediaWorker(QThread):
 
     def _emit_start(self, task_key, progress_val):
         """子类可重写以定制启动时的信号发射序列。"""
-        self.progress_signal.emit(i18n.tr(task_key), progress_val, "--:--")
+        self.progress_signal.emit(i18n.tr(task_key), progress_val, format_eta(self._initial_eta))
         self.log_signal.emit("-" * 40, "normal")
         self.log_signal.emit(i18n.tr("log_extract"), "normal")
 
     def _run_find_offset(self):
         """调用 find_offset 并返回结果；子类提供 v_path / m_path 属性。"""
         return find_offset(self.v_path, self.m_path)
+
+    def _estimate_initial_eta(self):
+        try:
+            return estimate_analysis_duration(self.v_path, self.m_path)
+        except Exception:
+            return None
 
     def _on_offset_found(self, offset):
         """子类必须重写：定义找到偏移后的行为。"""
@@ -172,6 +217,8 @@ class BaseMediaWorker(QThread):
         self.log_signal.emit(i18n.tr("err_run", str(e)), "error")
 
     def run(self):
+        self._initial_eta = self._estimate_initial_eta()
+
         try:
             self._emit_start(self._start_task_key, self._start_progress_val)
             offset = self._run_find_offset()
@@ -197,7 +244,7 @@ class SyncWorker(BaseMediaWorker):
         self.v_path = kwargs['v_path']
         self.m_path = kwargs['m_path']
         self._start_task_key = "log_start_analyze"
-        self._start_progress_val = "0"
+        self._start_progress_val = INDETERMINATE_PROGRESS
 
     def _on_offset_found(self, offset):
         manual_offset = self.kwargs['manual_offset']
@@ -242,7 +289,7 @@ class AnalyzeWorker(BaseMediaWorker):
         self.v_path = v_path
         self.m_path = m_path
         self._start_task_key = "log_analyzing_track"
-        self._start_progress_val = "50"
+        self._start_progress_val = INDETERMINATE_PROGRESS
 
     def _on_offset_found(self, offset):
         self.log_signal.emit(i18n.tr("log_analyze_ok", offset), "success")
@@ -285,9 +332,74 @@ class BaseMediaInterface(ScrollArea):
             prefix = ""
         self.log_box.append(f"{prefix}{msg}")
 
+    def create_progress_row(self, waiting_text):
+        prog_layout = QHBoxLayout()
+        self.prog_lbl = BodyLabel(waiting_text)
+        self.prog_bar = ProgressBar()
+        self.busy_prog_bar = IndeterminateProgressBar(start=False)
+        self.busy_prog_bar.hide()
+        self.busy_eta_timer = QTimer(self)
+        self.busy_eta_timer.setInterval(1000)
+        self.busy_eta_timer.timeout.connect(self.update_busy_eta_label)
+        self.busy_eta_task = ""
+        self.busy_eta_seconds = None
+        self.busy_eta_started_at = None
+        prog_layout.addWidget(self.prog_lbl)
+        prog_layout.addWidget(self.prog_bar)
+        prog_layout.addWidget(self.busy_prog_bar)
+        prog_layout.setStretchFactor(self.prog_bar, 1)
+        prog_layout.setStretchFactor(self.busy_prog_bar, 1)
+        return prog_layout
+
+    def update_busy_eta_label(self):
+        eta = "--:--"
+        if self.busy_eta_seconds is not None and self.busy_eta_started_at is not None:
+            elapsed = time.monotonic() - self.busy_eta_started_at
+            eta = format_eta(self.busy_eta_seconds - elapsed)
+        self.prog_lbl.setText(i18n.tr("msg_progress_busy", self.busy_eta_task, eta))
+
+    def start_busy_eta(self, task, eta):
+        self.busy_eta_task = task
+        self.busy_eta_seconds = parse_eta_seconds(eta)
+        self.busy_eta_started_at = time.monotonic() if self.busy_eta_seconds is not None else None
+        self.update_busy_eta_label()
+
+        if self.busy_eta_seconds is not None:
+            self.busy_eta_timer.start()
+        else:
+            self.busy_eta_timer.stop()
+
+    def stop_busy_eta(self):
+        self.busy_eta_timer.stop()
+        self.busy_eta_task = ""
+        self.busy_eta_seconds = None
+        self.busy_eta_started_at = None
+
+    def set_progress_busy(self, busy, task=None, eta=None):
+        if busy:
+            self.prog_bar.hide()
+            self.busy_prog_bar.show()
+            if not self.busy_prog_bar.isStarted():
+                self.busy_prog_bar.start()
+            if task is not None:
+                self.start_busy_eta(task, eta)
+            return
+
+        self.stop_busy_eta()
+        if self.busy_prog_bar.isStarted():
+            self.busy_prog_bar.stop()
+        self.busy_prog_bar.hide()
+        self.prog_bar.show()
+
     def update_progress(self, task, pct, eta):
-        self.prog_lbl.setText(i18n.tr("msg_progress", task, pct, eta))
-        self.prog_bar.setValue(int(pct))
+        is_busy = pct == INDETERMINATE_PROGRESS
+        if is_busy:
+            self.set_progress_busy(True, task, eta)
+        else:
+            self.set_progress_busy(False)
+            self.prog_lbl.setText(i18n.tr("msg_progress", task, pct, eta))
+        if not is_busy:
+            self.prog_bar.setValue(int(pct))
 
 
 # ================= 4. 主对齐页面 =================
@@ -345,13 +457,7 @@ class SyncInterface(BaseMediaInterface):
         self.offset_slider, self.offset_lbl = self.create_slider_row(card2_layout, i18n.tr("lbl_offset"), -500, 500, 0)
         self.layout.addWidget(card2)
 
-        prog_layout = QHBoxLayout()
-        self.prog_lbl = BodyLabel(i18n.tr("status_waiting"))
-        self.prog_bar = ProgressBar()
-        prog_layout.addWidget(self.prog_lbl)
-        prog_layout.addWidget(self.prog_bar)
-        prog_layout.setStretchFactor(self.prog_bar, 1)
-        self.layout.addLayout(prog_layout)
+        self.layout.addLayout(self.create_progress_row(i18n.tr("status_waiting")))
 
         self.log_box = TextEdit()
         self.log_box.setReadOnly(True)
@@ -473,13 +579,7 @@ class AnalyzeInterface(BaseMediaInterface):
 
         self.layout.addWidget(self.result_card)
 
-        prog_layout = QHBoxLayout()
-        self.prog_lbl = BodyLabel(i18n.tr("status_analyzing"))
-        self.prog_bar = ProgressBar()
-        prog_layout.addWidget(self.prog_lbl)
-        prog_layout.addWidget(self.prog_bar)
-        prog_layout.setStretchFactor(self.prog_bar, 1)
-        self.layout.addLayout(prog_layout)
+        self.layout.addLayout(self.create_progress_row(i18n.tr("status_analyzing")))
 
         self.log_box = TextEdit()
         self.log_box.setReadOnly(True)

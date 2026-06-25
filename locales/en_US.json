@@ -105,6 +105,7 @@
     "task_done_export": "Export Complete",
     "err_ffmpeg_crash": "FFmpeg render crashed! Details:\n{0}",
     "msg_progress": "{0}: {1}% | ETA: {2}",
+    "msg_progress_busy": "{0}: Working | ETA: {1}",
     "log_prefix_err": "Error: ",
     "log_prefix_ok": "Success: ",
     "log_saved_to": "Processing successful! Saved to: {0}"

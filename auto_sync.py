@@ -83,6 +83,31 @@ def extract_audio(ffmpeg_bin, input_path, output_path, sr):
 #   1.0–2.0: weak peak, result may be unreliable
 #   > 2.0 : clear peak, result is trustworthy
 _CONFIDENCE_THRESHOLD = 2.0
+_ANALYSIS_ESTIMATE_MIN_SECONDS = 4.0
+_ANALYSIS_ESTIMATE_MAX_SECONDS = 240.0
+_ANALYSIS_ESTIMATE_OVERHEAD_SECONDS = 2.0
+_ANALYSIS_ESTIMATE_REALTIME_FACTOR = 45.0
+
+
+def estimate_analysis_duration(video_path, music_path):
+    """Return a rough analysis ETA in seconds, based on media duration."""
+    ffmpeg_bin = imageio_ffmpeg.get_ffmpeg_exe()
+    durations = [
+        get_video_duration(ffmpeg_bin, path)
+        for path in (video_path, music_path)
+    ]
+    total_duration = sum(max(0.0, duration) for duration in durations)
+    if total_duration <= 0:
+        return None
+
+    estimate = (
+        _ANALYSIS_ESTIMATE_OVERHEAD_SECONDS
+        + total_duration / _ANALYSIS_ESTIMATE_REALTIME_FACTOR
+    )
+    return max(
+        _ANALYSIS_ESTIMATE_MIN_SECONDS,
+        min(_ANALYSIS_ESTIMATE_MAX_SECONDS, estimate),
+    )
 
 
 def _correlation_z_score(correlation):
