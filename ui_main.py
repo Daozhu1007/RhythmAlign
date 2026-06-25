@@ -39,6 +39,8 @@ from qfluentwidgets import (FluentWindow, NavigationItemPosition, SubtitleLabel,
 
 from auto_sync import find_offset, mix_and_export, estimate_analysis_duration, CorrelationLowConfidenceError
 
+QQ_GROUP_ID = "1046879299"
+
 # ================= 0. 极简国际化 (I18n) 引擎 =================
 class I18nManager:
     def __init__(self, locale_code):
@@ -686,7 +688,7 @@ class AboutInterface(ScrollArea):
 
         btn_github.clicked.connect(lambda: QDesktopServices.openUrl(QUrl("https://github.com/Daozhu1007/RhythmAlign")))
         btn_bilibili.clicked.connect(lambda: QDesktopServices.openUrl(QUrl("https://space.bilibili.com/477852567")))
-        btn_qq.clicked.connect(lambda: QDesktopServices.openUrl(QUrl("https://qm.qq.com/your-group-link")))
+        btn_qq.clicked.connect(self.copy_qq_group)
         btn_donate.clicked.connect(lambda: QDesktopServices.openUrl(QUrl("https://afdian.com/a/Limitime")))
 
         top_layout.addWidget(btn_github)
@@ -758,6 +760,16 @@ class AboutInterface(ScrollArea):
         warn_container.addWidget(warn1)
         warn_container.addWidget(warn2)
         self.layout.addLayout(warn_container)
+
+    def copy_qq_group(self):
+        QApplication.clipboard().setText(QQ_GROUP_ID)
+        InfoBar.success(
+            title=i18n.tr("msg_success"),
+            content=i18n.tr("msg_qq_group_copied", QQ_GROUP_ID),
+            parent=self,
+            position=InfoBarPosition.TOP,
+            duration=2500,
+        )
 
 
 # ================= 5. 设置页面 =================
