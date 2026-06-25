@@ -28,6 +28,76 @@ def ffmpeg_bin():
     return imageio_ffmpeg.get_ffmpeg_exe()
 
 
+def test_no_window_kwargs_are_empty_off_windows(monkeypatch):
+    monkeypatch.setattr(auto_sync, "_IS_WINDOWS", False)
+    monkeypatch.setattr(auto_sync.subprocess, "CREATE_NO_WINDOW", 0x08000000, raising=False)
+
+    kwargs = auto_sync._subprocess_no_window_kwargs(stdout=subprocess.PIPE)
+
+    assert kwargs == {"stdout": subprocess.PIPE}
+
+
+def test_no_window_kwargs_are_added_on_windows_without_overwriting(monkeypatch):
+    monkeypatch.setattr(auto_sync, "_IS_WINDOWS", True)
+    monkeypatch.setattr(auto_sync.subprocess, "CREATE_NO_WINDOW", 0x08000000, raising=False)
+
+    kwargs = auto_sync._subprocess_no_window_kwargs(stdout=subprocess.PIPE, creationflags=0x00000001)
+
+    assert kwargs["stdout"] == subprocess.PIPE
+    assert kwargs["creationflags"] == 0x08000001
+
+
+def test_extract_audio_passes_no_window_flag_on_windows(monkeypatch):
+    monkeypatch.setattr(auto_sync, "_IS_WINDOWS", True)
+    monkeypatch.setattr(auto_sync.subprocess, "CREATE_NO_WINDOW", 0x08000000, raising=False)
+    calls = []
+
+    class CompletedProcess:
+        returncode = 0
+        stderr = ""
+
+    def fake_run(cmd, **kwargs):
+        calls.append((cmd, kwargs))
+        return CompletedProcess()
+
+    monkeypatch.setattr(auto_sync.subprocess, "run", fake_run)
+
+    auto_sync.extract_audio("ffmpeg", "input.mp4", "output.wav", 22050)
+
+    assert calls[0][1]["creationflags"] == 0x08000000
+    assert calls[0][1]["stdout"] == subprocess.PIPE
+    assert calls[0][1]["stderr"] == subprocess.PIPE
+
+
+def test_mix_and_export_popen_passes_no_window_flag_on_windows(tmp_path, monkeypatch):
+    monkeypatch.setattr(auto_sync, "_IS_WINDOWS", True)
+    monkeypatch.setattr(auto_sync.subprocess, "CREATE_NO_WINDOW", 0x08000000, raising=False)
+    monkeypatch.setattr(auto_sync.imageio_ffmpeg, "get_ffmpeg_exe", lambda: "ffmpeg")
+    monkeypatch.setattr(auto_sync, "get_video_duration", lambda ffmpeg, path: 1.0)
+    monkeypatch.setattr(auto_sync, "_has_audio_stream", lambda ffmpeg, path: False)
+    calls = []
+
+    class SuccessfulPopen:
+        def __init__(self, cmd, **kwargs):
+            calls.append((cmd, kwargs))
+            Path(cmd[-1]).write_bytes(b"media")
+            self.stdout = iter([])
+            self.returncode = 0
+
+        def wait(self):
+            return self.returncode
+
+    monkeypatch.setattr(auto_sync.subprocess, "Popen", SuccessfulPopen)
+
+    output = tmp_path / "synced.mp4"
+    auto_sync.mix_and_export("video.mp4", "music.wav", 0.0, str(output), stream_copy=True)
+
+    assert output.read_bytes() == b"media"
+    assert calls[0][1]["creationflags"] == 0x08000000
+    assert calls[0][1]["stdout"] == subprocess.PIPE
+    assert calls[0][1]["stderr"] == subprocess.STDOUT
+
+
 def create_video(ffmpeg_bin, path, *, with_audio, duration=1.2):
     args = [
         "-y",

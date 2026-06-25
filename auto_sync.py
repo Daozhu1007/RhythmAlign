@@ -10,6 +10,9 @@ import uuid
 import imageio_ffmpeg
 
 
+_IS_WINDOWS = os.name == "nt"
+
+
 class CorrelationLowConfidenceError(RuntimeError):
     """互相关峰值置信度过低，无法可靠确定偏移量。"""
     def __init__(self, z_score, threshold):
@@ -20,6 +23,15 @@ class CorrelationLowConfidenceError(RuntimeError):
 
 class AudioStreamDetectionError(RuntimeError):
     """Raised when FFmpeg cannot reliably determine whether an input has audio."""
+
+
+def _subprocess_no_window_kwargs(**kwargs):
+    """Return subprocess kwargs that hide child console windows on Windows."""
+    if _IS_WINDOWS:
+        create_no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+        if create_no_window:
+            kwargs["creationflags"] = kwargs.get("creationflags", 0) | create_no_window
+    return kwargs
 
 
 def _parse_duration_hms(stderr_text):
@@ -34,7 +46,13 @@ def _parse_duration_hms(stderr_text):
 def get_video_duration(ffmpeg_bin, video_path):
     # Primary: fast ffmpeg probe
     cmd = [ffmpeg_bin, "-hide_banner", "-i", video_path]
-    process = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, errors='replace')
+    process = subprocess.run(
+        cmd,
+        **_subprocess_no_window_kwargs(
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            text=True, errors='replace',
+        )
+    )
     duration = _parse_duration_hms(process.stderr)
     if duration is not None:
         return duration
@@ -49,7 +67,13 @@ def extract_audio(ffmpeg_bin, input_path, output_path, sr):
         "-vn", "-acodec", "pcm_s16le", "-ar", str(sr), "-ac", "1",
         output_path
     ]
-    process = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, errors='replace')
+    process = subprocess.run(
+        cmd,
+        **_subprocess_no_window_kwargs(
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            text=True, errors='replace',
+        )
+    )
     if process.returncode != 0:
         raise RuntimeError(f"FFmpeg底层音频提取崩溃: \n{process.stderr}")
 
@@ -154,8 +178,10 @@ def _has_audio_stream(ffmpeg_bin, input_path):
                 "-frames:a", "1",
                 "-f", "null", "-"
             ],
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-            text=True, errors='replace', timeout=15
+            **_subprocess_no_window_kwargs(
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                text=True, errors='replace', timeout=15,
+            )
         )
     except subprocess.TimeoutExpired as exc:
         raise AudioStreamDetectionError(f"Timed out detecting audio stream in: {input_path}") from exc
@@ -248,7 +274,13 @@ def mix_and_export(video_path, music_path, offset, output_path, vol_original=1.0
         ui_log_callback(tr("log_target_offset", final_offset))
 
     try:
-        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, errors='replace')
+        process = subprocess.Popen(
+            cmd,
+            **_subprocess_no_window_kwargs(
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                text=True, errors='replace',
+            )
+        )
 
         start_time_real = time.time()
         error_log = []

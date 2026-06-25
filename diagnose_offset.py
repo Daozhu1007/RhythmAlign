@@ -7,7 +7,10 @@ import os
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from auto_sync import extract_audio, _parse_duration_hms, _align_chroma, _correlation_z_score
+from auto_sync import (
+    extract_audio, _parse_duration_hms, _align_chroma, _correlation_z_score,
+    _subprocess_no_window_kwargs,
+)
 import imageio_ffmpeg
 import librosa
 import subprocess
@@ -69,7 +72,10 @@ def check_video_audio_source(video_path):
         result = subprocess.run(
             [ffprobe_bin, "-v", "quiet", "-print_format", "json", "-show_format",
              "-show_streams", video_path],
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, errors='ignore', timeout=30
+            **_subprocess_no_window_kwargs(
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                text=True, errors='ignore', timeout=30,
+            )
         )
         import json
         info = json.loads(result.stdout)
