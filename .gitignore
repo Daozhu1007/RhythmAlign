@@ -9,6 +9,7 @@ __pycache__/
 # PyInstaller build artifacts
 build/
 dist/
+release/
 
 # IDE settings
 .idea/

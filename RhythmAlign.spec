@@ -8,6 +8,20 @@ datas = [
 ]
 datas += copy_metadata('imageio_ffmpeg')
 
+
+def _drop_dev_only_data(toc):
+    dev_only_markers = (
+        'sklearn/datasets/tests/',
+    )
+    filtered = []
+    for entry in toc:
+        normalized = '/'.join(str(value).replace('\\', '/') for value in entry[:2]).lower()
+        if any(marker in normalized for marker in dev_only_markers):
+            continue
+        filtered.append(entry)
+    return filtered
+
+
 a = Analysis(
     ['ui_main.py'],
     pathex=[],
@@ -17,10 +31,12 @@ a = Analysis(
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=[],
+    excludes=['pytest', '_pytest'],
     noarchive=False,
     optimize=0,
 )
+a.datas = _drop_dev_only_data(a.datas)
+a.binaries = _drop_dev_only_data(a.binaries)
 pyz = PYZ(a.pure)
 
 exe = EXE(
