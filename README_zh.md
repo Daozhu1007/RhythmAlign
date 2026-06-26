@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-v1.1.0-blue" alt="Version">
+  <img src="https://img.shields.io/badge/version-v1.1.1-blue" alt="Version">
   <img src="https://img.shields.io/badge/platform-Windows%2010%2F11-blue" alt="Platform">
   <img src="https://img.shields.io/badge/python-3.9%2B-blue" alt="Python">
   <img src="https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-lightgrey" alt="License">
@@ -38,6 +38,15 @@ RhythmAlign 把这个流程自动化：
 3. 选择导出路径。
 
 工具会自动提取两条音轨，在音乐特征空间中计算偏移量，然后导出新的 MP4。默认模式会直接复制原视频流，只重新封装音轨，因此画质不会因为导出而二次损失。
+
+## v1.1.1 更新亮点
+
+v1.1.1 重点完善发布体验和维护能力，让新版对齐引擎更适合正式分发。
+
+- **内置检查更新：** 设置页可检查 GitHub 最新版本，并下载带 SHA256 校验的安装包。
+- **启动自动检查：** 启动后可后台检查更新，只有发现新版本时才提示。
+- **诊断信息复制：** 一键复制运行环境、FFmpeg、设置项和最近日志，方便排查打包版和疑难素材问题。
+- **打包稳定性：** 打包产物包含离线更新清单和 `certifi` CA 证书，降低 HTTPS 检查更新失败概率。
 
 ## v1.1.0 更新亮点
 
@@ -167,7 +176,7 @@ python diagnose_offset.py "video.mp4" "music.mp3"
 
 ## 可靠性边界
 
-v1.1.0 已经显著增强了对重复节奏的抵抗力，但 RhythmAlign 仍然是固定偏移对齐工具，不是万能修复器。以下场景仍可能需要人工检查：
+v1.1.1 已经显著增强了对重复节奏的抵抗力，但 RhythmAlign 仍然是固定偏移对齐工具，不是万能修复器。以下场景仍可能需要人工检查：
 
 - 参考音乐和视频中的音源不是同一个版本。
 - 视频中途被剪切过。

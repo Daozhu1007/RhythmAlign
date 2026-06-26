@@ -5,7 +5,7 @@ datas = [
     ('assets', 'assets'),
     ('locales', 'locales'),
     ('config.json', '.'),
-    ('update.json', '.'),
+    ('bundled_update.json', '.'),
 ]
 datas += copy_metadata('imageio_ffmpeg')
 datas += collect_data_files('certifi')

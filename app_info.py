@@ -1,5 +1,5 @@
 APP_NAME = "RhythmAlign"
-APP_VERSION = "1.1.0"
+APP_VERSION = "1.1.1"
 APP_DISPLAY_VERSION = f"v{APP_VERSION}"
 
 GITHUB_REPO = "Daozhu1007/RhythmAlign"

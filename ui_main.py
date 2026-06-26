@@ -1038,7 +1038,7 @@ class RhythmAlignApp(FluentWindow):
         if not silent:
             self.setting_interface.set_update_status(i18n.tr("update_checking_desc"), busy=True)
 
-        self.update_check_worker = UpdateCheckWorker(resource_path("update.json"))
+        self.update_check_worker = UpdateCheckWorker(resource_path("bundled_update.json"))
         self.update_check_worker.result_signal.connect(
             partial(self._on_update_check_finished, silent)
         )

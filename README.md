@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-v1.1.0-blue" alt="Version">
+  <img src="https://img.shields.io/badge/version-v1.1.1-blue" alt="Version">
   <img src="https://img.shields.io/badge/platform-Windows%2010%2F11-blue" alt="Platform">
   <img src="https://img.shields.io/badge/python-3.9%2B-blue" alt="Python">
   <img src="https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-lightgrey" alt="License">
@@ -36,6 +36,15 @@ Instead of dragging waveforms by eye, you select:
 3. an output path.
 
 RhythmAlign extracts both audio tracks, estimates the offset in musical-feature space, and exports a new MP4. By default it stream-copies the video track, so the image quality is preserved and only the audio is rebuilt.
+
+## What's New in v1.1.1
+
+v1.1.1 focuses on release quality and maintenance workflow around the new alignment engine.
+
+- **Built-in update check:** the Settings page can check the latest GitHub release and download the installer with SHA256 verification.
+- **Startup update check:** RhythmAlign can check for updates in the background after launch and only prompts when a newer version exists.
+- **Diagnostics export:** a one-click diagnostic report copies runtime, FFmpeg, settings, and recent logs for easier troubleshooting.
+- **Packaging reliability:** packaged builds now include a bundled offline update manifest and `certifi` CA certificates for more stable HTTPS checks.
 
 ## What's New in v1.1.0
 
@@ -163,7 +172,7 @@ The diagnostic output includes audio duration, RMS/peak levels, Chroma variance,
 
 ## Reliability Notes
 
-RhythmAlign v1.1.0 is much more robust against repeated beat patterns, but it is still a fixed-offset aligner. It can still struggle when:
+RhythmAlign v1.1.1 is much more robust against repeated beat patterns, but it is still a fixed-offset aligner. It can still struggle when:
 
 - the reference music is not the same version as the video audio,
 - the video was cut in the middle,
