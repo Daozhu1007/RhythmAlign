@@ -101,6 +101,8 @@ Positive offset means the replacement music is delayed. Negative offset means th
 - One-screen sync workbench
 - Quick volume presets for arcade, mobile, and desktop recordings
 - Bilingual UI: English and Simplified Chinese
+- Startup/manual update checks through the Settings page, with one-click installer download and SHA256 verification
+- Copyable diagnostic report for troubleshooting packaged builds and difficult file pairs
 - CLI diagnostic tool for difficult file pairs
 
 ## Quick Start

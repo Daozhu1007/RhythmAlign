@@ -1,0 +1,11 @@
+{
+    "version": "1.1.0",
+    "tag_name": "v1.1.0",
+    "release_url": "https://github.com/Daozhu1007/RhythmAlign/releases/tag/v1.1.0",
+    "setup": {
+        "name": "RhythmAlign_v1.1.0_Setup.exe",
+        "url": "https://github.com/Daozhu1007/RhythmAlign/releases/download/v1.1.0/RhythmAlign_v1.1.0_Setup.exe",
+        "size": 134814982,
+        "sha256": "01DB66E4F1E3A98A705E5FFCCA4C8DA51028518AC7EB8735DFB1784996DA3D72"
+    }
+}

@@ -4,6 +4,7 @@ import subprocess
 import json
 import shutil
 import time
+import urllib.error
 
 if getattr(sys, 'frozen', False):
     _BASE_DIR = sys._MEIPASS
@@ -35,9 +36,20 @@ from qfluentwidgets import (FluentWindow, NavigationItemPosition, SubtitleLabel,
                             Slider, TextEdit, ProgressBar, IndeterminateProgressBar, CardWidget, TitleLabel,
                             FluentIcon as FIF, setTheme, Theme, SwitchSettingCard,
                             OptionsSettingCard, SettingCardGroup, ScrollArea, InfoBar, InfoBarPosition,
+                            PrimaryPushSettingCard, PushSettingCard, MessageBox,
                             QConfig, ConfigItem, OptionsConfigItem, OptionsValidator, BoolValidator, qconfig)
 
 from auto_sync import find_offset, mix_and_export, estimate_analysis_duration, CorrelationLowConfidenceError
+from app_info import APP_DISPLAY_VERSION, APP_VERSION, GITHUB_HOME_URL, GITHUB_RELEASES_URL
+from diagnostics import build_diagnostic_report
+from update_checker import (
+    default_download_path,
+    download_file,
+    fetch_latest_release,
+    format_size,
+    is_newer_version,
+    sha256_file,
+)
 
 QQ_GROUP_ID = "1046879299"
 
@@ -86,6 +98,8 @@ class AppConfig(QConfig):
     )
     open_folder = ConfigItem("Settings", "OpenFolder", True, BoolValidator())
     stream_copy = ConfigItem("Settings", "StreamCopy", True, BoolValidator())
+    check_updates_on_startup = ConfigItem("Settings", "CheckUpdatesOnStartup", True, BoolValidator())
+    ignored_update_tag = ConfigItem("Settings", "IgnoredUpdateTag", "")
 
 cfg = AppConfig()
 
@@ -178,6 +192,50 @@ def parse_eta_seconds(eta):
         hours, minutes, seconds = parts
         return hours * 3600 + minutes * 60 + seconds
     return None
+
+
+class UpdateCheckWorker(QThread):
+    result_signal = pyqtSignal(bool, bool, object, str)
+
+    def __init__(self, local_manifest_path=None):
+        super().__init__()
+        self.local_manifest_path = local_manifest_path
+
+    def run(self):
+        try:
+            release = fetch_latest_release(timeout=4, local_manifest_path=self.local_manifest_path)
+            has_update = is_newer_version(release.version, APP_VERSION)
+            self.result_signal.emit(True, has_update, release, "")
+        except (urllib.error.URLError, TimeoutError) as e:
+            self.result_signal.emit(False, False, None, str(e))
+        except Exception as e:
+            self.result_signal.emit(False, False, None, str(e))
+
+
+class UpdateDownloadWorker(QThread):
+    progress_signal = pyqtSignal(int)
+    result_signal = pyqtSignal(bool, str, str)
+
+    def __init__(self, release):
+        super().__init__()
+        self.release = release
+
+    def run(self):
+        try:
+            if not self.release.setup_url:
+                raise RuntimeError(i18n.tr("update_no_installer"))
+
+            target_path = default_download_path(self.release)
+            download_file(self.release.setup_url, target_path, self.progress_signal.emit)
+
+            if self.release.sha256:
+                actual = sha256_file(target_path)
+                if actual != self.release.sha256.lower():
+                    raise RuntimeError(i18n.tr("update_checksum_failed"))
+
+            self.result_signal.emit(True, target_path, "")
+        except Exception as e:
+            self.result_signal.emit(False, "", str(e))
 
 
 class BaseMediaWorker(QThread):
@@ -661,7 +719,7 @@ class AboutInterface(ScrollArea):
         info_layout.setSpacing(5)
         name_lbl = SubtitleLabel("RhythmAlign")
         name_lbl.setStyleSheet("font-size: 20px; font-weight: bold;")
-        ver_lbl = BodyLabel(i18n.tr("about_ver"))
+        ver_lbl = BodyLabel(APP_DISPLAY_VERSION)
         ver_lbl.setStyleSheet("color: #a0a0a0;")
         info_layout.addWidget(name_lbl)
         info_layout.addWidget(ver_lbl)
@@ -686,7 +744,7 @@ class AboutInterface(ScrollArea):
         btn_qq = PushButton(FIF.CHAT, "QQ群")
         btn_donate = PushButton(FIF.HEART, "赞助")
 
-        btn_github.clicked.connect(lambda: QDesktopServices.openUrl(QUrl("https://github.com/Daozhu1007/RhythmAlign")))
+        btn_github.clicked.connect(lambda: QDesktopServices.openUrl(QUrl(GITHUB_HOME_URL)))
         btn_bilibili.clicked.connect(lambda: QDesktopServices.openUrl(QUrl("https://space.bilibili.com/477852567")))
         btn_qq.clicked.connect(self.copy_qq_group)
         btn_donate.clicked.connect(lambda: QDesktopServices.openUrl(QUrl("https://afdian.com/a/Limitime")))
@@ -833,6 +891,52 @@ class SettingInterface(ScrollArea):
         self.video_group.addSettingCard(self.bitrate_combo)
 
         self.layout.addWidget(self.video_group)
+
+        self.update_group = SettingCardGroup(i18n.tr("set_update"), self.view)
+
+        self.update_startup_switch = SwitchSettingCard(
+            icon=FIF.SYNC,
+            title=i18n.tr("set_update_auto"),
+            content=i18n.tr("set_update_auto_desc"),
+            configItem=cfg.check_updates_on_startup,
+            parent=self.update_group,
+        )
+
+        self.update_check_card = PrimaryPushSettingCard(
+            i18n.tr("btn_check_update"),
+            FIF.UPDATE,
+            i18n.tr("set_update_check"),
+            i18n.tr("set_update_check_desc", APP_DISPLAY_VERSION),
+            parent=self.update_group,
+        )
+        self.update_check_card.clicked.connect(self._on_check_update_clicked)
+
+        self.release_card = PushSettingCard(
+            i18n.tr("btn_open_release"),
+            FIF.LINK,
+            i18n.tr("set_update_release"),
+            i18n.tr("set_update_release_desc"),
+            parent=self.update_group,
+        )
+        self.release_card.clicked.connect(lambda: QDesktopServices.openUrl(QUrl(GITHUB_RELEASES_URL)))
+
+        self.update_group.addSettingCard(self.update_startup_switch)
+        self.update_group.addSettingCard(self.update_check_card)
+        self.update_group.addSettingCard(self.release_card)
+        self.layout.addWidget(self.update_group)
+
+        self.diagnostic_group = SettingCardGroup(i18n.tr("set_diagnostics"), self.view)
+        self.diagnostic_card = PushSettingCard(
+            i18n.tr("btn_copy_diagnostics"),
+            FIF.COPY,
+            i18n.tr("set_diagnostics_copy"),
+            i18n.tr("set_diagnostics_copy_desc"),
+            parent=self.diagnostic_group,
+        )
+        self.diagnostic_card.clicked.connect(self._on_copy_diagnostics_clicked)
+        self.diagnostic_group.addSettingCard(self.diagnostic_card)
+        self.layout.addWidget(self.diagnostic_group)
+
         self.layout.addStretch(1)
 
     def _on_lang_changed(self, config_item):
@@ -846,6 +950,23 @@ class SettingInterface(ScrollArea):
             parent=self,
             position=InfoBarPosition.TOP
         )
+
+    def _on_check_update_clicked(self):
+        window = self.window()
+        if hasattr(window, "check_for_updates"):
+            window.check_for_updates(silent=False)
+
+    def _on_copy_diagnostics_clicked(self):
+        window = self.window()
+        if hasattr(window, "copy_diagnostics"):
+            window.copy_diagnostics()
+
+    def set_update_status(self, text=None, busy=False):
+        if text:
+            self.update_check_card.contentLabel.setText(text)
+        else:
+            self.update_check_card.contentLabel.setText(i18n.tr("set_update_check_desc", APP_DISPLAY_VERSION))
+        self.update_check_card.button.setEnabled(not busy)
 
 
 # ================= 6. 框架组装 =================
@@ -888,6 +1009,8 @@ class RhythmAlignApp(FluentWindow):
         self.analyze_interface = AnalyzeInterface("Analyze", self)
         self.about_interface = AboutInterface(self)
         self.setting_interface = SettingInterface(self)
+        self.update_check_worker = None
+        self.update_download_worker = None
 
         self.addSubInterface(self.sync_interface, FIF.PLAY, i18n.tr("tab_sync"))
         self.addSubInterface(self.analyze_interface, FIF.SEARCH, i18n.tr("tab_analyze"))
@@ -895,6 +1018,216 @@ class RhythmAlignApp(FluentWindow):
         self.addSubInterface(self.setting_interface, FIF.SETTING, i18n.tr("tab_settings"), position=NavigationItemPosition.BOTTOM)
 
         self.navigationInterface.expand()
+
+        if cfg.check_updates_on_startup.value:
+            QTimer.singleShot(2500, lambda: self.check_for_updates(silent=True))
+
+    def check_for_updates(self, silent=False):
+        if self.update_check_worker and self.update_check_worker.isRunning():
+            if not silent:
+                InfoBar.info(
+                    title=i18n.tr("update_checking_title"),
+                    content=i18n.tr("update_checking_desc"),
+                    parent=self,
+                    position=InfoBarPosition.TOP,
+                    duration=2500,
+                )
+            return
+
+        if not silent:
+            self.setting_interface.set_update_status(i18n.tr("update_checking_desc"), busy=True)
+
+        self.update_check_worker = UpdateCheckWorker(resource_path("update.json"))
+        self.update_check_worker.result_signal.connect(
+            lambda ok, has_update, release, error, silent=silent:
+            self._on_update_check_finished(silent, ok, has_update, release, error)
+        )
+        self.update_check_worker.start()
+
+    def _on_update_check_finished(self, silent, ok, has_update, release, error):
+        self.update_check_worker = None
+
+        if not ok:
+            if not silent:
+                self.setting_interface.set_update_status(i18n.tr("update_check_failed_status"))
+                InfoBar.error(
+                    title=i18n.tr("update_check_failed_title"),
+                    content=error or i18n.tr("update_check_failed_desc"),
+                    parent=self,
+                    position=InfoBarPosition.TOP,
+                    duration=5000,
+                )
+            return
+
+        if not has_update:
+            if not silent:
+                if getattr(release, "source", "") == "bundled":
+                    self.setting_interface.set_update_status(i18n.tr("update_offline_status", APP_DISPLAY_VERSION))
+                    InfoBar.warning(
+                        title=i18n.tr("update_offline_title"),
+                        content=i18n.tr("update_offline_desc", APP_DISPLAY_VERSION),
+                        parent=self,
+                        position=InfoBarPosition.TOP,
+                        duration=5000,
+                    )
+                else:
+                    self.setting_interface.set_update_status(i18n.tr("update_latest_status", APP_DISPLAY_VERSION))
+                    InfoBar.success(
+                        title=i18n.tr("update_latest_title"),
+                        content=i18n.tr("update_latest_desc", APP_DISPLAY_VERSION),
+                        parent=self,
+                        position=InfoBarPosition.TOP,
+                        duration=3500,
+                    )
+            return
+
+        if silent and release.tag_name and release.tag_name == cfg.ignored_update_tag.value:
+            return
+
+        self.setting_interface.set_update_status(i18n.tr("update_found_status", release.tag_name or release.version))
+        self._show_update_available_dialog(release)
+
+    def _show_update_available_dialog(self, release):
+        size_text = format_size(release.setup_size)
+        installer_text = release.setup_name or i18n.tr("update_no_installer_short")
+        content = i18n.tr(
+            "update_available_desc",
+            APP_DISPLAY_VERSION,
+            release.tag_name or release.version,
+            installer_text,
+            size_text,
+        )
+        if not release.setup_url:
+            content += "\n\n" + i18n.tr("update_open_release_hint")
+
+        dialog = MessageBox(i18n.tr("update_available_title"), content, self)
+        dialog.yesButton.setText(i18n.tr("btn_download_install") if release.setup_url else i18n.tr("btn_open_release"))
+        dialog.cancelButton.setText(i18n.tr("btn_later"))
+
+        ignore_button = PushButton(i18n.tr("btn_ignore_version"), dialog.buttonGroup)
+        dialog.buttonLayout.insertWidget(1, ignore_button, 1, Qt.AlignmentFlag.AlignVCenter)
+        dialog.buttonGroup.setMinimumWidth(520)
+        dialog.widget.setFixedWidth(max(dialog.widget.width(), 620))
+
+        ignored = {"value": False}
+
+        def ignore_release():
+            ignored["value"] = True
+            if release.tag_name:
+                qconfig.set(cfg.ignored_update_tag, release.tag_name)
+            dialog.reject()
+            InfoBar.success(
+                title=i18n.tr("update_ignored_title"),
+                content=i18n.tr("update_ignored_desc", release.tag_name or release.version),
+                parent=self,
+                position=InfoBarPosition.TOP,
+                duration=3500,
+            )
+
+        ignore_button.clicked.connect(ignore_release)
+
+        if dialog.exec() and not ignored["value"]:
+            if release.setup_url:
+                self.start_update_download(release)
+            else:
+                QDesktopServices.openUrl(QUrl(release.html_url or GITHUB_RELEASES_URL))
+
+    def start_update_download(self, release):
+        if self.update_download_worker and self.update_download_worker.isRunning():
+            InfoBar.info(
+                title=i18n.tr("update_downloading_title"),
+                content=i18n.tr("update_downloading_desc"),
+                parent=self,
+                position=InfoBarPosition.TOP,
+                duration=2500,
+            )
+            return
+
+        qconfig.set(cfg.ignored_update_tag, "")
+        self.setting_interface.set_update_status(i18n.tr("update_downloading_progress", 0), busy=True)
+        InfoBar.info(
+            title=i18n.tr("update_downloading_title"),
+            content=i18n.tr("update_downloading_desc"),
+            parent=self,
+            position=InfoBarPosition.TOP,
+            duration=3000,
+        )
+
+        self.update_download_worker = UpdateDownloadWorker(release)
+        self.update_download_worker.progress_signal.connect(self._on_update_download_progress)
+        self.update_download_worker.result_signal.connect(self._on_update_download_finished)
+        self.update_download_worker.start()
+
+    def _on_update_download_progress(self, percent):
+        self.setting_interface.set_update_status(i18n.tr("update_downloading_progress", percent), busy=True)
+
+    def _on_update_download_finished(self, ok, installer_path, error):
+        self.update_download_worker = None
+        self.setting_interface.set_update_status(None, busy=False)
+
+        if not ok:
+            InfoBar.error(
+                title=i18n.tr("update_download_failed_title"),
+                content=error or i18n.tr("update_download_failed_desc"),
+                parent=self,
+                position=InfoBarPosition.TOP,
+                duration=6000,
+            )
+            return
+
+        dialog = MessageBox(
+            i18n.tr("update_ready_title"),
+            i18n.tr("update_ready_desc", os.path.basename(installer_path)),
+            self,
+        )
+        dialog.yesButton.setText(i18n.tr("btn_install_now"))
+        dialog.cancelButton.setText(i18n.tr("btn_later"))
+
+        if dialog.exec():
+            self._launch_installer(installer_path)
+
+    def _launch_installer(self, installer_path):
+        try:
+            subprocess.Popen([installer_path], cwd=os.path.dirname(installer_path), close_fds=True)
+            QApplication.quit()
+        except Exception as e:
+            InfoBar.error(
+                title=i18n.tr("update_install_failed_title"),
+                content=str(e),
+                parent=self,
+                position=InfoBarPosition.TOP,
+                duration=6000,
+            )
+
+    def copy_diagnostics(self):
+        report = build_diagnostic_report(
+            cfg,
+            _user_conf,
+            _BASE_DIR,
+            recent_logs=self._collect_recent_logs(),
+        )
+        QApplication.clipboard().setText(report)
+        InfoBar.success(
+            title=i18n.tr("diagnostics_copied_title"),
+            content=i18n.tr("diagnostics_copied_desc"),
+            parent=self,
+            position=InfoBarPosition.TOP,
+            duration=3500,
+        )
+
+    def _collect_recent_logs(self):
+        logs = {}
+        for name, interface in (
+            (i18n.tr("tab_sync"), self.sync_interface),
+            (i18n.tr("tab_analyze"), self.analyze_interface),
+        ):
+            log_box = getattr(interface, "log_box", None)
+            if not log_box:
+                continue
+            text = log_box.toPlainText().strip()
+            if text:
+                logs[name] = "\n".join(text.splitlines()[-80:])
+        return logs
 
 
 if __name__ == '__main__':

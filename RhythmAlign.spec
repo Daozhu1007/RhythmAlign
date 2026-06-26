@@ -1,12 +1,14 @@
 # -*- mode: python ; coding: utf-8 -*-
-from PyInstaller.utils.hooks import copy_metadata
+from PyInstaller.utils.hooks import collect_data_files, copy_metadata
 
 datas = [
     ('assets', 'assets'),
     ('locales', 'locales'),
     ('config.json', '.'),
+    ('update.json', '.'),
 ]
 datas += copy_metadata('imageio_ffmpeg')
+datas += collect_data_files('certifi')
 
 
 def _drop_dev_only_data(toc):
