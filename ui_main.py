@@ -5,6 +5,7 @@ import json
 import shutil
 import time
 import urllib.error
+from functools import partial
 
 if getattr(sys, 'frozen', False):
     _BASE_DIR = sys._MEIPASS
@@ -1039,8 +1040,7 @@ class RhythmAlignApp(FluentWindow):
 
         self.update_check_worker = UpdateCheckWorker(resource_path("update.json"))
         self.update_check_worker.result_signal.connect(
-            lambda ok, has_update, release, error, silent=silent:
-            self._on_update_check_finished(silent, ok, has_update, release, error)
+            partial(self._on_update_check_finished, silent)
         )
         self.update_check_worker.start()
 
