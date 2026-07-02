@@ -673,9 +673,9 @@ class SyncInterface(BaseMediaInterface):
 
     def setup_ui(self):
         top_layout = QHBoxLayout()
-        title = SubtitleLabel(i18n.tr("sync_title"))
-        title.setStyleSheet("font-size: 26px; font-weight: bold;")
-        top_layout.addWidget(title)
+        self.title_label = SubtitleLabel(i18n.tr("sync_title"))
+        self._set_title_style()
+        top_layout.addWidget(self.title_label)
         top_layout.addStretch(1)
 
         self.btn_start = PushButton(FIF.PLAY, i18n.tr("btn_export"))
@@ -722,6 +722,14 @@ class SyncInterface(BaseMediaInterface):
         self.btn_vid.clicked.connect(lambda: self.select_file(self.video_input, i18n.tr("filter_video")))
         self.btn_mus.clicked.connect(lambda: self.select_file(self.music_input, i18n.tr("filter_audio")))
         self.btn_start.clicked.connect(self.start_task)
+
+    def _set_title_style(self):
+        self.title_label.setStyleSheet(color_style("font-size: 26px; font-weight: bold;", "text"))
+
+    def apply_theme_styles(self):
+        super().apply_theme_styles()
+        if hasattr(self, "title_label"):
+            self._set_title_style()
 
     def create_slider_row(self, layout, name, min_val, max_val, default):
         row = QHBoxLayout()
@@ -792,9 +800,9 @@ class AnalyzeInterface(BaseMediaInterface):
 
     def setup_ui(self):
         top_layout = QHBoxLayout()
-        title = SubtitleLabel(i18n.tr("tab_analyze"))
-        title.setStyleSheet("font-size: 26px; font-weight: bold;")
-        top_layout.addWidget(title)
+        self.title_label = SubtitleLabel(i18n.tr("tab_analyze"))
+        self._set_title_style()
+        top_layout.addWidget(self.title_label)
         top_layout.addStretch(1)
 
         self.btn_analyze = PushButton(FIF.SEARCH, i18n.tr("btn_calc"))
@@ -844,6 +852,9 @@ class AnalyzeInterface(BaseMediaInterface):
         self.btn_vid.clicked.connect(lambda: self.select_file(self.video_input, i18n.tr("filter_video")))
         self.btn_mus.clicked.connect(lambda: self.select_file(self.music_input, i18n.tr("filter_audio")))
 
+    def _set_title_style(self):
+        self.title_label.setStyleSheet(color_style("font-size: 26px; font-weight: bold;", "text"))
+
     def _set_result_display_style(self, role):
         self.result_display_role = role
         self.result_display.setStyleSheet(color_style(
@@ -863,6 +874,8 @@ class AnalyzeInterface(BaseMediaInterface):
 
     def apply_theme_styles(self):
         super().apply_theme_styles()
+        if hasattr(self, "title_label"):
+            self._set_title_style()
         if hasattr(self, "result_display"):
             self._set_result_display_style(getattr(self, "result_display_role", "accent"))
         if hasattr(self, "result_hint"):
@@ -940,10 +953,10 @@ class AboutInterface(ScrollArea):
 
         info_layout = QVBoxLayout()
         info_layout.setSpacing(5)
-        name_lbl = SubtitleLabel("RhythmAlign")
-        name_lbl.setStyleSheet("font-size: 20px; font-weight: bold;")
+        self.name_lbl = SubtitleLabel("RhythmAlign")
+        self.name_lbl.setStyleSheet(color_style("font-size: 20px; font-weight: bold;", "text"))
         self.ver_lbl = BodyLabel(APP_DISPLAY_VERSION)
-        info_layout.addWidget(name_lbl)
+        info_layout.addWidget(self.name_lbl)
         info_layout.addWidget(self.ver_lbl)
         info_layout.addStretch(1)
         top_layout.addLayout(info_layout)
@@ -977,31 +990,31 @@ class AboutInterface(ScrollArea):
         top_layout.addWidget(btn_donate)
         self.layout.addWidget(top_card)
 
-        author_title = SubtitleLabel(i18n.tr("about_author_title"))
-        author_title.setStyleSheet("font-size: 22px; font-weight: bold; margin-top: 10px;")
-        self.layout.addWidget(author_title)
+        self.author_title = SubtitleLabel(i18n.tr("about_author_title"))
+        self.author_title.setStyleSheet(color_style("font-size: 22px; font-weight: bold; margin-top: 10px;", "text"))
+        self.layout.addWidget(self.author_title)
 
         author_card = CardWidget()
         author_layout = QVBoxLayout(author_card)
         author_layout.setContentsMargins(20, 20, 20, 20)
         author_layout.setSpacing(10)
 
-        intro_lbl = BodyLabel(i18n.tr("about_author"))
-        intro_lbl.setStyleSheet("font-size: 16px; font-weight: bold;")
+        self.intro_lbl = BodyLabel(i18n.tr("about_author"))
+        self.intro_lbl.setStyleSheet(color_style("font-size: 16px; font-weight: bold;", "text"))
         self.desc_lbl = BodyLabel(i18n.tr("about_desc"))
         email_lbl = BodyLabel(i18n.tr("about_email"))
         qq_lbl = BodyLabel(i18n.tr("about_qq"))
 
-        author_layout.addWidget(intro_lbl)
+        author_layout.addWidget(self.intro_lbl)
         author_layout.addWidget(self.desc_lbl)
         author_layout.addSpacing(10)
         author_layout.addWidget(email_lbl)
         author_layout.addWidget(qq_lbl)
         self.layout.addWidget(author_card)
 
-        copyright_title = SubtitleLabel(i18n.tr("about_cr_title"))
-        copyright_title.setStyleSheet("font-size: 18px; font-weight: bold; margin-top: 10px;")
-        self.layout.addWidget(copyright_title)
+        self.copyright_title = SubtitleLabel(i18n.tr("about_cr_title"))
+        self.copyright_title.setStyleSheet(color_style("font-size: 18px; font-weight: bold; margin-top: 10px;", "text"))
+        self.layout.addWidget(self.copyright_title)
 
         copyright_card = CardWidget()
         copyright_layout = QVBoxLayout(copyright_card)
@@ -1040,6 +1053,10 @@ class AboutInterface(ScrollArea):
 
     def apply_theme_styles(self):
         apply_scroll_area_theme(self, self.view)
+        self.name_lbl.setStyleSheet(color_style("font-size: 20px; font-weight: bold;", "text"))
+        self.author_title.setStyleSheet(color_style("font-size: 22px; font-weight: bold; margin-top: 10px;", "text"))
+        self.intro_lbl.setStyleSheet(color_style("font-size: 16px; font-weight: bold;", "text"))
+        self.copyright_title.setStyleSheet(color_style("font-size: 18px; font-weight: bold; margin-top: 10px;", "text"))
         self.ver_lbl.setStyleSheet(color_style("", "muted"))
         self.desc_lbl.setStyleSheet(color_style("font-size: 14px;", "muted"))
         self.ack3.setStyleSheet(color_style("font-size: 12px;", "muted"))
@@ -1070,9 +1087,9 @@ class SettingInterface(ScrollArea):
         self.setWidgetResizable(True)
         self.apply_theme_styles()
 
-        title = SubtitleLabel(i18n.tr("tab_settings"))
-        title.setStyleSheet("font-size: 26px; font-weight: bold; margin-bottom: 15px;")
-        self.layout.addWidget(title)
+        self.title_label = SubtitleLabel(i18n.tr("tab_settings"))
+        self._set_title_style()
+        self.layout.addWidget(self.title_label)
 
         #分组一：常规设置 (General)
         self.general_group = SettingCardGroup(i18n.tr("set_general"), self.view)
@@ -1205,6 +1222,11 @@ class SettingInterface(ScrollArea):
 
     def apply_theme_styles(self):
         apply_scroll_area_theme(self, self.view)
+        if hasattr(self, "title_label"):
+            self._set_title_style()
+
+    def _set_title_style(self):
+        self.title_label.setStyleSheet(color_style("font-size: 26px; font-weight: bold; margin-bottom: 15px;", "text"))
 
     def set_update_status(self, text=None, busy=False):
         if text:
