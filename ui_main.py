@@ -55,7 +55,7 @@ def configure_windows_app_user_model_id():
 
 configure_windows_app_user_model_id()
 
-from PyQt6.QtGui import QPixmap, QIcon, QDesktopServices, QColor, QPalette
+from PyQt6.QtGui import QPixmap, QIcon, QDesktopServices, QColor, QPalette, QFont
 from PyQt6.QtCore import Qt, QThread, pyqtSignal, QUrl, QTimer
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QFileDialog, QLabel
 from qfluentwidgets import (FluentWindow, NavigationItemPosition, SubtitleLabel, BodyLabel, LineEdit, PushButton,
@@ -168,6 +168,12 @@ def load_app_icon():
     if icon.isNull():
         icon = QIcon(resource_path("assets/logo.png"))
     return icon
+
+
+def log_text_font():
+    font = QFont("Consolas")
+    font.setStyleHint(QFont.StyleHint.Monospace)
+    return font
 
 
 def media_kind(path):
@@ -710,7 +716,7 @@ class SyncInterface(BaseMediaInterface):
 
         self.log_box = TextEdit()
         self.log_box.setReadOnly(True)
-        self.log_box.setStyleSheet("font-family: Consolas;")
+        self.log_box.setFont(log_text_font())
         self.layout.addWidget(self.log_box, 1)
 
         self.btn_vid.clicked.connect(lambda: self.select_file(self.video_input, i18n.tr("filter_video")))
@@ -832,7 +838,7 @@ class AnalyzeInterface(BaseMediaInterface):
 
         self.log_box = TextEdit()
         self.log_box.setReadOnly(True)
-        self.log_box.setStyleSheet("font-family: Consolas;")
+        self.log_box.setFont(log_text_font())
         self.layout.addWidget(self.log_box, 1)
 
         self.btn_vid.clicked.connect(lambda: self.select_file(self.video_input, i18n.tr("filter_video")))
