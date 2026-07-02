@@ -42,8 +42,64 @@ from app_info import (
 )
 
 
+def current_executable_path():
+    return sys.executable if getattr(sys, "frozen", False) else os.path.abspath(__file__)
+
+
+def windows_shortcut_candidates():
+    if os.name != "nt":
+        return []
+
+    candidates = []
+    start_menu_suffixes = (
+        os.path.join("Microsoft", "Windows", "Start Menu", "Programs", APP_NAME, f"{APP_NAME}.lnk"),
+        os.path.join("Microsoft", "Windows", "Start Menu", "Programs", f"{APP_NAME}.lnk"),
+    )
+    for base in (os.environ.get("APPDATA"), os.environ.get("PROGRAMDATA")):
+        if base:
+            candidates.extend(os.path.join(base, suffix) for suffix in start_menu_suffixes)
+
+    user_profile = os.environ.get("USERPROFILE")
+    public_dir = os.environ.get("PUBLIC")
+    for base in (user_profile, public_dir):
+        if base:
+            candidates.append(os.path.join(base, "Desktop", f"{APP_NAME}.lnk"))
+
+    return candidates
+
+
+def shortcut_target_path(shortcut_path):
+    try:
+        from win32com.client import Dispatch
+        shell = Dispatch("WScript.Shell")
+        return shell.CreateShortcut(shortcut_path).TargetPath
+    except Exception:
+        return ""
+
+
+def has_shortcut_for_current_executable():
+    current_path = os.path.normcase(os.path.abspath(current_executable_path()))
+    for shortcut_path in windows_shortcut_candidates():
+        if not os.path.exists(shortcut_path):
+            continue
+        target_path = shortcut_target_path(shortcut_path)
+        if target_path and os.path.normcase(os.path.abspath(target_path)) == current_path:
+            return True
+    return False
+
+
+def should_set_windows_app_user_model_id():
+    if os.name != "nt":
+        return False
+    if not getattr(sys, "frozen", False):
+        return False
+    return has_shortcut_for_current_executable()
+
+
 def configure_windows_app_user_model_id():
     if os.name != "nt":
+        return
+    if not should_set_windows_app_user_model_id():
         return
 
     try:
