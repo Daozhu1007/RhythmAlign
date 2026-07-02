@@ -37,35 +37,22 @@ Instead of dragging waveforms by eye, you select:
 
 RhythmAlign extracts both audio tracks, estimates the offset in musical-feature space, and exports a new MP4. By default it stream-copies the video track, so the image quality is preserved and only the audio is rebuilt.
 
-## What's New in v1.1.2
+## Download
 
-v1.1.2 focuses on UI polish and Windows desktop integration.
+For regular use, download the latest Windows build from [GitHub Releases](https://github.com/Daozhu1007/RhythmAlign/releases).
 
-- **Light/dark theme support:** RhythmAlign can follow the Windows theme or be set to light/dark manually.
-- **Drag-and-drop imports:** drop video and audio files directly onto the sync or analysis pages.
-- **Taskbar icon reliability:** Windows AppUserModelID and installer shortcuts now use the same app identity and icon.
+- **Setup installer:** recommended for normal installation, Start menu shortcuts, and stable Windows taskbar identity.
+- **Portable ZIP:** unzip anywhere and run `RhythmAlign.exe` directly.
 
-## What's New in v1.1.1
+This README describes the current app. Per-version change logs are kept in the Release Notes so the front page stays readable.
 
-v1.1.1 focuses on release quality and maintenance workflow around the new alignment engine.
+## Current Highlights
 
-- **Built-in update check:** the Settings page can check the latest GitHub release and download the installer with SHA256 verification.
-- **Startup update check:** RhythmAlign can check for updates in the background after launch and only prompts when a newer version exists.
-- **Diagnostics export:** a one-click diagnostic report copies runtime, FFmpeg, settings, and recent logs for easier troubleshooting.
-- **Packaging reliability:** packaged builds now include a bundled offline update manifest and `certifi` CA certificates for more stable HTTPS checks.
-
-## What's New in v1.1.0
-
-v1.1.0 is a major alignment-engine update focused on rhythm game charts with repeated sections.
-
-The old fallback could be fooled by repeated beat patterns: a nearby phrase might look rhythmically correct but still be one beat or one section late. The new engine is much stricter about that class of failure.
-
-- **Hybrid alignment:** pitch-change matching is now the primary signal, with a small onset refinement.
-- **Chroma delta matching:** RhythmAlign compares changes in Chroma CENS over time instead of raw chroma blocks, reducing false matches from long repeated passages.
-- **Ambiguity rejection:** onset fallback now checks whether the best peak is clearly stronger than the next independent candidate before trusting it.
-- **Better diagnostics:** `diagnose_offset.py` reports an independent peak ratio, making repeated-pattern failures easier to spot.
-
-This is the update that fixes the "looks aligned, but actually one beat late" failure mode seen in difficult handcam recordings.
+- Light/dark UI with optional Windows theme following.
+- Drag-and-drop video and audio import on both sync and analysis pages.
+- Hybrid Chroma CENS delta + onset alignment for noisy handcam recordings and repeated rhythm-game chart sections.
+- Video stream copy by default, preserving image quality while rebuilding audio.
+- Analyze-only mode, diagnostic reports, and built-in update checks for easier troubleshooting.
 
 ## How Alignment Works
 
@@ -116,13 +103,17 @@ Positive offset means the replacement music is delayed. Negative offset means th
 **Workflow**
 
 - One-screen sync workbench
+- Drag-and-drop video/audio import
 - Quick volume presets for arcade, mobile, and desktop recordings
 - Bilingual UI: English and Simplified Chinese
+- Light/dark theme support with optional Windows theme following
 - Startup/manual update checks through the Settings page, with one-click installer download and SHA256 verification
 - Copyable diagnostic report for troubleshooting packaged builds and difficult file pairs
 - CLI diagnostic tool for difficult file pairs
 
-## Quick Start
+## Run from Source
+
+Packaged builds do not require Python. Use these steps when you want to run the source checkout directly or work on the project.
 
 Requirements:
 
@@ -208,7 +199,7 @@ RhythmAlign/
 
 ## Build Notes
 
-The repository includes packaging files for PyInstaller and Inno Setup. The normal release flow is documented in [RELEASE.md](RELEASE.md).
+The repository includes packaging files for PyInstaller and Inno Setup. The maintainer release flow, including installer and portable ZIP creation, is documented in [RELEASE.md](RELEASE.md).
 
 ## Copyright and Disclaimer
 
