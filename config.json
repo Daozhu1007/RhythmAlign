@@ -6,6 +6,7 @@
         "Language": "zh_CN",
         "OpenFolder": true,
         "StreamCopy": true,
+        "ThemeAutoMigrated": true,
         "UseGPU": false
     },
     "QFluentWidgets": {
@@ -15,6 +16,6 @@
             "PingFang SC"
         ],
         "ThemeColor": "#ff009faa",
-        "ThemeMode": "Dark"
+        "ThemeMode": "Auto"
     }
 }

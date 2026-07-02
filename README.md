@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-v1.1.1-blue" alt="Version">
+  <img src="https://img.shields.io/badge/version-v1.1.2-blue" alt="Version">
   <img src="https://img.shields.io/badge/platform-Windows%2010%2F11-blue" alt="Platform">
   <img src="https://img.shields.io/badge/python-3.9%2B-blue" alt="Python">
   <img src="https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-lightgrey" alt="License">
@@ -36,6 +36,14 @@ Instead of dragging waveforms by eye, you select:
 3. an output path.
 
 RhythmAlign extracts both audio tracks, estimates the offset in musical-feature space, and exports a new MP4. By default it stream-copies the video track, so the image quality is preserved and only the audio is rebuilt.
+
+## What's New in v1.1.2
+
+v1.1.2 focuses on UI polish and Windows desktop integration.
+
+- **Light/dark theme support:** RhythmAlign can follow the Windows theme or be set to light/dark manually.
+- **Drag-and-drop imports:** drop video and audio files directly onto the sync or analysis pages.
+- **Taskbar icon reliability:** Windows AppUserModelID and installer shortcuts now use the same app identity and icon.
 
 ## What's New in v1.1.1
 
@@ -172,7 +180,7 @@ The diagnostic output includes audio duration, RMS/peak levels, Chroma variance,
 
 ## Reliability Notes
 
-RhythmAlign v1.1.1 is much more robust against repeated beat patterns, but it is still a fixed-offset aligner. It can still struggle when:
+RhythmAlign v1.1.2 is much more robust against repeated beat patterns, but it is still a fixed-offset aligner. It can still struggle when:
 
 - the reference music is not the same version as the video audio,
 - the video was cut in the middle,

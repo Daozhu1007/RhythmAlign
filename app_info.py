@@ -1,6 +1,8 @@
 APP_NAME = "RhythmAlign"
-APP_VERSION = "1.1.1"
+APP_VERSION = "1.1.2"
 APP_DISPLAY_VERSION = f"v{APP_VERSION}"
+APP_PUBLISHER = "Limitime"
+WINDOWS_APP_USER_MODEL_ID = "Limitime.RhythmAlign"
 
 GITHUB_REPO = "Daozhu1007/RhythmAlign"
 GITHUB_HOME_URL = f"https://github.com/{GITHUB_REPO}"

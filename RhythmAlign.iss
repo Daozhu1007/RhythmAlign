@@ -1,8 +1,9 @@
 #define MyAppName "RhythmAlign"
-#define MyAppVersion "1.1.1"
+#define MyAppVersion "1.1.2"
 #define MyAppPublisher "Limitime"
 #define MyAppURL "https://github.com/Daozhu1007/RhythmAlign"
 #define MyAppExeName "RhythmAlign.exe"
+#define MyAppUserModelID "Limitime.RhythmAlign"
 
 [Setup]
 AppId={{B8F4A3D2-9C1E-4E7F-AE5B-6D2F8C9A1E3B}
@@ -16,7 +17,7 @@ DefaultDirName={autopf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
 OutputDir=dist
-OutputBaseFilename=RhythmAlign_v1.1.1_Setup
+OutputBaseFilename=RhythmAlign_v1.1.2_Setup
 SetupIconFile=assets\logo.ico
 Compression=lzma2
 SolidCompression=yes
@@ -36,8 +37,8 @@ Source: "dist\RhythmAlign\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversi
 Source: "dist\RhythmAlign\_internal\*"; DestDir: "{app}\_internal"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
-Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon; IconFilename: "{app}\{#MyAppExeName}"
+Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\_internal\assets\logo.ico"; AppUserModelID: "{#MyAppUserModelID}"
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon; IconFilename: "{app}\_internal\assets\logo.ico"; AppUserModelID: "{#MyAppUserModelID}"
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent

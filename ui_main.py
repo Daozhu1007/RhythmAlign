@@ -30,7 +30,32 @@ def _user_config_path():
     dir_path = os.path.join(base, "RhythmAlign")
     return os.path.join(dir_path, "config.json")
 
-from PyQt6.QtGui import QPixmap, QIcon, QDesktopServices
+
+from app_info import (
+    APP_DISPLAY_VERSION,
+    APP_NAME,
+    APP_PUBLISHER,
+    APP_VERSION,
+    GITHUB_HOME_URL,
+    GITHUB_RELEASES_URL,
+    WINDOWS_APP_USER_MODEL_ID,
+)
+
+
+def configure_windows_app_user_model_id():
+    if os.name != "nt":
+        return
+
+    try:
+        import ctypes
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(WINDOWS_APP_USER_MODEL_ID)
+    except Exception:
+        pass
+
+
+configure_windows_app_user_model_id()
+
+from PyQt6.QtGui import QPixmap, QIcon, QDesktopServices, QColor, QPalette
 from PyQt6.QtCore import Qt, QThread, pyqtSignal, QUrl, QTimer
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QFileDialog, QLabel
 from qfluentwidgets import (FluentWindow, NavigationItemPosition, SubtitleLabel, BodyLabel, LineEdit, PushButton,
@@ -38,10 +63,10 @@ from qfluentwidgets import (FluentWindow, NavigationItemPosition, SubtitleLabel,
                             FluentIcon as FIF, setTheme, Theme, SwitchSettingCard,
                             OptionsSettingCard, SettingCardGroup, ScrollArea, InfoBar, InfoBarPosition,
                             PrimaryPushSettingCard, PushSettingCard, MessageBox,
-                            QConfig, ConfigItem, OptionsConfigItem, OptionsValidator, BoolValidator, qconfig)
+                            QConfig, ConfigItem, OptionsConfigItem, OptionsValidator, BoolValidator, qconfig,
+                            SystemThemeListener, isDarkTheme)
 
 from auto_sync import find_offset, mix_and_export, estimate_analysis_duration, CorrelationLowConfidenceError
-from app_info import APP_DISPLAY_VERSION, APP_VERSION, GITHUB_HOME_URL, GITHUB_RELEASES_URL
 from diagnostics import build_diagnostic_report
 from update_checker import (
     default_download_path,
@@ -53,6 +78,13 @@ from update_checker import (
 )
 
 QQ_GROUP_ID = "1046879299"
+VIDEO_EXTENSIONS = {".mp4", ".mkv", ".mov", ".avi", ".flv", ".wmv", ".webm", ".ts"}
+AUDIO_EXTENSIONS = {".mp3", ".wav", ".flac", ".m4a", ".aac", ".ogg", ".wma"}
+THEME_TEXT_KEYS = {
+    Theme.LIGHT: "theme_light",
+    Theme.DARK: "theme_dark",
+    Theme.AUTO: "theme_auto",
+}
 
 # ================= 0. 极简国际化 (I18n) 引擎 =================
 class I18nManager:
@@ -101,6 +133,7 @@ class AppConfig(QConfig):
     stream_copy = ConfigItem("Settings", "StreamCopy", True, BoolValidator())
     check_updates_on_startup = ConfigItem("Settings", "CheckUpdatesOnStartup", True, BoolValidator())
     ignored_update_tag = ConfigItem("Settings", "IgnoredUpdateTag", "")
+    theme_auto_migrated = ConfigItem("Settings", "ThemeAutoMigrated", False, BoolValidator())
 
 cfg = AppConfig()
 
@@ -112,7 +145,10 @@ if not os.path.exists(_user_conf):
         shutil.copy2(default_conf, _user_conf)
 
 qconfig.load(_user_conf, cfg)
-qconfig.set(qconfig.themeMode, Theme.DARK)
+if not cfg.theme_auto_migrated.value:
+    if qconfig.themeMode.value == Theme.DARK:
+        qconfig.set(qconfig.themeMode, Theme.AUTO)
+    qconfig.set(cfg.theme_auto_migrated, True)
 
 # 启动全局翻译官
 i18n = I18nManager(cfg.language.value)
@@ -125,6 +161,78 @@ def scale_pixmap_to_height(pixmap, target_height, widget):
     scaled = pixmap.scaledToHeight(int(target_height * dpr), Qt.TransformationMode.SmoothTransformation)
     scaled.setDevicePixelRatio(dpr)
     return scaled
+
+
+def load_app_icon():
+    icon = QIcon(resource_path("assets/logo.ico"))
+    if icon.isNull():
+        icon = QIcon(resource_path("assets/logo.png"))
+    return icon
+
+
+def media_kind(path):
+    ext = os.path.splitext(path)[1].lower()
+    if ext in VIDEO_EXTENSIONS:
+        return "video"
+    if ext in AUDIO_EXTENSIONS:
+        return "audio"
+    return None
+
+
+def event_file_paths(event):
+    mime = event.mimeData()
+    if not mime.hasUrls():
+        return []
+    return [url.toLocalFile() for url in mime.urls() if url.isLocalFile()]
+
+
+def theme_color(role):
+    colors = {
+        "text": ("#ffffff", "#111827"),
+        "muted": ("#a0a0a0", "#5f6b7a"),
+        "accent": ("#60cdff", "#007f87"),
+        "success": ("#2ecc71", "#107c41"),
+        "danger": ("#ff6b6b", "#d13438"),
+        "page": ("#202020", "#f0f4f9"),
+        "stacked": ("#202020", "#f7f9fc"),
+    }
+    dark_color, light_color = colors[role]
+    return dark_color if isDarkTheme() else light_color
+
+
+def theme_value(dark_value, light_value):
+    return dark_value if isDarkTheme() else light_value
+
+
+def color_style(base_style, role):
+    return f"{base_style} color: {theme_color(role)};"
+
+
+def apply_scroll_area_theme(scroll_area, view):
+    area_name = scroll_area.objectName() or scroll_area.__class__.__name__
+    viewport = scroll_area.viewport()
+    bg = theme_color("page")
+
+    for widget in (view, viewport):
+        palette = widget.palette()
+        color = QColor(bg)
+        palette.setColor(QPalette.ColorRole.Window, color)
+        palette.setColor(QPalette.ColorRole.Base, color)
+        widget.setPalette(palette)
+        widget.setAutoFillBackground(True)
+        widget.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, False)
+
+    scroll_area.setStyleSheet(f"""
+        QScrollArea#{area_name} {{
+            background: transparent;
+            border: none;
+        }}
+        QScrollArea#{area_name} QLabel {{
+            background: transparent;
+        }}
+    """)
+    viewport.setStyleSheet("")
+    view.setStyleSheet("")
 
 
 # ================= 1.6 品牌标识 =================
@@ -146,11 +254,16 @@ class BrandingWidget(QWidget):
             self.icon_label.setPixmap(scale_pixmap_to_height(pixmap, 20, self))
 
         self.title_label = QLabel(i18n.tr("app_title"), self)
-        self.title_label.setStyleSheet(
-            "font-size: 14px; font-weight: normal; color: white; background: transparent; margin-left: 8px;")
+        self.update_theme_styles()
 
         self.layout.addWidget(self.icon_label)
         self.layout.addWidget(self.title_label)
+
+    def update_theme_styles(self):
+        self.title_label.setStyleSheet(color_style(
+            "font-size: 14px; font-weight: normal; background: transparent; margin-left: 8px;",
+            "text",
+        ))
 
     def setSelected(self, selected: bool): pass
     def setCompacted(self, compacted: bool): pass
@@ -366,17 +479,92 @@ class AnalyzeWorker(BaseMediaWorker):
 class BaseMediaInterface(ScrollArea):
     """SyncInterface 和 AnalyzeInterface 的共享基类，封装重复的 UI 构建逻辑。"""
 
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+        self.setAcceptDrops(True)
+
+    def apply_theme_styles(self):
+        if hasattr(self, "view"):
+            apply_scroll_area_theme(self, self.view)
+
     def create_file_row(self, layout, label_text):
         row = QHBoxLayout()
         row.addWidget(BodyLabel(label_text))
         input_box = LineEdit()
         input_box.setPlaceholderText(i18n.tr("placeholder_file"))
         input_box.setReadOnly(True)
+        input_box.setAcceptDrops(False)
         btn = PushButton(i18n.tr("btn_browse"))
         row.addWidget(input_box, 1)
         row.addWidget(btn)
         layout.addLayout(row)
         return input_box, btn
+
+    def can_accept_dropped_media(self, paths):
+        return any(os.path.isfile(path) and media_kind(path) for path in paths)
+
+    def dragEnterEvent(self, event):
+        if self.can_accept_dropped_media(event_file_paths(event)):
+            event.acceptProposedAction()
+        else:
+            event.ignore()
+
+    def dragMoveEvent(self, event):
+        self.dragEnterEvent(event)
+
+    def dropEvent(self, event):
+        if self.apply_dropped_media(event_file_paths(event)):
+            event.acceptProposedAction()
+        else:
+            event.ignore()
+
+    def apply_dropped_media(self, paths, show_feedback=True):
+        if not hasattr(self, "video_input") or not hasattr(self, "music_input"):
+            return False
+
+        dropped_video = None
+        dropped_audio = None
+        for path in paths:
+            if not os.path.isfile(path):
+                continue
+
+            kind = media_kind(path)
+            if kind == "video" and dropped_video is None:
+                dropped_video = path
+            elif kind == "audio" and dropped_audio is None:
+                dropped_audio = path
+
+        updates = []
+        if dropped_video:
+            self.video_input.setText(dropped_video)
+            label = i18n.tr("lbl_video").rstrip(":：")
+            updates.append(f"{label}: {os.path.basename(dropped_video)}")
+
+        if dropped_audio:
+            self.music_input.setText(dropped_audio)
+            label = i18n.tr("lbl_music").rstrip(":：")
+            updates.append(f"{label}: {os.path.basename(dropped_audio)}")
+
+        if not updates:
+            if show_feedback:
+                InfoBar.warning(
+                    title=i18n.tr("msg_error"),
+                    content=i18n.tr("drop_files_unsupported"),
+                    parent=self,
+                    position=InfoBarPosition.TOP,
+                    duration=3000,
+                )
+            return False
+
+        if show_feedback:
+            InfoBar.success(
+                title=i18n.tr("msg_success"),
+                content=i18n.tr("drop_files_ready", "; ".join(updates)),
+                parent=self,
+                position=InfoBarPosition.TOP,
+                duration=2500,
+            )
+        return True
 
     def select_file(self, line_edit, filt):
         path, _ = QFileDialog.getOpenFileName(self, i18n.tr("dialog_open"), "", filt)
@@ -474,7 +662,7 @@ class SyncInterface(BaseMediaInterface):
         self.layout.setSpacing(12)
         self.setWidget(self.view)
         self.setWidgetResizable(True)
-        self.setStyleSheet("QScrollArea{background: transparent; border: none}")
+        self.apply_theme_styles()
         self.setup_ui()
 
     def setup_ui(self):
@@ -593,7 +781,7 @@ class AnalyzeInterface(BaseMediaInterface):
         self.layout.setSpacing(12)
         self.setWidget(self.view)
         self.setWidgetResizable(True)
-        self.setStyleSheet("QScrollArea{background: transparent; border: none}")
+        self.apply_theme_styles()
         self.setup_ui()
 
     def setup_ui(self):
@@ -629,13 +817,13 @@ class AnalyzeInterface(BaseMediaInterface):
         result_layout.addWidget(self.result_title)
 
         self.result_display = TitleLabel(i18n.tr("res_placeholder"))
-        self.result_display.setStyleSheet("font-size: 60px; font-weight: bold; color: #60cdff; margin: 20px 0;")
+        self._set_result_display_style("accent")
         self.result_display.setAlignment(Qt.AlignmentFlag.AlignCenter)
         result_layout.addWidget(self.result_display)
 
         self.result_hint = BodyLabel(i18n.tr("res_hint"))
         self.result_hint.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.result_hint.setStyleSheet("color: #a0a0a0; font-size: 14px;")
+        self._set_result_hint_style("muted")
         result_layout.addWidget(self.result_hint)
 
         self.layout.addWidget(self.result_card)
@@ -650,6 +838,34 @@ class AnalyzeInterface(BaseMediaInterface):
         self.btn_vid.clicked.connect(lambda: self.select_file(self.video_input, i18n.tr("filter_video")))
         self.btn_mus.clicked.connect(lambda: self.select_file(self.music_input, i18n.tr("filter_audio")))
 
+    def _set_result_display_style(self, role):
+        self.result_display_role = role
+        self.result_display.setStyleSheet(color_style(
+            "font-size: 60px; font-weight: bold; margin: 20px 0;",
+            role,
+        ))
+
+    def _set_result_hint_style(self, role, size=14, bold=False):
+        self.result_hint_role = role
+        self.result_hint_size = size
+        self.result_hint_bold = bold
+        weight = " font-weight: bold;" if bold else ""
+        self.result_hint.setStyleSheet(color_style(
+            f"font-size: {size}px;{weight}",
+            role,
+        ))
+
+    def apply_theme_styles(self):
+        super().apply_theme_styles()
+        if hasattr(self, "result_display"):
+            self._set_result_display_style(getattr(self, "result_display_role", "accent"))
+        if hasattr(self, "result_hint"):
+            self._set_result_hint_style(
+                getattr(self, "result_hint_role", "muted"),
+                getattr(self, "result_hint_size", 14),
+                getattr(self, "result_hint_bold", False),
+            )
+
     def start_analysis(self):
         v_path, m_path = self.video_input.text().strip(), self.music_input.text().strip()
         if not os.path.isfile(v_path) or not os.path.isfile(m_path):
@@ -658,7 +874,7 @@ class AnalyzeInterface(BaseMediaInterface):
 
         self.btn_analyze.setEnabled(False)
         self.result_display.setText(i18n.tr("status_calc"))
-        self.result_display.setStyleSheet("font-size: 60px; font-weight: bold; color: #a0a0a0; margin: 20px 0;")
+        self._set_result_display_style("muted")
         self.result_hint.setText(i18n.tr("hint_analyzing_wave"))
 
         self.worker = AnalyzeWorker(v_path, m_path)
@@ -672,7 +888,7 @@ class AnalyzeInterface(BaseMediaInterface):
         if success:
             sign = "+" if offset > 0 else ""
             self.result_display.setText(f"{sign}{offset:.4f} " + ("秒" if i18n.locale == "zh_CN" else "s"))
-            self.result_display.setStyleSheet("font-size: 60px; font-weight: bold; color: #60cdff; margin: 20px 0;")
+            self._set_result_display_style("accent")
 
             if offset > 0:
                 hint_text = i18n.tr("hint_video_early", abs(offset))
@@ -682,13 +898,13 @@ class AnalyzeInterface(BaseMediaInterface):
                 hint_text = i18n.tr("hint_perfect")
 
             self.result_hint.setText(hint_text)
-            self.result_hint.setStyleSheet("color: #2ecc71; font-size: 15px; font-weight: bold;")
+            self._set_result_hint_style("success", size=15, bold=True)
             InfoBar.success(title=i18n.tr("analyze_done"), content=i18n.tr("msg_analyze_ok"), parent=self, position=InfoBarPosition.TOP)
         else:
             self.result_display.setText(i18n.tr("analyze_failed"))
-            self.result_display.setStyleSheet("font-size: 60px; font-weight: bold; color: #ff5252; margin: 20px 0;")
+            self._set_result_display_style("danger")
             self.result_hint.setText(i18n.tr("msg_analyze_err"))
-            self.result_hint.setStyleSheet("color: #ff5252; font-size: 14px;")
+            self._set_result_hint_style("danger")
 
 
 # ================= 4. 关于页面 =================
@@ -702,7 +918,7 @@ class AboutInterface(ScrollArea):
         self.layout.setSpacing(20)
         self.setWidget(self.view)
         self.setWidgetResizable(True)
-        self.setStyleSheet("QScrollArea{background: transparent; border: none}")
+        apply_scroll_area_theme(self, self.view)
 
         top_card = CardWidget()
         top_layout = QHBoxLayout(top_card)
@@ -720,10 +936,9 @@ class AboutInterface(ScrollArea):
         info_layout.setSpacing(5)
         name_lbl = SubtitleLabel("RhythmAlign")
         name_lbl.setStyleSheet("font-size: 20px; font-weight: bold;")
-        ver_lbl = BodyLabel(APP_DISPLAY_VERSION)
-        ver_lbl.setStyleSheet("color: #a0a0a0;")
+        self.ver_lbl = BodyLabel(APP_DISPLAY_VERSION)
         info_layout.addWidget(name_lbl)
-        info_layout.addWidget(ver_lbl)
+        info_layout.addWidget(self.ver_lbl)
         info_layout.addStretch(1)
         top_layout.addLayout(info_layout)
         top_layout.addStretch(1)
@@ -767,13 +982,12 @@ class AboutInterface(ScrollArea):
 
         intro_lbl = BodyLabel(i18n.tr("about_author"))
         intro_lbl.setStyleSheet("font-size: 16px; font-weight: bold;")
-        desc_lbl = BodyLabel(i18n.tr("about_desc"))
-        desc_lbl.setStyleSheet("color: #a0a0a0; font-size: 14px;")
+        self.desc_lbl = BodyLabel(i18n.tr("about_desc"))
         email_lbl = BodyLabel(i18n.tr("about_email"))
         qq_lbl = BodyLabel(i18n.tr("about_qq"))
 
         author_layout.addWidget(intro_lbl)
-        author_layout.addWidget(desc_lbl)
+        author_layout.addWidget(self.desc_lbl)
         author_layout.addSpacing(10)
         author_layout.addWidget(email_lbl)
         author_layout.addWidget(qq_lbl)
@@ -790,16 +1004,15 @@ class AboutInterface(ScrollArea):
 
         ack1 = BodyLabel(i18n.tr("about_ack1"))
         ack2 = BodyLabel(i18n.tr("about_ack2"))
-        ack3 = BodyLabel(i18n.tr("about_ack3"))
-        ack3.setStyleSheet("color: #a0a0a0; font-size: 12px;")
+        self.ack3 = BodyLabel(i18n.tr("about_ack3"))
 
         ack1.setWordWrap(True)
         ack2.setWordWrap(True)
-        ack3.setWordWrap(True)
+        self.ack3.setWordWrap(True)
 
         copyright_layout.addWidget(ack1)
         copyright_layout.addWidget(ack2)
-        copyright_layout.addWidget(ack3)
+        copyright_layout.addWidget(self.ack3)
         self.layout.addWidget(copyright_card)
 
         self.layout.addStretch(1)
@@ -808,17 +1021,25 @@ class AboutInterface(ScrollArea):
         warn_container.setSpacing(6)
         warn_container.setContentsMargins(0, 0, 0, 0)
 
-        warn1 = BodyLabel(i18n.tr("about_warn1"))
-        warn1.setStyleSheet("color: #ff5252; font-weight: bold; font-size: 14px;")
-        warn1.setWordWrap(True)
+        self.warn1 = BodyLabel(i18n.tr("about_warn1"))
+        self.warn1.setWordWrap(True)
 
-        warn2 = BodyLabel(i18n.tr("about_warn2"))
-        warn2.setStyleSheet("color: #ff5252; font-weight: bold; font-size: 14px;")
-        warn2.setWordWrap(True)
+        self.warn2 = BodyLabel(i18n.tr("about_warn2"))
+        self.warn2.setWordWrap(True)
 
-        warn_container.addWidget(warn1)
-        warn_container.addWidget(warn2)
+        warn_container.addWidget(self.warn1)
+        warn_container.addWidget(self.warn2)
         self.layout.addLayout(warn_container)
+        self.apply_theme_styles()
+
+    def apply_theme_styles(self):
+        apply_scroll_area_theme(self, self.view)
+        self.ver_lbl.setStyleSheet(color_style("", "muted"))
+        self.desc_lbl.setStyleSheet(color_style("font-size: 14px;", "muted"))
+        self.ack3.setStyleSheet(color_style("font-size: 12px;", "muted"))
+        warning_style = color_style("font-weight: bold; font-size: 14px;", "danger")
+        self.warn1.setStyleSheet(warning_style)
+        self.warn2.setStyleSheet(warning_style)
 
     def copy_qq_group(self):
         QApplication.clipboard().setText(QQ_GROUP_ID)
@@ -841,7 +1062,7 @@ class SettingInterface(ScrollArea):
         self.layout.setContentsMargins(24, 12, 24, 24)
         self.setWidget(self.view)
         self.setWidgetResizable(True)
-        self.setStyleSheet("QScrollArea{background: transparent; border: none}")
+        self.apply_theme_styles()
 
         title = SubtitleLabel(i18n.tr("tab_settings"))
         title.setStyleSheet("font-size: 26px; font-weight: bold; margin-bottom: 15px;")
@@ -849,6 +1070,16 @@ class SettingInterface(ScrollArea):
 
         #分组一：常规设置 (General)
         self.general_group = SettingCardGroup(i18n.tr("set_general"), self.view)
+
+        self.theme_combo = OptionsSettingCard(
+            configItem=qconfig.themeMode,
+            icon=FIF.PALETTE,
+            title=i18n.tr("set_theme"),
+            content=i18n.tr("set_theme_desc"),
+            texts=[i18n.tr(THEME_TEXT_KEYS[theme]) for theme in qconfig.themeMode.options],
+            parent=self.general_group,
+        )
+        self.theme_combo.optionChanged.connect(self._on_theme_changed)
 
         self.lang_combo = OptionsSettingCard(
             configItem=cfg.language, icon=FIF.LANGUAGE, title=i18n.tr("set_lang"), content=i18n.tr("set_lang_desc"),
@@ -863,6 +1094,7 @@ class SettingInterface(ScrollArea):
             configItem=cfg.open_folder, parent=self.general_group
         )
 
+        self.general_group.addSettingCard(self.theme_combo)
         self.general_group.addSettingCard(self.lang_combo)
         self.general_group.addSettingCard(self.folder_switch)
         self.layout.addWidget(self.general_group)
@@ -952,6 +1184,9 @@ class SettingInterface(ScrollArea):
             position=InfoBarPosition.TOP
         )
 
+    def _on_theme_changed(self, config_item):
+        setTheme(config_item.value, save=True)
+
     def _on_check_update_clicked(self):
         window = self.window()
         if hasattr(window, "check_for_updates"):
@@ -961,6 +1196,9 @@ class SettingInterface(ScrollArea):
         window = self.window()
         if hasattr(window, "copy_diagnostics"):
             window.copy_diagnostics()
+
+    def apply_theme_styles(self):
+        apply_scroll_area_theme(self, self.view)
 
     def set_update_status(self, text=None, busy=False):
         if text:
@@ -973,11 +1211,12 @@ class SettingInterface(ScrollArea):
 # ================= 6. 框架组装 =================
 class RhythmAlignApp(FluentWindow):
     def __init__(self):
+        setTheme(qconfig.themeMode.value)
         super().__init__()
-        setTheme(Theme.DARK)
+        self.setAcceptDrops(True)
 
         self.setWindowTitle(i18n.tr("app_title"))
-        self.setWindowIcon(QIcon(resource_path("assets/logo.ico")))
+        self.setWindowIcon(load_app_icon())
         self.resize(1050, 720)
         self.setMinimumSize(1024, 550)
 
@@ -1019,9 +1258,84 @@ class RhythmAlignApp(FluentWindow):
         self.addSubInterface(self.setting_interface, FIF.SETTING, i18n.tr("tab_settings"), position=NavigationItemPosition.BOTTOM)
 
         self.navigationInterface.expand()
+        qconfig.themeChangedFinished.connect(self.apply_theme_styles)
+        self.theme_listener = SystemThemeListener(self)
+        self.theme_listener.systemThemeChanged.connect(self._on_system_theme_changed)
+        self.theme_listener.start()
+        self.apply_theme_styles()
 
         if cfg.check_updates_on_startup.value:
             QTimer.singleShot(2500, lambda: self.check_for_updates(silent=True))
+
+    def apply_theme_styles(self):
+        self._apply_window_theme_styles()
+        for widget in (
+            self.branding_widget,
+            self.sync_interface,
+            self.analyze_interface,
+            self.about_interface,
+            self.setting_interface,
+        ):
+            if hasattr(widget, "apply_theme_styles"):
+                widget.apply_theme_styles()
+            elif hasattr(widget, "update_theme_styles"):
+                widget.update_theme_styles()
+
+    def _apply_window_theme_styles(self):
+        self.setCustomBackgroundColor("#f0f4f9", "#202020")
+        stacked_bg = theme_color("stacked")
+        border_color = theme_value("rgba(255, 255, 255, 0.08)", "rgba(0, 0, 0, 0.08)")
+
+        self.stackedWidget.setStyleSheet(f"""
+            StackedWidget {{
+                border: 1px solid {border_color};
+                border-right: none;
+                border-bottom: none;
+                border-top-left-radius: 10px;
+                background-color: {stacked_bg};
+            }}
+            StackedWidget[isTransparent=true] {{
+                background-color: {stacked_bg};
+                border: none;
+            }}
+        """)
+        self.stackedWidget.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
+        self.stackedWidget.view.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
+        self.stackedWidget.view.setStyleSheet(f"background-color: {stacked_bg}; border: none;")
+
+    def _on_system_theme_changed(self):
+        setTheme(Theme.AUTO, save=False)
+
+    def _current_media_interface(self):
+        current = self.stackedWidget.currentWidget()
+        return current if isinstance(current, BaseMediaInterface) else None
+
+    def dragEnterEvent(self, event):
+        interface = self._current_media_interface()
+        if interface and interface.can_accept_dropped_media(event_file_paths(event)):
+            event.acceptProposedAction()
+        else:
+            event.ignore()
+
+    def dragMoveEvent(self, event):
+        self.dragEnterEvent(event)
+
+    def dropEvent(self, event):
+        interface = self._current_media_interface()
+        if interface and interface.apply_dropped_media(event_file_paths(event)):
+            event.acceptProposedAction()
+        else:
+            event.ignore()
+
+    def closeEvent(self, event):
+        listener = getattr(self, "theme_listener", None)
+        if listener and listener.isRunning():
+            listener.requestInterruption()
+            listener.quit()
+            if not listener.wait(500):
+                listener.terminate()
+                listener.wait(500)
+        super().closeEvent(event)
 
     def check_for_updates(self, silent=False):
         if self.update_check_worker and self.update_check_worker.isRunning():
@@ -1231,16 +1545,11 @@ class RhythmAlignApp(FluentWindow):
 
 
 if __name__ == '__main__':
-    import ctypes
-
-    try:
-        myappid = 'rhythmalign.pro.studio.v1'
-        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
-    except Exception:
-        pass
-
     app = QApplication(sys.argv)
-    app.setWindowIcon(QIcon(resource_path("assets/logo.ico")))
+    app.setApplicationName(APP_NAME)
+    app.setApplicationVersion(APP_VERSION)
+    app.setOrganizationName(APP_PUBLISHER)
+    app.setWindowIcon(load_app_icon())
 
     window = RhythmAlignApp()
     window.show()

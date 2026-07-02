@@ -1,5 +1,5 @@
 {
-    "app_title": "RhythmAlign v1.1.1",
+    "app_title": "RhythmAlign v1.1.2",
     "tab_sync": "手元对齐",
     "tab_analyze": "纯分析模式",
     "tab_about": "关于",
@@ -63,7 +63,7 @@
     "status_calc": "计算中...",
     "hint_analyzing_wave": "正在分析音频波形特征...",
 
-    "about_ver": "v1.1.1",
+    "about_ver": "v1.1.2",
     "about_author_title": "关于作者 & 联系方式",
     "about_author": "开发者：Limitime",
     "about_desc": "热爱音游（尤其是舞萌DX和Arcaea）的独立开发者。此工具旨在帮助音游玩家轻松应对后期手元音频对齐的难题。",
@@ -78,6 +78,11 @@
     "about_warn2": "本软件仅供个人使用，用于学习Python编程、音视频处理、自动化对齐等。请勿将其用于任何营利性或商业用途。",
 
     "set_general": "常规设置",
+    "set_theme": "外观主题",
+    "set_theme_desc": "选择深色、浅色，或跟随 Windows 系统主题。",
+    "theme_light": "浅色",
+    "theme_dark": "深色",
+    "theme_auto": "跟随系统",
     "set_video": "视频与处理",
     "set_copy": "视频无损直通 (推荐)",
     "set_copy_desc": "不进行二次渲染，保留原画质并快速导出（开启此项将忽略下方的GPU和码率设置）",
@@ -144,6 +149,8 @@
     "update_ready_title": "更新已下载",
     "update_ready_desc": "安装包已准备好：{0}\n\n点击“立即安装”后 RhythmAlign 会退出，并启动安装程序。",
     "update_install_failed_title": "启动安装程序失败",
+    "drop_files_ready": "已导入：{0}",
+    "drop_files_unsupported": "请拖入支持的视频或音频文件。",
 
     "log_stream_copy": "已启用 [视频无损直通]：保留原画质，重新封装音轨。",
     "log_encode_mode": "已启用 [重新编码模式] (引擎: {0}, 码率: {1})。",
