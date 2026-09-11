@@ -1,0 +1,33 @@
+{
+  "_description": "RA-1.2B local corpus manifest (example). Copy to local_corpus.json (gitignored) and fill in ABSOLUTE local media paths. NEVER commit local_corpus.json: it contains personal media paths. Case ids are stable, path-free identifiers used in committed benchmark reports.",
+  "_schema": {
+    "case_id": "stable identifier, safe to commit in reports",
+    "video": "absolute local path to the handcam/gameplay recording",
+    "music": "absolute local path to the clean target track",
+    "class": "positive_strong | positive_low_snr | negative_mismatch",
+    "expected_offset": "optional known offset in seconds (production convention: >0 delays music)",
+    "tolerance": "optional tolerance in seconds for expected_offset",
+    "ground_truth_source": "manual_frame_analysis | v1_high_confidence | consensus | unverified",
+    "notes": "free text; must not contain absolute paths when copied into reports"
+  },
+  "cases": [
+    {
+      "case_id": "example_low_snr_pair",
+      "video": "D:\\absolute\\local\\path\\songA\\songA.mp4",
+      "music": "D:\\absolute\\local\\path\\songA\\track.mp3",
+      "class": "positive_low_snr",
+      "expected_offset": 12.4,
+      "tolerance": 0.4,
+      "ground_truth_source": "manual_frame_analysis",
+      "notes": "replace with a real local case"
+    },
+    {
+      "case_id": "example_mismatch_1",
+      "video": "D:\\absolute\\local\\path\\songA\\songA.mp4",
+      "music": "D:\\absolute\\local\\path\\songB\\songB.mp3",
+      "class": "negative_mismatch",
+      "ground_truth_source": "pairing_analysis",
+      "notes": "video and track are confirmed different songs (different folders, unrelated titles, no filename correspondence)"
+    }
+  ]
+}

@@ -17,6 +17,9 @@ release/
 # Local experiment scratch outputs (audio caches, frames, large JSON/NPY)
 /results/
 
+# Local real-corpus manifest (contains personal media paths — never commit)
+experiments/low_snr_alignment/local_corpus.json
+
 # System files
 Thumbs.db
 Desktop.ini

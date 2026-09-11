@@ -1,12 +1,22 @@
-"""Synthetic regression suite for RA-1.2A.
+"""Synthetic regression suite for RA-1.2B (expected-behavior semantics).
 
 Fully self-contained: music and "recordings" are synthesized with numpy, so
 no media assets are needed and every case has an exact known offset.
 
-Cases cover: strong music, attenuated music, strong transient interference,
-repeated structure, and no shared signal (must abstain).
+RA-1.2B semantics (replaces the RA-1.2A "all methods must succeed" logic):
+
+- Each case declares the EXPECTED Alignment Engine v2 outcome:
+    accept        -> engine must accept within tolerance of ground truth
+    abstain       -> engine must abstain (no offset)
+    no_wrong_accept -> engine may accept or abstain, but must never accept
+                       an offset outside tolerance (content-ambiguous cases)
+- Legacy baseline methods (hybrid, onset, pcen, pcen_hpss, logmel_flux) are
+  recorded as OBSERVATIONS. A known wrong baseline row is reported as
+  "known_baseline_failure" (informational); it never fails the suite.
+- The suite fails (exit 1) only on engine_v2_regression rows.
 
 Run:  python experiments/low_snr_alignment/synthetic_eval.py [--json OUT]
+      [--nulls N] [--legacy]
 """
 from __future__ import annotations
 
@@ -29,8 +39,10 @@ from experiments.low_snr_alignment.harness import (  # noqa: E402
     pcen_hpss_method,
     pcen_method,
     logmel_flux_method,
-    production_reliability,
-    default_reliability,
+)
+from alignment_engine_v2 import (  # noqa: E402
+    decide_alignment,
+    STATUS_ACCEPTED,
 )
 
 SR = 22050
@@ -133,7 +145,6 @@ def make_recording(music, true_offset, music_gain, noise_gain, tap_gain=0.0,
     """video(t) = music(t - offset)*gain + noise + taps. Returns video audio."""
     rng = np.random.default_rng(seed)
     n_video = int(92.0 * SR)
-    y = music_gain * np.random.default_rng(seed + 1).standard_normal(n_video) * 0  # placeholder
     y = np.zeros(n_video)
     off_i = int(true_offset * SR)
     src = np.zeros(n_video + len(music) + abs(off_i))
@@ -148,24 +159,60 @@ def make_recording(music, true_offset, music_gain, noise_gain, tap_gain=0.0,
     return (y / peak * 0.95).astype(np.float32)
 
 
+def make_tiled_recording(music, loop_s=8.0, video_dur_s=92.0, music_gain=0.3,
+                         noise_gain=0.004, seed=5):
+    """A recording that contains the same music loop TILED — every 8 s span
+    is identical, so no algorithm can prefer one placement. The expected
+    engine outcome is an ambiguity abstain."""
+    rng = np.random.default_rng(seed)
+    n_video = int(video_dur_s * SR)
+    loop = music[: int(loop_s * SR)]
+    y = music_gain * np.tile(loop, int(np.ceil(video_dur_s / loop_s)))[:n_video]
+    y = y + noise_gain * rng.standard_normal(n_video)
+    peak = np.max(np.abs(y)) + 1e-9
+    return (y / peak * 0.95).astype(np.float32)
+
+
 # ---------------------------------------------------------------------------
-# cases
+# cases + expectations
 # ---------------------------------------------------------------------------
+
+EXPECT_ACCEPT = "accept"
+EXPECT_ABSTAIN = "abstain"
+EXPECT_NO_WRONG_ACCEPT = "no_wrong_accept"
+
 
 def build_cases():
     music = make_music()
     looped = make_music(loop_s=8.0)
     cases = [
-        ("strong_music", music, dict(true_offset=7.30, music_gain=0.5,
-                                     noise_gain=0.004)),
-        ("attenuated_music", music, dict(true_offset=21.70, music_gain=0.02,
-                                         noise_gain=0.006)),
-        ("low_snr_taps", music, dict(true_offset=13.60, music_gain=0.012,
-                                     noise_gain=0.008, tap_gain=0.30)),
-        ("repeated_structure", looped, dict(true_offset=9.80, music_gain=0.30,
-                                            noise_gain=0.004)),
-        ("no_shared_signal", music, dict(true_offset=5.10, music_gain=0.0,
-                                         noise_gain=0.02, tap_gain=0.30)),
+        # (name, music, recording kwargs, expectation, note, no_signal)
+        ("strong_music", music,
+         dict(true_offset=7.30, music_gain=0.5, noise_gain=0.004),
+         EXPECT_ACCEPT, "healthy strong recording -> straightforward accept",
+         False),
+        ("attenuated_music", music,
+         dict(true_offset=21.70, music_gain=0.02, noise_gain=0.006),
+         EXPECT_ACCEPT, "quiet music, still shared signal -> accept", False),
+        ("low_snr_taps", music,
+         dict(true_offset=13.60, music_gain=0.012, noise_gain=0.008,
+              tap_gain=0.30),
+         EXPECT_ACCEPT,
+         "RA-1.2A regression: plain pcen and flux pick wrong offsets here; "
+         "engine must accept within tolerance", False),
+        ("repeated_structure", looped,
+         dict(true_offset=9.80, music_gain=0.30, noise_gain=0.004),
+         EXPECT_NO_WRONG_ACCEPT,
+         "looped music, single span in the recording; accept-correct or "
+         "abstain, never a wrong confident offset", False),
+        ("repeated_structure_tiled", looped,
+         dict(loop_s=8.0),
+         EXPECT_ABSTAIN,
+         "recording contains the same 8 s loop tiled: evidence is genuinely "
+         "non-unique -> must abstain", True),
+        ("no_shared_signal", music,
+         dict(true_offset=5.10, music_gain=0.0, noise_gain=0.02, tap_gain=0.30),
+         EXPECT_ABSTAIN, "no shared signal -> must abstain", True),
     ]
     return cases
 
@@ -205,11 +252,102 @@ def run_nulls(n_realizations, music):
     return stats
 
 
+# ---------------------------------------------------------------------------
+# runner
+# ---------------------------------------------------------------------------
+
+def run_suite(run_legacy=True):
+    music = make_music()
+    rows = []
+    engine_failures = 0
+    for name, case_music, kwargs, expectation, note, no_signal in build_cases():
+        if name == "repeated_structure_tiled":
+            video = make_tiled_recording(case_music, **kwargs)
+            gt = None
+        else:
+            video = make_recording(case_music, **kwargs)
+            gt = kwargs["true_offset"]
+
+        t0 = time.perf_counter()
+        decision = decide_alignment(video, case_music)
+        engine_runtime = time.perf_counter() - t0
+
+        accepted = decision.status == STATUS_ACCEPTED
+        err = (abs(decision.offset - gt)
+               if (accepted and gt is not None) else None)
+        if expectation == EXPECT_ACCEPT:
+            ok = accepted and err is not None and err <= TOLERANCE_S
+        elif expectation == EXPECT_ABSTAIN:
+            ok = not accepted
+        else:  # no_wrong_accept
+            ok = (not accepted) or (err is not None and err <= TOLERANCE_S)
+        if not ok:
+            engine_failures += 1
+        failure_class = None if ok else "engine_v2_regression"
+
+        rows.append({
+            "case": name, "kind": "engine_v2",
+            "expectation": expectation, "ground_truth": gt,
+            "status": decision.status,
+            "offset": None if decision.offset is None else round(decision.offset, 4),
+            "error": None if err is None else round(err, 4),
+            "reason_code": decision.reason_code,
+            "families": decision.evidence["families"],
+            "verdict": "pass" if ok else "FAIL",
+            "failure_class": failure_class,
+            "runtime_s": round(engine_runtime, 2),
+            "note": note,
+        })
+        r = rows[-1]
+        print(f"{name:26s} ENG {r['status']:9s} "
+              f"off={r['offset'] if r['offset'] is None else format(r['offset'], '+8.3f')} "
+              f"expect={expectation:14s} -> {r['verdict']} "
+              f"({decision.reason_code})")
+
+        if run_legacy:
+            runners = [
+                ("hybrid", lambda v, m: hybrid_method(v, m, SR, HOP)),
+                ("onset", lambda v, m: onset_method(v, m, SR, HOP)),
+                ("pcen", lambda v, m: pcen_method(v, m, SR, HOP, n_mels=96,
+                                                  fmax=4000.0,
+                                                  positive_only=True)),
+                ("pcen_hpss", lambda v, m: pcen_hpss_method(v, m, SR, HOP)),
+                ("logmel_flux",
+                 lambda v, m: logmel_flux_method(v, m, SR, HOP)),
+            ]
+            for label, fn in runners:
+                r = fn(video, case_music)
+                if no_signal:
+                    # No shared signal exists: "correct/wrong" is
+                    # meaningless. A baseline above the production Z gate
+                    # is confident garbage; below it, it effectively
+                    # abstains.
+                    base = ("false_confident_known_baseline"
+                            if r["z_score"] >= 2.0 else "below_confidence")
+                else:
+                    wrong = (gt is not None
+                             and abs(r["offset_s"] - gt) > TOLERANCE_S)
+                    base = ("wrong_known_baseline" if wrong else "correct")
+                rows.append({
+                    "case": name, "kind": "baseline", "method": label,
+                    "ground_truth": gt,
+                    "offset": r["offset_s"], "z": r["z_score"],
+                    "margin": r["peak_margin"],
+                    "observation": base,
+                    "runtime_s": r["runtime_s"],
+                })
+                print(f"{name:26s} {label:12s} off={r['offset_s']:+8.3f} "
+                      f"z={r['z_score']:5.2f} [{base}]")
+    return rows, engine_failures
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--json", default=None)
     ap.add_argument("--nulls", type=int, default=0,
                     help="also run N no-signal null realizations")
+    ap.add_argument("--no-legacy", action="store_true",
+                    help="skip informational baseline method rows")
     args = ap.parse_args()
 
     music = make_music()
@@ -217,55 +355,25 @@ def main():
         run_nulls(args.nulls, music)
         return 0
 
-    runners = [
-        ("hybrid", lambda v, m: hybrid_method(v, m, SR, HOP)),
-        ("onset", lambda v, m: onset_method(v, m, SR, HOP)),
-        ("pcen", lambda v, m: pcen_method(v, m, SR, HOP, n_mels=96,
-                                          fmax=4000.0, positive_only=True)),
-        ("pcen_hpss", lambda v, m: pcen_hpss_method(v, m, SR, HOP)),
-        ("logmel_flux", lambda v, m: logmel_flux_method(v, m, SR, HOP)),
-    ]
-    rows = []
-    all_ok = True
-    for name, music, kwargs in build_cases():
-        gt = kwargs["true_offset"]
-        video = make_recording(music, **kwargs)
-        no_signal = kwargs["music_gain"] == 0.0
-        for label, fn in runners:
-            r = fn(video, music)
-            prod = production_reliability(r)
-            r["reliable"] = prod if prod is not None else default_reliability(r)
-            err = abs(r["offset_s"] - gt)
-            if no_signal:
-                ok = not r["reliable"]
-                verdict = "abstain-ok" if ok else "FALSE-CONFIDENT"
-            else:
-                ok = err <= TOLERANCE_S
-                verdict = "ok" if ok else "WRONG"
-            all_ok &= ok
-            rows.append({
-                "case": name, "method": label, "ground_truth": gt,
-                "offset": r["offset_s"], "z": r["z_score"],
-                "ratio": r["independent_peak_ratio"],
-                "margin": r["peak_margin"],
-                "reliable": r["reliable"], "error": round(err, 4),
-                "verdict": verdict, "runtime_s": r["runtime_s"],
-            })
-            print(f"{name:20s} {label:12s} off={r['offset_s']:+8.3f} "
-                  f"gt={gt:+6.2f} z={r['z_score']:5.2f} "
-                  f"margin={r['peak_margin']} "
-                  f"rel={r['reliable']} -> {verdict}")
+    rows, engine_failures = run_suite(run_legacy=not args.no_legacy)
 
+    baseline_wrong = sum(1 for r in rows
+                         if r["kind"] == "baseline"
+                         and r["observation"].startswith("wrong"))
+    baseline_false = sum(1 for r in rows
+                         if r["kind"] == "baseline"
+                         and r["observation"].startswith("false_confident"))
+    n_engine = sum(1 for r in rows if r["kind"] == "engine_v2")
     print()
-    n_false = sum(1 for r in rows if r["verdict"] == "FALSE-CONFIDENT")
-    n_wrong = sum(1 for r in rows if r["verdict"] == "WRONG")
-    print(f"summary: {len(rows)} evaluations, {n_wrong} wrong, "
-          f"{n_false} false-confident (no-signal)")
+    print(f"summary: {n_engine} engine expectations, "
+          f"{engine_failures} engine_v2_regression | "
+          f"baseline observations: {baseline_wrong} wrong, "
+          f"{baseline_false} false-confident (informational)")
     if args.json:
         with open(args.json, "w", encoding="utf-8") as f:
-            json.dump(rows, f, indent=2)
+            json.dump(rows, f, indent=2, ensure_ascii=False)
         print(f"saved {args.json}")
-    return 0 if all_ok else 1
+    return 1 if engine_failures else 0
 
 
 if __name__ == "__main__":

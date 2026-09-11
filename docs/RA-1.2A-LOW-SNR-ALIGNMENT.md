@@ -141,10 +141,13 @@ pcen_hpss ≈ chroma cost).
   within frame resolution.
 - The tuned variant (fmax 4000) improves margin 1.04 → 1.18.
 - **pcen_hpss is the strongest configuration found:** Z 10.44, peak ratio
-  1.89 — the true peak towers over every competitor, and it was the only
-  method that also survived the harshest synthetic interference case
-  (taps +28 dB above music, near-periodic: correct at +13.607 s where plain
-  PCEN chose +24.776 s).
+  1.89 — the true peak towers over every competitor. Among the *new
+  low-SNR candidates* it was the only one that survived the harshest
+  synthetic interference case (taps +28 dB above music, near-periodic:
+  correct at +13.607 s where plain PCEN chose +24.776 s). The legacy
+  hybrid also passed that synthetic case, but hybrid is the incumbent that
+  fails the real recording (§6), so pcen_hpss is the successful *new*
+  method, not literally the only method overall.
 - Caveat carried forward: HPSS *raises* the no-signal null Z
   (3.3–3.9 → up to 4.69 over 5 null realizations), so its accept threshold
   must be calibrated per-family; raw Z alone is not a pass/fail rule for
@@ -247,11 +250,19 @@ Policy sketch:
    A wrong confident export is the worst outcome (user trusts it); abstain
    is recoverable.
 
-Worked example on the real failure: clusters {−1.997: hybrid+chroma},
-{+12.45 ± 0.04: pcen (Z 5.88), pcen_hpss (Z 10.44, margin 1.89),
-onset (supporting)} → two independent families (PCEN-family + onset-flux)
-agree at +12.45, hybrid cluster is an unsupported outlier → **accept
-+12.45, exactly what the current engine got wrong.**
+Worked example on the real failure (primary + corroborating +
+contradiction-check model — *not* a two-vote count): clusters
+{−1.997: hybrid+chroma}, {+12.45 ± 0.04: pcen (Z 5.88), pcen_hpss
+(Z 10.44, margin 1.89), onset (supporting)}. The PCEN-family candidate at
++12.45 is the *primary* evidence: pcen_hpss clears its family null by a
+wide margin with strong peak uniqueness. Onset's top-1 agreement is
+*corroboration* (onset and PCEN are both temporal-flux evidence and
+correlated — their agreement supports but does not by itself decide).
+Contradiction checks: the hybrid/chroma cluster at −1.997 is an
+unsupported outlier from the one family known to fail on this recording
+and leaves the song-end evidence impossible (§4), and no comparable
+alternative cluster exists near +12.45 → **accept +12.45, exactly what
+the current engine got wrong.**
 
 ## 11. Zero-music feasibility analysis
 

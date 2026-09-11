@@ -1,0 +1,572 @@
+[
+  {
+    "case": "strong_music",
+    "kind": "engine_v2",
+    "expectation": "accept",
+    "ground_truth": 7.3,
+    "status": "accepted",
+    "offset": 7.2911,
+    "error": 0.0089,
+    "reason_code": "ACCEPT_DUAL_FAMILY",
+    "families": {
+      "hybrid": {
+        "family": "tonal",
+        "z": 8.395,
+        "runtime_s": 3.627,
+        "error": null
+      },
+      "onset": {
+        "family": "onset_temporal",
+        "z": 5.876,
+        "runtime_s": 0.179,
+        "error": null
+      },
+      "pcen_hpss": {
+        "family": "pcen_spectral",
+        "z": 8.838,
+        "runtime_s": 2.032,
+        "error": null
+      },
+      "pcen": {
+        "family": "pcen_spectral",
+        "z": 8.64,
+        "runtime_s": 0.194,
+        "error": null
+      }
+    },
+    "verdict": "pass",
+    "failure_class": null,
+    "runtime_s": 6.04,
+    "note": "healthy strong recording -> straightforward accept"
+  },
+  {
+    "case": "strong_music",
+    "kind": "baseline",
+    "method": "hybrid",
+    "ground_truth": 7.3,
+    "offset": 7.3143,
+    "z": 8.395,
+    "margin": 1.166,
+    "observation": "correct",
+    "runtime_s": 1.25
+  },
+  {
+    "case": "strong_music",
+    "kind": "baseline",
+    "method": "onset",
+    "ground_truth": 7.3,
+    "offset": 7.7787,
+    "z": 5.876,
+    "margin": 1.02,
+    "observation": "wrong_known_baseline",
+    "runtime_s": 0.13
+  },
+  {
+    "case": "strong_music",
+    "kind": "baseline",
+    "method": "pcen",
+    "ground_truth": 7.3,
+    "offset": 7.2911,
+    "z": 8.64,
+    "margin": 1.164,
+    "observation": "correct",
+    "runtime_s": 0.24
+  },
+  {
+    "case": "strong_music",
+    "kind": "baseline",
+    "method": "pcen_hpss",
+    "ground_truth": 7.3,
+    "offset": 7.2911,
+    "z": 8.838,
+    "margin": 1.58,
+    "observation": "correct",
+    "runtime_s": 0.74
+  },
+  {
+    "case": "strong_music",
+    "kind": "baseline",
+    "method": "logmel_flux",
+    "ground_truth": 7.3,
+    "offset": 7.7787,
+    "z": 6.079,
+    "margin": 1.022,
+    "observation": "wrong_known_baseline",
+    "runtime_s": 0.13
+  },
+  {
+    "case": "attenuated_music",
+    "kind": "engine_v2",
+    "expectation": "accept",
+    "ground_truth": 21.7,
+    "status": "accepted",
+    "offset": 21.7107,
+    "error": 0.0107,
+    "reason_code": "ACCEPT_DUAL_FAMILY",
+    "families": {
+      "hybrid": {
+        "family": "tonal",
+        "z": 7.492,
+        "runtime_s": 1.272,
+        "error": null
+      },
+      "onset": {
+        "family": "onset_temporal",
+        "z": 1.873,
+        "runtime_s": 0.143,
+        "error": null
+      },
+      "pcen_hpss": {
+        "family": "pcen_spectral",
+        "z": 13.836,
+        "runtime_s": 0.732,
+        "error": null
+      },
+      "pcen": {
+        "family": "pcen_spectral",
+        "z": 14.374,
+        "runtime_s": 0.199,
+        "error": null
+      }
+    },
+    "verdict": "pass",
+    "failure_class": null,
+    "runtime_s": 2.35,
+    "note": "quiet music, still shared signal -> accept"
+  },
+  {
+    "case": "attenuated_music",
+    "kind": "baseline",
+    "method": "hybrid",
+    "ground_truth": 21.7,
+    "offset": 21.7107,
+    "z": 7.492,
+    "margin": 1.145,
+    "observation": "correct",
+    "runtime_s": 1.18
+  },
+  {
+    "case": "attenuated_music",
+    "kind": "baseline",
+    "method": "onset",
+    "ground_truth": 21.7,
+    "offset": 21.4785,
+    "z": 1.873,
+    "margin": 1.004,
+    "observation": "wrong_known_baseline",
+    "runtime_s": 0.13
+  },
+  {
+    "case": "attenuated_music",
+    "kind": "baseline",
+    "method": "pcen",
+    "ground_truth": 21.7,
+    "offset": 21.7107,
+    "z": 14.374,
+    "margin": 1.524,
+    "observation": "correct",
+    "runtime_s": 0.17
+  },
+  {
+    "case": "attenuated_music",
+    "kind": "baseline",
+    "method": "pcen_hpss",
+    "ground_truth": 21.7,
+    "offset": 21.7107,
+    "z": 13.836,
+    "margin": 1.432,
+    "observation": "correct",
+    "runtime_s": 0.72
+  },
+  {
+    "case": "attenuated_music",
+    "kind": "baseline",
+    "method": "logmel_flux",
+    "ground_truth": 21.7,
+    "offset": 21.0141,
+    "z": 5.676,
+    "margin": 1.026,
+    "observation": "wrong_known_baseline",
+    "runtime_s": 0.12
+  },
+  {
+    "case": "low_snr_taps",
+    "kind": "engine_v2",
+    "expectation": "accept",
+    "ground_truth": 13.6,
+    "status": "accepted",
+    "offset": 13.6069,
+    "error": 0.0069,
+    "reason_code": "ACCEPT_DUAL_FAMILY",
+    "families": {
+      "hybrid": {
+        "family": "tonal",
+        "z": 7.024,
+        "runtime_s": 1.145,
+        "error": null
+      },
+      "onset": {
+        "family": "onset_temporal",
+        "z": 1.495,
+        "runtime_s": 0.134,
+        "error": null
+      },
+      "pcen_hpss": {
+        "family": "pcen_spectral",
+        "z": 5.665,
+        "runtime_s": 0.737,
+        "error": null
+      },
+      "pcen": {
+        "family": "pcen_spectral",
+        "z": 3.946,
+        "runtime_s": 0.228,
+        "error": null
+      }
+    },
+    "verdict": "pass",
+    "failure_class": null,
+    "runtime_s": 2.25,
+    "note": "RA-1.2A regression: plain pcen and flux pick wrong offsets here; engine must accept within tolerance"
+  },
+  {
+    "case": "low_snr_taps",
+    "kind": "baseline",
+    "method": "hybrid",
+    "ground_truth": 13.6,
+    "offset": 13.5372,
+    "z": 7.024,
+    "margin": 1.111,
+    "observation": "correct",
+    "runtime_s": 1.27
+  },
+  {
+    "case": "low_snr_taps",
+    "kind": "baseline",
+    "method": "onset",
+    "ground_truth": 13.6,
+    "offset": 26.285,
+    "z": 1.495,
+    "margin": 1.006,
+    "observation": "wrong_known_baseline",
+    "runtime_s": 0.16
+  },
+  {
+    "case": "low_snr_taps",
+    "kind": "baseline",
+    "method": "pcen",
+    "ground_truth": 13.6,
+    "offset": 24.7757,
+    "z": 3.946,
+    "margin": 1.098,
+    "observation": "wrong_known_baseline",
+    "runtime_s": 0.22
+  },
+  {
+    "case": "low_snr_taps",
+    "kind": "baseline",
+    "method": "pcen_hpss",
+    "ground_truth": 13.6,
+    "offset": 13.6069,
+    "z": 5.665,
+    "margin": 1.009,
+    "observation": "correct",
+    "runtime_s": 0.78
+  },
+  {
+    "case": "low_snr_taps",
+    "kind": "baseline",
+    "method": "logmel_flux",
+    "ground_truth": 13.6,
+    "offset": 30.0466,
+    "z": 3.262,
+    "margin": 1.097,
+    "observation": "wrong_known_baseline",
+    "runtime_s": 0.16
+  },
+  {
+    "case": "repeated_structure",
+    "kind": "engine_v2",
+    "expectation": "no_wrong_accept",
+    "ground_truth": 9.8,
+    "status": "accepted",
+    "offset": 9.7988,
+    "error": 0.0012,
+    "reason_code": "ACCEPT_DUAL_FAMILY",
+    "families": {
+      "hybrid": {
+        "family": "tonal",
+        "z": 8.899,
+        "runtime_s": 1.409,
+        "error": null
+      },
+      "onset": {
+        "family": "onset_temporal",
+        "z": 5.621,
+        "runtime_s": 0.159,
+        "error": null
+      },
+      "pcen_hpss": {
+        "family": "pcen_spectral",
+        "z": 13.484,
+        "runtime_s": 0.823,
+        "error": null
+      },
+      "pcen": {
+        "family": "pcen_spectral",
+        "z": 12.769,
+        "runtime_s": 0.23,
+        "error": null
+      }
+    },
+    "verdict": "pass",
+    "failure_class": null,
+    "runtime_s": 2.63,
+    "note": "looped music, single span in the recording; accept-correct or abstain, never a wrong confident offset"
+  },
+  {
+    "case": "repeated_structure",
+    "kind": "baseline",
+    "method": "hybrid",
+    "ground_truth": 9.8,
+    "offset": 9.822,
+    "z": 8.899,
+    "margin": 1.099,
+    "observation": "correct",
+    "runtime_s": 1.5
+  },
+  {
+    "case": "repeated_structure",
+    "kind": "baseline",
+    "method": "onset",
+    "ground_truth": 9.8,
+    "offset": 10.7508,
+    "z": 5.621,
+    "margin": 1.018,
+    "observation": "wrong_known_baseline",
+    "runtime_s": 0.16
+  },
+  {
+    "case": "repeated_structure",
+    "kind": "baseline",
+    "method": "pcen",
+    "ground_truth": 9.8,
+    "offset": 9.7988,
+    "z": 12.769,
+    "margin": 1.293,
+    "observation": "correct",
+    "runtime_s": 0.21
+  },
+  {
+    "case": "repeated_structure",
+    "kind": "baseline",
+    "method": "pcen_hpss",
+    "ground_truth": 9.8,
+    "offset": 9.7988,
+    "z": 13.484,
+    "margin": 1.353,
+    "observation": "correct",
+    "runtime_s": 0.8
+  },
+  {
+    "case": "repeated_structure",
+    "kind": "baseline",
+    "method": "logmel_flux",
+    "ground_truth": 9.8,
+    "offset": 10.7508,
+    "z": 6.251,
+    "margin": 1.013,
+    "observation": "wrong_known_baseline",
+    "runtime_s": 0.15
+  },
+  {
+    "case": "repeated_structure_tiled",
+    "kind": "engine_v2",
+    "expectation": "abstain",
+    "ground_truth": null,
+    "status": "abstained",
+    "offset": null,
+    "error": null,
+    "reason_code": "ABSTAIN_AMBIGUOUS_CLUSTER",
+    "families": {
+      "hybrid": {
+        "family": "tonal",
+        "z": 7.184,
+        "runtime_s": 1.268,
+        "error": null
+      },
+      "onset": {
+        "family": "onset_temporal",
+        "z": 5.214,
+        "runtime_s": 0.138,
+        "error": null
+      },
+      "pcen_hpss": {
+        "family": "pcen_spectral",
+        "z": 11.522,
+        "runtime_s": 0.744,
+        "error": null
+      },
+      "pcen": {
+        "family": "pcen_spectral",
+        "z": 10.45,
+        "runtime_s": 0.215,
+        "error": null
+      }
+    },
+    "verdict": "pass",
+    "failure_class": null,
+    "runtime_s": 2.37,
+    "note": "recording contains the same 8 s loop tiled: evidence is genuinely non-unique -> must abstain"
+  },
+  {
+    "case": "repeated_structure_tiled",
+    "kind": "baseline",
+    "method": "hybrid",
+    "ground_truth": null,
+    "offset": 8.0109,
+    "z": 7.184,
+    "margin": 1.001,
+    "observation": "false_confident_known_baseline",
+    "runtime_s": 1.25
+  },
+  {
+    "case": "repeated_structure_tiled",
+    "kind": "baseline",
+    "method": "onset",
+    "ground_truth": null,
+    "offset": 8.0109,
+    "z": 5.214,
+    "margin": 1.005,
+    "observation": "false_confident_known_baseline",
+    "runtime_s": 0.17
+  },
+  {
+    "case": "repeated_structure_tiled",
+    "kind": "baseline",
+    "method": "pcen",
+    "ground_truth": null,
+    "offset": 0.0,
+    "z": 10.45,
+    "margin": 1.027,
+    "observation": "false_confident_known_baseline",
+    "runtime_s": 0.23
+  },
+  {
+    "case": "repeated_structure_tiled",
+    "kind": "baseline",
+    "method": "pcen_hpss",
+    "ground_truth": null,
+    "offset": 0.0,
+    "z": 11.522,
+    "margin": 1.047,
+    "observation": "false_confident_known_baseline",
+    "runtime_s": 0.77
+  },
+  {
+    "case": "repeated_structure_tiled",
+    "kind": "baseline",
+    "method": "logmel_flux",
+    "ground_truth": null,
+    "offset": 8.0109,
+    "z": 5.502,
+    "margin": 1.011,
+    "observation": "false_confident_known_baseline",
+    "runtime_s": 0.15
+  },
+  {
+    "case": "no_shared_signal",
+    "kind": "engine_v2",
+    "expectation": "abstain",
+    "ground_truth": 5.1,
+    "status": "abstained",
+    "offset": null,
+    "error": null,
+    "reason_code": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+    "families": {
+      "hybrid": {
+        "family": "tonal",
+        "z": 3.898,
+        "runtime_s": 1.36,
+        "error": null
+      },
+      "onset": {
+        "family": "onset_temporal",
+        "z": 1.423,
+        "runtime_s": 0.167,
+        "error": null
+      },
+      "pcen_hpss": {
+        "family": "pcen_spectral",
+        "z": 5.011,
+        "runtime_s": 0.773,
+        "error": null
+      },
+      "pcen": {
+        "family": "pcen_spectral",
+        "z": 3.308,
+        "runtime_s": 0.221,
+        "error": null
+      }
+    },
+    "verdict": "pass",
+    "failure_class": null,
+    "runtime_s": 2.53,
+    "note": "no shared signal -> must abstain"
+  },
+  {
+    "case": "no_shared_signal",
+    "kind": "baseline",
+    "method": "hybrid",
+    "ground_truth": 5.1,
+    "offset": 1.3003,
+    "z": 3.898,
+    "margin": 1.136,
+    "observation": "false_confident_known_baseline",
+    "runtime_s": 1.36
+  },
+  {
+    "case": "no_shared_signal",
+    "kind": "baseline",
+    "method": "onset",
+    "ground_truth": 5.1,
+    "offset": 5.4799,
+    "z": 1.423,
+    "margin": 1.001,
+    "observation": "below_confidence",
+    "runtime_s": 0.16
+  },
+  {
+    "case": "no_shared_signal",
+    "kind": "baseline",
+    "method": "pcen",
+    "ground_truth": 5.1,
+    "offset": 49.3888,
+    "z": 3.308,
+    "margin": 1.019,
+    "observation": "false_confident_known_baseline",
+    "runtime_s": 0.21
+  },
+  {
+    "case": "no_shared_signal",
+    "kind": "baseline",
+    "method": "pcen_hpss",
+    "ground_truth": 5.1,
+    "offset": -3.6223,
+    "z": 5.011,
+    "margin": 1.249,
+    "observation": "false_confident_known_baseline",
+    "runtime_s": 0.79
+  },
+  {
+    "case": "no_shared_signal",
+    "kind": "baseline",
+    "method": "logmel_flux",
+    "ground_truth": 5.1,
+    "offset": 30.0466,
+    "z": 3.475,
+    "margin": 1.121,
+    "observation": "false_confident_known_baseline",
+    "runtime_s": 0.13
+  }
+]
