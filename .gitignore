@@ -14,6 +14,9 @@ release/
 # IDE settings
 .idea/
 
+# Local experiment scratch outputs (audio caches, frames, large JSON/NPY)
+/results/
+
 # System files
 Thumbs.db
 Desktop.ini
