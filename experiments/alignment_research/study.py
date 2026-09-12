@@ -75,9 +75,17 @@ def digest(path):
 
 def metadata(command):
     head = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
-    if head != SHA:
-        raise RuntimeError('Baseline SHA differs from frozen study baseline')
-    return {'baseline_sha': head, 'command': command, 'python': platform.python_version(),
+    # Research commits may advance HEAD. Pin the actual scientific inputs,
+    # tolerating only checkout newline conversion, never algorithm changes.
+    pinned = ['auto_sync.py', 'alignment_engine_v2.py',
+              'experiments/low_snr_alignment/semi_synthetic.py',
+              'experiments/low_snr_alignment/semi_synthetic_plan.json']
+    for name in pinned:
+        original = subprocess.check_output(['git', 'show', SHA + ':' + name], cwd=ROOT)
+        current = (ROOT/name).read_bytes()
+        if current.replace(b'\r\n', b'\n') != original.replace(b'\r\n', b'\n'):
+            raise RuntimeError('Frozen scientific input changed: ' + name)
+    return {'baseline_sha': SHA, 'research_head': head, 'command': command, 'python': platform.python_version(),
             'platform': platform.system(), 'machine': platform.machine(), 'seed': SEED,
             'sr': SR, 'hop': HOP, 'policy': dataclasses.asdict(eng.DEFAULT_POLICY),
             'dependencies': {p: importlib.metadata.version(p) for p in

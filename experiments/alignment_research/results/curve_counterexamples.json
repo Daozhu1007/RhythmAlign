@@ -1,0 +1,1480 @@
+{
+  "metadata": {
+    "baseline_sha": "ffa6b07a591dbdb54ae8350f3d27dce3ed74c847",
+    "research_head": "5b1fcd472a94470872dc1f837a7f473c0edd5282",
+    "command": "python experiments/alignment_research/probes.py curve-counterexamples",
+    "python": "3.10.11",
+    "platform": "Windows",
+    "machine": "AMD64",
+    "seed": 20260912,
+    "sr": 22050,
+    "hop": 512,
+    "policy": {
+      "cluster_tol_s": 0.15,
+      "min_overlap_s": 30.0,
+      "margin_floor_a": 1.0,
+      "margin_floor_b": 1.4,
+      "tonal_z_floor": 5.0,
+      "pcen_z_floor": 5.6,
+      "pcen_primary_z_floor": 7.0,
+      "onset_corroboration_z_floor": 2.0,
+      "ambiguity_z_ratio": 0.95,
+      "top_candidates_per_family": 4
+    },
+    "dependencies": {
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "librosa": "0.11.0",
+      "numba": "0.64.0",
+      "soundfile": "0.13.1",
+      "imageio-ffmpeg": "0.6.0",
+      "matplotlib": "3.10.9",
+      "pytest": "9.1.0"
+    },
+    "source_hashes": {
+      "auto_sync.py": "85dbebc8e4b38f41104b43b30284c1c2e8d955ccc31638989fd2a3c154315d1c",
+      "alignment_engine_v2.py": "96c0117e447ce5bd621a729817f66f61dce44acf2ece9c261b9a8a712c8b2088",
+      "experiments/alignment_research/study.py": "1f9c4de19fd8fabb3f7c1f6fae6f0247a6cb6fef7294b2f6a21ebcfc17ec9967",
+      "experiments/low_snr_alignment/semi_synthetic.py": "cce4b41b36019494ec1af31d7a4aa82dbb127b0f2513e90b6709d996359ba53b",
+      "experiments/low_snr_alignment/semi_synthetic_plan.json": "b4ea34109588756f5c9b2abe0410f1e9660db8c4b9266f3d386eb890ab2efe86"
+    },
+    "epistemic_status": "exploratory; historical sources already exposed during development"
+  },
+  "script_sha256": "186b23eec58125be2c58cebbedde6597897302bfde8515880786cdece9b13f0e",
+  "rows": [
+    {
+      "hpss_offset_s": 7.3,
+      "reference_nomination_s": 7.3,
+      "status": "accepted",
+      "offset": 7.291065759637188,
+      "distance_from_tonal_nomination_s": 0.00893424036281143,
+      "reason": "ACCEPT_DUAL_FAMILY",
+      "clusters": [
+        {
+          "offset_s": -46.1845,
+          "overlap_s": 33.82,
+          "candidates": [
+            {
+              "method": "pcen",
+              "family": "pcen_spectral",
+              "offset_s": -46.18448979591837,
+              "z": 0.7090200449055295,
+              "peak_margin": 0.01461305263647582,
+              "usable_overlap_s": 33.81551020408163,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.4304,
+                -35.8748,
+                5.9211
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "pcen_spectral": {
+              "methods": [
+                "pcen"
+              ],
+              "z_at_cluster": 0.709,
+              "margin_at_cluster": 0.015,
+              "best_member_offset_s": -46.1845
+            }
+          }
+        },
+        {
+          "offset_s": -41.2386,
+          "overlap_s": 38.76,
+          "candidates": [
+            {
+              "method": "onset",
+              "family": "onset_temporal",
+              "offset_s": -41.23863945578231,
+              "z": 1.5735020978327345,
+              "peak_margin": 0.03469426559453131,
+              "usable_overlap_s": 38.76136054421769,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.5697,
+                5.6889,
+                44.3269
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "onset_temporal": {
+              "methods": [
+                "onset"
+              ],
+              "z_at_cluster": 1.574,
+              "margin_at_cluster": 0.035,
+              "best_member_offset_s": -41.2386
+            }
+          }
+        },
+        {
+          "offset_s": -35.8748,
+          "overlap_s": 44.13,
+          "candidates": [
+            {
+              "method": "pcen",
+              "family": "pcen_spectral",
+              "offset_s": -35.87482993197279,
+              "z": 0.6654947813490419,
+              "peak_margin": 0.013746511808982512,
+              "usable_overlap_s": 44.12517006802721,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.4304,
+                -46.1845,
+                5.9211
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "pcen_spectral": {
+              "methods": [
+                "pcen"
+              ],
+              "z_at_cluster": 1.429,
+              "margin_at_cluster": 0.039,
+              "best_member_offset_s": -35.898
+            }
+          }
+        },
+        {
+          "offset_s": -35.6426,
+          "overlap_s": 44.36,
+          "candidates": [
+            {
+              "method": "hybrid",
+              "family": "tonal",
+              "offset_s": -35.64263038548753,
+              "z": 1.052457677297962,
+              "peak_margin": 0.02182713917315674,
+              "usable_overlap_s": 44.35736961451247,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.2911,
+                56.6335,
+                76.3704
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "tonal": {
+              "methods": [
+                "hybrid"
+              ],
+              "z_at_cluster": 1.052,
+              "margin_at_cluster": 0.022,
+              "best_member_offset_s": -35.6426
+            }
+          }
+        },
+        {
+          "offset_s": -7.175,
+          "overlap_s": 72.83,
+          "candidates": [
+            {
+              "method": "pcen_hpss",
+              "family": "pcen_spectral",
+              "offset_s": -7.174965986394557,
+              "z": 2.7095318227626395,
+              "peak_margin": 0.0734310894769793,
+              "usable_overlap_s": 72.82503401360545,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.2911,
+                77.4618,
+                84.4742
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "pcen_spectral": {
+              "methods": [
+                "pcen_hpss"
+              ],
+              "z_at_cluster": 2.71,
+              "margin_at_cluster": 0.073,
+              "best_member_offset_s": -7.175
+            }
+          }
+        },
+        {
+          "offset_s": 5.6889,
+          "overlap_s": 80.0,
+          "candidates": [
+            {
+              "method": "onset",
+              "family": "onset_temporal",
+              "offset_s": 5.688888888888889,
+              "z": 1.5952850125491371,
+              "peak_margin": 0.03516424826043055,
+              "usable_overlap_s": 80.0,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.5697,
+                -41.2386,
+                44.3269
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "onset_temporal": {
+              "methods": [
+                "onset"
+              ],
+              "z_at_cluster": 1.595,
+              "margin_at_cluster": 0.035,
+              "best_member_offset_s": 5.6889
+            }
+          }
+        },
+        {
+          "offset_s": 5.9211,
+          "overlap_s": 80.0,
+          "candidates": [
+            {
+              "method": "pcen",
+              "family": "pcen_spectral",
+              "offset_s": 5.921088435374149,
+              "z": 0.6541032008371641,
+              "peak_margin": 0.013519717786462507,
+              "usable_overlap_s": 80.0,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.4304,
+                -46.1845,
+                -35.8748
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "pcen_spectral": {
+              "methods": [
+                "pcen"
+              ],
+              "z_at_cluster": 0.654,
+              "margin_at_cluster": 0.014,
+              "best_member_offset_s": 5.9211
+            }
+          }
+        },
+        {
+          "offset_s": 7.2911,
+          "overlap_s": 80.0,
+          "candidates": [
+            {
+              "method": "hybrid",
+              "family": "tonal",
+              "offset_s": 7.291065759637188,
+              "z": 49.598782133863175,
+              "peak_margin": 45.81452438942668,
+              "usable_overlap_s": 80.0,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                -35.6426,
+                56.6335,
+                76.3704
+              ],
+              "notes": {}
+            },
+            {
+              "method": "pcen_hpss",
+              "family": "pcen_spectral",
+              "offset_s": 7.291065759637188,
+              "z": 37.04404890308167,
+              "peak_margin": 13.61821004049655,
+              "usable_overlap_s": 80.0,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                -7.175,
+                77.4618,
+                84.4742
+              ],
+              "notes": {}
+            },
+            {
+              "method": "pcen",
+              "family": "pcen_spectral",
+              "offset_s": 7.430385487528345,
+              "z": 50.20377577752152,
+              "peak_margin": 68.43197139411431,
+              "usable_overlap_s": 80.0,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                -46.1845,
+                -35.8748,
+                5.9211
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "tonal": {
+              "methods": [
+                "hybrid"
+              ],
+              "z_at_cluster": 49.599,
+              "margin_at_cluster": 45.815,
+              "best_member_offset_s": 7.2911
+            },
+            "pcen_spectral": {
+              "methods": [
+                "pcen",
+                "pcen_hpss"
+              ],
+              "z_at_cluster": 50.204,
+              "margin_at_cluster": 68.432,
+              "best_member_offset_s": 7.4304
+            }
+          }
+        },
+        {
+          "offset_s": 7.5697,
+          "overlap_s": 80.0,
+          "candidates": [
+            {
+              "method": "onset",
+              "family": "onset_temporal",
+              "offset_s": 7.569705215419501,
+              "z": 46.313817035994376,
+              "peak_margin": 28.437974632469967,
+              "usable_overlap_s": 80.0,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                5.6889,
+                -41.2386,
+                44.3269
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "onset_temporal": {
+              "methods": [
+                "onset"
+              ],
+              "z_at_cluster": 46.314,
+              "margin_at_cluster": 28.438,
+              "best_member_offset_s": 7.5697
+            }
+          }
+        },
+        {
+          "offset_s": 44.3269,
+          "overlap_s": 47.67,
+          "candidates": [
+            {
+              "method": "onset",
+              "family": "onset_temporal",
+              "offset_s": 44.32689342403628,
+              "z": 1.5215808979770737,
+              "peak_margin": 0.033574026900924536,
+              "usable_overlap_s": 47.67310657596372,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.5697,
+                5.6889,
+                -41.2386
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "onset_temporal": {
+              "methods": [
+                "onset"
+              ],
+              "z_at_cluster": 1.522,
+              "margin_at_cluster": 0.034,
+              "best_member_offset_s": 44.3269
+            }
+          }
+        },
+        {
+          "offset_s": 56.6335,
+          "overlap_s": 35.37,
+          "candidates": [
+            {
+              "method": "hybrid",
+              "family": "tonal",
+              "offset_s": 56.6334693877551,
+              "z": 0.8919742509767634,
+              "peak_margin": 0.018593515742399334,
+              "usable_overlap_s": 35.3665306122449,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.2911,
+                -35.6426,
+                76.3704
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "tonal": {
+              "methods": [
+                "hybrid"
+              ],
+              "z_at_cluster": 0.892,
+              "margin_at_cluster": 0.019,
+              "best_member_offset_s": 56.6335
+            }
+          }
+        },
+        {
+          "offset_s": 76.3704,
+          "overlap_s": 15.63,
+          "candidates": [
+            {
+              "method": "hybrid",
+              "family": "tonal",
+              "offset_s": 76.37043083900227,
+              "z": 0.8577918794153344,
+              "peak_margin": 0.01790476600584606,
+              "usable_overlap_s": 15.629569160997733,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.2911,
+                -35.6426,
+                56.6335
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "tonal": {
+              "methods": [
+                "hybrid"
+              ],
+              "z_at_cluster": 0.858,
+              "margin_at_cluster": 0.018,
+              "best_member_offset_s": 76.3704
+            }
+          }
+        },
+        {
+          "offset_s": 77.4618,
+          "overlap_s": 14.54,
+          "candidates": [
+            {
+              "method": "pcen_hpss",
+              "family": "pcen_spectral",
+              "offset_s": 77.46176870748299,
+              "z": 2.697431940995557,
+              "peak_margin": 0.07310455585368249,
+              "usable_overlap_s": 14.538231292517011,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.2911,
+                -7.175,
+                84.4742
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "pcen_spectral": {
+              "methods": [
+                "pcen_hpss"
+              ],
+              "z_at_cluster": 2.697,
+              "margin_at_cluster": 0.073,
+              "best_member_offset_s": 77.4618
+            }
+          }
+        },
+        {
+          "offset_s": 84.4742,
+          "overlap_s": 7.53,
+          "candidates": [
+            {
+              "method": "pcen_hpss",
+              "family": "pcen_spectral",
+              "offset_s": 84.47419501133787,
+              "z": 2.636054680359833,
+              "peak_margin": 0.07144819757769179,
+              "usable_overlap_s": 7.525804988662131,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.2911,
+                -7.175,
+                77.4618
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "pcen_spectral": {
+              "methods": [
+                "pcen_hpss"
+              ],
+              "z_at_cluster": 2.636,
+              "margin_at_cluster": 0.071,
+              "best_member_offset_s": 84.4742
+            }
+          }
+        }
+      ]
+    },
+    {
+      "hpss_offset_s": 7.44,
+      "reference_nomination_s": 7.3,
+      "status": "accepted",
+      "offset": 7.430385487528345,
+      "distance_from_tonal_nomination_s": 0.13038548752834522,
+      "reason": "ACCEPT_DUAL_FAMILY",
+      "clusters": [
+        {
+          "offset_s": -46.1845,
+          "overlap_s": 33.82,
+          "candidates": [
+            {
+              "method": "pcen",
+              "family": "pcen_spectral",
+              "offset_s": -46.18448979591837,
+              "z": 0.7090200449055295,
+              "peak_margin": 0.01461305263647582,
+              "usable_overlap_s": 33.81551020408163,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.4304,
+                -35.8748,
+                5.9211
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "pcen_spectral": {
+              "methods": [
+                "pcen"
+              ],
+              "z_at_cluster": 0.709,
+              "margin_at_cluster": 0.015,
+              "best_member_offset_s": -46.1845
+            }
+          }
+        },
+        {
+          "offset_s": -41.2386,
+          "overlap_s": 38.76,
+          "candidates": [
+            {
+              "method": "onset",
+              "family": "onset_temporal",
+              "offset_s": -41.23863945578231,
+              "z": 1.5735020978327345,
+              "peak_margin": 0.03469426559453131,
+              "usable_overlap_s": 38.76136054421769,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.5697,
+                5.6889,
+                44.3269
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "onset_temporal": {
+              "methods": [
+                "onset"
+              ],
+              "z_at_cluster": 1.574,
+              "margin_at_cluster": 0.035,
+              "best_member_offset_s": -41.2386
+            }
+          }
+        },
+        {
+          "offset_s": -35.8748,
+          "overlap_s": 44.13,
+          "candidates": [
+            {
+              "method": "pcen",
+              "family": "pcen_spectral",
+              "offset_s": -35.87482993197279,
+              "z": 0.6654947813490419,
+              "peak_margin": 0.013746511808982512,
+              "usable_overlap_s": 44.12517006802721,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.4304,
+                -46.1845,
+                5.9211
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "pcen_spectral": {
+              "methods": [
+                "pcen"
+              ],
+              "z_at_cluster": 1.432,
+              "margin_at_cluster": 0.04,
+              "best_member_offset_s": -35.898
+            }
+          }
+        },
+        {
+          "offset_s": -35.6426,
+          "overlap_s": 44.36,
+          "candidates": [
+            {
+              "method": "hybrid",
+              "family": "tonal",
+              "offset_s": -35.64263038548753,
+              "z": 1.052457677297962,
+              "peak_margin": 0.02182713917315674,
+              "usable_overlap_s": 44.35736961451247,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.2911,
+                56.6335,
+                76.3704
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "tonal": {
+              "methods": [
+                "hybrid"
+              ],
+              "z_at_cluster": 1.052,
+              "margin_at_cluster": 0.022,
+              "best_member_offset_s": -35.6426
+            }
+          }
+        },
+        {
+          "offset_s": -7.175,
+          "overlap_s": 72.83,
+          "candidates": [
+            {
+              "method": "pcen_hpss",
+              "family": "pcen_spectral",
+              "offset_s": -7.174965986394557,
+              "z": 2.713657485332159,
+              "peak_margin": 0.07479416415701862,
+              "usable_overlap_s": 72.82503401360545,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.4304,
+                77.4618,
+                84.4742
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "pcen_spectral": {
+              "methods": [
+                "pcen_hpss"
+              ],
+              "z_at_cluster": 2.714,
+              "margin_at_cluster": 0.075,
+              "best_member_offset_s": -7.175
+            }
+          }
+        },
+        {
+          "offset_s": 5.6889,
+          "overlap_s": 80.0,
+          "candidates": [
+            {
+              "method": "onset",
+              "family": "onset_temporal",
+              "offset_s": 5.688888888888889,
+              "z": 1.5952850125491371,
+              "peak_margin": 0.03516424826043055,
+              "usable_overlap_s": 80.0,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.5697,
+                -41.2386,
+                44.3269
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "onset_temporal": {
+              "methods": [
+                "onset"
+              ],
+              "z_at_cluster": 1.595,
+              "margin_at_cluster": 0.035,
+              "best_member_offset_s": 5.6889
+            }
+          }
+        },
+        {
+          "offset_s": 5.9211,
+          "overlap_s": 80.0,
+          "candidates": [
+            {
+              "method": "pcen",
+              "family": "pcen_spectral",
+              "offset_s": 5.921088435374149,
+              "z": 0.6541032008371641,
+              "peak_margin": 0.013519717786462507,
+              "usable_overlap_s": 80.0,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.4304,
+                -46.1845,
+                -35.8748
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "pcen_spectral": {
+              "methods": [
+                "pcen"
+              ],
+              "z_at_cluster": 0.654,
+              "margin_at_cluster": 0.014,
+              "best_member_offset_s": 5.9211
+            }
+          }
+        },
+        {
+          "offset_s": 7.4304,
+          "overlap_s": 80.0,
+          "candidates": [
+            {
+              "method": "hybrid",
+              "family": "tonal",
+              "offset_s": 7.291065759637188,
+              "z": 49.598782133863175,
+              "peak_margin": 45.81452438942668,
+              "usable_overlap_s": 80.0,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                -35.6426,
+                56.6335,
+                76.3704
+              ],
+              "notes": {}
+            },
+            {
+              "method": "pcen",
+              "family": "pcen_spectral",
+              "offset_s": 7.430385487528345,
+              "z": 50.20377577752152,
+              "peak_margin": 68.43197139411431,
+              "usable_overlap_s": 80.0,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                -46.1845,
+                -35.8748,
+                5.9211
+              ],
+              "notes": {}
+            },
+            {
+              "method": "pcen_hpss",
+              "family": "pcen_spectral",
+              "offset_s": 7.430385487528345,
+              "z": 36.4241126049624,
+              "peak_margin": 13.370027077255077,
+              "usable_overlap_s": 80.0,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                -7.175,
+                77.4618,
+                84.4742
+              ],
+              "notes": {}
+            },
+            {
+              "method": "onset",
+              "family": "onset_temporal",
+              "offset_s": 7.569705215419501,
+              "z": 46.313817035994376,
+              "peak_margin": 28.437974632469967,
+              "usable_overlap_s": 80.0,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                5.6889,
+                -41.2386,
+                44.3269
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "tonal": {
+              "methods": [
+                "hybrid"
+              ],
+              "z_at_cluster": 49.599,
+              "margin_at_cluster": 45.815,
+              "best_member_offset_s": 7.2911
+            },
+            "pcen_spectral": {
+              "methods": [
+                "pcen",
+                "pcen_hpss"
+              ],
+              "z_at_cluster": 50.204,
+              "margin_at_cluster": 68.432,
+              "best_member_offset_s": 7.4304
+            },
+            "onset_temporal": {
+              "methods": [
+                "onset"
+              ],
+              "z_at_cluster": 46.314,
+              "margin_at_cluster": 28.438,
+              "best_member_offset_s": 7.5697
+            }
+          }
+        },
+        {
+          "offset_s": 44.3269,
+          "overlap_s": 47.67,
+          "candidates": [
+            {
+              "method": "onset",
+              "family": "onset_temporal",
+              "offset_s": 44.32689342403628,
+              "z": 1.5215808979770737,
+              "peak_margin": 0.033574026900924536,
+              "usable_overlap_s": 47.67310657596372,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.5697,
+                5.6889,
+                -41.2386
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "onset_temporal": {
+              "methods": [
+                "onset"
+              ],
+              "z_at_cluster": 1.522,
+              "margin_at_cluster": 0.034,
+              "best_member_offset_s": 44.3269
+            }
+          }
+        },
+        {
+          "offset_s": 56.6335,
+          "overlap_s": 35.37,
+          "candidates": [
+            {
+              "method": "hybrid",
+              "family": "tonal",
+              "offset_s": 56.6334693877551,
+              "z": 0.8919742509767634,
+              "peak_margin": 0.018593515742399334,
+              "usable_overlap_s": 35.3665306122449,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.2911,
+                -35.6426,
+                76.3704
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "tonal": {
+              "methods": [
+                "hybrid"
+              ],
+              "z_at_cluster": 0.892,
+              "margin_at_cluster": 0.019,
+              "best_member_offset_s": 56.6335
+            }
+          }
+        },
+        {
+          "offset_s": 76.3704,
+          "overlap_s": 15.63,
+          "candidates": [
+            {
+              "method": "hybrid",
+              "family": "tonal",
+              "offset_s": 76.37043083900227,
+              "z": 0.8577918794153344,
+              "peak_margin": 0.01790476600584606,
+              "usable_overlap_s": 15.629569160997733,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.2911,
+                -35.6426,
+                56.6335
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "tonal": {
+              "methods": [
+                "hybrid"
+              ],
+              "z_at_cluster": 0.858,
+              "margin_at_cluster": 0.018,
+              "best_member_offset_s": 76.3704
+            }
+          }
+        },
+        {
+          "offset_s": 77.4618,
+          "overlap_s": 14.54,
+          "candidates": [
+            {
+              "method": "pcen_hpss",
+              "family": "pcen_spectral",
+              "offset_s": 77.46176870748299,
+              "z": 2.7015391797071677,
+              "peak_margin": 0.07446156920850835,
+              "usable_overlap_s": 14.538231292517011,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.4304,
+                -7.175,
+                84.4742
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "pcen_spectral": {
+              "methods": [
+                "pcen_hpss"
+              ],
+              "z_at_cluster": 2.702,
+              "margin_at_cluster": 0.074,
+              "best_member_offset_s": 77.4618
+            }
+          }
+        },
+        {
+          "offset_s": 84.4742,
+          "overlap_s": 7.53,
+          "candidates": [
+            {
+              "method": "pcen_hpss",
+              "family": "pcen_spectral",
+              "offset_s": 84.47419501133787,
+              "z": 2.640068463122819,
+              "peak_margin": 0.07277446455461209,
+              "usable_overlap_s": 7.525804988662131,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.4304,
+                -7.175,
+                77.4618
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "pcen_spectral": {
+              "methods": [
+                "pcen_hpss"
+              ],
+              "z_at_cluster": 2.64,
+              "margin_at_cluster": 0.073,
+              "best_member_offset_s": 84.4742
+            }
+          }
+        }
+      ]
+    },
+    {
+      "hpss_offset_s": 7.58,
+      "reference_nomination_s": 7.3,
+      "status": "accepted",
+      "offset": 7.569705215419501,
+      "distance_from_tonal_nomination_s": 0.269705215419501,
+      "reason": "ACCEPT_DUAL_FAMILY",
+      "clusters": [
+        {
+          "offset_s": -46.1845,
+          "overlap_s": 33.82,
+          "candidates": [
+            {
+              "method": "pcen",
+              "family": "pcen_spectral",
+              "offset_s": -46.18448979591837,
+              "z": 0.7090200449055295,
+              "peak_margin": 0.01461305263647582,
+              "usable_overlap_s": 33.81551020408163,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.4304,
+                -35.8748,
+                5.9211
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "pcen_spectral": {
+              "methods": [
+                "pcen"
+              ],
+              "z_at_cluster": 0.709,
+              "margin_at_cluster": 0.015,
+              "best_member_offset_s": -46.1845
+            }
+          }
+        },
+        {
+          "offset_s": -41.2386,
+          "overlap_s": 38.76,
+          "candidates": [
+            {
+              "method": "onset",
+              "family": "onset_temporal",
+              "offset_s": -41.23863945578231,
+              "z": 1.5735020978327345,
+              "peak_margin": 0.03469426559453131,
+              "usable_overlap_s": 38.76136054421769,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.5697,
+                5.6889,
+                44.3269
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "onset_temporal": {
+              "methods": [
+                "onset"
+              ],
+              "z_at_cluster": 1.574,
+              "margin_at_cluster": 0.035,
+              "best_member_offset_s": -41.2386
+            }
+          }
+        },
+        {
+          "offset_s": -35.8748,
+          "overlap_s": 44.13,
+          "candidates": [
+            {
+              "method": "pcen",
+              "family": "pcen_spectral",
+              "offset_s": -35.87482993197279,
+              "z": 0.6654947813490419,
+              "peak_margin": 0.013746511808982512,
+              "usable_overlap_s": 44.12517006802721,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.4304,
+                -46.1845,
+                5.9211
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "pcen_spectral": {
+              "methods": [
+                "pcen"
+              ],
+              "z_at_cluster": 1.415,
+              "margin_at_cluster": 0.04,
+              "best_member_offset_s": -35.898
+            }
+          }
+        },
+        {
+          "offset_s": -35.6426,
+          "overlap_s": 44.36,
+          "candidates": [
+            {
+              "method": "hybrid",
+              "family": "tonal",
+              "offset_s": -35.64263038548753,
+              "z": 1.052457677297962,
+              "peak_margin": 0.02182713917315674,
+              "usable_overlap_s": 44.35736961451247,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.2911,
+                56.6335,
+                76.3704
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "tonal": {
+              "methods": [
+                "hybrid"
+              ],
+              "z_at_cluster": 1.052,
+              "margin_at_cluster": 0.022,
+              "best_member_offset_s": -35.6426
+            }
+          }
+        },
+        {
+          "offset_s": -7.175,
+          "overlap_s": 72.83,
+          "candidates": [
+            {
+              "method": "pcen_hpss",
+              "family": "pcen_spectral",
+              "offset_s": -7.174965986394557,
+              "z": 2.6830770350341884,
+              "peak_margin": 0.07537576027910577,
+              "usable_overlap_s": 72.82503401360545,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.5697,
+                77.4618,
+                84.4742
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "pcen_spectral": {
+              "methods": [
+                "pcen_hpss"
+              ],
+              "z_at_cluster": 2.683,
+              "margin_at_cluster": 0.075,
+              "best_member_offset_s": -7.175
+            }
+          }
+        },
+        {
+          "offset_s": 5.6889,
+          "overlap_s": 80.0,
+          "candidates": [
+            {
+              "method": "onset",
+              "family": "onset_temporal",
+              "offset_s": 5.688888888888889,
+              "z": 1.5952850125491371,
+              "peak_margin": 0.03516424826043055,
+              "usable_overlap_s": 80.0,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.5697,
+                -41.2386,
+                44.3269
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "onset_temporal": {
+              "methods": [
+                "onset"
+              ],
+              "z_at_cluster": 1.595,
+              "margin_at_cluster": 0.035,
+              "best_member_offset_s": 5.6889
+            }
+          }
+        },
+        {
+          "offset_s": 5.9211,
+          "overlap_s": 80.0,
+          "candidates": [
+            {
+              "method": "pcen",
+              "family": "pcen_spectral",
+              "offset_s": 5.921088435374149,
+              "z": 0.6541032008371641,
+              "peak_margin": 0.013519717786462507,
+              "usable_overlap_s": 80.0,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.4304,
+                -46.1845,
+                -35.8748
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "pcen_spectral": {
+              "methods": [
+                "pcen"
+              ],
+              "z_at_cluster": 0.654,
+              "margin_at_cluster": 0.014,
+              "best_member_offset_s": 5.9211
+            }
+          }
+        },
+        {
+          "offset_s": 7.5697,
+          "overlap_s": 80.0,
+          "candidates": [
+            {
+              "method": "hybrid",
+              "family": "tonal",
+              "offset_s": 7.291065759637188,
+              "z": 49.598782133863175,
+              "peak_margin": 45.81452438942668,
+              "usable_overlap_s": 80.0,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                -35.6426,
+                56.6335,
+                76.3704
+              ],
+              "notes": {}
+            },
+            {
+              "method": "pcen",
+              "family": "pcen_spectral",
+              "offset_s": 7.430385487528345,
+              "z": 50.20377577752152,
+              "peak_margin": 68.43197139411431,
+              "usable_overlap_s": 80.0,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                -46.1845,
+                -35.8748,
+                5.9211
+              ],
+              "notes": {}
+            },
+            {
+              "method": "onset",
+              "family": "onset_temporal",
+              "offset_s": 7.569705215419501,
+              "z": 46.313817035994376,
+              "peak_margin": 28.437974632469967,
+              "usable_overlap_s": 80.0,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                5.6889,
+                -41.2386,
+                44.3269
+              ],
+              "notes": {}
+            },
+            {
+              "method": "pcen_hpss",
+              "family": "pcen_spectral",
+              "offset_s": 7.569705215419501,
+              "z": 35.735678414559516,
+              "peak_margin": 13.266864523782466,
+              "usable_overlap_s": 80.0,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                -7.175,
+                77.4618,
+                84.4742
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "tonal": {
+              "methods": [
+                "hybrid"
+              ],
+              "z_at_cluster": 49.599,
+              "margin_at_cluster": 45.815,
+              "best_member_offset_s": 7.2911
+            },
+            "pcen_spectral": {
+              "methods": [
+                "pcen",
+                "pcen_hpss"
+              ],
+              "z_at_cluster": 50.204,
+              "margin_at_cluster": 68.432,
+              "best_member_offset_s": 7.4304
+            },
+            "onset_temporal": {
+              "methods": [
+                "onset"
+              ],
+              "z_at_cluster": 46.314,
+              "margin_at_cluster": 28.438,
+              "best_member_offset_s": 7.5697
+            }
+          }
+        },
+        {
+          "offset_s": 44.3269,
+          "overlap_s": 47.67,
+          "candidates": [
+            {
+              "method": "onset",
+              "family": "onset_temporal",
+              "offset_s": 44.32689342403628,
+              "z": 1.5215808979770737,
+              "peak_margin": 0.033574026900924536,
+              "usable_overlap_s": 47.67310657596372,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.5697,
+                5.6889,
+                -41.2386
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "onset_temporal": {
+              "methods": [
+                "onset"
+              ],
+              "z_at_cluster": 1.522,
+              "margin_at_cluster": 0.034,
+              "best_member_offset_s": 44.3269
+            }
+          }
+        },
+        {
+          "offset_s": 56.6335,
+          "overlap_s": 35.37,
+          "candidates": [
+            {
+              "method": "hybrid",
+              "family": "tonal",
+              "offset_s": 56.6334693877551,
+              "z": 0.8919742509767634,
+              "peak_margin": 0.018593515742399334,
+              "usable_overlap_s": 35.3665306122449,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.2911,
+                -35.6426,
+                76.3704
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "tonal": {
+              "methods": [
+                "hybrid"
+              ],
+              "z_at_cluster": 0.892,
+              "margin_at_cluster": 0.019,
+              "best_member_offset_s": 56.6335
+            }
+          }
+        },
+        {
+          "offset_s": 76.3704,
+          "overlap_s": 15.63,
+          "candidates": [
+            {
+              "method": "hybrid",
+              "family": "tonal",
+              "offset_s": 76.37043083900227,
+              "z": 0.8577918794153344,
+              "peak_margin": 0.01790476600584606,
+              "usable_overlap_s": 15.629569160997733,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.2911,
+                -35.6426,
+                56.6335
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "tonal": {
+              "methods": [
+                "hybrid"
+              ],
+              "z_at_cluster": 0.858,
+              "margin_at_cluster": 0.018,
+              "best_member_offset_s": 76.3704
+            }
+          }
+        },
+        {
+          "offset_s": 77.4618,
+          "overlap_s": 14.54,
+          "candidates": [
+            {
+              "method": "pcen_hpss",
+              "family": "pcen_spectral",
+              "offset_s": 77.46176870748299,
+              "z": 2.671095291685337,
+              "peak_margin": 0.07504057908694323,
+              "usable_overlap_s": 14.538231292517011,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.5697,
+                -7.175,
+                84.4742
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "pcen_spectral": {
+              "methods": [
+                "pcen_hpss"
+              ],
+              "z_at_cluster": 2.671,
+              "margin_at_cluster": 0.075,
+              "best_member_offset_s": 77.4618
+            }
+          }
+        },
+        {
+          "offset_s": 84.4742,
+          "overlap_s": 7.53,
+          "candidates": [
+            {
+              "method": "pcen_hpss",
+              "family": "pcen_spectral",
+              "offset_s": 84.47419501133787,
+              "z": 2.6103172941355197,
+              "peak_margin": 0.07334035558165902,
+              "usable_overlap_s": 7.525804988662131,
+              "runtime_s": 0,
+              "top_competing_offsets_s": [
+                7.5697,
+                -7.175,
+                77.4618
+              ],
+              "notes": {}
+            }
+          ],
+          "families": {
+            "pcen_spectral": {
+              "methods": [
+                "pcen_hpss"
+              ],
+              "z_at_cluster": 2.61,
+              "margin_at_cluster": 0.073,
+              "best_member_offset_s": 84.4742
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "limitation": "Synthetic feature curves only; not waveform-level correctness evidence. Nomination label is a test-seam anchor, not independent audio ground truth."
+}

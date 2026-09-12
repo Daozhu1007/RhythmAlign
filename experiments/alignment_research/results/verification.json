@@ -1,0 +1,188 @@
+{
+  "metadata": {
+    "baseline_sha": "ffa6b07a591dbdb54ae8350f3d27dce3ed74c847",
+    "research_head": "5b1fcd472a94470872dc1f837a7f473c0edd5282",
+    "command": "python experiments/alignment_research/verify.py",
+    "python": "3.10.11",
+    "platform": "Windows",
+    "machine": "AMD64",
+    "seed": 20260912,
+    "sr": 22050,
+    "hop": 512,
+    "policy": {
+      "cluster_tol_s": 0.15,
+      "min_overlap_s": 30.0,
+      "margin_floor_a": 1.0,
+      "margin_floor_b": 1.4,
+      "tonal_z_floor": 5.0,
+      "pcen_z_floor": 5.6,
+      "pcen_primary_z_floor": 7.0,
+      "onset_corroboration_z_floor": 2.0,
+      "ambiguity_z_ratio": 0.95,
+      "top_candidates_per_family": 4
+    },
+    "dependencies": {
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "librosa": "0.11.0",
+      "numba": "0.64.0",
+      "soundfile": "0.13.1",
+      "imageio-ffmpeg": "0.6.0",
+      "matplotlib": "3.10.9",
+      "pytest": "9.1.0"
+    },
+    "source_hashes": {
+      "auto_sync.py": "85dbebc8e4b38f41104b43b30284c1c2e8d955ccc31638989fd2a3c154315d1c",
+      "alignment_engine_v2.py": "96c0117e447ce5bd621a729817f66f61dce44acf2ece9c261b9a8a712c8b2088",
+      "experiments/alignment_research/study.py": "1f9c4de19fd8fabb3f7c1f6fae6f0247a6cb6fef7294b2f6a21ebcfc17ec9967",
+      "experiments/low_snr_alignment/semi_synthetic.py": "cce4b41b36019494ec1af31d7a4aa82dbb127b0f2513e90b6709d996359ba53b",
+      "experiments/low_snr_alignment/semi_synthetic_plan.json": "b4ea34109588756f5c9b2abe0410f1e9660db8c4b9266f3d386eb890ab2efe86"
+    },
+    "epistemic_status": "exploratory; historical sources already exposed during development"
+  },
+  "script_sha256": "aaa8e44c83f234d91244c65c6516357eeab36a17c64f7069d9d31aa1df3f8991",
+  "ra12d_relevance": {
+    "scientific_baseline": "ffa6b07a591dbdb54ae8350f3d27dce3ed74c847",
+    "integration_commit": "20d48169803a0e62e4379f197a51b92f9ac6555b",
+    "comparisons": {
+      "alignment_engine_v2.py": {
+        "equal_executable_AST_after_explicit_exclusions": true,
+        "excluded_top_level_assignments": [
+          "ENGINE_LABEL"
+        ],
+        "docstrings_excluded": true,
+        "baseline_normalized_ast_sha256": "6b7da581c151da5847d631a51a075c8533658b1c5078e80f1d49524a1576a3bf",
+        "integration_normalized_ast_sha256": "6b7da581c151da5847d631a51a075c8533658b1c5078e80f1d49524a1576a3bf"
+      },
+      "auto_sync.py": {
+        "equal_executable_AST_after_explicit_exclusions": true,
+        "excluded_top_level_assignments": [
+          "_ANALYSIS_ESTIMATE_REALTIME_FACTOR"
+        ],
+        "docstrings_excluded": true,
+        "baseline_normalized_ast_sha256": "5d74d4d1fa1ea217a2edbd5faa74f4e3ac107960d28e9943c686936302a81ad8",
+        "integration_normalized_ast_sha256": "5d74d4d1fa1ea217a2edbd5faa74f4e3ac107960d28e9943c686936302a81ad8"
+      }
+    },
+    "requirements_txt_unchanged": true,
+    "integration_call_path_inspected": [
+      {
+        "class": "BaseMediaWorker",
+        "function": "_run_find_offset",
+        "start_line": 479,
+        "source": "def _run_find_offset(self):\n        \"\"\"Product default path: Alignment Engine v2 (evidence-gated).\n\n        Returns an AlignmentDecision. Abstention is a decision, not an\n        exception, and there is deliberately NO silent legacy-v1 fallback:\n        an unreliable alignment must stop before export, not guess.\n        子类提供 v_path / m_path 属性。\n        \"\"\"\n        return find_offset_v2(self.v_path, self.m_path)"
+      },
+      {
+        "class": "BaseMediaWorker",
+        "function": "_on_offset_found",
+        "start_line": 495,
+        "source": "def _on_offset_found(self, offset):\n        \"\"\"子类必须重写：定义 ACCEPT 后的行为。\"\"\"\n        raise NotImplementedError"
+      },
+      {
+        "class": "BaseMediaWorker",
+        "function": "_on_abstained",
+        "start_line": 499,
+        "source": "def _on_abstained(self, decision):\n        \"\"\"ABSTAIN 公共日志；子类负责各自的安全停止信号（不导出、不造偏移）。\"\"\"\n        self.log_signal.emit(i18n.tr(\"log_abstained\"), \"error\")\n        self.log_signal.emit(i18n.tr(\"log_abstain_reason\", decision.reason_code), \"error\")\n        self.log_signal.emit(i18n.tr(\"log_abstain_no_export\"), \"error\")"
+      },
+      {
+        "class": "BaseMediaWorker",
+        "function": "run",
+        "start_line": 509,
+        "source": "def run(self):\n        self._initial_eta = self._estimate_initial_eta()\n\n        try:\n            self._emit_start(self._start_task_key, self._start_progress_val)\n            decision = self._run_find_offset()\n            if decision.accepted:\n                self.log_signal.emit(\n                    i18n.tr(\"log_alignment_accepted\", decision.offset), \"normal\")\n                self.log_signal.emit(\n                    i18n.tr(\"log_evidence_path\", i18n.tr(EVIDENCE_PATH_KEYS.get(\n                        decision.reason_code,\n                        \"evidence_path_primary_corroboration\"))),\n                    \"normal\")\n                self._on_offset_found(decision.offset)\n            else:\n                self._on_abstained(decision)\n        except Exception as e:\n            self._on_error(e)\n            self._fail()"
+      },
+      {
+        "class": "SyncWorker",
+        "function": "_on_offset_found",
+        "start_line": 546,
+        "source": "def _on_offset_found(self, offset):\n        manual_offset = self.kwargs['manual_offset']\n\n        dir_machine = i18n.tr(\"dir_right\") if offset > 0 else (i18n.tr(\"dir_left\") if offset < 0 else i18n.tr(\"dir_perfect\"))\n        self.log_signal.emit(i18n.tr(\"log_raw_offset\", offset, dir_machine), \"normal\")\n\n        final_offset = offset + manual_offset\n        dir_final = i18n.tr(\"dir_right\") if final_offset > 0 else (i18n.tr(\"dir_left\") if final_offset < 0 else i18n.tr(\"dir_perfect\"))\n        self.log_signal.emit(i18n.tr(\"log_final_offset\", offset, manual_offset, final_offset, dir_final), \"normal\")\n\n        self.log_signal.emit(i18n.tr(\"log_render_start\"), \"normal\")\n\n        def log_cb(msg):\n            self.log_signal.emit(msg, \"normal\")\n\n        def prog_cb(task, pct, eta):\n            self.progress_signal.emit(task, str(pct), eta)\n\n        mix_and_export(\n            video_path=self.kwargs['v_path'], music_path=self.kwargs['m_path'],\n            offset=offset, output_path=self.kwargs['save_path'],\n            vol_original=self.kwargs['orig_vol'], vol_music=self.kwargs['music_vol'],\n            use_gpu=self.kwargs['use_gpu'], bitrate=self.kwargs['bitrate'],\n            manual_offset=manual_offset, stream_copy=self.kwargs['stream_copy'],\n            tr=i18n.tr, ui_log_callback=log_cb, ui_progress_callback=prog_cb,\n        )\n\n        self.progress_signal.emit(i18n.tr(\"task_done\"), \"100\", \"00:00\")\n        self.finished_signal.emit(True, self.kwargs['save_path'], \"\")"
+      },
+      {
+        "class": "SyncWorker",
+        "function": "_on_abstained",
+        "start_line": 576,
+        "source": "def _on_abstained(self, decision):\n        super()._on_abstained(decision)\n        self.progress_signal.emit(i18n.tr(\"task_abstained\"), \"0\", \"--:--\")\n        self.finished_signal.emit(False, \"\", abstain_user_message(decision))"
+      },
+      {
+        "class": "AnalyzeWorker",
+        "function": "_on_offset_found",
+        "start_line": 596,
+        "source": "def _on_offset_found(self, offset):\n        self.log_signal.emit(i18n.tr(\"log_analyze_ok\", offset), \"success\")\n        self.progress_signal.emit(i18n.tr(\"analyze_done\"), \"100\", \"00:00\")\n        self.result_signal.emit(True, offset, \"\")"
+      },
+      {
+        "class": "AnalyzeWorker",
+        "function": "_on_abstained",
+        "start_line": 601,
+        "source": "def _on_abstained(self, decision):\n        super()._on_abstained(decision)\n        self.progress_signal.emit(i18n.tr(\"task_abstained\"), \"0\", \"--:--\")\n        # Safe stop: carry the reason_code, never a displayable fake offset.\n        self.result_signal.emit(False, 0.0, decision.reason_code)"
+      }
+    ],
+    "inference": "Both GUI workers use find_offset_v2 without policy overrides. ACCEPT dispatches its offset; SyncWorker exports. ABSTAIN stops. The algorithmic counterexamples remain relevant; no RA-1.2D experimental result was used for tuning.",
+    "owner_listening_context": "RA-1.2D documentation records owner PASS for the one motivating export. This post-baseline documentation is context only, not new quantitative ground truth or a scientific input."
+  },
+  "waveform_baseline_sign_and_exact_shift_controls": [
+    {
+      "known_offset_s": -2.5,
+      "methods": {
+        "wave_ncc": {
+          "offset": -2.5,
+          "peak": 0.9999994147082645,
+          "analysis_sr": 7350.0,
+          "min_overlap_s": 30
+        },
+        "gcc_phat": {
+          "offset": -2.5,
+          "peak": 0.9323843209529947,
+          "analysis_sr": 7350.0,
+          "min_overlap_s": 30
+        }
+      }
+    },
+    {
+      "known_offset_s": 2.5,
+      "methods": {
+        "wave_ncc": {
+          "offset": 2.5,
+          "peak": 0.9999999999999859,
+          "analysis_sr": 7350.0,
+          "min_overlap_s": 30
+        },
+        "gcc_phat": {
+          "offset": 2.5,
+          "peak": 0.9999975522274026,
+          "analysis_sr": 7350.0,
+          "min_overlap_s": 30
+        }
+      }
+    }
+  ],
+  "preserved_results": {
+    "experiments/alignment_research/results/corpus.json": {
+      "git_content_unchanged_from_wip": true,
+      "raw_checkout_bytes_equal_git_blob": false,
+      "checkout_sha256": "587edcb550ca060edcb315592bb6348c801786308ea256ca9572d98dde0ca740",
+      "git_blob_sha256": "ae500785fb7f49ce1af47053720de193c55c55747653f4a3c95d4d30fbab0abe",
+      "note": "Git checkout may convert LF to CRLF; this check permits only that conversion."
+    },
+    "experiments/alignment_research/results/audit.json": {
+      "git_content_unchanged_from_wip": true,
+      "raw_checkout_bytes_equal_git_blob": false,
+      "checkout_sha256": "355849f82ec86bdd13f966024139618b1b9ac04902e492da6f8e7ae0bf4e78d7",
+      "git_blob_sha256": "cb66f7233b012e1e6ef6dfee0452987f9bcb45cea6a6eab0092b8c5414f49f52",
+      "note": "Git checkout may convert LF to CRLF; this check permits only that conversion."
+    }
+  },
+  "baseline_test_suite": {
+    "command": "python -m pytest -q",
+    "returncode": 0,
+    "summary": "48 passed in 17.74s",
+    "stdout_sha256": "409297344ee12cb0416b376453cad04b02220424f9cf7def9b42916c7fb53b1c"
+  },
+  "research_result_counts": {
+    "corpus": 81,
+    "feature_nulls": 384,
+    "audio_nulls": 36,
+    "safeguards": 12,
+    "curve_counterexamples": 3,
+    "mismatch_search": 551,
+    "clean_mismatch_search": 380
+  }
+}
