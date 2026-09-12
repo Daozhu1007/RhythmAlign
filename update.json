@@ -1,17 +1,17 @@
 {
-    "version": "1.1.2",
-    "tag_name": "v1.1.2",
-    "release_url": "https://github.com/Daozhu1007/RhythmAlign/releases/tag/v1.1.2",
+    "version": "1.2.0",
+    "tag_name": "v1.2.0",
+    "release_url": "https://github.com/Daozhu1007/RhythmAlign/releases/tag/v1.2.0",
     "setup": {
-        "name": "RhythmAlign_v1.1.2_Setup.exe",
-        "url": "https://github.com/Daozhu1007/RhythmAlign/releases/download/v1.1.2/RhythmAlign_v1.1.2_Setup.exe",
-        "size": 134824790,
-        "sha256": "6E4E2275FC423123595C0E3153BED6E48D5B8B43DDDA423DC6C53CDF61816532"
+        "name": "RhythmAlign_v1.2.0_Setup.exe",
+        "url": "https://github.com/Daozhu1007/RhythmAlign/releases/download/v1.2.0/RhythmAlign_v1.2.0_Setup.exe",
+        "size": 118717233,
+        "sha256": "025323C60D133318BD21F5EE132A617A406DF9F8164BE51198DC3C4F46CC8774"
     },
     "portable": {
-        "name": "RhythmAlign-v1.1.2-Portable.zip",
-        "url": "https://github.com/Daozhu1007/RhythmAlign/releases/download/v1.1.2/RhythmAlign-v1.1.2-Portable.zip",
-        "size": 199188684,
-        "sha256": "489D81F7BB2F383C9B10F5F63EAE10567AFDB10A1C59E4E3CA609FC0948040EB"
+        "name": "RhythmAlign-v1.2.0-Portable.zip",
+        "url": "https://github.com/Daozhu1007/RhythmAlign/releases/download/v1.2.0/RhythmAlign-v1.2.0-Portable.zip",
+        "size": 176289985,
+        "sha256": "CFCED7CC67B5A5423C9A5E225D28BB93B673C282089145D85E645C4376EB3579"
     }
 }
