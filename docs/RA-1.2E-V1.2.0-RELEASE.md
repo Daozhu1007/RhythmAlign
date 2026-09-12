@@ -457,3 +457,104 @@ bytes.
 
 *Limitime — September 2026*
 ````
+
+---
+
+## 16. Final release record — v1.2.0 PUBLISHED
+
+Executed after `OWNER_RC2_PASS` (§15). No product/UI/algorithm/packaging
+change was made during the release actions.
+
+### 16.1 Final-audit fix (only deviation)
+
+`release_notes_v1.2.0.md` carried the stale **RC1** SHA-256 values
+(`CE34DDCB…` / `BFB5456B…`) in its SHA256 section. Publishing them would
+have failed user hash verification against the owner-approved RC2 bytes,
+so the two hash lines were corrected to the verified RC2 values before
+release creation. This is a factual metadata correction, not a
+release-note feature change. The file remains untracked (RELEASE.md
+善后 rule); Appendix A above still preserves the reviewed carrier copy
+with the old hashes verbatim — the published release body used the
+corrected file.
+
+### 16.2 Final audit (pre-publication)
+
+| check | result |
+|---|---|
+| `python -m pytest tests/ -q` | **80 passed** in 39.03 s |
+| `compileall` (all product modules + tests) | clean |
+| `git diff --check` | clean |
+| `APP_VERSION` | 1.2.0 |
+| locales zh_CN/en_US | `RhythmAlign v1.2.0` / `v1.2.0` |
+| `RhythmAlign.iss` | `MyAppVersion "1.2.0"`, `OutputBaseFilename=RhythmAlign_v1.2.0_Setup` |
+| `bundled_update.json` | 1.2.0 |
+| public `update.json` at audit time | 1.1.2 (untouched until publication) |
+| Engine v2 thresholds | `max_top_bin_share = 0.25`, `bin_width_s = 1.0` unchanged |
+| temporal-support policy | `ABSTAIN_CONCENTRATED_EVIDENCE` unchanged; `alignment_engine_v2.py` + `auto_sync.py` zero-diff since RC1 (`2d0a922`) |
+| Astra research branch | `astra/alignment-research-wip` (`8b78eb1`) local-only, unmerged |
+| user media / tracked build artifacts | none |
+| personal absolute paths in shipping files | none (only intentional public identity: repo owner, publisher, donation link) |
+| RC/debug strings in shipping metadata | none |
+| RC2 Setup hash | `025323C60D133318BD21F5EE132A617A406DF9F8164BE51198DC3C4F46CC8774` — MATCH |
+| RC2 Portable hash | `CFCED7CC67B5A5423C9A5E225D28BB93B673C282089145D85E645C4376EB3579` — MATCH |
+| final-named `dist/RhythmAlign_v1.2.0_Setup.exe` | byte-identical to RC2 Setup (same SHA-256) |
+
+No rebuild was performed; published bytes are the owner-tested bytes.
+
+### 16.3 Publication sequence
+
+1. `OWNER_RC2_PASS` recorded (commit `092f929`); `main` pushed to
+   `origin/main` (RC2 commits `ed1a869`, `ce39783` included).
+2. `update.json` finalized locally → commit
+   **`3a622fc33af1212178296ad9dad57ce9693eed48`**
+   (`chore: publish v1.2.0 release manifest`), validated but **not
+   pushed** until assets existed.
+3. Lightweight tag **`v1.2.0`** created (matching the v1.1.2
+   convention: lightweight, no tag object, points directly at the
+   release-manifest commit) and **only the tag** pushed — target
+   `3a622fc33af1212178296ad9dad57ce9693eed48`.
+4. GitHub Release created from the pre-pushed tag:
+   **https://github.com/Daozhu1007/RhythmAlign/releases/tag/v1.2.0**,
+   title `RhythmAlign v1.2.0` (repo convention), body =
+   corrected `release_notes_v1.2.0.md`, **not** prerelease, marked
+   Latest. Assets uploaded: `RhythmAlign_v1.2.0_Setup.exe`,
+   `RhythmAlign-v1.2.0-Portable.zip` (exact final names, no RC
+   naming, nothing else).
+5. Publication verified **from GitHub**: tag == v1.2.0, isDraft false,
+   isPrerelease false, both assets `state=uploaded` with sizes exactly
+   118,717,233 / 176,289,985 bytes; both assets re-downloaded from the
+   release and re-hashed:
+
+   | asset | size (bytes) | SHA-256 (downloaded from GitHub) |
+   |---|---|---|
+   | `RhythmAlign_v1.2.0_Setup.exe` | 118,717,233 | `025323C60D133318BD21F5EE132A617A406DF9F8164BE51198DC3C4F46CC8774` ✓ |
+   | `RhythmAlign-v1.2.0-Portable.zip` | 176,289,985 | `CFCED7CC67B5A5423C9A5E225D28BB93B673C282089145D85E645C4376EB3579` ✓ |
+6. Only after that verification: `3a622fc` pushed to `origin/main`;
+   raw `update.json` then publicly served **version 1.2.0** with the
+   correct v1.2.0 asset URLs and SHA-256 values.
+
+### 16.4 Update-path verification (read-only)
+
+- Manifest fetched through the app's own URL
+  (`raw.githubusercontent.com/Daozhu1007/RhythmAlign/main/update.json`)
+  → version 1.2.0.
+- `is_newer_version("1.2.0", "1.1.2")` → **True** (v1.1.2 clients
+  upgrade).
+- `is_newer_version("1.2.0", "1.2.0")` → **False** (the packaged 1.2.0
+  app does not report an update to itself).
+- Installer URL resolves: HTTP 200, `Content-Length` 118,717,233;
+  full-download SHA-256 equals the published Setup artifact.
+- No product code was modified for these tests.
+
+### 16.5 Final git state
+
+- Tag `v1.2.0` (lightweight) → `3a622fc33af1212178296ad9dad57ce9693eed48`
+  — the exact v1.2.0 source state including the finalized release
+  manifest. The tag is **not moved** by this documentation-only commit;
+  it remains on the immutable release source commit.
+- `origin/main` at publication time: `3a622fc` (== local `main`); this
+  §16 record is appended in a subsequent docs-only commit that follows
+  the tagged commit.
+- Working tree: clean except the intentionally untracked
+  `release_notes_v1.2.0.md` (per RELEASE.md 善后 rule).
+- `astra/alignment-research-wip` remains local-only and unmerged.
