@@ -1,10 +1,11 @@
 # RA-1.2E — v1.2.0 Release Candidate Preparation + Human Release Gate
 
 Status: **RC1 built and validated; owner returned `OWNER_RC_PASS`;
-RC2 built (final UI polish only, §14); release actions still hard-stopped
-per instruction.**
+RC2 built (final UI polish only, §14); owner returned `OWNER_RC2_PASS`
+(§15); FINAL RELEASE AUTHORIZED — release actions in progress (§16).**
 
-Owner test status: **RC1 = `OWNER_RC_PASS`** (received before RC2;
+Owner test status: **RC1 = `OWNER_RC_PASS`**, **RC2 =
+`OWNER_RC2_PASS`** (received before final release authorization;
 nothing below is fabricated).
 
 ---
@@ -435,6 +436,22 @@ instruction; algorithm code is zero-diff).
 No tag, no GitHub Release, no asset upload, `update.json` still serves
 v1.1.2. RC2 awaits the owner's go-ahead; the §12 post-PASS release
 actions apply unchanged, with RC2 hashes as the asset reference.
+
+---
+
+## 15. OWNER_RC2_PASS — final release authorization
+
+`OWNER_RC2_PASS` received from the product owner: the owner manually
+tested the packaged RC2 (`dist/rc/RhythmAlign-v1.2.0-RC2-Setup.exe`,
+SHA-256 `025323C60D133318BD21F5EE132A617A406DF9F8164BE51198DC3C4F46CC8774`)
+after the final slider-layout polish and explicitly approved it for
+release. No further product/UI/algorithm/packaging/release-note feature
+changes are permitted unless a final-audit blocker is found; no
+additional testing is claimed beyond this authorization.
+
+RA-1.2E may resume for FINAL RELEASE; the §12 post-PASS actions are
+executed in §16 with the owner-approved RC2 artifacts as the reference
+bytes.
 
 ---
 
