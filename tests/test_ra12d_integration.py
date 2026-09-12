@@ -308,8 +308,10 @@ def test_locale_files_cover_engine_v2_product_strings():
     assert "err_low_confidence" not in en
     assert "err_manual_fallback" not in en
     # fine-adjust wording must present the slider as an add-on, not a fallback
-    assert "auto alignment" in en["lbl_offset"].lower()
-    assert "自动对齐" in zh["lbl_offset"]
+    # (RA-1.2E RC2: the explanatory suffix moved out of the label; the unit is
+    # now an explicit create_slider_row parameter)
+    assert en["lbl_offset"] == "Manual fine-adjust"
+    assert zh["lbl_offset"] == "手动微调"
 
 
 def test_analyze_accept_hint_for_accepted_offset_unchanged(tmp_path, monkeypatch):

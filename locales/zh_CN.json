@@ -20,7 +20,7 @@
     "preset_desktop": "桌面端模式",
     "lbl_orig_vol": "原声(敲击声)",
     "lbl_music_vol": "纯净音乐",
-    "lbl_offset": "手动微调 (ms，叠加在自动对齐之上)",
+    "lbl_offset": "手动微调",
 
     "status_waiting": "等待处理...",
     "status_analyzing": "等待分析...",

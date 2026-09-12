@@ -148,6 +148,9 @@ from update_checker import (
 QQ_GROUP_ID = "1046879299"
 VIDEO_EXTENSIONS = {".mp4", ".mkv", ".mov", ".avi", ".flv", ".wmv", ".webm", ".ts"}
 AUDIO_EXTENSIONS = {".mp3", ".wav", ".flac", ".m4a", ".aac", ".ogg", ".wma"}
+# Fits the widest slider label ("Manual fine-adjust: -500 ms") in zh_CN/en_US,
+# so every Sync slider starts at the same x regardless of language.
+SLIDER_LABEL_WIDTH = 180
 THEME_TEXT_KEYS = {
     Theme.LIGHT: "theme_light",
     Theme.DARK: "theme_dark",
@@ -842,7 +845,7 @@ class SyncInterface(BaseMediaInterface):
 
         self.orig_slider, self.orig_lbl = self.create_slider_row(card2_layout, i18n.tr("lbl_orig_vol"), 0, 200, 120)
         self.music_slider, self.music_lbl = self.create_slider_row(card2_layout, i18n.tr("lbl_music_vol"), 0, 200, 60)
-        self.offset_slider, self.offset_lbl = self.create_slider_row(card2_layout, i18n.tr("lbl_offset"), -500, 500, 0)
+        self.offset_slider, self.offset_lbl = self.create_slider_row(card2_layout, i18n.tr("lbl_offset"), -500, 500, 0, unit=" ms")
         self.layout.addWidget(card2)
 
         self.layout.addLayout(self.create_progress_row(i18n.tr("status_waiting")))
@@ -864,14 +867,14 @@ class SyncInterface(BaseMediaInterface):
         if hasattr(self, "title_label"):
             self._set_title_style()
 
-    def create_slider_row(self, layout, name, min_val, max_val, default):
+    def create_slider_row(self, layout, name, min_val, max_val, default, unit="%"):
         row = QHBoxLayout()
-        lbl = BodyLabel(f"{name}: {default}{'%' if 'ms' not in name else ''}")
-        lbl.setMinimumWidth(150)
+        lbl = BodyLabel(f"{name}: {default}{unit}")
+        lbl.setFixedWidth(SLIDER_LABEL_WIDTH)
         slider = Slider(Qt.Orientation.Horizontal)
         slider.setRange(min_val, max_val)
         slider.setValue(default)
-        slider.valueChanged.connect(lambda v: lbl.setText(f"{name}: {v}{'%' if 'ms' not in name else ''}"))
+        slider.valueChanged.connect(lambda v: lbl.setText(f"{name}: {v}{unit}"))
         row.addWidget(lbl)
         row.addWidget(slider, 1)
         layout.addLayout(row)

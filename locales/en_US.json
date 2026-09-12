@@ -20,7 +20,7 @@
     "preset_desktop": "Desktop",
     "lbl_orig_vol": "Original Vol",
     "lbl_music_vol": "Music Vol",
-    "lbl_offset": "Manual fine-adjust (ms, added on top of auto alignment)",
+    "lbl_offset": "Manual fine-adjust",
 
     "status_waiting": "Waiting...",
     "status_analyzing": "Waiting to analyze...",
