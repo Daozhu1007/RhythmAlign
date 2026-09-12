@@ -33,7 +33,10 @@ a = Analysis(
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=['pytest', '_pytest'],
+    # PySide6: the app is PyQt6-only. Exclude the extraneous Qt bindings
+    # so builds stay deterministic on dev machines that happen to have
+    # PySide6 installed (PyInstaller aborts on multiple Qt bindings).
+    excludes=['pytest', '_pytest', 'PySide6'],
     noarchive=False,
     optimize=0,
 )

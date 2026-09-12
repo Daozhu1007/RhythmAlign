@@ -2,7 +2,7 @@
 
 Status: **calibration hardening complete; Engine v2 remains NON-DEFAULT —
 the GUI still calls the v1.1.x path.**
-Recommendation: **READY_FOR_RA12D** (see §24), with the human-listening
+Recommendation: **READY_FOR_RA12D** (see §23), with the human-listening
 gate still open (§3).
 
 ---
@@ -50,6 +50,11 @@ Three distinctions are now used strictly and separately everywhere below:
 - No owner listening verdict has been supplied as of this task. Nothing
   here invents or presumes one. The listening test remains open and is a
   required gate before RA-1.2D ships anything.
+
+> **Update (2026-09-12, recorded at RA-1.2D dispatch):** the owner has
+> since supplied the verdict — **`HUMAN_LISTENING_PASS`**. See the
+> post-run addendum in §24 for the exact record. The text above is kept
+> as written during RA-1.2C and is superseded by §24.
 
 ## 4. Semi-synthetic real-noise corpus design
 
@@ -460,3 +465,26 @@ stability objection for a persistent desktop app. RA-1.2D may integrate
 Engine v2 as the default path and prepare the v1.2.x release, subject to
 the still-open owner listening test (§3) and honest disclosure that
 human-ground-truth coverage remains one recording deep.
+
+## 24. Post-run addendum: owner listening verdict (recorded at RA-1.2D dispatch, 2026-09-12)
+
+`HUMAN_LISTENING_PASS`
+
+RA-1.2C was committed before the owner supplied the listening result;
+this addendum records it without rewriting the report above.
+
+- File tested: `零对话_engine_v2_test.mp4` (the RA-1.2B owner-test
+  artifact, exported through the Engine v2 alignment; not regenerated).
+- Engine v2 offset used for that export: **+12.4923 s**.
+- Owner verdict: **PASS** — the owner reports **no observable alignment
+  problem** in the v2-aligned export.
+- Consequence: the final RA-1.2C product gate (owner listening) is
+  **CLOSED**, which is what authorized RA-1.2D to integrate Engine v2 as
+  the default product path.
+
+Honesty notes, unchanged:
+
+- This verdict does **not** make the manual ±0.4 s ground-truth interval
+  more precise; it remains one recording deep.
+- The verdict confirms the +12.4923 s alignment is perceptually correct
+  to the owner; it adds no new numeric ground truth.

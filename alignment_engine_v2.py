@@ -1,8 +1,10 @@
 """Alignment Engine v2 — evidence-based alignment decisions (RA-1.2B).
 
-NOT the default product path yet: the GUI still calls auto_sync.find_offset().
-RA-1.2C decides whether Engine v2 becomes the default after CTO review and
-owner listening tests.
+Default product alignment path since RA-1.2D: the GUI's SyncWorker and
+AnalyzeWorker call find_offset_v2() and consume AlignmentDecision
+(ACCEPT/ABSTAIN). The legacy auto_sync.find_offset() remains available
+for backward-compatible tests, experiment comparisons, and explicitly-called
+diagnostic tooling — it is no longer the normal GUI engine.
 
 Design (RA-1.2A §10, corrected in RA-1.2B):
 
@@ -69,6 +71,10 @@ METHOD_FAMILY = {
 # Status values
 STATUS_ACCEPTED = "accepted"
 STATUS_ABSTAINED = "abstained"
+
+# Stable engine identity for logs / diagnostics / supportability reports.
+# Deliberately locale-independent (like a version number).
+ENGINE_LABEL = "Engine v2 (evidence-gated)"
 
 # Reason codes (machine-actionable)
 ACCEPT_DUAL_FAMILY = "ACCEPT_DUAL_FAMILY"
@@ -204,6 +210,11 @@ def decision_message(decision, tr=None):
 
     `tr` is an optional translation callable like the one ui_main passes to
     mix_and_export; the default returns the built-in Chinese strings.
+
+    RA-1.2D note: the GUI does NOT use this helper for user-facing text —
+    it maps reason codes onto the locale files instead, keeping the
+    decision layer presentation-independent. This helper remains a
+    diagnostic/experiment convenience (e.g. engine_v2_owner_test.py).
     """
     _ = tr  # reserved for UI i18n; engine itself stays UI-independent
     if decision.status == STATUS_ACCEPTED:

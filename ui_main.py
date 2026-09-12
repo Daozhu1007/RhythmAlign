@@ -122,7 +122,17 @@ from qfluentwidgets import (FluentWindow, NavigationItemPosition, SubtitleLabel,
                             QConfig, ConfigItem, OptionsConfigItem, OptionsValidator, BoolValidator, qconfig,
                             SystemThemeListener, isDarkTheme)
 
-from auto_sync import find_offset, mix_and_export, estimate_analysis_duration, CorrelationLowConfidenceError
+from auto_sync import mix_and_export, estimate_analysis_duration
+from alignment_engine_v2 import (
+    ACCEPT_DUAL_FAMILY,
+    ACCEPT_PRIMARY_WITH_CORROBORATION,
+    ABSTAIN_AMBIGUOUS_CLUSTER,
+    ABSTAIN_INSUFFICIENT_OVERLAP,
+    ABSTAIN_NO_CLUSTER_MEETS_FLOORS,
+    ABSTAIN_PRIMARY_NOT_CORROBORATED,
+    ENGINE_LABEL,
+    find_offset_v2,
+)
 from diagnostics import build_diagnostic_report
 from update_checker import (
     default_download_path,
@@ -334,6 +344,41 @@ class BrandingWidget(QWidget):
 # ================= 2. 后台工作线程 =================
 INDETERMINATE_PROGRESS = "__indeterminate__"
 
+# Engine v2 reason codes -> locale keys. Abstention is a safe product stop:
+# the machine-readable reason_code is always preserved in logs/diagnostics,
+# while the user-facing layer may share one concise message across several
+# codes when that reads better. The engine stays presentation-independent.
+ABSTAIN_REASON_KEYS = {
+    ABSTAIN_NO_CLUSTER_MEETS_FLOORS: "abstain_reason_insufficient_evidence",
+    ABSTAIN_PRIMARY_NOT_CORROBORATED: "abstain_reason_insufficient_evidence",
+    ABSTAIN_AMBIGUOUS_CLUSTER: "abstain_reason_ambiguous",
+    ABSTAIN_INSUFFICIENT_OVERLAP: "abstain_reason_insufficient_overlap",
+}
+EVIDENCE_PATH_KEYS = {
+    ACCEPT_DUAL_FAMILY: "evidence_path_dual_family",
+    ACCEPT_PRIMARY_WITH_CORROBORATION: "evidence_path_primary_corroboration",
+}
+
+
+def analyze_abstain_hint_text(reason_code):
+    """Localized abstention explanation for the Analyze result card."""
+    reason_key = ABSTAIN_REASON_KEYS.get(
+        reason_code, "abstain_reason_insufficient_evidence")
+    text = i18n.tr(reason_key)
+    if reason_code in (ABSTAIN_NO_CLUSTER_MEETS_FLOORS,
+                       ABSTAIN_PRIMARY_NOT_CORROBORATED):
+        text += "\n" + i18n.tr("abstain_suggestion")
+    return text
+
+
+def abstain_user_message(decision):
+    """Full user-facing message for an abstained alignment (Sync page)."""
+    return "\n".join([
+        i18n.tr("abstain_headline"),
+        i18n.tr("abstain_safe_stop"),
+        analyze_abstain_hint_text(decision.reason_code),
+    ])
+
 
 def format_eta(seconds):
     if seconds is None:
@@ -415,10 +460,11 @@ class UpdateDownloadWorker(QThread):
 
 
 class BaseMediaWorker(QThread):
-    """Template Method: 封装 find_offset 调用和异常处理。
+    """Template Method: 封装 Engine v2 对齐决策与异常处理。
 
-    子类只需实现 _on_offset_found(offset) 来定义找到偏移后的行为。
-    完成信号由子类自行定义（语义不同），基类只提供 log/progress 信号。
+    子类实现 _on_offset_found(offset)（ACCEPT 路径）与 _on_abstained(decision)
+    （ABSTAIN 安全停止路径）。弃权是 AlignmentDecision，不是异常；
+    默认路径绝不回退 legacy v1 引擎。
     """
     log_signal = pyqtSignal(str, str)
     progress_signal = pyqtSignal(str, str, str)
@@ -427,11 +473,18 @@ class BaseMediaWorker(QThread):
         """子类可重写以定制启动时的信号发射序列。"""
         self.progress_signal.emit(i18n.tr(task_key), progress_val, format_eta(self._initial_eta))
         self.log_signal.emit("-" * 40, "normal")
+        self.log_signal.emit(i18n.tr("log_engine_v2", ENGINE_LABEL), "normal")
         self.log_signal.emit(i18n.tr("log_extract"), "normal")
 
     def _run_find_offset(self):
-        """调用 find_offset 并返回结果；子类提供 v_path / m_path 属性。"""
-        return find_offset(self.v_path, self.m_path)
+        """Product default path: Alignment Engine v2 (evidence-gated).
+
+        Returns an AlignmentDecision. Abstention is a decision, not an
+        exception, and there is deliberately NO silent legacy-v1 fallback:
+        an unreliable alignment must stop before export, not guess.
+        子类提供 v_path / m_path 属性。
+        """
+        return find_offset_v2(self.v_path, self.m_path)
 
     def _estimate_initial_eta(self):
         try:
@@ -440,13 +493,14 @@ class BaseMediaWorker(QThread):
             return None
 
     def _on_offset_found(self, offset):
-        """子类必须重写：定义找到偏移后的行为。"""
+        """子类必须重写：定义 ACCEPT 后的行为。"""
         raise NotImplementedError
 
-    def _on_low_confidence(self, e):
-        """子类可重写：置信度过低时的处理。基类提供默认日志输出。"""
-        self.log_signal.emit(i18n.tr("err_low_confidence", e.z_score, e.threshold), "error")
-        self.log_signal.emit(i18n.tr("err_manual_fallback"), "normal")
+    def _on_abstained(self, decision):
+        """ABSTAIN 公共日志；子类负责各自的安全停止信号（不导出、不造偏移）。"""
+        self.log_signal.emit(i18n.tr("log_abstained"), "error")
+        self.log_signal.emit(i18n.tr("log_abstain_reason", decision.reason_code), "error")
+        self.log_signal.emit(i18n.tr("log_abstain_no_export"), "error")
 
     def _on_error(self, e):
         """子类可重写：通用异常处理。基类提供默认日志输出。"""
@@ -457,11 +511,18 @@ class BaseMediaWorker(QThread):
 
         try:
             self._emit_start(self._start_task_key, self._start_progress_val)
-            offset = self._run_find_offset()
-            self._on_offset_found(offset)
-        except CorrelationLowConfidenceError as e:
-            self._on_low_confidence(e)
-            self._fail()
+            decision = self._run_find_offset()
+            if decision.accepted:
+                self.log_signal.emit(
+                    i18n.tr("log_alignment_accepted", decision.offset), "normal")
+                self.log_signal.emit(
+                    i18n.tr("log_evidence_path", i18n.tr(EVIDENCE_PATH_KEYS.get(
+                        decision.reason_code,
+                        "evidence_path_primary_corroboration"))),
+                    "normal")
+                self._on_offset_found(decision.offset)
+            else:
+                self._on_abstained(decision)
         except Exception as e:
             self._on_error(e)
             self._fail()
@@ -472,7 +533,7 @@ class BaseMediaWorker(QThread):
 
 
 class SyncWorker(BaseMediaWorker):
-    finished_signal = pyqtSignal(bool, str)
+    finished_signal = pyqtSignal(bool, str, str)
 
     def __init__(self, kwargs):
         super().__init__()
@@ -510,15 +571,20 @@ class SyncWorker(BaseMediaWorker):
         )
 
         self.progress_signal.emit(i18n.tr("task_done"), "100", "00:00")
-        self.finished_signal.emit(True, self.kwargs['save_path'])
+        self.finished_signal.emit(True, self.kwargs['save_path'], "")
+
+    def _on_abstained(self, decision):
+        super()._on_abstained(decision)
+        self.progress_signal.emit(i18n.tr("task_abstained"), "0", "--:--")
+        self.finished_signal.emit(False, "", abstain_user_message(decision))
 
     def _fail(self):
         self.progress_signal.emit(i18n.tr("task_failed"), "0", "--:--")
-        self.finished_signal.emit(False, "")
+        self.finished_signal.emit(False, "", "")
 
 
 class AnalyzeWorker(BaseMediaWorker):
-    result_signal = pyqtSignal(bool, float)
+    result_signal = pyqtSignal(bool, float, str)
 
     def __init__(self, v_path, m_path):
         super().__init__()
@@ -530,11 +596,17 @@ class AnalyzeWorker(BaseMediaWorker):
     def _on_offset_found(self, offset):
         self.log_signal.emit(i18n.tr("log_analyze_ok", offset), "success")
         self.progress_signal.emit(i18n.tr("analyze_done"), "100", "00:00")
-        self.result_signal.emit(True, offset)
+        self.result_signal.emit(True, offset, "")
+
+    def _on_abstained(self, decision):
+        super()._on_abstained(decision)
+        self.progress_signal.emit(i18n.tr("task_abstained"), "0", "--:--")
+        # Safe stop: carry the reason_code, never a displayable fake offset.
+        self.result_signal.emit(False, 0.0, decision.reason_code)
 
     def _fail(self):
         self.progress_signal.emit(i18n.tr("analyze_failed"), "0", "--:--")
-        self.result_signal.emit(False, 0.0)
+        self.result_signal.emit(False, 0.0, "")
 
 
 # ================= 3. 共享媒体界面基类 =================
@@ -829,15 +901,28 @@ class SyncInterface(BaseMediaInterface):
         self.worker = SyncWorker(kwargs)
         self.worker.log_signal.connect(self.log)
         self.worker.progress_signal.connect(self.update_progress)
-        self.worker.finished_signal.connect(lambda ok, path: self.task_finished(ok, path, kwargs['open_folder']))
+        self.worker.finished_signal.connect(
+            lambda ok, path, abstain_msg: self.task_finished(
+                ok, path, abstain_msg, kwargs['open_folder']))
         self.worker.start()
 
-    def task_finished(self, success, path, open_folder):
+    def task_finished(self, success, path, abstain_message, open_folder):
         self.btn_start.setEnabled(True)
         if success:
             self.log(i18n.tr("log_saved_to", os.path.basename(path)), "success")
             if open_folder: subprocess.Popen(['explorer', '/select,', os.path.normpath(path)])
             InfoBar.success(title=i18n.tr("msg_success"), content=i18n.tr("msg_export_ok"), parent=self, position=InfoBarPosition.TOP)
+        elif abstain_message:
+            # ABSTAIN: safe product stop. Persistent notice (user-dismissed),
+            # no export happened, Sync stays fully usable for the next try.
+            self.log(abstain_message.replace("\n", " "), "error")
+            InfoBar.warning(
+                title=i18n.tr("abstain_headline"),
+                content=abstain_message,
+                parent=self,
+                position=InfoBarPosition.TOP,
+                duration=-1,
+            )
 
 
 # ================= 5. 纯分析页面 =================
@@ -958,7 +1043,7 @@ class AnalyzeInterface(BaseMediaInterface):
         self.worker.result_signal.connect(self.analysis_finished)
         self.worker.start()
 
-    def analysis_finished(self, success, offset):
+    def analysis_finished(self, success, offset, reason_code=""):
         self.btn_analyze.setEnabled(True)
         if success:
             sign = "+" if offset > 0 else ""
@@ -975,11 +1060,28 @@ class AnalyzeInterface(BaseMediaInterface):
             self.result_hint.setText(hint_text)
             self._set_result_hint_style("success", size=15, bold=True)
             InfoBar.success(title=i18n.tr("analyze_done"), content=i18n.tr("msg_analyze_ok"), parent=self, position=InfoBarPosition.TOP)
-        else:
-            self.result_display.setText(i18n.tr("analyze_failed"))
+            return
+
+        if reason_code:
+            # ABSTAIN: explicit "not reliably determinable" state — never a
+            # numeric placeholder that could be mistaken for a valid result.
+            self.result_display.setText(i18n.tr("analyze_abstained"))
             self._set_result_display_style("danger")
-            self.result_hint.setText(i18n.tr("msg_analyze_err"))
+            self.result_hint.setText(analyze_abstain_hint_text(reason_code))
             self._set_result_hint_style("danger")
+            InfoBar.warning(
+                title=i18n.tr("abstain_headline"),
+                content=i18n.tr("abstain_safe_stop"),
+                parent=self,
+                position=InfoBarPosition.TOP,
+                duration=8000,
+            )
+            return
+
+        self.result_display.setText(i18n.tr("analyze_failed"))
+        self._set_result_display_style("danger")
+        self.result_hint.setText(i18n.tr("msg_analyze_err"))
+        self._set_result_hint_style("danger")
 
 
 # ================= 4. 关于页面 =================

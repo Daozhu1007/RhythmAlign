@@ -9,6 +9,15 @@ from importlib import metadata
 from app_info import APP_DISPLAY_VERSION, APP_NAME, GITHUB_HOME_URL
 
 
+def _alignment_engine_label():
+    try:
+        from alignment_engine_v2 import ENGINE_LABEL
+
+        return ENGINE_LABEL
+    except Exception:
+        return "unknown"
+
+
 def _package_version(*names):
     for name in names:
         try:
@@ -76,6 +85,7 @@ def build_diagnostic_report(config, user_config_path, base_dir, recent_logs=None
         f"Base dir: {base_dir}",
         f"Working dir: {os.getcwd()}",
         f"User config: {user_config_path}",
+        f"Alignment engine: {_alignment_engine_label()}",
         "",
         "[System]",
         f"OS: {platform.platform()}",

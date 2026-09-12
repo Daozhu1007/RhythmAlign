@@ -89,7 +89,11 @@ _HYBRID_ONSET_WEIGHT = 0.2
 _ANALYSIS_ESTIMATE_MIN_SECONDS = 4.0
 _ANALYSIS_ESTIMATE_MAX_SECONDS = 240.0
 _ANALYSIS_ESTIMATE_OVERHEAD_SECONDS = 2.0
-_ANALYSIS_ESTIMATE_REALTIME_FACTOR = 45.0
+# RA-1.2D: recalibrated for the Engine v2 default analysis path (full product
+# run: FFmpeg extraction + multi-family evidence + decision measured at
+# 3.3–6.7 s for 273–332 s media pairs). Deliberately biased toward a slight
+# overestimate; the legacy-v1 factor (45) overestimated by up to ~140%.
+_ANALYSIS_ESTIMATE_REALTIME_FACTOR = 75.0
 
 
 def estimate_analysis_duration(video_path, music_path):
