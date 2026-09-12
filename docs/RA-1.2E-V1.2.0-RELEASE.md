@@ -1,10 +1,11 @@
 # RA-1.2E — v1.2.0 Release Candidate Preparation + Human Release Gate
 
-Status: **RC1 built and validated; awaiting owner manual test of the
-packaged candidate.**
+Status: **RC1 built and validated; owner returned `OWNER_RC_PASS`;
+RC2 built (final UI polish only, §14); release actions still hard-stopped
+per instruction.**
 
-Owner test status: **PENDING** (this document is appended after the
-owner returns `OWNER_RC_PASS`; nothing below is fabricated).
+Owner test status: **RC1 = `OWNER_RC_PASS`** (received before RC2;
+nothing below is fabricated).
 
 ---
 
@@ -357,6 +358,83 @@ RELEASE.md 善后 rules; its reviewed content is preserved verbatim below.
 ## 许可 | License
 
 本软件基于 PolyForm Noncommercial 1.0.0 许可协议，仅供个人非商业使用。详见 [LICENSE](https://github.com/Daozhu1007/RhythmAlign/blob/main/LICENSE)。
+
+---
+
+## 14. RC2 — final UI polish only (post `OWNER_RC_PASS`)
+
+Scope guard honored: after the owner returned `OWNER_RC_PASS` for RC1,
+exactly one fix was allowed — the Sync-page slider label/unit layout.
+`alignment_engine_v2.py`, `auto_sync.py`, export/update/packaging logic,
+version 1.2.0, and `release_notes_v1.2.0.md` are **zero-diff** against
+the RC1 state (`2d0a922` + report commit); the RC2 commit `ed1a869`
+touches only `ui_main.py`, `locales/{zh_CN,en_US}.json`, and tests
+(verified via `git show ed1a869 --stat` and an empty
+`git diff 2d0a922..ed1a869` over the algorithm/update/packaging files).
+
+### 14.1 Change (commit `ed1a869`)
+
+- `lbl_offset` shortened: zh_CN `手动微调 (ms，叠加在自动对齐之上)` →
+  `手动微调`; en_US `Manual fine-adjust (ms, added on top of auto
+  alignment)` → `Manual fine-adjust`. The long label measured 408 px
+  (en) / 284 px (zh) rendered vs 114 px for the other rows, pushing the
+  third slider start far right.
+- `create_slider_row(..., unit="%")`: the unit is now an explicit
+  parameter; the text-dependent heuristic (`'%' if 'ms' not in name`)
+  is removed. The offset row passes `unit=" ms"`, so live text is
+  e.g. `手动微调: 0 ms` / `Manual fine-adjust: 0 ms` and volume rows
+  keep `…%`.
+- Labels use a fixed `SLIDER_LABEL_WIDTH = 180` px (fits the widest
+  state `Manual fine-adjust: -500 ms` = 173 px in both locales), so all
+  three sliders start at the same x in zh_CN and en_US (verified 244 px
+  for both languages in a real widget layout).
+- Offset slider unchanged: range −500..500, default 0, semantics
+  (`/1000.0` seconds) untouched; presets untouched.
+- Tests: new `tests/test_ra12e_slider_ui.py` (4 tests: short/unit-free
+  labels in both locales, explicit `unit` parameter, shared slider
+  start x + offset range + live unit text); the RA-1.2D locale-wording
+  assertion was updated to pin the new exact labels.
+
+### 14.2 Verification and RC2 build
+
+- `python -m pytest tests/ -q` → **80 passed** (76 baseline + 4 new),
+  23.8 s. One pre-existing assertion failed against the shortened label
+  (`test_locale_files_cover_engine_v2_product_strings` required
+  "auto alignment" inside `lbl_offset`) and was updated as above — the
+  intent (fine-adjust presented as an add-on, never a fallback) is kept
+  by pinning the exact new labels.
+- `python -m compileall -q` on product modules + tests: clean.
+- `git diff --check`: clean. Clean tree at build time
+  (`ed1a869`, only untracked `release_notes_v1.2.0.md`).
+- Rebuild per §7 (PyInstaller 6.19.0 `--clean --noconfirm`, 94 s;
+  Inno Setup 6.7.3, 126 s; Compress-Archive). RC1 owner artifacts in
+  `dist/rc/` were preserved.
+
+### 14.3 RC2 owner-test package (local only, unpublished)
+
+- `D:\Code\RhythmAlign\dist\rc\RhythmAlign-v1.2.0-RC2-Setup.exe`
+  — 118,717,233 bytes, SHA-256
+  `025323C60D133318BD21F5EE132A617A406DF9F8164BE51198DC3C4F46CC8774`
+  (byte-identical to the Inno output `dist/RhythmAlign_v1.2.0_Setup.exe`).
+- `D:\Code\RhythmAlign\dist\rc\RhythmAlign-v1.2.0-RC2-portable\`
+  — folder copy of the frozen bundle.
+- `dist/RhythmAlign-v1.2.0-Portable.zip` — 176,289,985 bytes, SHA-256
+  `CFCED7CC67B5A5423C9A5E225D28BB93B673C282089145D85E645C4376EB3579`
+  (same content as the RC2 portable folder).
+
+Bundle re-verified: both locales carry `RhythmAlign v1.2.0` and the
+short `lbl_offset`; 0 PySide6/shiboken files; FFmpeg
+`ffmpeg-win-x86_64-v7.1.exe` present; `alignment_engine_v2` in the
+PyInstaller Analysis toc. Frozen launch smoke (RC2 portable): alive
+after 12 s at 232 MB working set, closed gracefully via
+`CloseMainWindow()`. No research/corpus evaluation was re-run (per
+instruction; algorithm code is zero-diff).
+
+### 14.4 Hard stop (unchanged)
+
+No tag, no GitHub Release, no asset upload, `update.json` still serves
+v1.1.2. RC2 awaits the owner's go-ahead; the §12 post-PASS release
+actions apply unchanged, with RC2 hashes as the asset reference.
 
 ---
 
