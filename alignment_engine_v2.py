@@ -16,6 +16,19 @@ Design (RA-1.2A §10, corrected in RA-1.2B):
         ->
     ACCEPT or ABSTAIN
 
+RA-1.2D1 adds the temporal-support gate: an ACCEPT is only issued if the
+deciding family's net signed correlation at the proposed offset is
+distributed over the overlap. A brief common content between two different
+songs (e.g. a ~1 s shared boundary event) otherwise produces a strong,
+multi-family-agreed peak over a large geometric overlap while the evidence
+itself lives in one short region (the RA-1.2A/Astra release blocker:
+94.6% of the net signed PCEN correlation in one 1 s bin). Cross-family
+agreement demonstrates a shared event; only distributed evidence
+demonstrates a whole-song alignment:
+
+    geometric overlap (where comparison is possible)
+        != distributed temporal support (where matching evidence exists)
+
 This is deliberately NOT majority voting:
 
 - PCEN and PCEN+HPSS share one underlying feature (PCEN of mel bands) and
@@ -83,6 +96,11 @@ ABSTAIN_NO_CLUSTER_MEETS_FLOORS = "ABSTAIN_NO_CLUSTER_MEETS_FLOORS"
 ABSTAIN_PRIMARY_NOT_CORROBORATED = "ABSTAIN_PRIMARY_NOT_CORROBORATED"
 ABSTAIN_AMBIGUOUS_CLUSTER = "ABSTAIN_AMBIGUOUS_CLUSTER"
 ABSTAIN_INSUFFICIENT_OVERLAP = "ABSTAIN_INSUFFICIENT_OVERLAP"
+# RA-1.2D1 temporal-support gate: the deciding evidence for the proposed
+# offset is concentrated in a very short segment (one brief common content),
+# so it cannot demonstrate a whole-song alignment.
+ABSTAIN_CONCENTRATED_EVIDENCE = "ABSTAIN_CONCENTRATED_EVIDENCE"
+ABSTAIN_INSUFFICIENT_TEMPORAL_SUPPORT = "ABSTAIN_INSUFFICIENT_TEMPORAL_SUPPORT"
 
 
 # ---------------------------------------------------------------------------
@@ -133,6 +151,20 @@ class DecisionPolicy:
     ambiguity_z_ratio: float = 0.95
     # How many independent peaks each family nominates as candidates.
     top_candidates_per_family: int = 4
+    # ---------------------------------------------------------------------
+    # RA-1.2D1 temporal-support gate. The RA-1.2A/Astra audit demonstrated
+    # that a ~1 s shared boundary event between two different songs can
+    # drive the entire global evidence (94.6% of the net signed PCEN
+    # correlation at the accepted offset), so a qualifying cluster is only
+    # accepted if the deciding family's net signed correlation, decomposed
+    # into 1 s reference-time bins at the proposed offset, is NOT dominated
+    # by a single bin. Calibrated on development data only (18 concentrated
+    # wrong-song accepts measured 0.48-1.05; 46 true accepts 0.02-0.11;
+    # held-out test: 160/160 wrong-song pairs abstain, 55/55 previously
+    # accepted positives retained). See
+    # docs/RA-1.2D1-TEMPORAL-SUPPORT-SAFEGUARD.md.
+    bin_width_s: float = 1.0
+    max_top_bin_share: float = 0.25
 
 
 DEFAULT_POLICY = DecisionPolicy()
@@ -174,6 +206,11 @@ class FamilyResult:
     z: float
     runtime_s: float
     error: Optional[str] = None
+    # RA-1.2D1: per-source feature matrix attached by the PCEN generators
+    # so the temporal-support gate can reuse the already-computed
+    # representation. Synthetic-curve tests (the decide_from_families seam)
+    # leave this empty; the gate then reports itself as not applicable.
+    features: Optional[tuple] = None
 
 
 @dataclass
@@ -224,6 +261,8 @@ def decision_message(decision, tr=None):
         ABSTAIN_PRIMARY_NOT_CORROBORATED: "存在较强候选，但缺少佐证证据，无法可靠确定对齐偏移。",
         ABSTAIN_AMBIGUOUS_CLUSTER: "存在多个强度相当的候选偏移，无法唯一确定对齐。",
         ABSTAIN_INSUFFICIENT_OVERLAP: "候选偏移的重叠时长过短，无法可靠确定对齐。",
+        ABSTAIN_CONCENTRATED_EVIDENCE: "对齐证据集中在极短的片段，无法证明整曲级别的对齐。",
+        ABSTAIN_INSUFFICIENT_TEMPORAL_SUPPORT: "有效重叠内容不足，无法证明整曲级别的对齐。",
     }
     return reasons.get(decision.reason_code, "无法可靠确定对齐偏移。")
 
@@ -379,24 +418,28 @@ def _run_generators(y_video, y_music, sr, hop_length):
 
     def pcen_hpss_gen(v, m, s, h):
         t0 = time.perf_counter()
-        corr = _correlate_rows(_pcen_hpss_features(v, s, h),
-                               _pcen_hpss_features(m, s, h))
+        fv = _pcen_hpss_features(v, s, h)
+        fm = _pcen_hpss_features(m, s, h)
+        corr = _correlate_rows(fv, fm)
         return FamilyResult(
             method="pcen_hpss", family=FAMILY_PCEN, curve=corr,
             n_video_frames=1 + len(v) // h,
             z=float(_correlation_z_score(corr)),
             runtime_s=time.perf_counter() - t0,
+            features=(fv, fm),
         )
 
     def pcen_gen(v, m, s, h):
         t0 = time.perf_counter()
-        corr = _correlate_rows(_pcen_features(v, s, h),
-                               _pcen_features(m, s, h))
+        fv = _pcen_features(v, s, h)
+        fm = _pcen_features(m, s, h)
+        corr = _correlate_rows(fv, fm)
         return FamilyResult(
             method="pcen", family=FAMILY_PCEN, curve=corr,
             n_video_frames=1 + len(v) // h,
             z=float(_correlation_z_score(corr)),
             runtime_s=time.perf_counter() - t0,
+            features=(fv, fm),
         )
 
     add("pcen_hpss", pcen_hpss_gen)
@@ -611,6 +654,111 @@ def _comparable_competitor_exists(cl, reason_code, clusters, policy):
     return False
 
 
+# ---------------------------------------------------------------------------
+# RA-1.2D1 temporal-support gate
+# ---------------------------------------------------------------------------
+
+
+def _concentration_profile(feat_video, feat_music, offset_s, sr, hop_length,
+                           bin_width_s):
+    """Net signed feature correlation at `offset_s`, decomposed into
+    consecutive `bin_width_s` reference-time bins.
+
+    Video time = music time + offset (production convention), so music
+    frame t pairs with video frame t + shift. Returns (bins, t0_s, shift);
+    bins is None when the overlap is empty."""
+    shift = int(round(offset_s * sr / hop_length))
+    a = max(0, -shift)
+    b = min(feat_music.shape[1], feat_video.shape[1] - shift)
+    if b - a <= 0:
+        return None, None, shift
+    prod = np.zeros(b - a, dtype=np.float64)
+    for band in range(feat_music.shape[0]):
+        prod += feat_music[band, a:b] * feat_video[band, a + shift:b + shift]
+    n = max(1, int(round(bin_width_s * sr / hop_length)))
+    n_bins = int(np.ceil((b - a) / n))
+    bins = np.array([prod[i * n:(i + 1) * n].sum() for i in range(n_bins)])
+    return bins, a * hop_length / sr, shift
+
+
+def _deciding_pcen_method(clusters, offset):
+    """The pcen_spectral member that supplied the accepted cluster's family
+    evidence (highest member peak z inside the cluster). Plain PCEN and
+    PCEN+HPSS are correlated derivatives and count as ONE family; the gate
+    verifies the member the decision actually stands on."""
+    best_method, best_z = None, None
+    for cl in clusters:
+        if abs(cl["offset_s"] - offset) > 1.0:
+            continue
+        for cand in cl["candidates"]:
+            if cand["family"] != FAMILY_PCEN:
+                continue
+            if best_z is None or cand["z"] > best_z:
+                best_z, best_method = cand["z"], cand["method"]
+    return best_method
+
+
+def _apply_temporal_support(decision, family_results, policy, sr, hop_length):
+    """RA-1.2D1: verify that the deciding evidence for an accepted offset is
+    distributed over the overlap rather than concentrated in one brief
+    segment. Downgrades the ACCEPT to ABSTAIN when the single strongest
+    1 s bin carries more than `max_top_bin_share` of the net signed
+    correlation at the accepted offset. Never upgrades a decision."""
+    if (decision.status != STATUS_ACCEPTED or decision.offset is None
+            or not decision.clusters):
+        return decision
+    method = _deciding_pcen_method(decision.clusters, decision.offset)
+    if method is None:
+        return decision
+    fr = next((f for f in family_results if f.method == method), None)
+    if fr is None or fr.error or fr.features is None:
+        # Feature matrices unavailable (decide_from_families seam with
+        # synthetic curves): the gate is not applicable, say so explicitly.
+        decision.evidence["temporal_support"] = {
+            "verified_method": method, "applied": False,
+            "note": "features unavailable for this decision path",
+        }
+        return decision
+
+    feat_video, feat_music = fr.features
+    bins, t0, _ = _concentration_profile(
+        feat_video, feat_music, decision.offset, sr, hop_length,
+        policy.bin_width_s)
+    if bins is None or bins.size == 0:
+        decision.status = STATUS_ABSTAINED
+        decision.offset = None
+        decision.reason_code = ABSTAIN_INSUFFICIENT_TEMPORAL_SUPPORT
+        decision.evidence["temporal_support"] = {
+            "verified_method": method, "applied": True, "n_bins": 0,
+        }
+        return decision
+
+    total = float(bins.sum())
+    top_i = int(np.argmax(bins))
+    top_share = float(bins[top_i] / total) if total > 0 else 1.0
+    effective = (float(1.0 / np.sum((bins / total) ** 2)) if total > 0
+                 else 0.0)
+    summary = {
+        "verified_method": method,
+        "applied": True,
+        "top_bin_share": round(top_share, 4),
+        "effective_bins": round(effective, 2),
+        "n_bins": int(bins.size),
+        "max_top_bin_share": policy.max_top_bin_share,
+    }
+    if top_share > policy.max_top_bin_share:
+        decision.status = STATUS_ABSTAINED
+        decision.offset = None
+        decision.reason_code = ABSTAIN_CONCENTRATED_EVIDENCE
+        summary["peak_bin_start_s"] = (
+            None if total <= 0 else round(t0 + top_i * policy.bin_width_s, 3))
+        summary["total_signed"] = total
+        decision.evidence["temporal_support"] = summary
+        return decision
+    decision.evidence["temporal_support"] = summary
+    return decision
+
+
 def decide_alignment(y_video, y_music, sr=22050, hop_length=512,
                      policy: Optional[DecisionPolicy] = None,
                      durations_s=None) -> AlignmentDecision:
@@ -626,6 +774,8 @@ def decide_alignment(y_video, y_music, sr=22050, hop_length=512,
     family_results = _run_generators(y_video, y_music, sr, hop_length)
     decision = decide_from_families(family_results, sr, hop_length, policy,
                                     video_dur, music_dur)
+    decision = _apply_temporal_support(decision, family_results, policy,
+                                       sr, hop_length)
     decision.runtime_s = time.perf_counter() - t0
     return decision
 

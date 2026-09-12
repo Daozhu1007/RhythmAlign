@@ -62,6 +62,8 @@
     "abstain_reason_insufficient_evidence": "录音中可用于确定对齐的目标歌曲证据不足。",
     "abstain_reason_ambiguous": "存在多个同样可能的候选对齐，无法唯一确定。",
     "abstain_reason_insufficient_overlap": "录音与目标音乐的有效重叠部分过短，无法可靠判断。",
+    "abstain_reason_concentrated_evidence": "对齐证据集中在极短的片段，无法可靠确定整曲级别的对齐。",
+    "abstain_reason_insufficient_temporal_support": "有效重叠内容过于稀疏，无法可靠确定整曲级别的对齐。",
     "abstain_suggestion": "请确认所选音乐确实是录像中的目标歌曲；录音中歌曲声音过轻或被敲击声掩盖时也可能出现此情况。",
     "log_analyzing_track": "正在分析音轨...",
     "log_analyze_ok": "分析完成！算法得出的偏移量: {0:+.4f} 秒",

@@ -1,0 +1,12 @@
+{
+  "cached_status": "accepted",
+  "cached_offset": 1.4628571428571429,
+  "cached_reason": "ACCEPT_PRIMARY_WITH_CORROBORATION",
+  "production_status": "accepted",
+  "production_offset": 1.4628571428571429,
+  "production_reason": "ACCEPT_PRIMARY_WITH_CORROBORATION",
+  "offset_equal": true,
+  "status_equal": true,
+  "runtime_cached_s": 0.003942099996493198,
+  "reproduction_offset_equal": true
+}

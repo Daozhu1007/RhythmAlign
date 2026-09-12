@@ -127,7 +127,9 @@ from alignment_engine_v2 import (
     ACCEPT_DUAL_FAMILY,
     ACCEPT_PRIMARY_WITH_CORROBORATION,
     ABSTAIN_AMBIGUOUS_CLUSTER,
+    ABSTAIN_CONCENTRATED_EVIDENCE,
     ABSTAIN_INSUFFICIENT_OVERLAP,
+    ABSTAIN_INSUFFICIENT_TEMPORAL_SUPPORT,
     ABSTAIN_NO_CLUSTER_MEETS_FLOORS,
     ABSTAIN_PRIMARY_NOT_CORROBORATED,
     ENGINE_LABEL,
@@ -353,6 +355,9 @@ ABSTAIN_REASON_KEYS = {
     ABSTAIN_PRIMARY_NOT_CORROBORATED: "abstain_reason_insufficient_evidence",
     ABSTAIN_AMBIGUOUS_CLUSTER: "abstain_reason_ambiguous",
     ABSTAIN_INSUFFICIENT_OVERLAP: "abstain_reason_insufficient_overlap",
+    ABSTAIN_CONCENTRATED_EVIDENCE: "abstain_reason_concentrated_evidence",
+    ABSTAIN_INSUFFICIENT_TEMPORAL_SUPPORT:
+        "abstain_reason_insufficient_temporal_support",
 }
 EVIDENCE_PATH_KEYS = {
     ACCEPT_DUAL_FAMILY: "evidence_path_dual_family",

@@ -1,0 +1,1604 @@
+{
+  "rows": [
+    {
+      "case_id": "ss_cal_001",
+      "family": "semi_positive_calibration_L1",
+      "gt_offset": 4.7,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 4.7,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.4439962594950575
+      },
+      "gcc_phat": {
+        "offset": 4.7,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.4434825263184471
+      }
+    },
+    {
+      "case_id": "ss_cal_002",
+      "family": "semi_positive_calibration_L3",
+      "gt_offset": 19.3,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 19.3,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.10383051649481176
+      },
+      "gcc_phat": {
+        "offset": 19.3,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.15569871756104872
+      }
+    },
+    {
+      "case_id": "ss_cal_003",
+      "family": "semi_positive_calibration_L4",
+      "gt_offset": -6.2,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 145.64884353741496,
+        "within_tol": false,
+        "abs_error": 151.84884353741495,
+        "peak": 0.0626137354760576
+      },
+      "gcc_phat": {
+        "offset": -6.2,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.063024111395227
+      }
+    },
+    {
+      "case_id": "ss_cal_004",
+      "family": "semi_positive_calibration_L2",
+      "gt_offset": 11.8,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 11.8,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.2289613849537466
+      },
+      "gcc_phat": {
+        "offset": 11.8,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.1742311831288923
+      }
+    },
+    {
+      "case_id": "ss_cal_005",
+      "family": "semi_positive_calibration_L3",
+      "gt_offset": -3.1,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": -3.1,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.10342935610385498
+      },
+      "gcc_phat": {
+        "offset": -3.1,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.11559547428964431
+      }
+    },
+    {
+      "case_id": "ss_cal_006",
+      "family": "semi_positive_calibration_L4",
+      "gt_offset": 8.9,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 8.9,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.04587287870885085
+      },
+      "gcc_phat": {
+        "offset": 8.9,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.04765249417149968
+      }
+    },
+    {
+      "case_id": "ss_cal_007",
+      "family": "semi_positive_calibration_L1",
+      "gt_offset": 0.4,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 0.4,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.4527242312498217
+      },
+      "gcc_phat": {
+        "offset": 0.4,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.22556102578328477
+      }
+    },
+    {
+      "case_id": "ss_cal_008",
+      "family": "semi_positive_calibration_L2",
+      "gt_offset": 27.5,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 27.5,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.2374163887899845
+      },
+      "gcc_phat": {
+        "offset": 27.5,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.1782018245441232
+      }
+    },
+    {
+      "case_id": "ss_cal_009",
+      "family": "semi_positive_calibration_L4",
+      "gt_offset": -12.4,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": -12.4,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.04563401539562719
+      },
+      "gcc_phat": {
+        "offset": -12.4,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.03362212657734996
+      }
+    },
+    {
+      "case_id": "ss_cal_010",
+      "family": "semi_positive_calibration_L2",
+      "gt_offset": 15.6,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 15.6,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.21678342182344534
+      },
+      "gcc_phat": {
+        "offset": 15.6,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.2325140222225842
+      }
+    },
+    {
+      "case_id": "ss_cal_011",
+      "family": "semi_positive_calibration_L3",
+      "gt_offset": 2.2,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 2.2,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.10269830551453114
+      },
+      "gcc_phat": {
+        "offset": 2.2,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.11484955531291795
+      }
+    },
+    {
+      "case_id": "ss_cal_012",
+      "family": "semi_positive_calibration_L1",
+      "gt_offset": -8.7,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": -8.7,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.44495259191495784
+      },
+      "gcc_phat": {
+        "offset": -8.7,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.32528778709638106
+      }
+    },
+    {
+      "case_id": "ss_cal_013",
+      "family": "semi_positive_calibration_L3",
+      "gt_offset": 5.9,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 5.9,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.09706964336144347
+      },
+      "gcc_phat": {
+        "offset": 5.9,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.12460337693817397
+      }
+    },
+    {
+      "case_id": "ss_cal_014",
+      "family": "semi_positive_calibration_L4",
+      "gt_offset": 21.4,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 21.4,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.041278903584361606
+      },
+      "gcc_phat": {
+        "offset": 21.4,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.04404687651667443
+      }
+    },
+    {
+      "case_id": "ss_cal_015",
+      "family": "semi_positive_calibration_L2",
+      "gt_offset": -4.6,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": -4.6,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.2077501108953101
+      },
+      "gcc_phat": {
+        "offset": -4.6,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.20414168165103597
+      }
+    },
+    {
+      "case_id": "ss_cal_016",
+      "family": "semi_positive_calibration_L1",
+      "gt_offset": 9.3,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 9.3,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.4575311198385432
+      },
+      "gcc_phat": {
+        "offset": 9.3,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.2808076935373879
+      }
+    },
+    {
+      "case_id": "ss_cal_017",
+      "family": "semi_positive_calibration_L4",
+      "gt_offset": -7.8,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": -7.8,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.04879554018012776
+      },
+      "gcc_phat": {
+        "offset": -7.8,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.03058385059119534
+      }
+    },
+    {
+      "case_id": "ss_cal_018",
+      "family": "semi_positive_calibration_L3",
+      "gt_offset": 13.7,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 13.7,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.11297054027361891
+      },
+      "gcc_phat": {
+        "offset": 13.7,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.08508981959044436
+      }
+    },
+    {
+      "case_id": "ss_cal_019",
+      "family": "semi_positive_calibration_L2",
+      "gt_offset": 17.1,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 17.1,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.20893440662748175
+      },
+      "gcc_phat": {
+        "offset": 17.1,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.2219634087926728
+      }
+    },
+    {
+      "case_id": "ss_cal_020",
+      "family": "semi_positive_calibration_L4",
+      "gt_offset": -1.8,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": -1.8,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.05277866188858741
+      },
+      "gcc_phat": {
+        "offset": -1.8,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.04599882564291465
+      }
+    },
+    {
+      "case_id": "ss_cal_021",
+      "family": "semi_positive_calibration_L1",
+      "gt_offset": 6.4,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 6.4,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.45413839739856593
+      },
+      "gcc_phat": {
+        "offset": 6.4,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.35052188072636736
+      }
+    },
+    {
+      "case_id": "ss_cal_022",
+      "family": "semi_positive_calibration_L3",
+      "gt_offset": -9.5,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": -9.5,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.09841052032683192
+      },
+      "gcc_phat": {
+        "offset": -9.5,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.11106110904875868
+      }
+    },
+    {
+      "case_id": "ss_cal_023",
+      "family": "semi_positive_calibration_L1",
+      "gt_offset": 12.9,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 12.9,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.4638052800486008
+      },
+      "gcc_phat": {
+        "offset": 12.9,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.3181757927955056
+      }
+    },
+    {
+      "case_id": "ss_cal_024",
+      "family": "semi_positive_calibration_L2",
+      "gt_offset": 3.7,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 3.7,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.19337302156070857
+      },
+      "gcc_phat": {
+        "offset": 3.7,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.24362406408710585
+      }
+    },
+    {
+      "case_id": "ss_cal_025",
+      "family": "semi_positive_calibration_L4",
+      "gt_offset": 7.1,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 7.1,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.0516953675465032
+      },
+      "gcc_phat": {
+        "offset": 7.1,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.04801823592010324
+      }
+    },
+    {
+      "case_id": "ss_cal_026",
+      "family": "semi_positive_calibration_L2",
+      "gt_offset": 23.8,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 23.8,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.20953984070573783
+      },
+      "gcc_phat": {
+        "offset": 23.8,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.18253230493222544
+      }
+    },
+    {
+      "case_id": "ss_cal_027",
+      "family": "semi_positive_calibration_L3",
+      "gt_offset": -5.3,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": -5.3,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.11912010914895178
+      },
+      "gcc_phat": {
+        "offset": -5.3,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.10235615949430996
+      }
+    },
+    {
+      "case_id": "ss_cal_028",
+      "family": "semi_positive_calibration_L1",
+      "gt_offset": 14.2,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 14.2,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.4635211489935376
+      },
+      "gcc_phat": {
+        "offset": 14.2,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.3747980949278062
+      }
+    },
+    {
+      "case_id": "ss_cal_029",
+      "family": "semi_positive_calibration_L3",
+      "gt_offset": -11.6,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": -11.6,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.10619990482836907
+      },
+      "gcc_phat": {
+        "offset": -11.6,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.12955159179004164
+      }
+    },
+    {
+      "case_id": "ss_cal_030",
+      "family": "semi_positive_calibration_L2",
+      "gt_offset": 1.5,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 1.5,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.23764238416615943
+      },
+      "gcc_phat": {
+        "offset": 1.5,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.20796375110698545
+      }
+    },
+    {
+      "case_id": "ss_cal_031",
+      "family": "semi_positive_calibration_L2",
+      "gt_offset": -4.9,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": -4.9,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.21577598847550683
+      },
+      "gcc_phat": {
+        "offset": -4.9,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.17248029463273112
+      }
+    },
+    {
+      "case_id": "ss_cal_032",
+      "family": "semi_positive_calibration_L4",
+      "gt_offset": 10.6,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 10.6,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.04622703906973574
+      },
+      "gcc_phat": {
+        "offset": 10.6,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.04492709830080851
+      }
+    },
+    {
+      "case_id": "ss_cal_033",
+      "family": "semi_positive_calibration_L3",
+      "gt_offset": 18.4,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 18.4,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.09835322398966156
+      },
+      "gcc_phat": {
+        "offset": 18.4,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.10811115397492471
+      }
+    },
+    {
+      "case_id": "ss_cal_034",
+      "family": "semi_positive_calibration_L3",
+      "gt_offset": 3.3,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 3.3,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.10978236611389237
+      },
+      "gcc_phat": {
+        "offset": 3.3,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.12429524388431076
+      }
+    },
+    {
+      "case_id": "ss_cal_035",
+      "family": "semi_positive_calibration_L1",
+      "gt_offset": 26.1,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 26.1,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.44399618900103655
+      },
+      "gcc_phat": {
+        "offset": 26.1,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.36405587317618227
+      }
+    },
+    {
+      "case_id": "ss_cal_036",
+      "family": "semi_positive_calibration_L4",
+      "gt_offset": -7.2,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": -7.2,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.038613235293511704
+      },
+      "gcc_phat": {
+        "offset": -7.2,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.06024732497140383
+      }
+    },
+    {
+      "case_id": "ss_ho_001",
+      "family": "semi_positive_holdout_L1",
+      "gt_offset": 5.3,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 5.3,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.43120945710568576
+      },
+      "gcc_phat": {
+        "offset": 5.3,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.3001452531121413
+      }
+    },
+    {
+      "case_id": "ss_ho_002",
+      "family": "semi_positive_holdout_L4",
+      "gt_offset": -8.9,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": -8.9,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.04011530678638935
+      },
+      "gcc_phat": {
+        "offset": -8.9,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.054420718600269646
+      }
+    },
+    {
+      "case_id": "ss_ho_003",
+      "family": "semi_positive_holdout_L2",
+      "gt_offset": 12.7,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 12.7,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.23046184701714065
+      },
+      "gcc_phat": {
+        "offset": 12.7,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.22123698729984137
+      }
+    },
+    {
+      "case_id": "ss_ho_004",
+      "family": "semi_positive_holdout_L3",
+      "gt_offset": 1.1,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 1.1,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.10422824566180355
+      },
+      "gcc_phat": {
+        "offset": 1.1,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.10102584631121532
+      }
+    },
+    {
+      "case_id": "ss_ho_005",
+      "family": "semi_positive_holdout_L3",
+      "gt_offset": -4.4,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": -4.4,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.10653743904691186
+      },
+      "gcc_phat": {
+        "offset": -4.4,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.10260887383618668
+      }
+    },
+    {
+      "case_id": "ss_ho_006",
+      "family": "semi_positive_holdout_L1",
+      "gt_offset": 16.9,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 16.9,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.4432909727306252
+      },
+      "gcc_phat": {
+        "offset": 16.9,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.30695922943081283
+      }
+    },
+    {
+      "case_id": "ss_ho_007",
+      "family": "semi_positive_holdout_L4",
+      "gt_offset": 8.2,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 8.2,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.05480280173580881
+      },
+      "gcc_phat": {
+        "offset": 8.2,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.03499031661628145
+      }
+    },
+    {
+      "case_id": "ss_ho_008",
+      "family": "semi_positive_holdout_L2",
+      "gt_offset": -6.7,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": -6.7,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.23473070892206346
+      },
+      "gcc_phat": {
+        "offset": -6.7,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.16616265729808152
+      }
+    },
+    {
+      "case_id": "ss_ho_009",
+      "family": "semi_positive_holdout_L1",
+      "gt_offset": -2.3,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": -2.3,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.4545818417203239
+      },
+      "gcc_phat": {
+        "offset": -2.3,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.22893121365752633
+      }
+    },
+    {
+      "case_id": "ss_ho_010",
+      "family": "semi_positive_holdout_L3",
+      "gt_offset": 13.4,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 13.4,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.11074796906599188
+      },
+      "gcc_phat": {
+        "offset": 13.4,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.08845030577536547
+      }
+    },
+    {
+      "case_id": "ss_ho_011",
+      "family": "semi_positive_holdout_L2",
+      "gt_offset": 19.8,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 19.8,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.18872436142943402
+      },
+      "gcc_phat": {
+        "offset": 19.8,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.24203466977266405
+      }
+    },
+    {
+      "case_id": "ss_ho_012",
+      "family": "semi_positive_holdout_L4",
+      "gt_offset": 3.9,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 119.20666666666666,
+        "within_tol": false,
+        "abs_error": 115.30666666666666,
+        "peak": 0.03940805036921795
+      },
+      "gcc_phat": {
+        "offset": 3.9,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.0610715324522266
+      }
+    },
+    {
+      "case_id": "ss_ho_013",
+      "family": "semi_positive_holdout_L3",
+      "gt_offset": 7.6,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 7.6,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.11859251343872299
+      },
+      "gcc_phat": {
+        "offset": 7.6,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.08094244786552705
+      }
+    },
+    {
+      "case_id": "ss_ho_014",
+      "family": "semi_positive_holdout_L1",
+      "gt_offset": -10.2,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": -10.2,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.47215415192057636
+      },
+      "gcc_phat": {
+        "offset": -10.2,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.2616261571278813
+      }
+    },
+    {
+      "case_id": "ss_ho_015",
+      "family": "semi_positive_holdout_L4",
+      "gt_offset": 1.9,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 1.9,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.051229819340250046
+      },
+      "gcc_phat": {
+        "offset": 1.9,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.04789839572509632
+      }
+    },
+    {
+      "case_id": "ss_ho_016",
+      "family": "semi_positive_holdout_L2",
+      "gt_offset": 11.3,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 11.3,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.21556369654643093
+      },
+      "gcc_phat": {
+        "offset": 11.3,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.19632566800203588
+      }
+    },
+    {
+      "case_id": "ss_ho_017",
+      "family": "semi_positive_holdout_L1",
+      "gt_offset": 21.6,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 21.6,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.44973526340951325
+      },
+      "gcc_phat": {
+        "offset": 21.6,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.36511396205725016
+      }
+    },
+    {
+      "case_id": "ss_ho_018",
+      "family": "semi_positive_holdout_L3",
+      "gt_offset": -3.6,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": -3.6,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.09865517755989593
+      },
+      "gcc_phat": {
+        "offset": -3.6,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.13406781588243968
+      }
+    },
+    {
+      "case_id": "ss_ho_019",
+      "family": "semi_positive_holdout_L2",
+      "gt_offset": -7.4,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": -7.4,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.2330726439485634
+      },
+      "gcc_phat": {
+        "offset": -7.4,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.1781631251028337
+      }
+    },
+    {
+      "case_id": "ss_ho_020",
+      "family": "semi_positive_holdout_L4",
+      "gt_offset": 9.7,
+      "tolerance": 0.15,
+      "wave_ncc": {
+        "offset": 9.7,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.05455288512076508
+      },
+      "gcc_phat": {
+        "offset": 9.7,
+        "within_tol": true,
+        "abs_error": 0.0,
+        "peak": 0.04678535512715833
+      }
+    },
+    {
+      "case_id": "lingduihua_132",
+      "family": "real_positive_low_snr",
+      "gt_offset": 12.4,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": -120.56,
+        "within_tol": false,
+        "abs_error": 132.96,
+        "peak": 0.03836672544817273
+      },
+      "gcc_phat": {
+        "offset": 12.48857142857143,
+        "within_tol": true,
+        "abs_error": 0.08857142857142897,
+        "peak": 0.010237137680880517
+      }
+    },
+    {
+      "case_id": "lividi_132",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 9.91578231292517,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.19325140832974727
+      },
+      "gcc_phat": {
+        "offset": 9.911428571428571,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.037131782755427924
+      }
+    },
+    {
+      "case_id": "drops_132",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 10.2821768707483,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.2926678734338692
+      },
+      "gcc_phat": {
+        "offset": 10.273877551020409,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.02769652064494003
+      }
+    },
+    {
+      "case_id": "yanwulieche_132",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 10.745714285714286,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.3558983240282474
+      },
+      "gcc_phat": {
+        "offset": 10.745442176870748,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.06737278898362953
+      }
+    },
+    {
+      "case_id": "baixiwang_132",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 10.633197278911565,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.24197157936984337
+      },
+      "gcc_phat": {
+        "offset": 10.633197278911565,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.06820841664976031
+      }
+    },
+    {
+      "case_id": "goganjue_niaojia_132",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 10.278231292517006,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.15460975762304183
+      },
+      "gcc_phat": {
+        "offset": 10.270748299319727,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.025273699908521227
+      }
+    },
+    {
+      "case_id": "dancerobotdance_133",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 10.439047619047619,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.16350195722939323
+      },
+      "gcc_phat": {
+        "offset": 10.433061224489796,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.031726924234788456
+      }
+    },
+    {
+      "case_id": "bai39_134",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 10.858095238095238,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.34320751288424234
+      },
+      "gcc_phat": {
+        "offset": 10.851020408163265,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.0511359074716647
+      }
+    },
+    {
+      "case_id": "hongzhoutian_135",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 32.72789115646258,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.14072073067856297
+      },
+      "gcc_phat": {
+        "offset": 32.720680272108844,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.014496166674945122
+      }
+    },
+    {
+      "case_id": "fenzhen_ds_1",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 9.193877551020408,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.0833998666400223
+      },
+      "gcc_phat": {
+        "offset": 9.187619047619048,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.028082510416986884
+      }
+    },
+    {
+      "case_id": "fenzhen_ds_2",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 10.585714285714285,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.09809320830090078
+      },
+      "gcc_phat": {
+        "offset": 10.58,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.01984592130017337
+      }
+    },
+    {
+      "case_id": "fenzhen_ds_3",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 6.614013605442177,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.11579144566311128
+      },
+      "gcc_phat": {
+        "offset": 6.607482993197279,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.031561510470766885
+      }
+    },
+    {
+      "case_id": "fenzhen_ds_4",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 120.35537414965987,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.0700247968732169
+      },
+      "gcc_phat": {
+        "offset": 10.197278911564625,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.027127003952317513
+      }
+    },
+    {
+      "case_id": "haiditan_ds_0",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 11.794285714285714,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.16240203512088255
+      },
+      "gcc_phat": {
+        "offset": 11.794421768707483,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.041464754605035514
+      }
+    },
+    {
+      "case_id": "haiditan_ds_1",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 11.18013605442177,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.10754534527814041
+      },
+      "gcc_phat": {
+        "offset": 11.18013605442177,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.030159252417779392
+      }
+    },
+    {
+      "case_id": "haiditan_ds_2",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 9.1643537414966,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.06701551075492805
+      },
+      "gcc_phat": {
+        "offset": 9.15795918367347,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.026113198154653936
+      }
+    },
+    {
+      "case_id": "haiditan_ds_3",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 14.09469387755102,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.07923142406332244
+      },
+      "gcc_phat": {
+        "offset": 14.088571428571429,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.027535355626470654
+      }
+    },
+    {
+      "case_id": "haiditan_ds_4",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 9.370340136054422,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.10318788223301745
+      },
+      "gcc_phat": {
+        "offset": 9.363945578231293,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.02889743974174223
+      }
+    },
+    {
+      "case_id": "haiditan_ds_5",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 9.205578231292517,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.09128291625493565
+      },
+      "gcc_phat": {
+        "offset": 9.199455782312926,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.02757359555051722
+      }
+    },
+    {
+      "case_id": "samesha_411",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 14.070068027210885,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.11452062441001541
+      },
+      "gcc_phat": {
+        "offset": 14.063537414965987,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.021611252951000855
+      }
+    },
+    {
+      "case_id": "decision90",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 9.381496598639457,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.15323324837054342
+      },
+      "gcc_phat": {
+        "offset": 9.375374149659864,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.039389809394352805
+      }
+    },
+    {
+      "case_id": "letudive",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 13.402857142857142,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.2036367173863327
+      },
+      "gcc_phat": {
+        "offset": 13.398639455782313,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.03891120021967669
+      }
+    },
+    {
+      "case_id": "queen",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 15.310612244897959,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.21157967926630414
+      },
+      "gcc_phat": {
+        "offset": 15.305578231292516,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.025702594657949027
+      }
+    },
+    {
+      "case_id": "leyixiaolao",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 11.430748299319728,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.22890144396843257
+      },
+      "gcc_phat": {
+        "offset": 11.422857142857143,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.03134639486291072
+      }
+    },
+    {
+      "case_id": "chiyaoshuijiao",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 9.066802721088436,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.21404142726609096
+      },
+      "gcc_phat": {
+        "offset": 9.060272108843538,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.036743917396588624
+      }
+    },
+    {
+      "case_id": "babieta",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 10.21360544217687,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.29914909683003565
+      },
+      "gcc_phat": {
+        "offset": 10.213469387755103,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.06753614188852909
+      }
+    },
+    {
+      "case_id": "caibushimo",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 14.294557823129251,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.13058044550083864
+      },
+      "gcc_phat": {
+        "offset": 14.29469387755102,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.041031509289789596
+      }
+    },
+    {
+      "case_id": "maodunxinli",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 16.011156462585035,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.2794699417339926
+      },
+      "gcc_phat": {
+        "offset": 16.004625850340137,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.05350394078937229
+      }
+    },
+    {
+      "case_id": "maodunxinli_niaojia",
+      "family": "real_positive_strong",
+      "gt_offset": null,
+      "tolerance": 0.4,
+      "wave_ncc": {
+        "offset": 13.042721088435375,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.24274465408504922
+      },
+      "gcc_phat": {
+        "offset": 13.051836734693877,
+        "within_tol": null,
+        "abs_error": null,
+        "peak": 0.018071141163779846
+      }
+    },
+    {
+      "case_id": "tr_lingduihua_x_tr_yanwulieche",
+      "family": "wrong_song",
+      "gt_offset": null,
+      "tolerance": null,
+      "wave_ncc": {
+        "offset": 117.90394557823129,
+        "peak": 0.02385050042636356
+      },
+      "gcc_phat": {
+        "offset": 2.9605442176870747,
+        "peak": 0.004211931403611745
+      }
+    },
+    {
+      "case_id": "tr_bai39_x_tr_haiditan",
+      "family": "wrong_song",
+      "gt_offset": null,
+      "tolerance": null,
+      "wave_ncc": {
+        "offset": -104.80190476190477,
+        "peak": 0.027423249896864066
+      },
+      "gcc_phat": {
+        "offset": -12.283945578231293,
+        "peak": 0.004246555655023187
+      }
+    },
+    {
+      "case_id": "tr_haiditan_x_tr_bai39",
+      "family": "wrong_song",
+      "gt_offset": null,
+      "tolerance": null,
+      "wave_ncc": {
+        "offset": 104.80190476190477,
+        "peak": 0.027423249896864066
+      },
+      "gcc_phat": {
+        "offset": 12.283945578231293,
+        "peak": 0.004246555655023187
+      }
+    },
+    {
+      "case_id": "tr_bai39_x_tr_chiyaoshuijiao",
+      "family": "wrong_song",
+      "gt_offset": null,
+      "tolerance": null,
+      "wave_ncc": {
+        "offset": 80.37632653061225,
+        "peak": 0.031044342801467967
+      },
+      "gcc_phat": {
+        "offset": -30.903537414965985,
+        "peak": 0.004535943915024931
+      }
+    },
+    {
+      "case_id": "tr_chiyaoshuijiao_x_tr_bai39",
+      "family": "wrong_song",
+      "gt_offset": null,
+      "tolerance": null,
+      "wave_ncc": {
+        "offset": -80.37632653061225,
+        "peak": 0.031044342801467957
+      },
+      "gcc_phat": {
+        "offset": 30.903537414965985,
+        "peak": 0.00453594391502493
+      }
+    }
+  ]
+}

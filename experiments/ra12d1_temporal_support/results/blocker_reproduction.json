@@ -1,0 +1,559 @@
+{
+  "task": "RA-1.2D1 blocker reproduction on unmodified production main",
+  "production_head": "20d48169803a0e62e4379f197a51b92f9ac6555b",
+  "query": {
+    "id": "tr_lingduihua",
+    "path_sha256": "7817f229b25bd104b5a0e1042708062f8f78414ab504416c33f69c66862e07bb"
+  },
+  "reference": {
+    "id": "tr_yanwulieche",
+    "path_sha256": "2e1d85c61d7865596ef6e911f42d193fec344770ff7523836ef3aef51a293929"
+  },
+  "decision": {
+    "status": "accepted",
+    "offset": 1.4628571428571429,
+    "reason_code": "ACCEPT_PRIMARY_WITH_CORROBORATION",
+    "evidence": {
+      "video_duration_s": 152.03,
+      "music_duration_s": 148.571,
+      "families": {
+        "hybrid": {
+          "family": "tonal",
+          "z": 5.419,
+          "runtime_s": 2.167,
+          "error": null
+        },
+        "onset": {
+          "family": "onset_temporal",
+          "z": 2.012,
+          "runtime_s": 0.206,
+          "error": null
+        },
+        "pcen_hpss": {
+          "family": "pcen_spectral",
+          "z": 9.956,
+          "runtime_s": 2.811,
+          "error": null
+        },
+        "pcen": {
+          "family": "pcen_spectral",
+          "z": 13.109,
+          "runtime_s": 0.272,
+          "error": null
+        }
+      },
+      "n_clusters": 13
+    },
+    "clusters": [
+      {
+        "offset_s": -86.2854,
+        "overlap_s": 62.29,
+        "candidates": [
+          {
+            "method": "pcen",
+            "family": "pcen_spectral",
+            "offset_s": -86.2853514739229,
+            "z": 5.2794768149291595,
+            "peak_margin": 0.4027438837490248,
+            "usable_overlap_s": 62.2861224489796,
+            "runtime_s": 0.2717931000079261,
+            "top_competing_offsets_s": [
+              1.4629,
+              112.0595,
+              4.4815
+            ],
+            "notes": {}
+          }
+        ],
+        "families": {
+          "pcen_spectral": {
+            "methods": [
+              "pcen"
+            ],
+            "z_at_cluster": 5.279,
+            "margin_at_cluster": 0.403,
+            "best_member_offset_s": -86.2854
+          }
+        }
+      },
+      {
+        "offset_s": -83.824,
+        "overlap_s": 64.75,
+        "candidates": [
+          {
+            "method": "hybrid",
+            "family": "tonal",
+            "offset_s": -83.82403628117913,
+            "z": 3.7203293010194236,
+            "peak_margin": 0.6864841061243172,
+            "usable_overlap_s": 64.74743764172337,
+            "runtime_s": 2.167389299997012,
+            "top_competing_offsets_s": [
+              1.0681,
+              -31.138,
+              -14.0249
+            ],
+            "notes": {}
+          }
+        ],
+        "families": {
+          "tonal": {
+            "methods": [
+              "hybrid"
+            ],
+            "z_at_cluster": 3.72,
+            "margin_at_cluster": 0.686,
+            "best_member_offset_s": -83.824
+          }
+        }
+      },
+      {
+        "offset_s": -31.138,
+        "overlap_s": 117.43,
+        "candidates": [
+          {
+            "method": "hybrid",
+            "family": "tonal",
+            "offset_s": -31.13795918367347,
+            "z": 3.809749040584861,
+            "peak_margin": 0.7029840514293236,
+            "usable_overlap_s": 117.43351473922903,
+            "runtime_s": 2.167389299997012,
+            "top_competing_offsets_s": [
+              1.0681,
+              -83.824,
+              -14.0249
+            ],
+            "notes": {}
+          }
+        ],
+        "families": {
+          "tonal": {
+            "methods": [
+              "hybrid"
+            ],
+            "z_at_cluster": 3.81,
+            "margin_at_cluster": 0.703,
+            "best_member_offset_s": -31.138
+          }
+        }
+      },
+      {
+        "offset_s": -14.0249,
+        "overlap_s": 134.55,
+        "candidates": [
+          {
+            "method": "hybrid",
+            "family": "tonal",
+            "offset_s": -14.02485260770975,
+            "z": 3.5572919493410167,
+            "peak_margin": 0.6564000620593244,
+            "usable_overlap_s": 134.54662131519274,
+            "runtime_s": 2.167389299997012,
+            "top_competing_offsets_s": [
+              1.0681,
+              -31.138,
+              -83.824
+            ],
+            "notes": {}
+          }
+        ],
+        "families": {
+          "tonal": {
+            "methods": [
+              "hybrid"
+            ],
+            "z_at_cluster": 3.557,
+            "margin_at_cluster": 0.656,
+            "best_member_offset_s": -14.0249
+          }
+        }
+      },
+      {
+        "offset_s": -0.9288,
+        "overlap_s": 147.64,
+        "candidates": [
+          {
+            "method": "onset",
+            "family": "onset_temporal",
+            "offset_s": -0.9287981859410431,
+            "z": 1.8229225873947144,
+            "peak_margin": 0.9483808279037476,
+            "usable_overlap_s": 147.64267573696145,
+            "runtime_s": 0.20620209998742212,
+            "top_competing_offsets_s": [
+              1.4861,
+              7.4072,
+              5.6192
+            ],
+            "notes": {}
+          }
+        ],
+        "families": {
+          "onset_temporal": {
+            "methods": [
+              "onset"
+            ],
+            "z_at_cluster": 1.823,
+            "margin_at_cluster": 0.948,
+            "best_member_offset_s": -0.9288
+          }
+        }
+      },
+      {
+        "offset_s": 1.0681,
+        "overlap_s": 148.57,
+        "candidates": [
+          {
+            "method": "hybrid",
+            "family": "tonal",
+            "offset_s": 1.0681179138321995,
+            "z": 5.419396119833832,
+            "peak_margin": 1.4225073783207125,
+            "usable_overlap_s": 148.5714739229025,
+            "runtime_s": 2.167389299997012,
+            "top_competing_offsets_s": [
+              -31.138,
+              -83.824,
+              -14.0249
+            ],
+            "notes": {}
+          }
+        ],
+        "families": {
+          "tonal": {
+            "methods": [
+              "hybrid"
+            ],
+            "z_at_cluster": 5.419,
+            "margin_at_cluster": 1.423,
+            "best_member_offset_s": 1.0681
+          }
+        }
+      },
+      {
+        "offset_s": 1.4629,
+        "overlap_s": 148.57,
+        "candidates": [
+          {
+            "method": "pcen_hpss",
+            "family": "pcen_spectral",
+            "offset_s": 1.4628571428571429,
+            "z": 9.955631163790493,
+            "peak_margin": 1.8349707753126756,
+            "usable_overlap_s": 148.5714739229025,
+            "runtime_s": 2.8109819999954198,
+            "top_competing_offsets_s": [
+              3.7384,
+              112.0595,
+              5.387
+            ],
+            "notes": {}
+          },
+          {
+            "method": "pcen",
+            "family": "pcen_spectral",
+            "offset_s": 1.4628571428571429,
+            "z": 13.108769687037967,
+            "peak_margin": 2.4829675641285793,
+            "usable_overlap_s": 148.5714739229025,
+            "runtime_s": 0.2717931000079261,
+            "top_competing_offsets_s": [
+              -86.2854,
+              112.0595,
+              4.4815
+            ],
+            "notes": {}
+          },
+          {
+            "method": "onset",
+            "family": "onset_temporal",
+            "offset_s": 1.486077097505669,
+            "z": 2.011538028717041,
+            "peak_margin": 1.0428036451339722,
+            "usable_overlap_s": 148.5714739229025,
+            "runtime_s": 0.20620209998742212,
+            "top_competing_offsets_s": [
+              7.4072,
+              -0.9288,
+              5.6192
+            ],
+            "notes": {}
+          }
+        ],
+        "families": {
+          "onset_temporal": {
+            "methods": [
+              "onset"
+            ],
+            "z_at_cluster": 2.012,
+            "margin_at_cluster": 1.043,
+            "best_member_offset_s": 1.4861
+          },
+          "pcen_spectral": {
+            "methods": [
+              "pcen",
+              "pcen_hpss"
+            ],
+            "z_at_cluster": 13.109,
+            "margin_at_cluster": 2.483,
+            "best_member_offset_s": 1.4629
+          }
+        }
+      },
+      {
+        "offset_s": 3.7384,
+        "overlap_s": 148.29,
+        "candidates": [
+          {
+            "method": "pcen_hpss",
+            "family": "pcen_spectral",
+            "offset_s": 3.7384126984126986,
+            "z": 5.4254984862601265,
+            "peak_margin": 0.5449678073644535,
+            "usable_overlap_s": 148.2917006802721,
+            "runtime_s": 2.8109819999954198,
+            "top_competing_offsets_s": [
+              1.4629,
+              112.0595,
+              5.387
+            ],
+            "notes": {}
+          }
+        ],
+        "families": {
+          "pcen_spectral": {
+            "methods": [
+              "pcen_hpss"
+            ],
+            "z_at_cluster": 5.425,
+            "margin_at_cluster": 0.545,
+            "best_member_offset_s": 3.7384
+          }
+        }
+      },
+      {
+        "offset_s": 4.4815,
+        "overlap_s": 147.55,
+        "candidates": [
+          {
+            "method": "pcen",
+            "family": "pcen_spectral",
+            "offset_s": 4.481451247165533,
+            "z": 4.989071911770311,
+            "peak_margin": 0.3805904009972451,
+            "usable_overlap_s": 147.54866213151928,
+            "runtime_s": 0.2717931000079261,
+            "top_competing_offsets_s": [
+              1.4629,
+              -86.2854,
+              112.0595
+            ],
+            "notes": {}
+          }
+        ],
+        "families": {
+          "pcen_spectral": {
+            "methods": [
+              "pcen"
+            ],
+            "z_at_cluster": 4.989,
+            "margin_at_cluster": 0.381,
+            "best_member_offset_s": 4.4815
+          }
+        }
+      },
+      {
+        "offset_s": 5.387,
+        "overlap_s": 146.64,
+        "candidates": [
+          {
+            "method": "pcen_hpss",
+            "family": "pcen_spectral",
+            "offset_s": 5.38702947845805,
+            "z": 4.664326782530599,
+            "peak_margin": 0.4685114088492116,
+            "usable_overlap_s": 146.64308390022674,
+            "runtime_s": 2.8109819999954198,
+            "top_competing_offsets_s": [
+              1.4629,
+              3.7384,
+              112.0595
+            ],
+            "notes": {}
+          }
+        ],
+        "families": {
+          "pcen_spectral": {
+            "methods": [
+              "pcen_hpss"
+            ],
+            "z_at_cluster": 4.664,
+            "margin_at_cluster": 0.469,
+            "best_member_offset_s": 5.387
+          }
+        }
+      },
+      {
+        "offset_s": 5.6192,
+        "overlap_s": 146.41,
+        "candidates": [
+          {
+            "method": "onset",
+            "family": "onset_temporal",
+            "offset_s": 5.61922902494331,
+            "z": 1.8168919086456299,
+            "peak_margin": 0.946730375289917,
+            "usable_overlap_s": 146.4108843537415,
+            "runtime_s": 0.20620209998742212,
+            "top_competing_offsets_s": [
+              1.4861,
+              7.4072,
+              -0.9288
+            ],
+            "notes": {}
+          }
+        ],
+        "families": {
+          "onset_temporal": {
+            "methods": [
+              "onset"
+            ],
+            "z_at_cluster": 1.817,
+            "margin_at_cluster": 0.947,
+            "best_member_offset_s": 5.6192
+          }
+        }
+      },
+      {
+        "offset_s": 7.4072,
+        "overlap_s": 144.62,
+        "candidates": [
+          {
+            "method": "onset",
+            "family": "onset_temporal",
+            "offset_s": 7.4071655328798185,
+            "z": 1.8615542650222778,
+            "peak_margin": 0.958953320980072,
+            "usable_overlap_s": 144.622947845805,
+            "runtime_s": 0.20620209998742212,
+            "top_competing_offsets_s": [
+              1.4861,
+              -0.9288,
+              5.6192
+            ],
+            "notes": {}
+          }
+        ],
+        "families": {
+          "onset_temporal": {
+            "methods": [
+              "onset"
+            ],
+            "z_at_cluster": 1.862,
+            "margin_at_cluster": 0.959,
+            "best_member_offset_s": 7.4072
+          }
+        }
+      },
+      {
+        "offset_s": 112.0595,
+        "overlap_s": 39.97,
+        "candidates": [
+          {
+            "method": "pcen_hpss",
+            "family": "pcen_spectral",
+            "offset_s": 112.05950113378685,
+            "z": 4.955806881784459,
+            "peak_margin": 0.4977893214655405,
+            "usable_overlap_s": 39.97061224489795,
+            "runtime_s": 2.8109819999954198,
+            "top_competing_offsets_s": [
+              1.4629,
+              3.7384,
+              5.387
+            ],
+            "notes": {}
+          },
+          {
+            "method": "pcen",
+            "family": "pcen_spectral",
+            "offset_s": 112.05950113378685,
+            "z": 5.034904503713993,
+            "peak_margin": 0.3840867315483114,
+            "usable_overlap_s": 39.97061224489795,
+            "runtime_s": 0.2717931000079261,
+            "top_competing_offsets_s": [
+              1.4629,
+              -86.2854,
+              4.4815
+            ],
+            "notes": {}
+          }
+        ],
+        "families": {
+          "pcen_spectral": {
+            "methods": [
+              "pcen",
+              "pcen_hpss"
+            ],
+            "z_at_cluster": 5.035,
+            "margin_at_cluster": 0.384,
+            "best_member_offset_s": 112.0595
+          }
+        }
+      }
+    ],
+    "policy": {
+      "cluster_tol_s": 0.15,
+      "min_overlap_s": 30.0,
+      "margin_floor_a": 1.0,
+      "margin_floor_b": 1.4,
+      "tonal_z_floor": 5.0,
+      "pcen_z_floor": 5.6,
+      "pcen_primary_z_floor": 7.0,
+      "onset_corroboration_z_floor": 2.0,
+      "ambiguity_z_ratio": 0.95,
+      "top_candidates_per_family": 4
+    },
+    "runtime_s": 5.4644441999989795
+  },
+  "engine_wall_time_s": 10.161,
+  "expected_failure_signature": {
+    "status": "accepted",
+    "offset_s": 1.4628571428571429,
+    "reason_code": "ACCEPT_PRIMARY_WITH_CORROBORATION",
+    "overlap_s": 148.57
+  },
+  "accepted_cluster_diagnostics": {
+    "offset_s": 1.0681,
+    "overlap_s": 148.57,
+    "candidates": [
+      {
+        "method": "hybrid",
+        "family": "tonal",
+        "offset_s": 1.0681179138321995,
+        "z": 5.419396119833832,
+        "peak_margin": 1.4225073783207125,
+        "usable_overlap_s": 148.5714739229025,
+        "runtime_s": 2.167389299997012,
+        "top_competing_offsets_s": [
+          -31.138,
+          -83.824,
+          -14.0249
+        ],
+        "notes": {}
+      }
+    ],
+    "families": {
+      "tonal": {
+        "methods": [
+          "hybrid"
+        ],
+        "z_at_cluster": 5.419,
+        "margin_at_cluster": 1.423,
+        "best_member_offset_s": 1.0681
+      }
+    }
+  }
+}

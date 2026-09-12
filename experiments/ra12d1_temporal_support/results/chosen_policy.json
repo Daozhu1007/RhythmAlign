@@ -1,0 +1,13 @@
+{
+  "support_policy": {
+    "bin_s": 1.0,
+    "max_top_share": 0.25
+  },
+  "rule": "verify the pcen_spectral member that decided the accepted cluster (highest member z inside the cluster); reject the accept if the top 1-second bin carries more than 0.25 of the net signed correlation at the accepted offset",
+  "calibration": {
+    "dev_wrong_decider_share_range": [0.48, 1.048],
+    "dev_true_decider_share_range": [0.014, 0.108],
+    "dev_outcome": "18/18 wrong accepts rejected, 46/46 true accepts retained"
+  },
+  "provenance": "DEV data only (component-A wrong accepts + real positives + calibration-split exact-GT positives); held-out TEST never examined during design"
+}

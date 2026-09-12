@@ -1,0 +1,175 @@
+{
+  "rows": [
+    {
+      "case_id": "blocker_lingduihua_x_yanwulieche",
+      "family": "astra_blocker",
+      "status": "abstained",
+      "offset": null,
+      "reason_code": "ABSTAIN_CONCENTRATED_EVIDENCE",
+      "temporal_support": {
+        "verified_method": "pcen",
+        "applied": true,
+        "top_bin_share": 0.9456,
+        "effective_bins": 1.1,
+        "n_bins": 149,
+        "max_top_bin_share": 0.25,
+        "peak_bin_start_s": 1.0,
+        "total_signed": 19108.572222397637
+      },
+      "runtime_s": 5.708,
+      "expectation_met": true
+    },
+    {
+      "case_id": "real_lingduihua_132",
+      "family": "real_positive",
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "reason_code": "ACCEPT_PRIMARY_WITH_CORROBORATION",
+      "temporal_support": {
+        "verified_method": "pcen_hpss",
+        "applied": true,
+        "top_bin_share": 0.0836,
+        "effective_bins": 39.5,
+        "n_bins": 153,
+        "max_top_bin_share": 0.25
+      },
+      "runtime_s": 3.722,
+      "expectation_met": true
+    },
+    {
+      "case_id": "real_haiditan_ds_1",
+      "family": "real_positive",
+      "status": "accepted",
+      "offset": 11.19201814058957,
+      "reason_code": "ACCEPT_DUAL_FAMILY",
+      "temporal_support": {
+        "verified_method": "pcen_hpss",
+        "applied": true,
+        "top_bin_share": 0.0199,
+        "effective_bins": 106.04,
+        "n_bins": 138,
+        "max_top_bin_share": 0.25
+      },
+      "runtime_s": 3.285,
+      "expectation_met": true
+    },
+    {
+      "case_id": "real_queen",
+      "family": "real_positive",
+      "status": "accepted",
+      "offset": 15.301950113378684,
+      "reason_code": "ACCEPT_DUAL_FAMILY",
+      "temporal_support": {
+        "verified_method": "pcen_hpss",
+        "applied": true,
+        "top_bin_share": 0.0159,
+        "effective_bins": 123.75,
+        "n_bins": 145,
+        "max_top_bin_share": 0.25
+      },
+      "runtime_s": 3.666,
+      "expectation_met": true
+    },
+    {
+      "case_id": "real_maodunxinli",
+      "family": "real_positive",
+      "status": "accepted",
+      "offset": 15.998548752834466,
+      "reason_code": "ACCEPT_DUAL_FAMILY",
+      "temporal_support": {
+        "verified_method": "pcen_hpss",
+        "applied": true,
+        "top_bin_share": 0.0163,
+        "effective_bins": 134.0,
+        "n_bins": 162,
+        "max_top_bin_share": 0.25
+      },
+      "runtime_s": 4.037,
+      "expectation_met": true
+    },
+    {
+      "case_id": "semi_ss_cal_001",
+      "family": "semi_positive_calibration_L1",
+      "status": "accepted",
+      "offset": 4.713650793650793,
+      "reason_code": "ACCEPT_DUAL_FAMILY",
+      "temporal_support": {
+        "verified_method": "pcen_hpss",
+        "applied": true,
+        "top_bin_share": 0.0164,
+        "effective_bins": 132.5,
+        "n_bins": 159,
+        "max_top_bin_share": 0.25
+      },
+      "runtime_s": 3.807,
+      "expectation_met": true
+    },
+    {
+      "case_id": "semi_ss_cal_002",
+      "family": "semi_positive_calibration_L3",
+      "status": "abstained",
+      "offset": null,
+      "reason_code": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+      "temporal_support": null,
+      "runtime_s": 3.728,
+      "expectation_met": true
+    },
+    {
+      "case_id": "semi_ss_ho_001",
+      "family": "semi_positive_holdout_L1",
+      "status": "accepted",
+      "offset": 5.294149659863946,
+      "reason_code": "ACCEPT_DUAL_FAMILY",
+      "temporal_support": {
+        "verified_method": "pcen_hpss",
+        "applied": true,
+        "top_bin_share": 0.024,
+        "effective_bins": 94.54,
+        "n_bins": 120,
+        "max_top_bin_share": 0.25
+      },
+      "runtime_s": 3.369,
+      "expectation_met": true
+    },
+    {
+      "case_id": "semi_ss_ho_002",
+      "family": "semi_positive_holdout_L4",
+      "status": "abstained",
+      "offset": null,
+      "reason_code": "ABSTAIN_AMBIGUOUS_CLUSTER",
+      "temporal_support": null,
+      "runtime_s": 4.014,
+      "expectation_met": true
+    },
+    {
+      "case_id": "clean_bai39_x_haiditan",
+      "family": "astra_wrong_accept_holdout",
+      "status": "abstained",
+      "offset": null,
+      "reason_code": "ABSTAIN_CONCENTRATED_EVIDENCE",
+      "temporal_support": {
+        "verified_method": "pcen",
+        "applied": true,
+        "top_bin_share": 0.8361,
+        "effective_bins": 1.4,
+        "n_bins": 120,
+        "max_top_bin_share": 0.25,
+        "peak_bin_start_s": 1.627,
+        "total_signed": 13822.586255468446
+      },
+      "runtime_s": 2.934,
+      "expectation_met": true
+    }
+  ],
+  "overhead": {
+    "gate_wall_ms": 1.59,
+    "gate_peak_python_mem_kib": 100.5,
+    "n_bins": 149,
+    "note": "features are attached to FamilyResults by reference; the gate allocates only the 1-D product array + bins"
+  },
+  "ab_test": {
+    "gate_disabled_status": "accepted",
+    "gate_disabled_offset": 1.4628571428571429,
+    "gate_disabled_reason": "ACCEPT_PRIMARY_WITH_CORROBORATION"
+  }
+}

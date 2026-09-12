@@ -62,6 +62,8 @@
     "abstain_reason_insufficient_evidence": "The recording does not contain enough usable evidence of the target song to determine an alignment.",
     "abstain_reason_ambiguous": "Several offsets look similarly plausible, so a unique alignment could not be chosen.",
     "abstain_reason_insufficient_overlap": "The usable overlap between the recording and the target music is too short.",
+    "abstain_reason_concentrated_evidence": "Alignment evidence is concentrated in one very short segment, so a whole-song alignment cannot be reliably determined.",
+    "abstain_reason_insufficient_temporal_support": "The usable overlapping content is too sparse to establish a whole-song alignment.",
     "abstain_suggestion": "Please verify the music file is the song actually playing in the recording; this can also happen when the song is too quiet or masked by tapping sounds.",
     "log_analyzing_track": "Analyzing audio tracks...",
     "log_analyze_ok": "Analysis complete! Calculated offset: {0:+.4f} sec",

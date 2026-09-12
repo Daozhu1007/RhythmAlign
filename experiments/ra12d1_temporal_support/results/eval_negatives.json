@@ -1,0 +1,248 @@
+{
+  "policy": {
+    "bin_s": 1.0,
+    "max_top_share": 0.25
+  },
+  "rows": [
+    {
+      "case_id": "tiled_cal_lividi",
+      "family": "tiled_calibration",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "tiled_cal_samesha",
+      "family": "tiled_calibration",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "rhn_cal_lingduihua_132",
+      "family": "hard_negative_calibration",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "rhn_cal_drops_132",
+      "family": "hard_negative_calibration",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "rhn_cal_baixiwang_132",
+      "family": "hard_negative_calibration",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "rhn_cal_goganjue_niaojia_132",
+      "family": "hard_negative_calibration",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "rhn_cal_fenzhen_ds_2",
+      "family": "hard_negative_calibration",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "rhn_cal_decision90",
+      "family": "hard_negative_calibration",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "tiled_ho_haiditan2",
+      "family": "tiled_holdout",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "tiled_ho_babieta",
+      "family": "tiled_holdout",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "rhn_ho_haiditan_ds_5",
+      "family": "hard_negative_holdout",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "rhn_ho_maodunxinli",
+      "family": "hard_negative_holdout",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "rhn_ho_dancerobotdance_133",
+      "family": "hard_negative_holdout",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "rhn_ho_chiyaoshuijiao",
+      "family": "hard_negative_holdout",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "mm_lingduihua_x_decision90",
+      "family": "ra12b_mismatch",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "mm_lingduihua_x_leyixiaolao",
+      "family": "ra12b_mismatch",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "mm_haiditan1_x_maodunxinli",
+      "family": "ra12b_mismatch",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "mm_fenzhen2_x_drops",
+      "family": "ra12b_mismatch",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "mm_maodunniujia_x_zhoutian",
+      "family": "ra12b_mismatch",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "mm_bai39_x_caibushimo",
+      "family": "ra12b_mismatch",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "mm_queen_x_lingduihua",
+      "family": "ra12b_mismatch",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "mm_drd_x_babieta",
+      "family": "ra12b_mismatch",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "mm_samesha_x_goganjue",
+      "family": "ra12b_mismatch",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+      "outcome": "SAFE_ABSTAIN"
+    },
+    {
+      "case_id": "mm_hongzhoutian_x_yanwulieche",
+      "family": "ra12b_mismatch",
+      "v2_status": "abstained",
+      "v2_offset": null,
+      "final_status": "abstained",
+      "final_offset": null,
+      "final_reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+      "outcome": "SAFE_ABSTAIN"
+    }
+  ]
+}
