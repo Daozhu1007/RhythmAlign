@@ -1,0 +1,548 @@
+{
+  "mode": "benchmark-repro",
+  "calls": [
+    {
+      "i": 0,
+      "case_id": "lingduihua_132",
+      "v1_offset": -1.9969,
+      "v1_z": 5.485,
+      "v2_status": "accepted",
+      "runtime_s": 8.1
+    },
+    {
+      "i": 1,
+      "case_id": "lividi_132",
+      "v1_offset": 9.8685,
+      "v1_z": 15.226,
+      "v2_status": "accepted",
+      "runtime_s": 4.53
+    },
+    {
+      "i": 2,
+      "case_id": "drops_132",
+      "v1_offset": 10.24,
+      "v1_z": 15.439,
+      "v2_status": "accepted",
+      "runtime_s": 5.61
+    },
+    {
+      "i": 3,
+      "case_id": "yanwulieche_132",
+      "v1_offset": 10.7044,
+      "v1_z": 19.723,
+      "v2_status": "accepted",
+      "runtime_s": 5.36
+    },
+    {
+      "i": 4,
+      "case_id": "baixiwang_132",
+      "v1_offset": 10.5883,
+      "v1_z": 15.969,
+      "v2_status": "accepted",
+      "runtime_s": 5.27
+    },
+    {
+      "i": 5,
+      "case_id": "goganjue_niaojia_132",
+      "v1_offset": 10.2168,
+      "v1_z": 12.349,
+      "v2_status": "accepted",
+      "runtime_s": 5.11
+    },
+    {
+      "i": 6,
+      "case_id": "dancerobotdance_133",
+      "v1_offset": 10.4025,
+      "v1_z": 13.226,
+      "v2_status": "accepted",
+      "runtime_s": 5.3
+    },
+    {
+      "i": 7,
+      "case_id": "bai39_134",
+      "v1_offset": 10.8205,
+      "v1_z": 22.141,
+      "v2_status": "accepted",
+      "runtime_s": 4.42
+    },
+    {
+      "i": 8,
+      "case_id": "hongzhoutian_135",
+      "v1_offset": 32.6705,
+      "v1_z": 19.682,
+      "v2_status": "accepted",
+      "runtime_s": 6.14
+    },
+    {
+      "i": 9,
+      "case_id": "fenzhen_ds_1",
+      "v1_offset": 9.1487,
+      "v1_z": 12.985,
+      "v2_status": "accepted",
+      "runtime_s": 4.89
+    },
+    {
+      "i": 10,
+      "case_id": "fenzhen_ds_2",
+      "v1_offset": 10.5419,
+      "v1_z": 13.314,
+      "v2_status": "accepted",
+      "runtime_s": 5.0
+    },
+    {
+      "i": 11,
+      "case_id": "fenzhen_ds_3",
+      "v1_offset": 6.5712,
+      "v1_z": 13.32,
+      "v2_status": "accepted",
+      "runtime_s": 4.83
+    },
+    {
+      "i": 12,
+      "case_id": "fenzhen_ds_4",
+      "v1_offset": 10.1471,
+      "v1_z": 9.078,
+      "v2_status": "accepted",
+      "runtime_s": 4.92
+    },
+    {
+      "i": 13,
+      "case_id": "haiditan_ds_0",
+      "v1_offset": 11.7493,
+      "v1_z": 15.598,
+      "v2_status": "accepted",
+      "runtime_s": 5.0
+    },
+    {
+      "i": 14,
+      "case_id": "haiditan_ds_1",
+      "v1_offset": 11.1456,
+      "v1_z": 10.759,
+      "v2_status": "accepted",
+      "runtime_s": 4.78
+    },
+    {
+      "i": 15,
+      "case_id": "haiditan_ds_2",
+      "v1_offset": 9.1254,
+      "v1_z": 6.229,
+      "v2_status": "accepted",
+      "runtime_s": 4.68
+    },
+    {
+      "i": 16,
+      "case_id": "haiditan_ds_3",
+      "v1_offset": 14.0481,
+      "v1_z": 9.455,
+      "v2_status": "accepted",
+      "runtime_s": 4.78
+    },
+    {
+      "i": 17,
+      "case_id": "haiditan_ds_4",
+      "v1_offset": 9.3344,
+      "v1_z": 10.611,
+      "v2_status": "accepted",
+      "runtime_s": 4.9
+    },
+    {
+      "i": 18,
+      "case_id": "haiditan_ds_5",
+      "v1_offset": 9.1719,
+      "v1_z": 9.483,
+      "v2_status": "accepted",
+      "runtime_s": 4.7
+    },
+    {
+      "i": 19,
+      "case_id": "samesha_411",
+      "v1_offset": 14.0249,
+      "v1_z": 16.01,
+      "v2_status": "accepted",
+      "runtime_s": 5.33
+    },
+    {
+      "i": 20,
+      "case_id": "decision90",
+      "v1_offset": 9.3344,
+      "v1_z": 17.376,
+      "v2_status": "accepted",
+      "runtime_s": 4.9
+    },
+    {
+      "i": 21,
+      "case_id": "letudive",
+      "v1_offset": 13.3515,
+      "v1_z": 15.981,
+      "v2_status": "accepted",
+      "runtime_s": 4.5
+    },
+    {
+      "i": 22,
+      "case_id": "queen",
+      "v1_offset": 15.2555,
+      "v1_z": 15.871,
+      "v2_status": "accepted",
+      "runtime_s": 5.29
+    },
+    {
+      "i": 23,
+      "case_id": "leyixiaolao",
+      "v1_offset": 11.3778,
+      "v1_z": 19.823,
+      "v2_status": "accepted",
+      "runtime_s": 5.86
+    },
+    {
+      "i": 24,
+      "case_id": "chiyaoshuijiao",
+      "v1_offset": 9.0093,
+      "v1_z": 19.05,
+      "v2_status": "accepted",
+      "runtime_s": 5.81
+    },
+    {
+      "i": 25,
+      "case_id": "babieta",
+      "v1_offset": 10.1703,
+      "v1_z": 18.214,
+      "v2_status": "accepted",
+      "runtime_s": 5.42
+    },
+    {
+      "i": 26,
+      "case_id": "caibushimo",
+      "v1_offset": 14.2571,
+      "v1_z": 15.711,
+      "v2_status": "accepted",
+      "runtime_s": 5.14
+    },
+    {
+      "i": 27,
+      "case_id": "maodunxinli",
+      "v1_offset": 15.9521,
+      "v1_z": 21.662,
+      "v2_status": "accepted",
+      "runtime_s": 5.86
+    },
+    {
+      "i": 28,
+      "case_id": "maodunxinli_niaojia",
+      "v1_offset": 12.98,
+      "v1_z": 19.266,
+      "v2_status": "accepted",
+      "runtime_s": 5.86
+    },
+    {
+      "i": 29,
+      "case_id": "mm_lingduihua_x_decision90",
+      "v1_offset": 34.9925,
+      "v1_z": 3.441,
+      "v2_status": "abstained",
+      "runtime_s": 5.25
+    },
+    {
+      "i": 30,
+      "case_id": "mm_lingduihua_x_leyixiaolao",
+      "v1_offset": 7.9412,
+      "v1_z": 3.657,
+      "v2_status": "abstained",
+      "runtime_s": 5.68
+    },
+    {
+      "i": 31,
+      "case_id": "mm_haiditan1_x_maodunxinli",
+      "v1_offset": -25.0079,
+      "v1_z": 3.773,
+      "v2_status": "abstained",
+      "runtime_s": 5.26
+    },
+    {
+      "i": 32,
+      "case_id": "mm_fenzhen2_x_drops",
+      "v1_offset": -17.5543,
+      "v1_z": 3.901,
+      "v2_status": "abstained",
+      "runtime_s": 5.2
+    },
+    {
+      "i": 33,
+      "case_id": "mm_maodunniujia_x_zhoutian",
+      "v1_offset": -33.4367,
+      "v1_z": 4.27,
+      "v2_status": "abstained",
+      "runtime_s": 5.9
+    },
+    {
+      "i": 34,
+      "case_id": "mm_bai39_x_caibushimo",
+      "v1_offset": -17.2524,
+      "v1_z": 4.174,
+      "v2_status": "abstained",
+      "runtime_s": 4.8
+    }
+  ],
+  "samples": [
+    {
+      "label": "start",
+      "rss_mb": 86.1,
+      "handles": 601,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_case_0",
+      "rss_mb": 258.1,
+      "handles": 926,
+      "leaked_temp_files": 0,
+      "case_id": "lingduihua_132"
+    },
+    {
+      "label": "after_case_1",
+      "rss_mb": 255.3,
+      "handles": 926,
+      "leaked_temp_files": 0,
+      "case_id": "lividi_132"
+    },
+    {
+      "label": "after_case_2",
+      "rss_mb": 261.4,
+      "handles": 926,
+      "leaked_temp_files": 0,
+      "case_id": "drops_132"
+    },
+    {
+      "label": "after_case_3",
+      "rss_mb": 260.1,
+      "handles": 926,
+      "leaked_temp_files": 0,
+      "case_id": "yanwulieche_132"
+    },
+    {
+      "label": "after_case_4",
+      "rss_mb": 259.9,
+      "handles": 926,
+      "leaked_temp_files": 0,
+      "case_id": "baixiwang_132"
+    },
+    {
+      "label": "after_case_5",
+      "rss_mb": 258.9,
+      "handles": 928,
+      "leaked_temp_files": 0,
+      "case_id": "goganjue_niaojia_132"
+    },
+    {
+      "label": "after_case_6",
+      "rss_mb": 261.0,
+      "handles": 928,
+      "leaked_temp_files": 0,
+      "case_id": "dancerobotdance_133"
+    },
+    {
+      "label": "after_case_7",
+      "rss_mb": 256.5,
+      "handles": 928,
+      "leaked_temp_files": 0,
+      "case_id": "bai39_134"
+    },
+    {
+      "label": "after_case_8",
+      "rss_mb": 267.2,
+      "handles": 928,
+      "leaked_temp_files": 0,
+      "case_id": "hongzhoutian_135"
+    },
+    {
+      "label": "after_case_9",
+      "rss_mb": 260.5,
+      "handles": 928,
+      "leaked_temp_files": 0,
+      "case_id": "fenzhen_ds_1"
+    },
+    {
+      "label": "after_case_10",
+      "rss_mb": 262.3,
+      "handles": 929,
+      "leaked_temp_files": 0,
+      "case_id": "fenzhen_ds_2"
+    },
+    {
+      "label": "after_case_11",
+      "rss_mb": 261.6,
+      "handles": 929,
+      "leaked_temp_files": 0,
+      "case_id": "fenzhen_ds_3"
+    },
+    {
+      "label": "after_case_12",
+      "rss_mb": 261.9,
+      "handles": 929,
+      "leaked_temp_files": 0,
+      "case_id": "fenzhen_ds_4"
+    },
+    {
+      "label": "after_case_13",
+      "rss_mb": 262.3,
+      "handles": 929,
+      "leaked_temp_files": 0,
+      "case_id": "haiditan_ds_0"
+    },
+    {
+      "label": "after_case_14",
+      "rss_mb": 260.9,
+      "handles": 929,
+      "leaked_temp_files": 0,
+      "case_id": "haiditan_ds_1"
+    },
+    {
+      "label": "after_case_15",
+      "rss_mb": 260.4,
+      "handles": 929,
+      "leaked_temp_files": 0,
+      "case_id": "haiditan_ds_2"
+    },
+    {
+      "label": "after_case_16",
+      "rss_mb": 260.3,
+      "handles": 929,
+      "leaked_temp_files": 0,
+      "case_id": "haiditan_ds_3"
+    },
+    {
+      "label": "after_case_17",
+      "rss_mb": 260.9,
+      "handles": 929,
+      "leaked_temp_files": 0,
+      "case_id": "haiditan_ds_4"
+    },
+    {
+      "label": "after_case_18",
+      "rss_mb": 260.5,
+      "handles": 929,
+      "leaked_temp_files": 0,
+      "case_id": "haiditan_ds_5"
+    },
+    {
+      "label": "after_case_19",
+      "rss_mb": 262.9,
+      "handles": 929,
+      "leaked_temp_files": 0,
+      "case_id": "samesha_411"
+    },
+    {
+      "label": "after_case_20",
+      "rss_mb": 260.5,
+      "handles": 929,
+      "leaked_temp_files": 0,
+      "case_id": "decision90"
+    },
+    {
+      "label": "after_case_21",
+      "rss_mb": 259.8,
+      "handles": 929,
+      "leaked_temp_files": 0,
+      "case_id": "letudive"
+    },
+    {
+      "label": "after_case_22",
+      "rss_mb": 263.1,
+      "handles": 929,
+      "leaked_temp_files": 0,
+      "case_id": "queen"
+    },
+    {
+      "label": "after_case_23",
+      "rss_mb": 266.9,
+      "handles": 929,
+      "leaked_temp_files": 0,
+      "case_id": "leyixiaolao"
+    },
+    {
+      "label": "after_case_24",
+      "rss_mb": 267.5,
+      "handles": 929,
+      "leaked_temp_files": 0,
+      "case_id": "chiyaoshuijiao"
+    },
+    {
+      "label": "after_case_25",
+      "rss_mb": 265.1,
+      "handles": 925,
+      "leaked_temp_files": 0,
+      "case_id": "babieta"
+    },
+    {
+      "label": "after_case_26",
+      "rss_mb": 263.9,
+      "handles": 925,
+      "leaked_temp_files": 0,
+      "case_id": "caibushimo"
+    },
+    {
+      "label": "after_case_27",
+      "rss_mb": 267.5,
+      "handles": 925,
+      "leaked_temp_files": 0,
+      "case_id": "maodunxinli"
+    },
+    {
+      "label": "after_case_28",
+      "rss_mb": 267.7,
+      "handles": 925,
+      "leaked_temp_files": 0,
+      "case_id": "maodunxinli_niaojia"
+    },
+    {
+      "label": "after_case_29",
+      "rss_mb": 264.4,
+      "handles": 925,
+      "leaked_temp_files": 0,
+      "case_id": "mm_lingduihua_x_decision90"
+    },
+    {
+      "label": "after_case_30",
+      "rss_mb": 266.7,
+      "handles": 925,
+      "leaked_temp_files": 0,
+      "case_id": "mm_lingduihua_x_leyixiaolao"
+    },
+    {
+      "label": "after_case_31",
+      "rss_mb": 263.9,
+      "handles": 925,
+      "leaked_temp_files": 0,
+      "case_id": "mm_haiditan1_x_maodunxinli"
+    },
+    {
+      "label": "after_case_32",
+      "rss_mb": 263.8,
+      "handles": 925,
+      "leaked_temp_files": 0,
+      "case_id": "mm_fenzhen2_x_drops"
+    },
+    {
+      "label": "after_case_33",
+      "rss_mb": 268.2,
+      "handles": 925,
+      "leaked_temp_files": 0,
+      "case_id": "mm_maodunniujia_x_zhoutian"
+    },
+    {
+      "label": "after_case_34",
+      "rss_mb": 262.3,
+      "handles": 925,
+      "leaked_temp_files": 0,
+      "case_id": "mm_bai39_x_caibushimo"
+    }
+  ],
+  "summary": {
+    "rss_start_mb": 86.1,
+    "rss_end_mb": 262.3,
+    "rss_max_mb": 268.2,
+    "rss_slope_mb_per_call": 0.995,
+    "handles_start": 601,
+    "handles_end": 925,
+    "handles_slope_per_call": 1.412,
+    "leaked_temp_files_end": 0
+  }
+}

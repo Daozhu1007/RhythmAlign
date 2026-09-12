@@ -1,0 +1,324 @@
+{
+  "mode": "real-file",
+  "n_calls": 25,
+  "samples": [
+    {
+      "label": "start",
+      "rss_mb": 85.6,
+      "handles": 600,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_0",
+      "rss_mb": 229.3,
+      "handles": 925,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_1",
+      "rss_mb": 230.5,
+      "handles": 925,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_2",
+      "rss_mb": 230.2,
+      "handles": 925,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_3",
+      "rss_mb": 230.4,
+      "handles": 925,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_4",
+      "rss_mb": 229.4,
+      "handles": 925,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_5",
+      "rss_mb": 230.5,
+      "handles": 925,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_6",
+      "rss_mb": 231.2,
+      "handles": 925,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_7",
+      "rss_mb": 230.1,
+      "handles": 927,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_8",
+      "rss_mb": 229.2,
+      "handles": 927,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_9",
+      "rss_mb": 230.5,
+      "handles": 927,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_10",
+      "rss_mb": 230.8,
+      "handles": 927,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_11",
+      "rss_mb": 230.5,
+      "handles": 927,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_12",
+      "rss_mb": 230.8,
+      "handles": 927,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_13",
+      "rss_mb": 230.6,
+      "handles": 927,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_14",
+      "rss_mb": 230.8,
+      "handles": 928,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_15",
+      "rss_mb": 230.5,
+      "handles": 928,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_16",
+      "rss_mb": 230.8,
+      "handles": 928,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_17",
+      "rss_mb": 230.5,
+      "handles": 928,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_18",
+      "rss_mb": 230.8,
+      "handles": 928,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_19",
+      "rss_mb": 230.5,
+      "handles": 928,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_20",
+      "rss_mb": 230.8,
+      "handles": 928,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_21",
+      "rss_mb": 230.5,
+      "handles": 928,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_22",
+      "rss_mb": 230.8,
+      "handles": 928,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_23",
+      "rss_mb": 230.6,
+      "handles": 928,
+      "leaked_temp_files": 0
+    },
+    {
+      "label": "after_call_24",
+      "rss_mb": 230.9,
+      "handles": 928,
+      "leaked_temp_files": 0
+    }
+  ],
+  "calls": [
+    {
+      "i": 0,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 6.34
+    },
+    {
+      "i": 1,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.756
+    },
+    {
+      "i": 2,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.761
+    },
+    {
+      "i": 3,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.795
+    },
+    {
+      "i": 4,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.767
+    },
+    {
+      "i": 5,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.795
+    },
+    {
+      "i": 6,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.793
+    },
+    {
+      "i": 7,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.773
+    },
+    {
+      "i": 8,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.802
+    },
+    {
+      "i": 9,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.802
+    },
+    {
+      "i": 10,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.804
+    },
+    {
+      "i": 11,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.795
+    },
+    {
+      "i": 12,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.813
+    },
+    {
+      "i": 13,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.845
+    },
+    {
+      "i": 14,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.764
+    },
+    {
+      "i": 15,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.781
+    },
+    {
+      "i": 16,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.823
+    },
+    {
+      "i": 17,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.761
+    },
+    {
+      "i": 18,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.783
+    },
+    {
+      "i": 19,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.748
+    },
+    {
+      "i": 20,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.747
+    },
+    {
+      "i": 21,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.789
+    },
+    {
+      "i": 22,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.783
+    },
+    {
+      "i": 23,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.754
+    },
+    {
+      "i": 24,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "runtime_s": 3.76
+    }
+  ],
+  "summary": {
+    "rss_start_mb": 85.6,
+    "rss_end_mb": 230.9,
+    "rss_max_mb": 231.2,
+    "rss_slope_mb_per_call": 1.269,
+    "handles_start": 600,
+    "handles_end": 928,
+    "handles_slope_per_call": 2.933,
+    "leaked_temp_files_end": 0
+  }
+}

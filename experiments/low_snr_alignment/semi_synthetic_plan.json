@@ -1,0 +1,1386 @@
+{
+  "description": "RA-1.2C semi-synthetic real-noise corpus plan. Path-free: source identities only; absolute media paths live in the gitignored local_sources.json. Split discipline: projects (one song + all its recordings) are partitioned into CALIBRATION and HOLDOUT; no song, recording, or generated seed appears in both. Every positive has an exact known offset by construction (never algorithm-derived). Degradation conditions and gain levels are documented in semi_synthetic.py. Evaluation tolerance 0.15 s = ~6 analysis hops (hop 512 @ 22050 Hz).",
+  "tolerance_s": 0.15,
+  "levels": {
+    "L1": {
+      "gain_db": -6,
+      "condition": "clean"
+    },
+    "L2": {
+      "gain_db": -12,
+      "condition": "bandlimit"
+    },
+    "L3": {
+      "gain_db": -18,
+      "condition": "bandlimit_reverb"
+    },
+    "L4": {
+      "gain_db": -24,
+      "condition": "brl_comp"
+    }
+  },
+  "split": {
+    "calibration_projects": [
+      "lingduihua",
+      "lividi",
+      "drops",
+      "yanwulieche",
+      "baixiwang",
+      "goganjue",
+      "fenzhen",
+      "samesha",
+      "decision90",
+      "queen"
+    ],
+    "holdout_projects": [
+      "drd",
+      "bai39",
+      "hongzhoutian",
+      "haiditan",
+      "letudive",
+      "leyixiaolao",
+      "chiyaoshuijiao",
+      "babieta",
+      "caibushimo",
+      "maodunxinli"
+    ],
+    "projects": {
+      "lingduihua": {
+        "recordings": [
+          "lingduihua_132"
+        ],
+        "track": "tr_lingduihua"
+      },
+      "lividi": {
+        "recordings": [
+          "lividi_132"
+        ],
+        "track": "tr_lividi"
+      },
+      "drops": {
+        "recordings": [
+          "drops_132"
+        ],
+        "track": "tr_drops"
+      },
+      "yanwulieche": {
+        "recordings": [
+          "yanwulieche_132"
+        ],
+        "track": "tr_yanwulieche"
+      },
+      "baixiwang": {
+        "recordings": [
+          "baixiwang_132"
+        ],
+        "track": "tr_baixiwang"
+      },
+      "goganjue": {
+        "recordings": [
+          "goganjue_niaojia_132"
+        ],
+        "track": "tr_goganjue"
+      },
+      "fenzhen": {
+        "recordings": [
+          "fenzhen_ds_1",
+          "fenzhen_ds_2",
+          "fenzhen_ds_3",
+          "fenzhen_ds_4"
+        ],
+        "track": "tr_fenzhen"
+      },
+      "samesha": {
+        "recordings": [
+          "samesha_411"
+        ],
+        "track": "tr_samesha"
+      },
+      "decision90": {
+        "recordings": [
+          "decision90"
+        ],
+        "track": "tr_decision90"
+      },
+      "queen": {
+        "recordings": [
+          "queen"
+        ],
+        "track": "tr_queen"
+      },
+      "drd": {
+        "recordings": [
+          "dancerobotdance_133"
+        ],
+        "track": "tr_drd"
+      },
+      "bai39": {
+        "recordings": [
+          "bai39_134"
+        ],
+        "track": "tr_bai39"
+      },
+      "hongzhoutian": {
+        "recordings": [
+          "hongzhoutian_135"
+        ],
+        "track": "tr_hongzhoutian"
+      },
+      "haiditan": {
+        "recordings": [
+          "haiditan_ds_0",
+          "haiditan_ds_1",
+          "haiditan_ds_2",
+          "haiditan_ds_3",
+          "haiditan_ds_4",
+          "haiditan_ds_5"
+        ],
+        "track": "tr_haiditan"
+      },
+      "letudive": {
+        "recordings": [
+          "letudive"
+        ],
+        "track": "tr_letudive"
+      },
+      "leyixiaolao": {
+        "recordings": [
+          "leyixiaolao"
+        ],
+        "track": "tr_leyixiaolao"
+      },
+      "chiyaoshuijiao": {
+        "recordings": [
+          "chiyaoshuijiao"
+        ],
+        "track": "tr_chiyaoshuijiao"
+      },
+      "babieta": {
+        "recordings": [
+          "babieta"
+        ],
+        "track": "tr_babieta"
+      },
+      "caibushimo": {
+        "recordings": [
+          "caibushimo"
+        ],
+        "track": "tr_caibushimo"
+      },
+      "maodunxinli": {
+        "recordings": [
+          "maodunxinli",
+          "maodunxinli_niaojia"
+        ],
+        "track": "tr_maodunxinli"
+      }
+    }
+  },
+  "positives": [
+    {
+      "case_id": "ss_cal_001",
+      "split": "calibration",
+      "background": "lingduihua_132",
+      "target": "tr_drops",
+      "offset_s": 4.7,
+      "level": "L1",
+      "seed": 1000
+    },
+    {
+      "case_id": "ss_cal_002",
+      "split": "calibration",
+      "background": "lingduihua_132",
+      "target": "tr_samesha",
+      "offset_s": 19.3,
+      "level": "L3",
+      "seed": 1001
+    },
+    {
+      "case_id": "ss_cal_003",
+      "split": "calibration",
+      "background": "lingduihua_132",
+      "target": "tr_fenzhen",
+      "offset_s": -6.2,
+      "level": "L4",
+      "seed": 1002
+    },
+    {
+      "case_id": "ss_cal_004",
+      "split": "calibration",
+      "background": "lividi_132",
+      "target": "tr_yanwulieche",
+      "offset_s": 11.8,
+      "level": "L2",
+      "seed": 1003
+    },
+    {
+      "case_id": "ss_cal_005",
+      "split": "calibration",
+      "background": "lividi_132",
+      "target": "tr_decision90",
+      "offset_s": -3.1,
+      "level": "L3",
+      "seed": 1004
+    },
+    {
+      "case_id": "ss_cal_006",
+      "split": "calibration",
+      "background": "lividi_132",
+      "target": "tr_baixiwang",
+      "offset_s": 8.9,
+      "level": "L4",
+      "seed": 1005
+    },
+    {
+      "case_id": "ss_cal_007",
+      "split": "calibration",
+      "background": "drops_132",
+      "target": "tr_queen",
+      "offset_s": 0.4,
+      "level": "L1",
+      "seed": 1006
+    },
+    {
+      "case_id": "ss_cal_008",
+      "split": "calibration",
+      "background": "drops_132",
+      "target": "tr_goganjue",
+      "offset_s": 27.5,
+      "level": "L2",
+      "seed": 1007
+    },
+    {
+      "case_id": "ss_cal_009",
+      "split": "calibration",
+      "background": "drops_132",
+      "target": "tr_lividi",
+      "offset_s": -12.4,
+      "level": "L4",
+      "seed": 1008
+    },
+    {
+      "case_id": "ss_cal_010",
+      "split": "calibration",
+      "background": "yanwulieche_132",
+      "target": "tr_baixiwang",
+      "offset_s": 15.6,
+      "level": "L2",
+      "seed": 1009
+    },
+    {
+      "case_id": "ss_cal_011",
+      "split": "calibration",
+      "background": "yanwulieche_132",
+      "target": "tr_lingduihua",
+      "offset_s": 2.2,
+      "level": "L3",
+      "seed": 1010
+    },
+    {
+      "case_id": "ss_cal_012",
+      "split": "calibration",
+      "background": "yanwulieche_132",
+      "target": "tr_fenzhen",
+      "offset_s": -8.7,
+      "level": "L1",
+      "seed": 1011
+    },
+    {
+      "case_id": "ss_cal_013",
+      "split": "calibration",
+      "background": "baixiwang_132",
+      "target": "tr_drops",
+      "offset_s": 5.9,
+      "level": "L3",
+      "seed": 1012
+    },
+    {
+      "case_id": "ss_cal_014",
+      "split": "calibration",
+      "background": "baixiwang_132",
+      "target": "tr_queen",
+      "offset_s": 21.4,
+      "level": "L4",
+      "seed": 1013
+    },
+    {
+      "case_id": "ss_cal_015",
+      "split": "calibration",
+      "background": "baixiwang_132",
+      "target": "tr_samesha",
+      "offset_s": -4.6,
+      "level": "L2",
+      "seed": 1014
+    },
+    {
+      "case_id": "ss_cal_016",
+      "split": "calibration",
+      "background": "goganjue_niaojia_132",
+      "target": "tr_decision90",
+      "offset_s": 9.3,
+      "level": "L1",
+      "seed": 1015
+    },
+    {
+      "case_id": "ss_cal_017",
+      "split": "calibration",
+      "background": "goganjue_niaojia_132",
+      "target": "tr_lividi",
+      "offset_s": -7.8,
+      "level": "L4",
+      "seed": 1016
+    },
+    {
+      "case_id": "ss_cal_018",
+      "split": "calibration",
+      "background": "goganjue_niaojia_132",
+      "target": "tr_baixiwang",
+      "offset_s": 13.7,
+      "level": "L3",
+      "seed": 1017
+    },
+    {
+      "case_id": "ss_cal_019",
+      "split": "calibration",
+      "background": "fenzhen_ds_1",
+      "target": "tr_samesha",
+      "offset_s": 17.1,
+      "level": "L2",
+      "seed": 1018
+    },
+    {
+      "case_id": "ss_cal_020",
+      "split": "calibration",
+      "background": "fenzhen_ds_1",
+      "target": "tr_goganjue",
+      "offset_s": -1.8,
+      "level": "L4",
+      "seed": 1019
+    },
+    {
+      "case_id": "ss_cal_021",
+      "split": "calibration",
+      "background": "fenzhen_ds_1",
+      "target": "tr_yanwulieche",
+      "offset_s": 6.4,
+      "level": "L1",
+      "seed": 1020
+    },
+    {
+      "case_id": "ss_cal_022",
+      "split": "calibration",
+      "background": "fenzhen_ds_2",
+      "target": "tr_lingduihua",
+      "offset_s": -9.5,
+      "level": "L3",
+      "seed": 1021
+    },
+    {
+      "case_id": "ss_cal_023",
+      "split": "calibration",
+      "background": "fenzhen_ds_2",
+      "target": "tr_drops",
+      "offset_s": 12.9,
+      "level": "L1",
+      "seed": 1022
+    },
+    {
+      "case_id": "ss_cal_024",
+      "split": "calibration",
+      "background": "fenzhen_ds_2",
+      "target": "tr_decision90",
+      "offset_s": 3.7,
+      "level": "L2",
+      "seed": 1023
+    },
+    {
+      "case_id": "ss_cal_025",
+      "split": "calibration",
+      "background": "fenzhen_ds_3",
+      "target": "tr_queen",
+      "offset_s": 7.1,
+      "level": "L4",
+      "seed": 1024
+    },
+    {
+      "case_id": "ss_cal_026",
+      "split": "calibration",
+      "background": "fenzhen_ds_3",
+      "target": "tr_lividi",
+      "offset_s": 23.8,
+      "level": "L2",
+      "seed": 1025
+    },
+    {
+      "case_id": "ss_cal_027",
+      "split": "calibration",
+      "background": "fenzhen_ds_3",
+      "target": "tr_goganjue",
+      "offset_s": -5.3,
+      "level": "L3",
+      "seed": 1026
+    },
+    {
+      "case_id": "ss_cal_028",
+      "split": "calibration",
+      "background": "samesha_411",
+      "target": "tr_goganjue",
+      "offset_s": 14.2,
+      "level": "L1",
+      "seed": 1027
+    },
+    {
+      "case_id": "ss_cal_029",
+      "split": "calibration",
+      "background": "samesha_411",
+      "target": "tr_drops",
+      "offset_s": -11.6,
+      "level": "L3",
+      "seed": 1028
+    },
+    {
+      "case_id": "ss_cal_030",
+      "split": "calibration",
+      "background": "samesha_411",
+      "target": "tr_yanwulieche",
+      "offset_s": 1.5,
+      "level": "L2",
+      "seed": 1029
+    },
+    {
+      "case_id": "ss_cal_031",
+      "split": "calibration",
+      "background": "decision90",
+      "target": "tr_lividi",
+      "offset_s": -4.9,
+      "level": "L2",
+      "seed": 1030
+    },
+    {
+      "case_id": "ss_cal_032",
+      "split": "calibration",
+      "background": "decision90",
+      "target": "tr_lingduihua",
+      "offset_s": 10.6,
+      "level": "L4",
+      "seed": 1031
+    },
+    {
+      "case_id": "ss_cal_033",
+      "split": "calibration",
+      "background": "decision90",
+      "target": "tr_drops",
+      "offset_s": 18.4,
+      "level": "L3",
+      "seed": 1032
+    },
+    {
+      "case_id": "ss_cal_034",
+      "split": "calibration",
+      "background": "queen",
+      "target": "tr_baixiwang",
+      "offset_s": 3.3,
+      "level": "L3",
+      "seed": 1033
+    },
+    {
+      "case_id": "ss_cal_035",
+      "split": "calibration",
+      "background": "queen",
+      "target": "tr_yanwulieche",
+      "offset_s": 26.1,
+      "level": "L1",
+      "seed": 1034
+    },
+    {
+      "case_id": "ss_cal_036",
+      "split": "calibration",
+      "background": "queen",
+      "target": "tr_decision90",
+      "offset_s": -7.2,
+      "level": "L4",
+      "seed": 1035
+    },
+    {
+      "case_id": "ss_ho_001",
+      "split": "holdout",
+      "background": "dancerobotdance_133",
+      "target": "tr_bai39",
+      "offset_s": 5.3,
+      "level": "L1",
+      "seed": 2000
+    },
+    {
+      "case_id": "ss_ho_002",
+      "split": "holdout",
+      "background": "dancerobotdance_133",
+      "target": "tr_hongzhoutian",
+      "offset_s": -8.9,
+      "level": "L4",
+      "seed": 2001
+    },
+    {
+      "case_id": "ss_ho_003",
+      "split": "holdout",
+      "background": "bai39_134",
+      "target": "tr_haiditan",
+      "offset_s": 12.7,
+      "level": "L2",
+      "seed": 2002
+    },
+    {
+      "case_id": "ss_ho_004",
+      "split": "holdout",
+      "background": "bai39_134",
+      "target": "tr_letudive",
+      "offset_s": 1.1,
+      "level": "L3",
+      "seed": 2003
+    },
+    {
+      "case_id": "ss_ho_005",
+      "split": "holdout",
+      "background": "hongzhoutian_135",
+      "target": "tr_maodunxinli",
+      "offset_s": -4.4,
+      "level": "L3",
+      "seed": 2004
+    },
+    {
+      "case_id": "ss_ho_006",
+      "split": "holdout",
+      "background": "hongzhoutian_135",
+      "target": "tr_haiditan",
+      "offset_s": 16.9,
+      "level": "L1",
+      "seed": 2005
+    },
+    {
+      "case_id": "ss_ho_007",
+      "split": "holdout",
+      "background": "haiditan_ds_1",
+      "target": "tr_letudive",
+      "offset_s": 8.2,
+      "level": "L4",
+      "seed": 2006
+    },
+    {
+      "case_id": "ss_ho_008",
+      "split": "holdout",
+      "background": "haiditan_ds_1",
+      "target": "tr_babieta",
+      "offset_s": -6.7,
+      "level": "L2",
+      "seed": 2007
+    },
+    {
+      "case_id": "ss_ho_009",
+      "split": "holdout",
+      "background": "haiditan_ds_4",
+      "target": "tr_chiyaoshuijiao",
+      "offset_s": -2.3,
+      "level": "L1",
+      "seed": 2008
+    },
+    {
+      "case_id": "ss_ho_010",
+      "split": "holdout",
+      "background": "haiditan_ds_4",
+      "target": "tr_maodunxinli",
+      "offset_s": 13.4,
+      "level": "L3",
+      "seed": 2009
+    },
+    {
+      "case_id": "ss_ho_011",
+      "split": "holdout",
+      "background": "letudive",
+      "target": "tr_hongzhoutian",
+      "offset_s": 19.8,
+      "level": "L2",
+      "seed": 2010
+    },
+    {
+      "case_id": "ss_ho_012",
+      "split": "holdout",
+      "background": "letudive",
+      "target": "tr_chiyaoshuijiao",
+      "offset_s": 3.9,
+      "level": "L4",
+      "seed": 2011
+    },
+    {
+      "case_id": "ss_ho_013",
+      "split": "holdout",
+      "background": "leyixiaolao",
+      "target": "tr_babieta",
+      "offset_s": 7.6,
+      "level": "L3",
+      "seed": 2012
+    },
+    {
+      "case_id": "ss_ho_014",
+      "split": "holdout",
+      "background": "leyixiaolao",
+      "target": "tr_bai39",
+      "offset_s": -10.2,
+      "level": "L1",
+      "seed": 2013
+    },
+    {
+      "case_id": "ss_ho_015",
+      "split": "holdout",
+      "background": "chiyaoshuijiao",
+      "target": "tr_haiditan",
+      "offset_s": 1.9,
+      "level": "L4",
+      "seed": 2014
+    },
+    {
+      "case_id": "ss_ho_016",
+      "split": "holdout",
+      "background": "chiyaoshuijiao",
+      "target": "tr_letudive",
+      "offset_s": 11.3,
+      "level": "L2",
+      "seed": 2015
+    },
+    {
+      "case_id": "ss_ho_017",
+      "split": "holdout",
+      "background": "babieta",
+      "target": "tr_maodunxinli",
+      "offset_s": 21.6,
+      "level": "L1",
+      "seed": 2016
+    },
+    {
+      "case_id": "ss_ho_018",
+      "split": "holdout",
+      "background": "babieta",
+      "target": "tr_hongzhoutian",
+      "offset_s": -3.6,
+      "level": "L3",
+      "seed": 2017
+    },
+    {
+      "case_id": "ss_ho_019",
+      "split": "holdout",
+      "background": "maodunxinli_niaojia",
+      "target": "tr_bai39",
+      "offset_s": -7.4,
+      "level": "L2",
+      "seed": 2018
+    },
+    {
+      "case_id": "ss_ho_020",
+      "split": "holdout",
+      "background": "maodunxinli_niaojia",
+      "target": "tr_haiditan",
+      "offset_s": 9.7,
+      "level": "L4",
+      "seed": 2019
+    }
+  ],
+  "ambiguity_tiled": [
+    {
+      "case_id": "tiled_cal_lividi",
+      "split": "calibration",
+      "background": "lividi_132",
+      "target": "tr_goganjue",
+      "tile_s": 9.6,
+      "gain_db": -10,
+      "condition": "bandlimit",
+      "seed": 3100
+    },
+    {
+      "case_id": "tiled_cal_samesha",
+      "split": "calibration",
+      "background": "samesha_411",
+      "target": "tr_decision90",
+      "tile_s": 11.2,
+      "gain_db": -10,
+      "condition": "bandlimit",
+      "seed": 3101
+    },
+    {
+      "case_id": "tiled_ho_haiditan2",
+      "split": "holdout",
+      "background": "haiditan_ds_2",
+      "target": "tr_babieta",
+      "tile_s": 9.6,
+      "gain_db": -10,
+      "condition": "bandlimit",
+      "seed": 3102
+    },
+    {
+      "case_id": "tiled_ho_babieta",
+      "split": "holdout",
+      "background": "babieta",
+      "target": "tr_leyixiaolao",
+      "tile_s": 11.2,
+      "gain_db": -10,
+      "condition": "bandlimit",
+      "seed": 3103
+    }
+  ],
+  "hard_negatives_real": {
+    "description": "Feature-similar wrong-track pairs, selected by similarity search (chroma / tempo / onset-density / PCEN low-band summaries, see select_hard_negatives), never by filename. The target track is NOT inserted: the case is a real recording vs a wrong track that looks most similar under the engine's evidence families. Selection is split-respecting: calibration recordings pair only with calibration tracks, holdout recordings only with holdout tracks. Own-song pairs are excluded by construction. Filled by the selection run; ids and similarity metrics are committed, paths are not.",
+    "calibration_recordings": [
+      "lingduihua_132",
+      "drops_132",
+      "baixiwang_132",
+      "goganjue_niaojia_132",
+      "fenzhen_ds_2",
+      "decision90"
+    ],
+    "holdout_recordings": [
+      "haiditan_ds_5",
+      "maodunxinli",
+      "dancerobotdance_133",
+      "chiyaoshuijiao"
+    ],
+    "selected": [
+      {
+        "case_id": "rhn_cal_lingduihua_132",
+        "split": "calibration",
+        "recording": "lingduihua_132",
+        "track": "tr_lividi",
+        "selection": {
+          "track": "tr_lividi",
+          "chroma_cos": 0.9779,
+          "pcen_low_cos": 0.9993,
+          "tempo_diff_bpm": 6.8,
+          "onset_rate_diff": 0.0251,
+          "ranks": {
+            "chroma_cos": 1,
+            "pcen_low_cos": 2,
+            "tempo_diff_bpm": 0,
+            "onset_rate_diff": 1
+          },
+          "mean_rank": 1.0
+        },
+        "runner_candidates": [
+          {
+            "track": "tr_lividi",
+            "chroma_cos": 0.9779,
+            "pcen_low_cos": 0.9993,
+            "tempo_diff_bpm": 6.8,
+            "onset_rate_diff": 0.0251,
+            "ranks": {
+              "chroma_cos": 1,
+              "pcen_low_cos": 2,
+              "tempo_diff_bpm": 0,
+              "onset_rate_diff": 1
+            },
+            "mean_rank": 1.0
+          },
+          {
+            "track": "tr_decision90",
+            "chroma_cos": 0.967,
+            "pcen_low_cos": 0.9997,
+            "tempo_diff_bpm": 6.8,
+            "onset_rate_diff": 0.1215,
+            "ranks": {
+              "chroma_cos": 3,
+              "pcen_low_cos": 0,
+              "tempo_diff_bpm": 1,
+              "onset_rate_diff": 3
+            },
+            "mean_rank": 1.75
+          },
+          {
+            "track": "tr_queen",
+            "chroma_cos": 0.9683,
+            "pcen_low_cos": 0.9994,
+            "tempo_diff_bpm": 36.27,
+            "onset_rate_diff": 0.2302,
+            "ranks": {
+              "chroma_cos": 2,
+              "pcen_low_cos": 1,
+              "tempo_diff_bpm": 6,
+              "onset_rate_diff": 5
+            },
+            "mean_rank": 3.5
+          }
+        ]
+      },
+      {
+        "case_id": "rhn_cal_drops_132",
+        "split": "calibration",
+        "recording": "drops_132",
+        "track": "tr_decision90",
+        "selection": {
+          "track": "tr_decision90",
+          "chroma_cos": 0.9868,
+          "pcen_low_cos": 0.9994,
+          "tempo_diff_bpm": 6.15,
+          "onset_rate_diff": 0.0094,
+          "ranks": {
+            "chroma_cos": 0,
+            "pcen_low_cos": 2,
+            "tempo_diff_bpm": 2,
+            "onset_rate_diff": 0
+          },
+          "mean_rank": 1.0
+        },
+        "runner_candidates": [
+          {
+            "track": "tr_decision90",
+            "chroma_cos": 0.9868,
+            "pcen_low_cos": 0.9994,
+            "tempo_diff_bpm": 6.15,
+            "onset_rate_diff": 0.0094,
+            "ranks": {
+              "chroma_cos": 0,
+              "pcen_low_cos": 2,
+              "tempo_diff_bpm": 2,
+              "onset_rate_diff": 0
+            },
+            "mean_rank": 1.0
+          },
+          {
+            "track": "tr_lingduihua",
+            "chroma_cos": 0.981,
+            "pcen_low_cos": 0.9998,
+            "tempo_diff_bpm": 12.95,
+            "onset_rate_diff": 0.0799,
+            "ranks": {
+              "chroma_cos": 4,
+              "pcen_low_cos": 0,
+              "tempo_diff_bpm": 4,
+              "onset_rate_diff": 3
+            },
+            "mean_rank": 2.75
+          },
+          {
+            "track": "tr_samesha",
+            "chroma_cos": 0.9817,
+            "pcen_low_cos": 0.9997,
+            "tempo_diff_bpm": 0.0,
+            "onset_rate_diff": 0.2788,
+            "ranks": {
+              "chroma_cos": 3,
+              "pcen_low_cos": 1,
+              "tempo_diff_bpm": 0,
+              "onset_rate_diff": 8
+            },
+            "mean_rank": 3.0
+          }
+        ]
+      },
+      {
+        "case_id": "rhn_cal_baixiwang_132",
+        "split": "calibration",
+        "recording": "baixiwang_132",
+        "track": "tr_decision90",
+        "selection": {
+          "track": "tr_decision90",
+          "chroma_cos": 0.9919,
+          "pcen_low_cos": 0.9994,
+          "tempo_diff_bpm": 16.85,
+          "onset_rate_diff": 0.0679,
+          "ranks": {
+            "chroma_cos": 0,
+            "pcen_low_cos": 0,
+            "tempo_diff_bpm": 3,
+            "onset_rate_diff": 3
+          },
+          "mean_rank": 1.5
+        },
+        "runner_candidates": [
+          {
+            "track": "tr_decision90",
+            "chroma_cos": 0.9919,
+            "pcen_low_cos": 0.9994,
+            "tempo_diff_bpm": 16.85,
+            "onset_rate_diff": 0.0679,
+            "ranks": {
+              "chroma_cos": 0,
+              "pcen_low_cos": 0,
+              "tempo_diff_bpm": 3,
+              "onset_rate_diff": 3
+            },
+            "mean_rank": 1.5
+          },
+          {
+            "track": "tr_drops",
+            "chroma_cos": 0.9841,
+            "pcen_low_cos": 0.9973,
+            "tempo_diff_bpm": 5.11,
+            "onset_rate_diff": 0.0727,
+            "ranks": {
+              "chroma_cos": 2,
+              "pcen_low_cos": 8,
+              "tempo_diff_bpm": 0,
+              "onset_rate_diff": 4
+            },
+            "mean_rank": 3.5
+          },
+          {
+            "track": "tr_samesha",
+            "chroma_cos": 0.9839,
+            "pcen_low_cos": 0.9992,
+            "tempo_diff_bpm": 10.7,
+            "onset_rate_diff": 0.2203,
+            "ranks": {
+              "chroma_cos": 3,
+              "pcen_low_cos": 2,
+              "tempo_diff_bpm": 1,
+              "onset_rate_diff": 8
+            },
+            "mean_rank": 3.5
+          }
+        ]
+      },
+      {
+        "case_id": "rhn_cal_goganjue_niaojia_132",
+        "split": "calibration",
+        "recording": "goganjue_niaojia_132",
+        "track": "tr_decision90",
+        "selection": {
+          "track": "tr_decision90",
+          "chroma_cos": 0.9944,
+          "pcen_low_cos": 0.9995,
+          "tempo_diff_bpm": 36.91,
+          "onset_rate_diff": 0.0639,
+          "ranks": {
+            "chroma_cos": 0,
+            "pcen_low_cos": 2,
+            "tempo_diff_bpm": 5,
+            "onset_rate_diff": 3
+          },
+          "mean_rank": 2.5
+        },
+        "runner_candidates": [
+          {
+            "track": "tr_decision90",
+            "chroma_cos": 0.9944,
+            "pcen_low_cos": 0.9995,
+            "tempo_diff_bpm": 36.91,
+            "onset_rate_diff": 0.0639,
+            "ranks": {
+              "chroma_cos": 0,
+              "pcen_low_cos": 2,
+              "tempo_diff_bpm": 5,
+              "onset_rate_diff": 3
+            },
+            "mean_rank": 2.5
+          },
+          {
+            "track": "tr_lingduihua",
+            "chroma_cos": 0.9869,
+            "pcen_low_cos": 0.9999,
+            "tempo_diff_bpm": 43.71,
+            "onset_rate_diff": 0.0255,
+            "ranks": {
+              "chroma_cos": 4,
+              "pcen_low_cos": 0,
+              "tempo_diff_bpm": 6,
+              "onset_rate_diff": 1
+            },
+            "mean_rank": 2.75
+          },
+          {
+            "track": "tr_baixiwang",
+            "chroma_cos": 0.9916,
+            "pcen_low_cos": 0.9991,
+            "tempo_diff_bpm": 20.06,
+            "onset_rate_diff": 0.1202,
+            "ranks": {
+              "chroma_cos": 1,
+              "pcen_low_cos": 6,
+              "tempo_diff_bpm": 1,
+              "onset_rate_diff": 5
+            },
+            "mean_rank": 3.25
+          }
+        ]
+      },
+      {
+        "case_id": "rhn_cal_fenzhen_ds_2",
+        "split": "calibration",
+        "recording": "fenzhen_ds_2",
+        "track": "tr_decision90",
+        "selection": {
+          "track": "tr_decision90",
+          "chroma_cos": 0.9891,
+          "pcen_low_cos": 0.9996,
+          "tempo_diff_bpm": 43.07,
+          "onset_rate_diff": 0.0211,
+          "ranks": {
+            "chroma_cos": 0,
+            "pcen_low_cos": 1,
+            "tempo_diff_bpm": 4,
+            "onset_rate_diff": 1
+          },
+          "mean_rank": 1.5
+        },
+        "runner_candidates": [
+          {
+            "track": "tr_decision90",
+            "chroma_cos": 0.9891,
+            "pcen_low_cos": 0.9996,
+            "tempo_diff_bpm": 43.07,
+            "onset_rate_diff": 0.0211,
+            "ranks": {
+              "chroma_cos": 0,
+              "pcen_low_cos": 1,
+              "tempo_diff_bpm": 4,
+              "onset_rate_diff": 1
+            },
+            "mean_rank": 1.5
+          },
+          {
+            "track": "tr_lingduihua",
+            "chroma_cos": 0.9813,
+            "pcen_low_cos": 0.9997,
+            "tempo_diff_bpm": 36.27,
+            "onset_rate_diff": 0.1104,
+            "ranks": {
+              "chroma_cos": 5,
+              "pcen_low_cos": 0,
+              "tempo_diff_bpm": 2,
+              "onset_rate_diff": 4
+            },
+            "mean_rank": 2.75
+          },
+          {
+            "track": "tr_queen",
+            "chroma_cos": 0.9828,
+            "pcen_low_cos": 0.9993,
+            "tempo_diff_bpm": 0.0,
+            "onset_rate_diff": 0.1299,
+            "ranks": {
+              "chroma_cos": 4,
+              "pcen_low_cos": 3,
+              "tempo_diff_bpm": 0,
+              "onset_rate_diff": 5
+            },
+            "mean_rank": 3.0
+          }
+        ]
+      },
+      {
+        "case_id": "rhn_cal_decision90",
+        "split": "calibration",
+        "recording": "decision90",
+        "track": "tr_lingduihua",
+        "selection": {
+          "track": "tr_lingduihua",
+          "chroma_cos": 0.9729,
+          "pcen_low_cos": 0.9993,
+          "tempo_diff_bpm": 6.8,
+          "onset_rate_diff": 0.0428,
+          "ranks": {
+            "chroma_cos": 7,
+            "pcen_low_cos": 0,
+            "tempo_diff_bpm": 2,
+            "onset_rate_diff": 1
+          },
+          "mean_rank": 2.5
+        },
+        "runner_candidates": [
+          {
+            "track": "tr_lingduihua",
+            "chroma_cos": 0.9729,
+            "pcen_low_cos": 0.9993,
+            "tempo_diff_bpm": 6.8,
+            "onset_rate_diff": 0.0428,
+            "ranks": {
+              "chroma_cos": 7,
+              "pcen_low_cos": 0,
+              "tempo_diff_bpm": 2,
+              "onset_rate_diff": 1
+            },
+            "mean_rank": 2.5
+          },
+          {
+            "track": "tr_lividi",
+            "chroma_cos": 0.9833,
+            "pcen_low_cos": 0.9989,
+            "tempo_diff_bpm": 0.0,
+            "onset_rate_diff": 0.1429,
+            "ranks": {
+              "chroma_cos": 2,
+              "pcen_low_cos": 3,
+              "tempo_diff_bpm": 0,
+              "onset_rate_diff": 6
+            },
+            "mean_rank": 2.75
+          },
+          {
+            "track": "tr_queen",
+            "chroma_cos": 0.9887,
+            "pcen_low_cos": 0.9991,
+            "tempo_diff_bpm": 43.07,
+            "onset_rate_diff": 0.0623,
+            "ranks": {
+              "chroma_cos": 0,
+              "pcen_low_cos": 2,
+              "tempo_diff_bpm": 8,
+              "onset_rate_diff": 2
+            },
+            "mean_rank": 3.0
+          }
+        ]
+      },
+      {
+        "case_id": "rhn_ho_haiditan_ds_5",
+        "split": "holdout",
+        "recording": "haiditan_ds_5",
+        "track": "tr_maodunxinli",
+        "selection": {
+          "track": "tr_maodunxinli",
+          "chroma_cos": 0.995,
+          "pcen_low_cos": 0.9997,
+          "tempo_diff_bpm": 5.59,
+          "onset_rate_diff": 0.1101,
+          "ranks": {
+            "chroma_cos": 0,
+            "pcen_low_cos": 2,
+            "tempo_diff_bpm": 4,
+            "onset_rate_diff": 4
+          },
+          "mean_rank": 2.5
+        },
+        "runner_candidates": [
+          {
+            "track": "tr_maodunxinli",
+            "chroma_cos": 0.995,
+            "pcen_low_cos": 0.9997,
+            "tempo_diff_bpm": 5.59,
+            "onset_rate_diff": 0.1101,
+            "ranks": {
+              "chroma_cos": 0,
+              "pcen_low_cos": 2,
+              "tempo_diff_bpm": 4,
+              "onset_rate_diff": 4
+            },
+            "mean_rank": 2.5
+          },
+          {
+            "track": "tr_bai39",
+            "chroma_cos": 0.9917,
+            "pcen_low_cos": 0.9996,
+            "tempo_diff_bpm": 0.0,
+            "onset_rate_diff": 0.1327,
+            "ranks": {
+              "chroma_cos": 3,
+              "pcen_low_cos": 3,
+              "tempo_diff_bpm": 0,
+              "onset_rate_diff": 6
+            },
+            "mean_rank": 3.0
+          },
+          {
+            "track": "tr_chiyaoshuijiao",
+            "chroma_cos": 0.9933,
+            "pcen_low_cos": 0.9995,
+            "tempo_diff_bpm": 11.75,
+            "onset_rate_diff": 0.0074,
+            "ranks": {
+              "chroma_cos": 2,
+              "pcen_low_cos": 6,
+              "tempo_diff_bpm": 5,
+              "onset_rate_diff": 0
+            },
+            "mean_rank": 3.25
+          }
+        ]
+      },
+      {
+        "case_id": "rhn_ho_maodunxinli",
+        "split": "holdout",
+        "recording": "maodunxinli",
+        "track": "tr_caibushimo",
+        "selection": {
+          "track": "tr_caibushimo",
+          "chroma_cos": 0.9963,
+          "pcen_low_cos": 0.9998,
+          "tempo_diff_bpm": 59.71,
+          "onset_rate_diff": 0.0767,
+          "ranks": {
+            "chroma_cos": 0,
+            "pcen_low_cos": 0,
+            "tempo_diff_bpm": 8,
+            "onset_rate_diff": 1
+          },
+          "mean_rank": 2.25
+        },
+        "runner_candidates": [
+          {
+            "track": "tr_caibushimo",
+            "chroma_cos": 0.9963,
+            "pcen_low_cos": 0.9998,
+            "tempo_diff_bpm": 59.71,
+            "onset_rate_diff": 0.0767,
+            "ranks": {
+              "chroma_cos": 0,
+              "pcen_low_cos": 0,
+              "tempo_diff_bpm": 8,
+              "onset_rate_diff": 1
+            },
+            "mean_rank": 2.25
+          },
+          {
+            "track": "tr_babieta",
+            "chroma_cos": 0.9939,
+            "pcen_low_cos": 0.9995,
+            "tempo_diff_bpm": 20.06,
+            "onset_rate_diff": 0.0803,
+            "ranks": {
+              "chroma_cos": 1,
+              "pcen_low_cos": 5,
+              "tempo_diff_bpm": 1,
+              "onset_rate_diff": 3
+            },
+            "mean_rank": 2.5
+          },
+          {
+            "track": "tr_chiyaoshuijiao",
+            "chroma_cos": 0.9935,
+            "pcen_low_cos": 0.9995,
+            "tempo_diff_bpm": 36.91,
+            "onset_rate_diff": 0.019,
+            "ranks": {
+              "chroma_cos": 2,
+              "pcen_low_cos": 4,
+              "tempo_diff_bpm": 6,
+              "onset_rate_diff": 0
+            },
+            "mean_rank": 3.0
+          }
+        ]
+      },
+      {
+        "case_id": "rhn_ho_dancerobotdance_133",
+        "split": "holdout",
+        "recording": "dancerobotdance_133",
+        "track": "tr_bai39",
+        "selection": {
+          "track": "tr_bai39",
+          "chroma_cos": 0.9806,
+          "pcen_low_cos": 0.9995,
+          "tempo_diff_bpm": 21.75,
+          "onset_rate_diff": 0.0865,
+          "ranks": {
+            "chroma_cos": 5,
+            "pcen_low_cos": 2,
+            "tempo_diff_bpm": 1,
+            "onset_rate_diff": 5
+          },
+          "mean_rank": 3.25
+        },
+        "runner_candidates": [
+          {
+            "track": "tr_bai39",
+            "chroma_cos": 0.9806,
+            "pcen_low_cos": 0.9995,
+            "tempo_diff_bpm": 21.75,
+            "onset_rate_diff": 0.0865,
+            "ranks": {
+              "chroma_cos": 5,
+              "pcen_low_cos": 2,
+              "tempo_diff_bpm": 1,
+              "onset_rate_diff": 5
+            },
+            "mean_rank": 3.25
+          },
+          {
+            "track": "tr_haiditan",
+            "chroma_cos": 0.9778,
+            "pcen_low_cos": 0.9993,
+            "tempo_diff_bpm": 21.75,
+            "onset_rate_diff": 0.039,
+            "ranks": {
+              "chroma_cos": 6,
+              "pcen_low_cos": 4,
+              "tempo_diff_bpm": 2,
+              "onset_rate_diff": 2
+            },
+            "mean_rank": 3.5
+          },
+          {
+            "track": "tr_chiyaoshuijiao",
+            "chroma_cos": 0.9832,
+            "pcen_low_cos": 0.9993,
+            "tempo_diff_bpm": 33.5,
+            "onset_rate_diff": 0.0387,
+            "ranks": {
+              "chroma_cos": 3,
+              "pcen_low_cos": 5,
+              "tempo_diff_bpm": 6,
+              "onset_rate_diff": 1
+            },
+            "mean_rank": 3.75
+          }
+        ]
+      },
+      {
+        "case_id": "rhn_ho_chiyaoshuijiao",
+        "split": "holdout",
+        "recording": "chiyaoshuijiao",
+        "track": "tr_maodunxinli",
+        "selection": {
+          "track": "tr_maodunxinli",
+          "chroma_cos": 0.9878,
+          "pcen_low_cos": 0.9995,
+          "tempo_diff_bpm": 6.15,
+          "onset_rate_diff": 0.0774,
+          "ranks": {
+            "chroma_cos": 1,
+            "pcen_low_cos": 6,
+            "tempo_diff_bpm": 2,
+            "onset_rate_diff": 3
+          },
+          "mean_rank": 3.0
+        },
+        "runner_candidates": [
+          {
+            "track": "tr_maodunxinli",
+            "chroma_cos": 0.9878,
+            "pcen_low_cos": 0.9995,
+            "tempo_diff_bpm": 6.15,
+            "onset_rate_diff": 0.0774,
+            "ranks": {
+              "chroma_cos": 1,
+              "pcen_low_cos": 6,
+              "tempo_diff_bpm": 2,
+              "onset_rate_diff": 3
+            },
+            "mean_rank": 3.0
+          },
+          {
+            "track": "tr_haiditan",
+            "chroma_cos": 0.9862,
+            "pcen_low_cos": 0.9995,
+            "tempo_diff_bpm": 11.75,
+            "onset_rate_diff": 0.0523,
+            "ranks": {
+              "chroma_cos": 2,
+              "pcen_low_cos": 5,
+              "tempo_diff_bpm": 4,
+              "onset_rate_diff": 2
+            },
+            "mean_rank": 3.25
+          },
+          {
+            "track": "tr_drd",
+            "chroma_cos": 0.982,
+            "pcen_low_cos": 0.9996,
+            "tempo_diff_bpm": 33.5,
+            "onset_rate_diff": 0.035,
+            "ranks": {
+              "chroma_cos": 3,
+              "pcen_low_cos": 3,
+              "tempo_diff_bpm": 8,
+              "onset_rate_diff": 0
+            },
+            "mean_rank": 3.5
+          }
+        ]
+      }
+    ]
+  }
+}

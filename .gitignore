@@ -19,6 +19,7 @@ release/
 
 # Local real-corpus manifest (contains personal media paths — never commit)
 experiments/low_snr_alignment/local_corpus.json
+experiments/low_snr_alignment/local_sources.json
 
 # System files
 Thumbs.db

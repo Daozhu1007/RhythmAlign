@@ -1,0 +1,57 @@
+[
+  {
+    "duration_s": 180.0,
+    "status": "accepted",
+    "offset": 19.83,
+    "wall_s": 8.87,
+    "generator_runtimes_s": {
+      "hybrid": 5.41,
+      "onset": 0.266,
+      "pcen_hpss": 2.795,
+      "pcen": 0.377
+    },
+    "tracemalloc_peak_mb": 328.7,
+    "rss_before_mb": 121.0,
+    "rss_after_mb": 293.1
+  },
+  {
+    "duration_s": 420.0,
+    "status": "abstained",
+    "offset": null,
+    "wall_s": 7.7,
+    "generator_runtimes_s": {
+      "hybrid": 4.416,
+      "onset": 0.423,
+      "pcen_hpss": 2.246,
+      "pcen": 0.588
+    },
+    "tracemalloc_peak_mb": 513.4,
+    "rss_before_mb": 315.5,
+    "rss_after_mb": 328.8,
+    "scaling_vs_first": {
+      "duration_x": 2.33,
+      "wall_x": 0.87,
+      "peak_mb_x": 1.56
+    }
+  },
+  {
+    "duration_s": 720.0,
+    "status": "abstained",
+    "offset": null,
+    "wall_s": 10.3,
+    "generator_runtimes_s": {
+      "hybrid": 5.47,
+      "onset": 0.614,
+      "pcen_hpss": 3.266,
+      "pcen": 0.914
+    },
+    "tracemalloc_peak_mb": 879.7,
+    "rss_before_mb": 354.6,
+    "rss_after_mb": 368.9,
+    "scaling_vs_first": {
+      "duration_x": 4.0,
+      "wall_x": 1.16,
+      "peak_mb_x": 2.68
+    }
+  }
+]
