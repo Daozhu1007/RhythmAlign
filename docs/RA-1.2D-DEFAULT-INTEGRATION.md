@@ -333,9 +333,16 @@ appeared. Total wall 7.0 s.
   transitions (indeterminate → export % → done / safe-stop) and button
   re-enables are covered by the integration tests and were exercised in
   the product smokes.
-- No memory/perf regression is expected: the engine code is
-  byte-identical to the RA-1.2C soak/memory-verified state
-  (60 synthetic + 25 real-file repeated invocations, flat RSS).
+- No memory/perf regression is expected: the engine's decision policy,
+  thresholds, and alignment decision logic are unchanged from the
+  RA-1.2C soak/memory-verified state (60 synthetic + 25 real-file
+  repeated invocations, flat RSS). In RA-1.2D the
+  `alignment_engine_v2.py` file itself changed only in its module
+  docstring, the `ENGINE_LABEL` constant, and one function docstring
+  (§14); no decision logic was touched. (Wording corrected in
+  RA-1.2E: an earlier revision of this section said the engine *code*
+  was byte-identical, which overstates it — the file had the three
+  comment/label edits above.)
 
 ## 18. Remaining risks
 
@@ -365,8 +372,12 @@ appeared. Total wall 7.0 s.
 - `alignment_engine_v2.py` — header/default-path note, `ENGINE_LABEL`,
   `decision_message()` docstring note (GUI-unused); **no policy,
   threshold, or decision-logic change**
-- `auto_sync.py` — **unchanged** (legacy engine intact for
-  tests/experiments/diagnostics)
+- `auto_sync.py` — one change only: the analysis-ETA realtime factor
+  was recalibrated **45 → 75** (§10). The legacy engine's decision
+  logic is untouched and remains intact for
+  tests/experiments/diagnostics. (Wording corrected in RA-1.2E: this
+  list previously said `auto_sync.py` was unchanged, contradicting
+  §10.)
 - `diagnostics.py` — `Alignment engine:` line in the `[Runtime]` report
 - `locales/zh_CN.json`, `locales/en_US.json` — §8
 - `docs/RA-1.2C-CALIBRATION-HARDENING.md` — §2 addendum + typo fix
@@ -374,8 +385,10 @@ appeared. Total wall 7.0 s.
 - `tests/test_ra12d_integration.py` — new (17 tests)
 - `experiments/low_snr_alignment/product_smoke.py` — new product-path
   smoke harness (manifest-driven, no media committed)
-- `RhythmAlign.spec`, `app_info.py` — **unchanged** (no version bump,
-  no tag, no release)
+- `RhythmAlign.spec` — one change: `'PySide6'` added to `excludes`
+  (§16, environment-drift fix). (Wording corrected in RA-1.2E: this
+  list previously said the spec was unchanged, contradicting §16.)
+- `app_info.py` — **unchanged** (no version bump, no tag, no release)
 
 ## 20. Exact validation results
 
@@ -415,7 +428,9 @@ appeared. Total wall 7.0 s.
   `astra/alignment-research-wip` (`5b1fcd4`), **not** merged, pushed,
   or referenced; `main` contains no Astra paths.
 - GUI default path = Engine v2; no silent legacy fallback; engine
-  thresholds/policy byte-unchanged.
+  thresholds/policy unchanged (decision logic identical to RA-1.2C;
+  the RA-1.2D edits to `alignment_engine_v2.py` were comments/labels
+  only).
 - No user media, no personal absolute paths, no gitignored-local
   manifests, and no build artifacts (`build/`, `dist/` ignored)
   committed. No version bump, no tag, no GitHub Release.

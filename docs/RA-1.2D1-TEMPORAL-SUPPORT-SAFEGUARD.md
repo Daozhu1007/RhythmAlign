@@ -197,17 +197,29 @@ through `eng.decide_alignment`; `results/integrated_full_positives.json`):
 - Previously abstained positives newly accepted: **0** (the gate cannot
   upgrade; by construction and verified).
 - Newly introduced false abstains: **0**.
-- 零对话 (`lingduihua_132`, low-SNR, manual GT +12.4 ± 0.4): retained at
-  +12.4923 (error 0.0923 s) — the deciding-member rule exists precisely to
-  preserve this case.
+- 零对话 (`lingduihua_132`, low-SNR): retained at **+12.4923 s** against
+  its independently established manual estimate **+12.4 ± 0.4 s** —
+  deviation from the interval center ≈ 0.0923 s, result inside the
+  interval. That manual estimate is not exact GT; the deciding-member
+  rule exists precisely to preserve this case.
 
 ## 9. Exact-GT results
 
 26 semi-synthetic correct accepts re-measured end-to-end: all within the
-0.15 s tolerance; max |offset error| across all GT-bearing accepts
-**0.0923 s** (the 零对话 manual-GT case). Accepted offsets are
-bit-identical to the frozen v2 baseline (the gate changes decisions, never
-placements).
+0.15 s tolerance; max |offset error| among the exact-GT semi-synthetic
+accepts **0.0137 s** (`ss_cal_001`).
+
+Separately, the one manual-GT case, 零对话: accepted at +12.4923 s; its
+independently established manual estimate is +12.4 ± 0.4 s, so the
+deviation from the interval center is ≈ 0.0923 s and the result lies
+inside the interval. The 0.0923 s figure is a deviation from a manual
+estimate, **not** an exact-GT error, and is not pooled with the
+semi-synthetic metric. (Population split corrected in RA-1.2E; an
+earlier revision of this section reported 0.0923 s as a
+cross-population "max GT error".)
+
+Accepted offsets are bit-identical to the frozen v2 baseline (the gate
+changes decisions, never placements).
 
 ## 10. GCC-PHAT comparison (`results/eval_baselines.json`)
 
@@ -358,8 +370,10 @@ Research/experiment package (development data only, no production impact):
 - Safety families unchanged: 10 RA-1.2B mismatches, 10 hard negatives,
   4 tiled — all SAFE_ABSTAIN.
 - Full positive corpus through the integrated engine: 55/55 previously
-  accepted positives retained, 0 new false abstains, max GT error
-  0.0923 s.
+  accepted positives retained, 0 new false abstains; max |offset error|
+  among exact-GT semi-synthetic accepts **0.0137 s**; 零对话 (manual GT
+  +12.4 ± 0.4 s) retained at +12.4923 s, inside the interval
+  (deviation from center ≈ 0.0923 s; not exact GT).
 - A/B causal check: blocker accepted at +1.462857 with
   `max_top_bin_share = 1.01`, abstained with 0.25 — identical decisions,
   the gate is the only difference.

@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-v1.1.2-blue" alt="Version">
+  <img src="https://img.shields.io/badge/version-v1.2.0-blue" alt="Version">
   <img src="https://img.shields.io/badge/platform-Windows%2010%2F11-blue" alt="Platform">
   <img src="https://img.shields.io/badge/python-3.9%2B-blue" alt="Python">
   <img src="https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-lightgrey" alt="License">
@@ -50,7 +50,7 @@ This README describes the current app. Per-version change logs are kept in the R
 
 - Light/dark UI with optional Windows theme following.
 - Drag-and-drop video and audio import on both sync and analysis pages.
-- Hybrid Chroma CENS delta + onset alignment for noisy handcam recordings and repeated rhythm-game chart sections.
+- Multi-evidence alignment engine: substantially more robust on difficult, quiet, or noisy handcam recordings, and able to refuse to guess when the evidence is unreliable.
 - Video stream copy by default, preserving image quality while rebuilding audio.
 - Analyze-only mode, diagnostic reports, and built-in update checks for easier troubleshooting.
 
@@ -58,23 +58,23 @@ This README describes the current app. Per-version change logs are kept in the R
 
 Raw waveform correlation is fragile. A phone microphone, arcade cabinet speakers, hand taps, compression, clipping, and background noise can make the recorded waveform look nothing like the clean music file.
 
-RhythmAlign works on musical features instead:
+RhythmAlign v1.2.0 aligns by combining several independent kinds of musical evidence instead of trusting any single one:
 
 1. **Decode to analysis audio**
 
    FFmpeg extracts both inputs to mono PCM at the analysis sample rate.
 
-2. **Track pitch-class movement**
+2. **Gather several independent kinds of evidence**
 
-   `librosa.feature.chroma_cens` maps audio into 12 pitch-class bands. RhythmAlign then uses frame-to-frame chroma deltas, so the correlation follows musical changes rather than static repeated texture.
+   The engine examines the recording through complementary lenses — melodic movement, rhythmic onsets, and noise-robust spectral texture. Each lens produces its own candidate placements; no single lens decides alone.
 
-3. **Blend a small rhythmic cue**
+3. **Cross-check the candidates**
 
-   Onset strength is normalized and blended lightly into the chroma-delta curve. It helps with noisy handcam recordings without letting repeated drum patterns dominate the decision.
+   A placement is only accepted when independent kinds of evidence agree on the same offset. Brief one-off matches (a single tap, a sound effect) cannot pass on their own: the engine checks that the matching evidence is spread across the song, not concentrated in a single moment.
 
-4. **Score confidence**
+4. **Refuse to guess when unsure**
 
-   The selected peak must pass a Z-score gate. If the engine falls back to onset-only matching, the best peak must also beat the next independent candidate by a minimum ratio.
+   If the evidence is too weak, too ambiguous (several similarly plausible placements), or too concentrated, RhythmAlign stops with a clear explanation instead of exporting a confidently wrong result.
 
 5. **Export safely**
 
@@ -86,11 +86,12 @@ Positive offset means the replacement music is delayed. Negative offset means th
 
 **Alignment**
 
-- Hybrid Chroma CENS delta + onset alignment engine
-- Z-score confidence gate
-- Independent peak-ratio check for repeated rhythm patterns
+- Multi-evidence alignment engine with cross-checked candidate placements
+- Evidence-gated decisions: the offset is accepted only when independent evidence agrees
+- Safe-stop behavior: unreliable, ambiguous, or brief-match cases stop before export instead of producing a wrong video
+- Temporal-support check that rejects placements supported by only a short snippet of audio
 - Analyze-only mode for checking the offset without exporting
-- Manual offset slider for final sub-frame taste adjustments
+- Manual offset slider for final fine adjustment on top of a successful automatic alignment
 
 **Export**
 
@@ -144,8 +145,11 @@ python -m pytest -q
 1. Select a video file: MP4, MKV, MOV, AVI, FLV, WMV, WebM, or TS.
 2. Select a reference audio file: MP3, WAV, FLAC, M4A, AAC, OGG, or WMA.
 3. Choose a volume preset or adjust volumes manually.
-4. Optionally set a manual offset in milliseconds.
-5. Click **Full Export** and choose the output path.
+4. Click **Full Export** and choose the output path.
+
+After a successful automatic alignment you can fine-tune the result in milliseconds. The manual slider is added on top of the automatic offset — it is a fine adjustment, not a substitute for the automatic alignment.
+
+If RhythmAlign cannot determine the offset reliably, it shows a clear "could not reliably determine" message and does not export — no wrong video is produced. This is a deliberate safety stop, not a crash. Check that the selected music is the track actually playing in the video, and retry with the exact matching source.
 
 For best results, use the exact same music source as the one heard in the video. Different rips, edits, previews, or platform downloads can have intros, fades, mastering differences, or tiny cuts that no fixed-offset aligner can fully correct.
 
@@ -159,7 +163,7 @@ Example result:
 +0.1234 s
 ```
 
-That means delaying the replacement music by `0.1234` seconds.
+That means delaying the replacement music by `0.1234` seconds. If the evidence is unreliable, the analysis shows an explicit "could not reliably determine" state instead of a number.
 
 ### Diagnose Difficult Pairs
 
@@ -171,14 +175,16 @@ The diagnostic output includes audio duration, RMS/peak levels, Chroma variance,
 
 ## Reliability Notes
 
-RhythmAlign v1.1.2 is much more robust against repeated beat patterns, but it is still a fixed-offset aligner. It can still struggle when:
+RhythmAlign v1.2.0 is substantially more robust on difficult recordings — quiet handcams, heavy noise, repeated chart sections — and it now refuses to guess when the evidence does not support any placement. It is still a fixed-offset aligner, not a universal repair tool. It can still struggle when:
 
 - the reference music is not the same version as the video audio,
 - the video was cut in the middle,
 - the video has speed changes or long-term audio drift,
-- hand taps or cabinet noise overpower the music,
-- the song has extremely repetitive harmony and rhythm,
+- noise overpowers the music so thoroughly that little usable evidence remains,
+- the song has extremely repetitive harmony and rhythm, which can leave several equally plausible placements,
 - the clean track has a different intro, fade, or silence padding.
+
+When RhythmAlign stops instead of exporting, it invents no number and produces no wrong video. Not every stopped case can be recovered inside the app: the manual ±500 ms slider is a fine adjustment on top of a successful automatic alignment, not a full manual placement system.
 
 For these cases, use `diagnose_offset.py`, Analyze Only mode, or a manual offset check before final export.
 
@@ -187,7 +193,8 @@ For these cases, use `diagnose_offset.py`, Analyze Only mode, or a manual offset
 ```text
 RhythmAlign/
 ├── ui_main.py              # PyQt GUI
-├── auto_sync.py            # Alignment engine and FFmpeg export pipeline
+├── alignment_engine_v2.py  # Evidence-gated alignment engine (default path)
+├── auto_sync.py            # FFmpeg extraction/export pipeline and legacy engine
 ├── diagnose_offset.py      # CLI diagnostic tool
 ├── tests/                  # Export and alignment reliability tests
 ├── assets/                 # App icon and screenshots

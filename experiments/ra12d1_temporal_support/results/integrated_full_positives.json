@@ -18,7 +18,18 @@
         "CORRECT_ACCEPT": 29
       }
     },
-    "max_abs_offset_error": 0.0923356009070293
+    "max_abs_offset_error_exact_gt_semi_synthetic": 0.013650793650793247,
+    "manual_gt_cases": [
+      {
+        "case_id": "lingduihua_132",
+        "accepted_offset_s": 12.49233560090703,
+        "manual_estimate_center_s": 12.4,
+        "manual_interval_s": 0.4,
+        "deviation_from_interval_center_s": 0.0923356009070293,
+        "inside_manual_interval": true
+      }
+    ],
+    "gt_population_note": "GT populations are separated: semi-synthetic rows carry construction-exact GT (max_abs_offset_error_exact_gt_semi_synthetic); lingduihua_132 carries an independently established manual estimate (+12.4 +/- 0.4 s), so its offset_error is the deviation from the interval center, not an exact-GT error. Corrected in RA-1.2E; the previous single summary scalar max_abs_offset_error (0.0923356009070293) mixed both populations and was derived anew from the unchanged raw rows."
   },
   "rows": [
     {
