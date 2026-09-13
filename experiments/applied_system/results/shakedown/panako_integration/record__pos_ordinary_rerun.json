@@ -1,0 +1,42 @@
+{
+  "case_id": "pos_ordinary",
+  "decision": "ACCEPT",
+  "input_sha256": {},
+  "native_scores": {
+    "match_rows": [
+      {
+        "frequency_factor_percent": 1.0,
+        "index": 1,
+        "is_valid_match": true,
+        "match_id": "2063776826",
+        "match_path": "/mnt/d/Code/RhythmAlign/experiments/applied_system/results/shakedown/media/shakedown_song_a.wav",
+        "match_score": 1803.0,
+        "match_start_s": 0.24,
+        "match_stop_s": 61.472,
+        "query_path": "/mnt/d/Code/RhythmAlign/experiments/applied_system/results/shakedown/trimmed/pos_ordinary.wav",
+        "query_start_s": 2.696,
+        "query_stop_s": 63.928,
+        "seconds_with_match_percent": 0.98,
+        "time_factor_percent": 1.0,
+        "total": 1
+      }
+    ],
+    "n_empty_rows": 0,
+    "n_valid_match_rows": 1
+  },
+  "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+  "notes": {
+    "hybrid_refinement": "none (forbidden by study plan)",
+    "no_threshold_invented": true,
+    "offset_convention": "predicted_offset_s = Query start - Match start (reference begins this many seconds into the input; verified empirically on shakedown GT)",
+    "selected_match_score": 1803.0,
+    "selected_row_index": 1,
+    "store_dir": "/tmp/panako_runner_store_39792_84af42d903de4aec8e6429fdc65d5289",
+    "strategy": "OLAF"
+  },
+  "output_semantics": "SELECTIVE_NO_MATCH",
+  "predicted_offset_s": 2.4560000000000004,
+  "runtime_s": 1.7594951000064611,
+  "shakedown_only": "SHAKEDOWN_ONLY",
+  "system": "panako_fingerprint"
+}

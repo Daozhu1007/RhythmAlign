@@ -144,8 +144,7 @@ def capture_environment() -> dict:
                         "invented thresholds)",
             "ncc": "research implementation v1 (overlap-normalized waveform "
                    "NCC, argmax, no invented thresholds)",
-            "panako": "PENDING_NOT_INSTALLED (build-from-source only; "
-                      "see runners/panako_runner.py)",
+            "panako": None,  # filled by the live probe below
         },
         "random_seeds": {
             "shakedown_song_a": 20260913,
@@ -189,4 +188,17 @@ def capture_environment() -> dict:
         }
     except Exception as exc:
         env["rhythmalign_engine"] = {"error": str(exc)}
+    try:
+        from . import panako_runner
+        ok, penv = panako_runner.panako_environment()
+        env["comparators"]["panako"] = (
+            (f"{panako_runner.STATUS_READY}: WSL2 route; strategy "
+             f"{panako_runner.PANAKO_STRATEGY} (shipped default); pinned "
+             f"commit {panako_runner.PANAKO_PINNED_COMMIT[:12]}…; jar "
+             f"sha256 {(penv.get('jar_sha256') or '?')[:16]}…; contract in "
+             "docs/research/applied_system/PANAKO_INTEGRATION.md")
+            if ok else
+            "not runnable on this machine (see runners/panako_runner.py)")
+    except Exception as exc:
+        env["comparators"]["panako"] = f"probe failed: {exc}"
     return env

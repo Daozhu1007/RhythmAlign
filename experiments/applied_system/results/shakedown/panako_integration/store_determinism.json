@@ -1,0 +1,44 @@
+{
+  "n_rows_run1": 1,
+  "n_rows_run2": 1,
+  "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+  "ok": true,
+  "rows_identical": true,
+  "rows_run1": [
+    {
+      "frequency_factor_percent": 1.0,
+      "index": 1,
+      "is_valid_match": true,
+      "match_id": "2063776826",
+      "match_path": "/mnt/d/Code/RhythmAlign/experiments/applied_system/results/shakedown/media/shakedown_song_a.wav",
+      "match_score": 1803.0,
+      "match_start_s": 0.24,
+      "match_stop_s": 61.472,
+      "query_path": "/mnt/d/Code/RhythmAlign/experiments/applied_system/results/shakedown/trimmed/pos_ordinary.wav",
+      "query_start_s": 2.696,
+      "query_stop_s": 63.928,
+      "seconds_with_match_percent": 0.98,
+      "time_factor_percent": 1.0,
+      "total": 1
+    }
+  ],
+  "rows_run2": [
+    {
+      "frequency_factor_percent": 1.0,
+      "index": 1,
+      "is_valid_match": true,
+      "match_id": "2063776826",
+      "match_path": "/mnt/d/Code/RhythmAlign/experiments/applied_system/results/shakedown/media/shakedown_song_a.wav",
+      "match_score": 1803.0,
+      "match_start_s": 0.24,
+      "match_stop_s": 61.472,
+      "query_path": "/mnt/d/Code/RhythmAlign/experiments/applied_system/results/shakedown/trimmed/pos_ordinary.wav",
+      "query_start_s": 2.696,
+      "query_stop_s": 63.928,
+      "seconds_with_match_percent": 0.98,
+      "time_factor_percent": 1.0,
+      "total": 1
+    }
+  ],
+  "shakedown_only": "SHAKEDOWN_ONLY"
+}

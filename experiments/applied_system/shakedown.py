@@ -50,7 +50,27 @@ RUNNERS = {
     "rhythmalign_v1_2_0": rhythmalign_runner.run_case,
     "gcc_phat_argmax_v1": gcc_phat_runner.run_case,
     "ncc_argmax_v1": ncc_runner.run_case,
+    "panako_fingerprint": panako_runner.run_case,
 }
+
+
+def panako_probe_record() -> dict:
+    """Live Panako status probe (written to panako_status.json by run_stage
+    and refreshable standalone). The frozen shakedown round shipped with
+    STATUS_PENDING; the integration contract now lives in
+    docs/research/applied_system/PANAKO_INTEGRATION.md."""
+    ok, env = panako_runner.panako_environment()
+    return {
+        "shakedown_only": "SHAKEDOWN_ONLY",
+        "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+        "status": (panako_runner.STATUS_READY if ok
+                   else panako_runner.STATUS_PENDING),
+        "panako_available": ok,
+        "environment": env,
+        "comparator_contract":
+            "docs/research/applied_system/PANAKO_INTEGRATION.md",
+    }
+
 
 AMBIENT_NOISE_STD = 3e-4  # low room-tone floor for lead/tail ambience
 
@@ -363,16 +383,7 @@ def run_stage(outdir: Path) -> list:
         raise RuntimeError(f"frozen manifest failed verification: {errors}")
     body = frozen["body"]
 
-    panako_probe = {
-        "shakedown_only": "SHAKEDOWN_ONLY",
-        "status": panako_runner.STATUS_PENDING,
-        "panako_on_path": panako_runner.panako_available(),
-        "integration_plan_location":
-            "experiments/applied_system/runners/panako_runner.py",
-        "reason": ("build-from-source only (gradle), no prebuilt artifact, "
-                   "Windows unsupported natively (WSL/Docker required) — "
-                   "exceeds the shakedown setup budget per spec section 10"),
-    }
+    panako_probe = panako_probe_record()
     common.save_json(outdir / "panako_status.json", panako_probe)
     common.save_json(outdir / "environment.json",
                      common.capture_environment())

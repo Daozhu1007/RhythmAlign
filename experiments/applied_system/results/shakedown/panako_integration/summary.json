@@ -1,0 +1,105 @@
+{
+  "decisions": {
+    "pos_clock_drift": {
+      "decision": "ACCEPT",
+      "n_empty_rows": 0,
+      "n_valid_match_rows": 1,
+      "predicted_offset_s": 2.4560000000000004,
+      "runtime_s": 1.782229099990218
+    },
+    "pos_negative_offset": {
+      "decision": "ACCEPT",
+      "n_empty_rows": 0,
+      "n_valid_match_rows": 1,
+      "predicted_offset_s": -6.0,
+      "runtime_s": 1.7823386999953073
+    },
+    "pos_noise": {
+      "decision": "ACCEPT",
+      "n_empty_rows": 0,
+      "n_valid_match_rows": 1,
+      "predicted_offset_s": 2.4560000000000004,
+      "runtime_s": 1.781639599998016
+    },
+    "pos_ordinary": {
+      "decision": "ACCEPT",
+      "n_empty_rows": 0,
+      "n_valid_match_rows": 1,
+      "predicted_offset_s": 2.4560000000000004,
+      "runtime_s": 1.8098881999903824
+    },
+    "pos_quiet": {
+      "decision": "ACCEPT",
+      "n_empty_rows": 0,
+      "n_valid_match_rows": 1,
+      "predicted_offset_s": 2.4560000000000004,
+      "runtime_s": 1.7961198999983026
+    },
+    "pos_zero_lead": {
+      "decision": "ACCEPT",
+      "n_empty_rows": 0,
+      "n_valid_match_rows": 1,
+      "predicted_offset_s": 0.0,
+      "runtime_s": 1.8012778999982402
+    },
+    "wrong_reference": {
+      "decision": "NO_MATCH",
+      "n_empty_rows": 1,
+      "n_valid_match_rows": 0,
+      "predicted_offset_s": null,
+      "runtime_s": 2.3667105000058655
+    }
+  },
+  "environment": {
+    "clone_url": "https://github.com/JorenSix/Panako.git",
+    "ffmpeg_version_line": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+    "jar_resolved_path": "/home/daozh/.panako/panako.jar",
+    "jar_sha256": "77c56eabf93defe64ddddf0fb75478c415dc7b64ddb065b5a34a27f6b9fb2276",
+    "jar_wsl_path": "$HOME/.panako/panako.jar",
+    "java_version_line": "openjdk version \"17.0.20\" 2026-07-21",
+    "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+    "panako_version_line": "Version: 2.1 - 2026-09-14 Build on: 17.0.20 (Ubuntu 17.0.20+8-1-24.04-Ubuntu) - Linux amd64 6.6.87.2-microsoft-standard-WSL2",
+    "pinned_commit": "e4b0e1dbb55e340bc66c90bac0ceb82b2cf84211",
+    "route": "WSL2 (Ubuntu 24.04)",
+    "shakedown_only": "SHAKEDOWN_ONLY",
+    "strategy": "OLAF"
+  },
+  "manifest_hash": "0c59568f09a328eed0e44362e4385e95b5845d4d323a77cec2829a46a60091f9",
+  "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+  "role_rule": {
+    "abs_errors_ms": [
+      [
+        "pos_zero_lead",
+        0.0
+      ],
+      [
+        "pos_ordinary",
+        6.000000000000227
+      ],
+      [
+        "pos_negative_offset",
+        0.0
+      ],
+      [
+        "pos_noise",
+        6.000000000000227
+      ],
+      [
+        "pos_quiet",
+        6.000000000000227
+      ],
+      [
+        "pos_clock_drift",
+        4.645833333333904
+      ]
+    ],
+    "median_abs_offset_error_ms": 5.322916666667066,
+    "rule_outcome": "PLACEMENT_COMPARATOR",
+    "rule_source": "FRESH_PILOT_PLAN section 8 (pre-declared)",
+    "shakedown_only": true,
+    "tolerance_ms": 100.0
+  },
+  "shakedown_only": "SHAKEDOWN_ONLY",
+  "status": "READY_INTEGRATED",
+  "warning": "comparator-contract validation only; NOT performance evidence; no tuning performed"
+}

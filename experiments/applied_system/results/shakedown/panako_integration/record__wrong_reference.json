@@ -1,0 +1,41 @@
+{
+  "case_id": "wrong_reference",
+  "decision": "NO_MATCH",
+  "input_sha256": {},
+  "native_scores": {
+    "match_rows": [
+      {
+        "frequency_factor_percent": -1.0,
+        "index": 1,
+        "is_valid_match": false,
+        "match_id": "null",
+        "match_path": null,
+        "match_score": -1.0,
+        "match_start_s": -1.0,
+        "match_stop_s": -1.0,
+        "query_path": "/mnt/d/Code/RhythmAlign/experiments/applied_system/results/shakedown/trimmed/wrong_reference.wav",
+        "query_start_s": 0.0,
+        "query_stop_s": 0.0,
+        "seconds_with_match_percent": 0.0,
+        "time_factor_percent": -1.0,
+        "total": 1
+      }
+    ],
+    "n_empty_rows": 1,
+    "n_valid_match_rows": 0,
+    "native_refusal": "no valid match row (native empty-result row or no rows)"
+  },
+  "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+  "notes": {
+    "hybrid_refinement": "none (forbidden by study plan)",
+    "no_threshold_invented": true,
+    "offset_convention": "predicted_offset_s = Query start - Match start (reference begins this many seconds into the input; verified empirically on shakedown GT)",
+    "store_dir": "/tmp/panako_runner_store_39792_e7e18f1792b14c1593d467f529452399",
+    "strategy": "OLAF"
+  },
+  "output_semantics": "SELECTIVE_NO_MATCH",
+  "predicted_offset_s": null,
+  "runtime_s": 2.3667105000058655,
+  "shakedown_only": "SHAKEDOWN_ONLY",
+  "system": "panako_fingerprint"
+}

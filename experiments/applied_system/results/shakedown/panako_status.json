@@ -1,7 +1,19 @@
 {
-  "integration_plan_location": "experiments/applied_system/runners/panako_runner.py",
-  "panako_on_path": false,
-  "reason": "build-from-source only (gradle), no prebuilt artifact, Windows unsupported natively (WSL/Docker required) — exceeds the shakedown setup budget per spec section 10",
+  "comparator_contract": "docs/research/applied_system/PANAKO_INTEGRATION.md",
+  "environment": {
+    "clone_url": "https://github.com/JorenSix/Panako.git",
+    "ffmpeg_version_line": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+    "jar_resolved_path": "/home/daozh/.panako/panako.jar",
+    "jar_sha256": "77c56eabf93defe64ddddf0fb75478c415dc7b64ddb065b5a34a27f6b9fb2276",
+    "jar_wsl_path": "$HOME/.panako/panako.jar",
+    "java_version_line": "openjdk version \"17.0.20\" 2026-07-21",
+    "panako_version_line": "Version: 2.1 - 2026-09-14 Build on: 17.0.20 (Ubuntu 17.0.20+8-1-24.04-Ubuntu) - Linux amd64 6.6.87.2-microsoft-standard-WSL2",
+    "pinned_commit": "e4b0e1dbb55e340bc66c90bac0ceb82b2cf84211",
+    "route": "WSL2 (Ubuntu 24.04)",
+    "strategy": "OLAF"
+  },
+  "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+  "panako_available": true,
   "shakedown_only": "SHAKEDOWN_ONLY",
-  "status": "PENDING_NOT_INSTALLED"
+  "status": "READY_INTEGRATED"
 }

@@ -386,6 +386,19 @@ frozen in writing BEFORE any pilot run):**
   refusal, preserved verbatim, never forced to argmax). No threshold is
   invented on `Match score` or `Seconds with match`; those values are
   recorded natively for the semantics table.
+
+> **CORRECTION (integration round, 2026-09-14, before any pilot run —
+> exactly the empirical verification this section required):** the offset
+> sign above is WRONG. Native semantics (source + shakedown GT) give
+> `predicted_offset_s = Query start − Match start`; "≥1 match row" must
+> additionally mean a VALID row (Panako prints an explicit empty-result
+> row with Match start −1 / null path on refusal). Panako 2.1 is
+> integrated with this frozen contract — full record:
+> `PANAKO_INTEGRATION.md`; shakedown validation: 6/6 positives ≤ 6 ms
+> error, wrong-reference native NO_MATCH, store determinism and
+> fresh-store repeatability 0.0 ms; pre-declared role rule outcome
+> PLACEMENT_COMPARATOR (median 5.3 ms ≤ 100 ms), to be re-frozen on
+> pilot data.
 - No-match evidence on this pilot: the 12 wrong-reference pairings all
   share zero content with the store, so Panako's refusal behavior is
   directly observed.
@@ -442,7 +455,7 @@ for debugging and explicitly excluded from paper evidence.
 | Trajectory corroboration | slope ratio + r² for every marker and top non-marker peak | gating-policy decision for the frozen spec |
 | Comparator execution success | ran / errored per system per case | machinery completeness |
 | Comparator output semantics | Per-system output table: native fields, decision mapping applied, refusal form | semantics frozen before final study; Panako table per Section 8 |
-| Panako offset error vs GT | `Match start − Query start` vs marker GT, 12 positives | role assignment (placement vs identification) |
+| Panako offset error vs GT | corrected sign — `Query start − Match start` vs marker GT, 12 positives (section 8 correction) | role assignment (placement vs identification) |
 | Pipeline reproducibility | Full second run of ≥2 takes + scoring; byte-identity beyond volatile fields | reproducibility transport from digital fixtures to real audio |
 | Alignment performance (RA + baselines on the 12 positives) | offsets, errors, decisions | DEBUGGING ONLY — labeled PILOT_ONLY, never presented as paper confirmation |
 
@@ -684,7 +697,11 @@ Freeze the gate by pre-declared rule from pooled pilot measurements, not by choo
 Freeze the tolerance from the task contract plus pilot observations, not from the provisional number: measured `scale_error` on all 12 takes gives D_max (worst observed |drift|); the frozen gate is T_drift = max(3 × D_max, 111 ppm), capped at 1000 ppm because the chirp decorrelates beyond ≈1200 ppm and the gate must stay inside the detectable band. The 111 ppm floor is interpretable, not arbitrary: unmodeled drift over the longest benchmark take (≈90 s) must stay ≤10 ms, i.e. ≤10% of the 100 ms scoring tolerance. If 3 × D_max exceeds the 1000 ppm cap on an ordinary consumer chain, the fixed-offset model is invalid at benchmark durations — that fires the kill criterion and forces a declared protocol redesign; captures are never time-warped to pass.
 
 ### PANAKO STATUS
-PARTIAL
+INTEGRATED — comparator contract frozen before any pilot run (2026-09-14).
+WSL2 route, pinned commit, native semantics verified; shakedown-only
+validation 6/6 positives ≤ 6 ms, wrong-reference native NO_MATCH;
+pre-declared role rule outcome PLACEMENT_COMPARATOR (median 5.3 ms),
+re-frozen on pilot data. Full record: `PANAKO_INTEGRATION.md`.
 
 ### ESSENTIAL COMPARATORS
 RhythmAlign v1.2.0 (frozen system under test); GCC-PHAT argmax (always-output scientific control); Panako 2.1 fingerprint via WSL2 (Docker fallback) — ESSENTIAL with its role (placement vs identification/selectivity) scoped by the pilot precision measurement; Kdenlive 26.08 native alignment is ESSENTIAL for the final study but deferred out of this pilot; NCC argmax USEFUL_OPTIONAL (near-free, included).
