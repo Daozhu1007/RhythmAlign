@@ -149,12 +149,21 @@ validation-consumed and cannot serve as fresh independent confirmation.
 | 68 | `tests/test_ra12d1_temporal_support.py` | `67c8cbd` | code | **A. REUSE** | 11 mechanism/regression tests incl. the causal A/B proof (`max_top_bin_share = 1.01` accepts what 0.25 rejects). |
 | 69 | `release_notes_v1.2.0.md` (repo root) | untracked local file, in NO commit on ANY ref | report | not a Git asset | Local release-notes carrier per RELEASE.md rules; reviewed content preserved verbatim in RA-1.2E Appendix A. Present untracked at consolidation start; absent from the working tree at commit time (external change mid-session; recorded in the consolidation report). Never classified, never committed by this task. |
 
-## Counts (primary categories, rows 1–68 + grouped rows as counted)
+## Counts (primary categories, rows 1–68; row 69 is a local-only artifact, not classified)
 
-- **A. REUSE**: 39 (rows 2, 3, 4–10, 12, 21, 28, 29, 30–46, 55, 56, 67, 68 — includes grouped tooling rows)
-- **B. DISCOVERY_ONLY**: 22 (rows 1, 13, 14, 17–20, 22, 23, 24–27, 47, 48)
-- **C. SUPERSEDED**: 1 grouped row (54; four files)
-- **D. INVALID_FOR_CONFIRMATION**: 12 grouped rows (11, 15, 16, 49–53, 57–66; covering 18 files)
+68 classification rows cover 86 files (six rows are explicit file groups).
+
+- **A. REUSE**: 34 rows (41 files) — literature/protocol docs, all experiment
+  tooling, the source-exposure audit, verification/equivalence records, D1
+  derivation + release records, regression tests.
+- **B. DISCOVERY_ONLY**: 15 rows (19 files) — the study report, aggregate
+  pre-D1 measurements, probe/null results, figures, RA-1.2A/B/C/D reports,
+  early synthetic-run data.
+- **C. SUPERSEDED**: 1 row (4 files) — pre-D1 soak/memory performance records.
+- **D. INVALID_FOR_CONFIRMATION**: 18 rows (22 files) — the preserved
+  development corpus, clean-grid/counterexample data, all DEV calibration
+  data, all D1 consumed-validation result JSONs, real-corpus agreement runs,
+  hard negatives, semi-synthetic cal+holdout results.
 
 Grouped rows count as one ledger row but may cover several files; per-file
 membership is explicit in each row.
