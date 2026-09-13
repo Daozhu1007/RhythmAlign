@@ -1,0 +1,24 @@
+{
+  "case_id": "pos_zero_lead",
+  "decision": "ACCEPT",
+  "input_sha256": {
+    "reference": "73802ac5cb6828f98dbd307657d1e49523e639ce4a7d7820fedf257407c3a8f7",
+    "trimmed_input": "180cd63aa937c98809879bbf0296884de8697bc6a482827d41bf0537e3511fa2"
+  },
+  "native_scores": {
+    "gcc_peak_value": 0.9998461210382313,
+    "implementation": "gcc_phat_argmax_v1",
+    "lag_samples": 0,
+    "runtime_curve_s": 0.7677197000011802
+  },
+  "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+  "notes": {
+    "always_output": true,
+    "no_threshold_invented": true
+  },
+  "output_semantics": "ALWAYS_OUTPUT",
+  "predicted_offset_s": 0.0,
+  "runtime_s": 0.7896765999976196,
+  "shakedown_only": "SHAKEDOWN_ONLY",
+  "system": "gcc_phat_argmax_v1"
+}

@@ -1,0 +1,82 @@
+{
+  "case_id": "pos_zero_lead",
+  "decision": "ACCEPT",
+  "input_sha256": {
+    "reference": "73802ac5cb6828f98dbd307657d1e49523e639ce4a7d7820fedf257407c3a8f7",
+    "trimmed_input": "180cd63aa937c98809879bbf0296884de8697bc6a482827d41bf0537e3511fa2"
+  },
+  "native_scores": {
+    "engine_label": "Engine v2 (evidence-gated)",
+    "reason_code": "ACCEPT_DUAL_FAMILY",
+    "status": "accepted"
+  },
+  "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+  "notes": {
+    "frozen_release": "v1.2.0",
+    "n_clusters": 9,
+    "raw_decision": {
+      "evidence": {
+        "families": {
+          "hybrid": {
+            "error": null,
+            "family": "tonal",
+            "runtime_s": 0.755,
+            "z": 7.973
+          },
+          "onset": {
+            "error": null,
+            "family": "onset_temporal",
+            "runtime_s": 0.083,
+            "z": 5.529
+          },
+          "pcen": {
+            "error": null,
+            "family": "pcen_spectral",
+            "runtime_s": 0.137,
+            "z": 12.415
+          },
+          "pcen_hpss": {
+            "error": null,
+            "family": "pcen_spectral",
+            "runtime_s": 0.497,
+            "z": 34.706
+          }
+        },
+        "music_duration_s": 62.0,
+        "n_clusters": 9,
+        "temporal_support": {
+          "applied": true,
+          "effective_bins": 57.87,
+          "max_top_bin_share": 0.25,
+          "n_bins": 63,
+          "top_bin_share": 0.0248,
+          "verified_method": "pcen_hpss"
+        },
+        "video_duration_s": 63.45
+      },
+      "offset": 0.0,
+      "policy": {
+        "ambiguity_z_ratio": 0.95,
+        "bin_width_s": 1.0,
+        "cluster_tol_s": 0.15,
+        "margin_floor_a": 1.0,
+        "margin_floor_b": 1.4,
+        "max_top_bin_share": 0.25,
+        "min_overlap_s": 30.0,
+        "onset_corroboration_z_floor": 2.0,
+        "pcen_primary_z_floor": 7.0,
+        "pcen_z_floor": 5.6,
+        "tonal_z_floor": 5.0,
+        "top_candidates_per_family": 4
+      },
+      "reason_code": "ACCEPT_DUAL_FAMILY",
+      "runtime_s": 1.4768691999997827,
+      "status": "accepted"
+    }
+  },
+  "output_semantics": "SELECTIVE_NO_MATCH",
+  "predicted_offset_s": 0.0,
+  "runtime_s": 1.4768691999997827,
+  "shakedown_only": "SHAKEDOWN_ONLY",
+  "system": "rhythmalign_v1_2_0"
+}

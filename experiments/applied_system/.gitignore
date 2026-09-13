@@ -1,0 +1,6 @@
+# Generated benchmark media (deterministically regenerable from code +
+# seeds; hashes live in the frozen manifest). Never commit audio.
+results/shakedown/media/
+results/shakedown/captures/
+results/shakedown/trimmed/
+results/shakedown/acoustic/

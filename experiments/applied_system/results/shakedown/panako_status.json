@@ -1,0 +1,7 @@
+{
+  "integration_plan_location": "experiments/applied_system/runners/panako_runner.py",
+  "panako_on_path": false,
+  "reason": "build-from-source only (gradle), no prebuilt artifact, Windows unsupported natively (WSL/Docker required) — exceeds the shakedown setup budget per spec section 10",
+  "shakedown_only": "SHAKEDOWN_ONLY",
+  "status": "PENDING_NOT_INSTALLED"
+}

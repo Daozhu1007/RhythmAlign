@@ -1,0 +1,257 @@
+{
+  "alignment_metrics_note": "GT_FAILED and RUNNER_ERROR outcomes are excluded from alignment performance metrics and reported as benchmark-protocol failures",
+  "manifest_hash": "0c59568f09a328eed0e44362e4385e95b5845d4d323a77cec2829a46a60091f9",
+  "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+  "per_case": [
+    {
+      "abs_error_s": null,
+      "case_id": "gt_drift_excess",
+      "gt_stratum": "GT_FAILED",
+      "outcome": "GT_FAILED",
+      "protocol_failure": true,
+      "system": null,
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "gt_truncated",
+      "gt_stratum": "GT_FAILED",
+      "outcome": "GT_FAILED",
+      "protocol_failure": true,
+      "system": null,
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.009961026077097479,
+      "case_id": "pos_clock_drift",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0002291666666662806,
+      "case_id": "pos_clock_drift",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 56.01439583333333,
+      "case_id": "pos_clock_drift",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "WRONG_ACCEPT",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.009251700680271924,
+      "case_id": "pos_negative_offset",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0,
+      "case_id": "pos_negative_offset",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0,
+      "case_id": "pos_negative_offset",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.011315192743763802,
+      "case_id": "pos_noise",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0,
+      "case_id": "pos_noise",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0,
+      "case_id": "pos_noise",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.011315192743763802,
+      "case_id": "pos_ordinary",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0,
+      "case_id": "pos_ordinary",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0,
+      "case_id": "pos_ordinary",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.011315192743763802,
+      "case_id": "pos_quiet",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0,
+      "case_id": "pos_quiet",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0,
+      "case_id": "pos_quiet",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0,
+      "case_id": "pos_zero_lead",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0,
+      "case_id": "pos_zero_lead",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0,
+      "case_id": "pos_zero_lead",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "wrong_reference",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "wrong_reference",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "wrong_reference",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "tolerance_s": 0.1
+    }
+  ],
+  "protocol_failures": [
+    {
+      "abs_error_s": null,
+      "case_id": "gt_drift_excess",
+      "gt_stratum": "GT_FAILED",
+      "outcome": "GT_FAILED",
+      "protocol_failure": true,
+      "system": null,
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "gt_truncated",
+      "gt_stratum": "GT_FAILED",
+      "outcome": "GT_FAILED",
+      "protocol_failure": true,
+      "system": null,
+      "tolerance_s": 0.1
+    }
+  ],
+  "shakedown_only": "SHAKEDOWN_ONLY",
+  "summary": {
+    "PROTOCOL": {
+      "GT_FAILED": 2
+    },
+    "gcc_phat_argmax_v1": {
+      "CORRECT_ACCEPT": 6,
+      "WRONG_ACCEPT": 1
+    },
+    "ncc_argmax_v1": {
+      "CORRECT_ACCEPT": 5,
+      "WRONG_ACCEPT": 2
+    },
+    "rhythmalign_v1_2_0": {
+      "CORRECT_ACCEPT": 6,
+      "SAFE_ABSTAIN": 1
+    }
+  },
+  "tolerance_note": "100 ms primary editorial-task tolerance; 50/150 ms sensitivity derivable from per-case abs_error_s; no threshold tuned in this round",
+  "tolerance_s": 0.1,
+  "warning": "THIS IS ENGINEERING SHAKEDOWN DATA. IT MUST NOT BE USED AS FINAL PAPER EVIDENCE."
+}

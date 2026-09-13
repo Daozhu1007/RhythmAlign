@@ -1,0 +1,931 @@
+{
+  "body": {
+    "cases": [
+      {
+        "capture_path": "captures/gt_drift_excess.wav",
+        "capture_sha256": "d4903d183f32a845735403c9ff2ee82f6e831478841e4a9a75dfaa7209445a69",
+        "case_id": "gt_drift_excess",
+        "comparator_eligibility": [],
+        "condition": "clock_drift_1000ppm_excessive",
+        "expected_label": null,
+        "gt_offset_s": null,
+        "gt_stratum": "GT_FAILED",
+        "marker_qc": {
+          "clock_scale": null,
+          "diagnostics": {},
+          "expected_marker_separation_samples": 3108000,
+          "fail_reason": "clock scale error 0.001000 exceeds provisional tolerance 0.000500",
+          "max_mapping_disagreement_samples": 480,
+          "n_marker_candidates": 2,
+          "observed_marker_separation_samples": 3111108.0,
+          "post_marker": {
+            "confidence": 0.5626379604044138,
+            "found": true,
+            "start_sample": 3231266.1545632626
+          },
+          "pre_marker": {
+            "confidence": 0.5626379604188269,
+            "found": true,
+            "start_sample": 120158.15456326267
+          },
+          "provisional_max_clock_scale_error": 0.0005,
+          "scale_error": null,
+          "status": "GT_FAILED",
+          "third_party_max_ncc": 0.5626379604188269
+        },
+        "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+        "payload_identity": "shakedown_song_a",
+        "payload_sha256": "73802ac5cb6828f98dbd307657d1e49523e639ce4a7d7820fedf257407c3a8f7",
+        "provenance": {
+          "capture_degradations": {
+            "amplitude_scale": null,
+            "clip_level": null,
+            "drift_resample_updown": [
+              1001,
+              1000
+            ],
+            "lead_s": 2.5,
+            "noise_snr_db": null,
+            "tail_s": 2.0,
+            "trim_start_into_payload_s": null,
+            "truncate_at_capture_s": null
+          },
+          "capture_noise_seed": 3062351686,
+          "payload_generator": "experiments.applied_system.synth_payload.shakedown_song_a",
+          "payload_seed": 20260913,
+          "protocol_module": "experiments.applied_system.marker_protocol"
+        },
+        "reference_path": "media/shakedown_song_a.wav",
+        "reference_sha256": "73802ac5cb6828f98dbd307657d1e49523e639ce4a7d7820fedf257407c3a8f7",
+        "shakedown_only": "SHAKEDOWN_ONLY",
+        "source_identity": "shakedown_song_a",
+        "trimmed_input_path": null,
+        "trimmed_input_sha256": null
+      },
+      {
+        "capture_path": "captures/gt_truncated.wav",
+        "capture_sha256": "da6547a114b1cdb96eb5306b3fd5da5a6b9f7eaebaab6db7627dd858f1a61b50",
+        "case_id": "gt_truncated",
+        "comparator_eligibility": [],
+        "condition": "truncated_capture",
+        "expected_label": null,
+        "gt_offset_s": null,
+        "gt_stratum": "GT_FAILED",
+        "marker_qc": {
+          "clock_scale": null,
+          "diagnostics": {},
+          "expected_marker_separation_samples": 3108000,
+          "fail_reason": "expected exactly 2 marker candidates, found 1 (missing/truncated marker or ambiguous detection)",
+          "max_mapping_disagreement_samples": 480,
+          "n_marker_candidates": 1,
+          "observed_marker_separation_samples": null,
+          "post_marker": {
+            "confidence": 0.0,
+            "found": false,
+            "start_sample": null
+          },
+          "pre_marker": {
+            "confidence": 0.0,
+            "found": false,
+            "start_sample": null
+          },
+          "provisional_max_clock_scale_error": 0.0005,
+          "scale_error": null,
+          "status": "GT_FAILED",
+          "third_party_max_ncc": null
+        },
+        "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+        "payload_identity": "shakedown_song_a",
+        "payload_sha256": "73802ac5cb6828f98dbd307657d1e49523e639ce4a7d7820fedf257407c3a8f7",
+        "provenance": {
+          "capture_degradations": {
+            "amplitude_scale": null,
+            "clip_level": null,
+            "drift_resample_updown": null,
+            "lead_s": 2.5,
+            "noise_snr_db": null,
+            "tail_s": 2.0,
+            "trim_start_into_payload_s": null,
+            "truncate_at_capture_s": 24.0
+          },
+          "capture_noise_seed": 4259702266,
+          "payload_generator": "experiments.applied_system.synth_payload.shakedown_song_a",
+          "payload_seed": 20260913,
+          "protocol_module": "experiments.applied_system.marker_protocol"
+        },
+        "reference_path": "media/shakedown_song_a.wav",
+        "reference_sha256": "73802ac5cb6828f98dbd307657d1e49523e639ce4a7d7820fedf257407c3a8f7",
+        "shakedown_only": "SHAKEDOWN_ONLY",
+        "source_identity": "shakedown_song_a",
+        "trimmed_input_path": null,
+        "trimmed_input_sha256": null
+      },
+      {
+        "capture_path": "captures/pos_clock_drift.wav",
+        "capture_sha256": "702a7daa16a1daefa62709611323c40e5e419c487e3cd9c25568d226567487f8",
+        "case_id": "pos_clock_drift",
+        "comparator_eligibility": [
+          "rhythmalign_v1_2_0",
+          "gcc_phat_argmax_v1",
+          "ncc_argmax_v1"
+        ],
+        "condition": "clock_drift_250ppm",
+        "expected_label": "MATCH",
+        "gt_offset_s": 2.4513541666666665,
+        "gt_stratum": "EXACT_GT",
+        "marker_qc": {
+          "clock_scale": 1.00025,
+          "diagnostics": {
+            "mapping_disagreement_samples": 3.2014213502407074e-10,
+            "payload_end_samples_used": 3180809,
+            "payload_start_map_via_post_samples": 204065.1227377667,
+            "payload_start_map_via_pre_samples": 204065.12273776703,
+            "payload_start_samples_used": 204065,
+            "single_marker_payload_start_via_post_only_samples": 204821.12273776717,
+            "single_marker_payload_start_via_pre_only_samples": 204044.12273776703
+          },
+          "expected_marker_separation_samples": 3108000,
+          "fail_reason": null,
+          "marker_leakage_check": {
+            "leakage": false,
+            "max_ncc": 0.0511808120099343,
+            "max_ncc_lag_samples": 3187231,
+            "threshold": 0.5
+          },
+          "max_mapping_disagreement_samples": 480,
+          "n_marker_candidates": 2,
+          "observed_marker_separation_samples": 3108777.0,
+          "post_marker": {
+            "confidence": 0.7198714748399575,
+            "found": true,
+            "start_sample": 3228821.122737767
+          },
+          "pre_marker": {
+            "confidence": 0.7198714748647237,
+            "found": true,
+            "start_sample": 120044.12273776703
+          },
+          "provisional_max_clock_scale_error": 0.0005,
+          "scale_error": 0.0002500000000000835,
+          "status": "GT_VALID",
+          "third_party_max_ncc": 0.7198714748647237,
+          "trim": {
+            "fail_reason": null,
+            "gt_offset_s": 2.4513541666666665,
+            "holes": [
+              [
+                117665,
+                204065
+              ],
+              [
+                3180809,
+                3267209
+              ]
+            ],
+            "ok": true,
+            "payload_start_in_trimmed": 117665,
+            "trim_end_sample": 3360840,
+            "trim_start_sample": 0
+          }
+        },
+        "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+        "payload_identity": "shakedown_song_a",
+        "payload_sha256": "73802ac5cb6828f98dbd307657d1e49523e639ce4a7d7820fedf257407c3a8f7",
+        "provenance": {
+          "capture_degradations": {
+            "amplitude_scale": null,
+            "clip_level": null,
+            "drift_resample_updown": [
+              4001,
+              4000
+            ],
+            "lead_s": 2.5,
+            "noise_snr_db": null,
+            "tail_s": 2.0,
+            "trim_start_into_payload_s": null,
+            "truncate_at_capture_s": null
+          },
+          "capture_noise_seed": 3417923731,
+          "payload_generator": "experiments.applied_system.synth_payload.shakedown_song_a",
+          "payload_seed": 20260913,
+          "protocol_module": "experiments.applied_system.marker_protocol",
+          "trim": {
+            "fail_reason": null,
+            "gt_offset_s": 2.4513541666666665,
+            "holes": [
+              [
+                117665,
+                204065
+              ],
+              [
+                3180809,
+                3267209
+              ]
+            ],
+            "ok": true,
+            "payload_start_in_trimmed": 117665,
+            "trim_end_sample": 3360840,
+            "trim_start_sample": 0
+          }
+        },
+        "reference_path": "media/shakedown_song_a.wav",
+        "reference_sha256": "73802ac5cb6828f98dbd307657d1e49523e639ce4a7d7820fedf257407c3a8f7",
+        "shakedown_only": "SHAKEDOWN_ONLY",
+        "source_identity": "shakedown_song_a",
+        "trimmed_input_path": "trimmed/pos_clock_drift.wav",
+        "trimmed_input_sha256": "88a2a5bb9703fc05d5bfc7d2cfa73105df9bd4192b976b8101180b844796ed2d"
+      },
+      {
+        "capture_path": "captures/pos_negative_offset.wav",
+        "capture_sha256": "d6b74f95af6d6f5e95b9f5eb0a3eca026a999049cd211bb1cbd815d8024a672d",
+        "case_id": "pos_negative_offset",
+        "comparator_eligibility": [
+          "rhythmalign_v1_2_0",
+          "gcc_phat_argmax_v1",
+          "ncc_argmax_v1"
+        ],
+        "condition": "capture_start_mid_song_trim_equivalent",
+        "expected_label": "MATCH",
+        "gt_offset_s": -6.0,
+        "gt_stratum": "EXACT_GT",
+        "marker_qc": {
+          "clock_scale": 1.0,
+          "diagnostics": {
+            "mapping_disagreement_samples": 1.1641532182693481e-10,
+            "payload_end_samples_used": 3180000,
+            "payload_start_map_via_post_samples": 204000.00000001583,
+            "payload_start_map_via_pre_samples": 204000.00000001595,
+            "payload_start_samples_used": 204000,
+            "single_marker_payload_start_via_post_only_samples": 204000.00000001583,
+            "single_marker_payload_start_via_pre_only_samples": 204000.00000001595
+          },
+          "expected_marker_separation_samples": 3108000,
+          "fail_reason": null,
+          "marker_leakage_check": {
+            "leakage": false,
+            "max_ncc": 0.0677312683261384,
+            "max_ncc_lag_samples": 2781053,
+            "threshold": 0.5
+          },
+          "max_mapping_disagreement_samples": 480,
+          "n_marker_candidates": 2,
+          "observed_marker_separation_samples": 3108000.0,
+          "post_marker": {
+            "confidence": 0.9999999992347679,
+            "found": true,
+            "start_sample": 3228000.000000016
+          },
+          "pre_marker": {
+            "confidence": 0.9999999992347677,
+            "found": true,
+            "start_sample": 120000.00000001595
+          },
+          "provisional_max_clock_scale_error": 0.0005,
+          "scale_error": 0.0,
+          "status": "GT_VALID",
+          "third_party_max_ncc": 0.9999999992347679,
+          "trim": {
+            "fail_reason": null,
+            "gt_offset_s": -6.0,
+            "holes": [
+              [
+                3180000,
+                3266400
+              ]
+            ],
+            "ok": true,
+            "payload_start_in_trimmed": -288000,
+            "trim_end_sample": 3360000,
+            "trim_start_sample": 492000
+          }
+        },
+        "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+        "payload_identity": "shakedown_song_a",
+        "payload_sha256": "73802ac5cb6828f98dbd307657d1e49523e639ce4a7d7820fedf257407c3a8f7",
+        "provenance": {
+          "capture_degradations": {
+            "amplitude_scale": null,
+            "clip_level": null,
+            "drift_resample_updown": null,
+            "lead_s": 2.5,
+            "noise_snr_db": null,
+            "tail_s": 2.0,
+            "trim_start_into_payload_s": 6.0,
+            "truncate_at_capture_s": null
+          },
+          "capture_noise_seed": 768875493,
+          "payload_generator": "experiments.applied_system.synth_payload.shakedown_song_a",
+          "payload_seed": 20260913,
+          "protocol_module": "experiments.applied_system.marker_protocol",
+          "trim": {
+            "fail_reason": null,
+            "gt_offset_s": -6.0,
+            "holes": [
+              [
+                3180000,
+                3266400
+              ]
+            ],
+            "ok": true,
+            "payload_start_in_trimmed": -288000,
+            "trim_end_sample": 3360000,
+            "trim_start_sample": 492000
+          }
+        },
+        "reference_path": "media/shakedown_song_a.wav",
+        "reference_sha256": "73802ac5cb6828f98dbd307657d1e49523e639ce4a7d7820fedf257407c3a8f7",
+        "shakedown_only": "SHAKEDOWN_ONLY",
+        "source_identity": "shakedown_song_a",
+        "trimmed_input_path": "trimmed/pos_negative_offset.wav",
+        "trimmed_input_sha256": "d3f8bcd4b81d9403033a06229279d4645c4b57661f0ee74068f5d7a645f4e034"
+      },
+      {
+        "capture_path": "captures/pos_noise.wav",
+        "capture_sha256": "e5367b2339214def5748dcecbc486967aac8408e49fa7e15ce4bf16b111d0172",
+        "case_id": "pos_noise",
+        "comparator_eligibility": [
+          "rhythmalign_v1_2_0",
+          "gcc_phat_argmax_v1",
+          "ncc_argmax_v1"
+        ],
+        "condition": "added_noise_10db",
+        "expected_label": "MATCH",
+        "gt_offset_s": 2.45,
+        "gt_stratum": "EXACT_GT",
+        "marker_qc": {
+          "clock_scale": 1.000000000141861,
+          "diagnostics": {
+            "mapping_disagreement_samples": 8.731149137020111e-11,
+            "payload_end_samples_used": 3180000,
+            "payload_start_map_via_post_samples": 204000.0006320011,
+            "payload_start_map_via_pre_samples": 204000.000632001,
+            "payload_start_samples_used": 204000,
+            "single_marker_payload_start_via_post_only_samples": 204000.00106098875,
+            "single_marker_payload_start_via_pre_only_samples": 204000.0006200847
+          },
+          "expected_marker_separation_samples": 3108000,
+          "fail_reason": null,
+          "marker_leakage_check": {
+            "leakage": false,
+            "max_ncc": 0.2617573908905756,
+            "max_ncc_lag_samples": 3187128,
+            "threshold": 0.5
+          },
+          "max_mapping_disagreement_samples": 480,
+          "n_marker_candidates": 2,
+          "observed_marker_separation_samples": 3108000.000440904,
+          "post_marker": {
+            "confidence": 0.9966171245789404,
+            "found": true,
+            "start_sample": 3228000.0010609888
+          },
+          "pre_marker": {
+            "confidence": 0.9965948934328633,
+            "found": true,
+            "start_sample": 120000.00062008468
+          },
+          "provisional_max_clock_scale_error": 0.0005,
+          "scale_error": 1.4186096741752863e-10,
+          "status": "GT_VALID",
+          "third_party_max_ncc": 0.9966171245789404,
+          "trim": {
+            "fail_reason": null,
+            "gt_offset_s": 2.45,
+            "holes": [
+              [
+                117600,
+                204000
+              ],
+              [
+                3180000,
+                3266400
+              ]
+            ],
+            "ok": true,
+            "payload_start_in_trimmed": 117600,
+            "trim_end_sample": 3360000,
+            "trim_start_sample": 0
+          }
+        },
+        "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+        "payload_identity": "shakedown_song_a",
+        "payload_sha256": "73802ac5cb6828f98dbd307657d1e49523e639ce4a7d7820fedf257407c3a8f7",
+        "provenance": {
+          "capture_degradations": {
+            "amplitude_scale": null,
+            "clip_level": null,
+            "drift_resample_updown": null,
+            "lead_s": 2.5,
+            "noise_snr_db": 10.0,
+            "tail_s": 2.0,
+            "trim_start_into_payload_s": null,
+            "truncate_at_capture_s": null
+          },
+          "capture_noise_seed": 3484039231,
+          "payload_generator": "experiments.applied_system.synth_payload.shakedown_song_a",
+          "payload_seed": 20260913,
+          "protocol_module": "experiments.applied_system.marker_protocol",
+          "trim": {
+            "fail_reason": null,
+            "gt_offset_s": 2.45,
+            "holes": [
+              [
+                117600,
+                204000
+              ],
+              [
+                3180000,
+                3266400
+              ]
+            ],
+            "ok": true,
+            "payload_start_in_trimmed": 117600,
+            "trim_end_sample": 3360000,
+            "trim_start_sample": 0
+          }
+        },
+        "reference_path": "media/shakedown_song_a.wav",
+        "reference_sha256": "73802ac5cb6828f98dbd307657d1e49523e639ce4a7d7820fedf257407c3a8f7",
+        "shakedown_only": "SHAKEDOWN_ONLY",
+        "source_identity": "shakedown_song_a",
+        "trimmed_input_path": "trimmed/pos_noise.wav",
+        "trimmed_input_sha256": "a87e09a16da70360b62ee3ef7d6c9b8b24ce89802bde1733627ff076a15f4cc1"
+      },
+      {
+        "capture_path": "captures/pos_ordinary.wav",
+        "capture_sha256": "88e5fddb0f089c4993d7628f2f5800368cf5b03e43d42d45672830a0b68ed485",
+        "case_id": "pos_ordinary",
+        "comparator_eligibility": [
+          "rhythmalign_v1_2_0",
+          "gcc_phat_argmax_v1",
+          "ncc_argmax_v1"
+        ],
+        "condition": "ordinary",
+        "expected_label": "MATCH",
+        "gt_offset_s": 2.45,
+        "gt_stratum": "EXACT_GT",
+        "marker_qc": {
+          "clock_scale": 1.0,
+          "diagnostics": {
+            "mapping_disagreement_samples": 1.1641532182693481e-10,
+            "payload_end_samples_used": 3180000,
+            "payload_start_map_via_post_samples": 204000.00000001583,
+            "payload_start_map_via_pre_samples": 204000.00000001595,
+            "payload_start_samples_used": 204000,
+            "single_marker_payload_start_via_post_only_samples": 204000.00000001583,
+            "single_marker_payload_start_via_pre_only_samples": 204000.00000001595
+          },
+          "expected_marker_separation_samples": 3108000,
+          "fail_reason": null,
+          "marker_leakage_check": {
+            "leakage": false,
+            "max_ncc": 0.0795494037942299,
+            "max_ncc_lag_samples": 3186044,
+            "threshold": 0.5
+          },
+          "max_mapping_disagreement_samples": 480,
+          "n_marker_candidates": 2,
+          "observed_marker_separation_samples": 3108000.0,
+          "post_marker": {
+            "confidence": 0.9999999992347679,
+            "found": true,
+            "start_sample": 3228000.000000016
+          },
+          "pre_marker": {
+            "confidence": 0.9999999992347675,
+            "found": true,
+            "start_sample": 120000.00000001595
+          },
+          "provisional_max_clock_scale_error": 0.0005,
+          "scale_error": 0.0,
+          "status": "GT_VALID",
+          "third_party_max_ncc": 0.9999999992347679,
+          "trim": {
+            "fail_reason": null,
+            "gt_offset_s": 2.45,
+            "holes": [
+              [
+                117600,
+                204000
+              ],
+              [
+                3180000,
+                3266400
+              ]
+            ],
+            "ok": true,
+            "payload_start_in_trimmed": 117600,
+            "trim_end_sample": 3360000,
+            "trim_start_sample": 0
+          }
+        },
+        "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+        "payload_identity": "shakedown_song_a",
+        "payload_sha256": "73802ac5cb6828f98dbd307657d1e49523e639ce4a7d7820fedf257407c3a8f7",
+        "provenance": {
+          "capture_degradations": {
+            "amplitude_scale": null,
+            "clip_level": null,
+            "drift_resample_updown": null,
+            "lead_s": 2.5,
+            "noise_snr_db": null,
+            "tail_s": 2.0,
+            "trim_start_into_payload_s": null,
+            "truncate_at_capture_s": null
+          },
+          "capture_noise_seed": 2766097281,
+          "payload_generator": "experiments.applied_system.synth_payload.shakedown_song_a",
+          "payload_seed": 20260913,
+          "protocol_module": "experiments.applied_system.marker_protocol",
+          "trim": {
+            "fail_reason": null,
+            "gt_offset_s": 2.45,
+            "holes": [
+              [
+                117600,
+                204000
+              ],
+              [
+                3180000,
+                3266400
+              ]
+            ],
+            "ok": true,
+            "payload_start_in_trimmed": 117600,
+            "trim_end_sample": 3360000,
+            "trim_start_sample": 0
+          }
+        },
+        "reference_path": "media/shakedown_song_a.wav",
+        "reference_sha256": "73802ac5cb6828f98dbd307657d1e49523e639ce4a7d7820fedf257407c3a8f7",
+        "shakedown_only": "SHAKEDOWN_ONLY",
+        "source_identity": "shakedown_song_a",
+        "trimmed_input_path": "trimmed/pos_ordinary.wav",
+        "trimmed_input_sha256": "12a4be0e4eae3f4b38e4fb972b2570d061147ddc29836b42c4dbf1557f0f4daf"
+      },
+      {
+        "capture_path": "captures/pos_quiet.wav",
+        "capture_sha256": "4c7685b5bb0e5adcb1c299c3223eed58c5cb90b385405eb8545a53fa23276b81",
+        "case_id": "pos_quiet",
+        "comparator_eligibility": [
+          "rhythmalign_v1_2_0",
+          "gcc_phat_argmax_v1",
+          "ncc_argmax_v1"
+        ],
+        "condition": "low_amplitude_0x35",
+        "expected_label": "MATCH",
+        "gt_offset_s": 2.45,
+        "gt_stratum": "EXACT_GT",
+        "marker_qc": {
+          "clock_scale": 1.0,
+          "diagnostics": {
+            "mapping_disagreement_samples": 5.820766091346741e-11,
+            "payload_end_samples_used": 3180000,
+            "payload_start_map_via_post_samples": 204000.00000005309,
+            "payload_start_map_via_pre_samples": 204000.00000005314,
+            "payload_start_samples_used": 204000,
+            "single_marker_payload_start_via_post_only_samples": 204000.00000005309,
+            "single_marker_payload_start_via_pre_only_samples": 204000.00000005314
+          },
+          "expected_marker_separation_samples": 3108000,
+          "fail_reason": null,
+          "marker_leakage_check": {
+            "leakage": false,
+            "max_ncc": 0.07726145879148158,
+            "max_ncc_lag_samples": 3186350,
+            "threshold": 0.5
+          },
+          "max_mapping_disagreement_samples": 480,
+          "n_marker_candidates": 2,
+          "observed_marker_separation_samples": 3108000.0,
+          "post_marker": {
+            "confidence": 0.9999999937496697,
+            "found": true,
+            "start_sample": 3228000.000000053
+          },
+          "pre_marker": {
+            "confidence": 0.9999999937496697,
+            "found": true,
+            "start_sample": 120000.00000005313
+          },
+          "provisional_max_clock_scale_error": 0.0005,
+          "scale_error": 0.0,
+          "status": "GT_VALID",
+          "third_party_max_ncc": 0.9999999937496697,
+          "trim": {
+            "fail_reason": null,
+            "gt_offset_s": 2.45,
+            "holes": [
+              [
+                117600,
+                204000
+              ],
+              [
+                3180000,
+                3266400
+              ]
+            ],
+            "ok": true,
+            "payload_start_in_trimmed": 117600,
+            "trim_end_sample": 3360000,
+            "trim_start_sample": 0
+          }
+        },
+        "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+        "payload_identity": "shakedown_song_a",
+        "payload_sha256": "73802ac5cb6828f98dbd307657d1e49523e639ce4a7d7820fedf257407c3a8f7",
+        "provenance": {
+          "capture_degradations": {
+            "amplitude_scale": 0.35,
+            "clip_level": null,
+            "drift_resample_updown": null,
+            "lead_s": 2.5,
+            "noise_snr_db": null,
+            "tail_s": 2.0,
+            "trim_start_into_payload_s": null,
+            "truncate_at_capture_s": null
+          },
+          "capture_noise_seed": 956562915,
+          "payload_generator": "experiments.applied_system.synth_payload.shakedown_song_a",
+          "payload_seed": 20260913,
+          "protocol_module": "experiments.applied_system.marker_protocol",
+          "trim": {
+            "fail_reason": null,
+            "gt_offset_s": 2.45,
+            "holes": [
+              [
+                117600,
+                204000
+              ],
+              [
+                3180000,
+                3266400
+              ]
+            ],
+            "ok": true,
+            "payload_start_in_trimmed": 117600,
+            "trim_end_sample": 3360000,
+            "trim_start_sample": 0
+          }
+        },
+        "reference_path": "media/shakedown_song_a.wav",
+        "reference_sha256": "73802ac5cb6828f98dbd307657d1e49523e639ce4a7d7820fedf257407c3a8f7",
+        "shakedown_only": "SHAKEDOWN_ONLY",
+        "source_identity": "shakedown_song_a",
+        "trimmed_input_path": "trimmed/pos_quiet.wav",
+        "trimmed_input_sha256": "45cf44a52dea22efed5b8ee4c557cb4959a3154d212fceaf1b37e3b9b97f58f0"
+      },
+      {
+        "capture_path": "captures/pos_zero_lead.wav",
+        "capture_sha256": "aa8bef49a6cd6770e85935da717c55b56b574575a41b3d3c80598e2ce0838b3c",
+        "case_id": "pos_zero_lead",
+        "comparator_eligibility": [
+          "rhythmalign_v1_2_0",
+          "gcc_phat_argmax_v1",
+          "ncc_argmax_v1"
+        ],
+        "condition": "ordinary_zero_lead_in",
+        "expected_label": "MATCH",
+        "gt_offset_s": 0.0,
+        "gt_stratum": "EXACT_GT",
+        "marker_qc": {
+          "clock_scale": 1.0,
+          "diagnostics": {
+            "mapping_disagreement_samples": 1.1641532182693481e-10,
+            "payload_end_samples_used": 3060000,
+            "payload_start_map_via_post_samples": 84000.00000001583,
+            "payload_start_map_via_pre_samples": 84000.00000001595,
+            "payload_start_samples_used": 84000,
+            "single_marker_payload_start_via_post_only_samples": 84000.00000001583,
+            "single_marker_payload_start_via_pre_only_samples": 84000.00000001595
+          },
+          "expected_marker_separation_samples": 3108000,
+          "fail_reason": null,
+          "marker_leakage_check": {
+            "leakage": false,
+            "max_ncc": 0.11124189058903898,
+            "max_ncc_lag_samples": 3045059,
+            "threshold": 0.5
+          },
+          "max_mapping_disagreement_samples": 480,
+          "n_marker_candidates": 2,
+          "observed_marker_separation_samples": 3108000.0,
+          "post_marker": {
+            "confidence": 0.9999999992347679,
+            "found": true,
+            "start_sample": 3108000.000000016
+          },
+          "pre_marker": {
+            "confidence": 0.9999999992347679,
+            "found": true,
+            "start_sample": 1.5948834438390868e-08
+          },
+          "provisional_max_clock_scale_error": 0.0005,
+          "scale_error": 0.0,
+          "status": "GT_VALID",
+          "third_party_max_ncc": 0.9999999992347679,
+          "trim": {
+            "fail_reason": null,
+            "gt_offset_s": 0.0,
+            "holes": [
+              [
+                0,
+                84000
+              ],
+              [
+                3060000,
+                3146400
+              ]
+            ],
+            "ok": true,
+            "payload_start_in_trimmed": 0,
+            "trim_end_sample": 3216000,
+            "trim_start_sample": 0
+          }
+        },
+        "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+        "payload_identity": "shakedown_song_a",
+        "payload_sha256": "73802ac5cb6828f98dbd307657d1e49523e639ce4a7d7820fedf257407c3a8f7",
+        "provenance": {
+          "capture_degradations": {
+            "amplitude_scale": null,
+            "clip_level": null,
+            "drift_resample_updown": null,
+            "lead_s": 0.0,
+            "noise_snr_db": null,
+            "tail_s": 1.5,
+            "trim_start_into_payload_s": null,
+            "truncate_at_capture_s": null
+          },
+          "capture_noise_seed": 3986136494,
+          "payload_generator": "experiments.applied_system.synth_payload.shakedown_song_a",
+          "payload_seed": 20260913,
+          "protocol_module": "experiments.applied_system.marker_protocol",
+          "trim": {
+            "fail_reason": null,
+            "gt_offset_s": 0.0,
+            "holes": [
+              [
+                0,
+                84000
+              ],
+              [
+                3060000,
+                3146400
+              ]
+            ],
+            "ok": true,
+            "payload_start_in_trimmed": 0,
+            "trim_end_sample": 3216000,
+            "trim_start_sample": 0
+          }
+        },
+        "reference_path": "media/shakedown_song_a.wav",
+        "reference_sha256": "73802ac5cb6828f98dbd307657d1e49523e639ce4a7d7820fedf257407c3a8f7",
+        "shakedown_only": "SHAKEDOWN_ONLY",
+        "source_identity": "shakedown_song_a",
+        "trimmed_input_path": "trimmed/pos_zero_lead.wav",
+        "trimmed_input_sha256": "180cd63aa937c98809879bbf0296884de8697bc6a482827d41bf0537e3511fa2"
+      },
+      {
+        "capture_path": "captures/wrong_reference.wav",
+        "capture_sha256": "2c587a4b241d14da3db9c93d713485960033e1f9c5b8fde08b87592419fc4b3f",
+        "case_id": "wrong_reference",
+        "comparator_eligibility": [
+          "rhythmalign_v1_2_0",
+          "gcc_phat_argmax_v1",
+          "ncc_argmax_v1"
+        ],
+        "condition": "wrong_reference_no_match",
+        "expected_label": "NO_MATCH",
+        "gt_offset_s": 2.45,
+        "gt_stratum": "NO_MATCH",
+        "marker_qc": {
+          "clock_scale": 1.0,
+          "diagnostics": {
+            "mapping_disagreement_samples": 1.1641532182693481e-10,
+            "payload_end_samples_used": 3180000,
+            "payload_start_map_via_post_samples": 204000.00000001583,
+            "payload_start_map_via_pre_samples": 204000.00000001595,
+            "payload_start_samples_used": 204000,
+            "single_marker_payload_start_via_post_only_samples": 204000.00000001583,
+            "single_marker_payload_start_via_pre_only_samples": 204000.00000001595
+          },
+          "expected_marker_separation_samples": 3108000,
+          "fail_reason": null,
+          "marker_leakage_check": {
+            "leakage": false,
+            "max_ncc": 0.0685433803051606,
+            "max_ncc_lag_samples": 3185742,
+            "threshold": 0.5
+          },
+          "max_mapping_disagreement_samples": 480,
+          "n_marker_candidates": 2,
+          "observed_marker_separation_samples": 3108000.0,
+          "post_marker": {
+            "confidence": 0.9999999992347679,
+            "found": true,
+            "start_sample": 3228000.000000016
+          },
+          "pre_marker": {
+            "confidence": 0.9999999992347675,
+            "found": true,
+            "start_sample": 120000.00000001595
+          },
+          "provisional_max_clock_scale_error": 0.0005,
+          "scale_error": 0.0,
+          "status": "GT_VALID",
+          "third_party_max_ncc": 0.9999999992347679,
+          "trim": {
+            "fail_reason": null,
+            "gt_offset_s": 2.45,
+            "holes": [
+              [
+                117600,
+                204000
+              ],
+              [
+                3180000,
+                3266400
+              ]
+            ],
+            "ok": true,
+            "payload_start_in_trimmed": 117600,
+            "trim_end_sample": 3360000,
+            "trim_start_sample": 0
+          }
+        },
+        "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+        "payload_identity": "shakedown_song_a",
+        "payload_sha256": "73802ac5cb6828f98dbd307657d1e49523e639ce4a7d7820fedf257407c3a8f7",
+        "provenance": {
+          "capture_degradations": {
+            "amplitude_scale": null,
+            "clip_level": null,
+            "drift_resample_updown": null,
+            "lead_s": 2.5,
+            "noise_snr_db": null,
+            "tail_s": 2.0,
+            "trim_start_into_payload_s": null,
+            "truncate_at_capture_s": null
+          },
+          "capture_noise_seed": 109624908,
+          "payload_generator": "experiments.applied_system.synth_payload.shakedown_song_a",
+          "payload_seed": 20260913,
+          "protocol_module": "experiments.applied_system.marker_protocol",
+          "trim": {
+            "fail_reason": null,
+            "gt_offset_s": 2.45,
+            "holes": [
+              [
+                117600,
+                204000
+              ],
+              [
+                3180000,
+                3266400
+              ]
+            ],
+            "ok": true,
+            "payload_start_in_trimmed": 117600,
+            "trim_end_sample": 3360000,
+            "trim_start_sample": 0
+          }
+        },
+        "reference_path": "media/shakedown_song_b.wav",
+        "reference_sha256": "025eaf412da0a5c0033d9aa4972a0183caffe4059e6d82bf00b23a7812552ed0",
+        "shakedown_only": "SHAKEDOWN_ONLY",
+        "source_identity": "shakedown_song_a",
+        "trimmed_input_path": "trimmed/wrong_reference.wav",
+        "trimmed_input_sha256": "bc819b21baa8789f531e9d1d48cfb333f3ff29a8a9fe84276726291ec867258d"
+      }
+    ],
+    "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+    "notes": {
+      "case_set": "shakedown spec section 13 minimum (engineering, not a dataset)",
+      "offset_convention": "positive: reference begins gt_offset_s into the trimmed input; negative: capture starts |gt_offset_s| into the reference (frozen v1.2.0 production convention)",
+      "purpose": "benchmark MACHINERY shakedown only"
+    },
+    "protocol_constants": {
+      "chirp_duration_s": 0.75,
+      "chirp_freq_hz": [
+        1000.0,
+        9000.0
+      ],
+      "fs": 48000,
+      "guard_duration_s": 1.0,
+      "marker_rule": "exactly two accepted marker candidates required",
+      "max_mapping_disagreement_s": 0.01,
+      "min_marker_confidence": 0.5,
+      "payload_duration_s": 62.0,
+      "post_trim_margin_s": 0.05,
+      "pre_trim_margin_s": 0.05,
+      "provisional_max_clock_scale_error": 0.0005,
+      "wav_format": "PCM_16 mono (protocol rate)"
+    },
+    "schema_version": "1",
+    "shakedown_only": "SHAKEDOWN_ONLY",
+    "warning": "THIS IS ENGINEERING SHAKEDOWN DATA. IT MUST NOT BE USED AS FINAL PAPER EVIDENCE."
+  },
+  "manifest_hash": "0c59568f09a328eed0e44362e4385e95b5845d4d323a77cec2829a46a60091f9"
+}
