@@ -217,6 +217,103 @@ regression-tested):
    margin but not the post-chirp itself; the mechanical leakage check
    caught the leftover chirp immediately (the check works as designed).
 
+## Real-device acoustic loop check
+
+SHAKEDOWN_ONLY / NOT_PAPER_EVIDENCE.
+
+**Date:** 2026-09-14. **Origin:** one owner-operated playback→capture round
+trip of `media/playback_buffer_song_a.wav` (no participants).
+
+**Recording:** owner phone voice-memo capture, AAC in an m4a container,
+nominal 48 kHz, 70.485 s (3,383,296 samples). Original file preserved
+unchanged at
+`results/shakedown/media/2026年09月14日 00点19分.m4a`
+(sha256 `e02f0ab2f0ae9218417366df183031db8a873a8b62716c7f5b5a0640fc0ec2d6`);
+identical working copy at `results/shakedown/acoustic/owner_take1.m4a`.
+Both are local research material under the media ignore policy (never
+committed). Analysis ran on a native-rate ffmpeg decode
+(`acoustic/owner_take1_decoded.wav`).
+
+**First analysis attempt (honest failure record):** with the tooling as
+committed at `2fc389e`, the take returned GT_FAILED with 0 candidates. The
+recording itself was fine; three research-TOOLING defects were exposed
+(documented below, all fixed with regression tests in
+`tests/test_real_capture_regressions.py`). The recording was never edited
+or rescued to make detection succeed.
+
+**Measurements after the tooling fixes (verdict GT_OK):**
+
+| Quantity | Value |
+|---|---|
+| Capture duration | 70.485 s @ 48 kHz native |
+| Pre-marker | 189,396.1 samples = 3.9458 s (confidence 0.226) |
+| Post-marker | 3,297,344.7 samples = 68.6947 s (confidence 0.2426) |
+| Marker candidates | exactly 2 (rule satisfied) |
+| Expected marker separation | 3,108,000 samples = 64.750 s |
+| Observed marker separation | 3,107,948.6 samples = 64.7489 s |
+| Clock scale | 0.99998346 → **−16.5 ppm drift** |
+| Provisional drift gate | ±500 ppm (pass, ~30× headroom) |
+| Mapping disagreement | 0.0 samples = 0.0 ms (gate 10 ms) |
+| GT status | GT_VALID; GT offset on trimmed input +3.8957 s |
+| Leakage re-scan on trimmed input | max normalized chirp correlation 0.030 (threshold 0.15) — no leakage |
+| Independent direct-correlation cross-check | payload start within **2.2 ms** of marker GT (gate 10 ms) |
+| Sweep-trajectory corroboration (diagnostic) | slope ratios 0.976 / 0.967 vs template — both markers are genuine rising 1→9 kHz sweeps |
+
+**Verdict: GT_OK** — this ONE real take demonstrates that the marker GT and
+dual-marker QC machinery survived one real speaker → room → phone
+microphone → AAC round trip. It does NOT validate all devices, rooms, or
+recorders; it is one existence proof, and it is NOT paper evidence.
+
+**One-second margins: SUFFICIENT.** Playback actually began ~3.9 s into the
+recording (player startup latency extended the owner's ~1 s lead), and the
+second chirp completed at 69.45 s leaving a 1.04 s tail. Both chirps were
+fully captured; the short margins caused no problem, and no re-record is
+needed.
+
+**Drift gate assessment:** −16.5 ppm on this device/chain is obviously
+compatible with the provisional ±500 ppm gate. This is ONE device on ONE
+occasion; the gate remains provisional and must still be re-derived from a
+multi-device pilot before the final study. Nothing is frozen from this take.
+
+**Tooling defects found by the real round trip (all fixed; production
+RhythmAlign untouched):**
+
+1. **Compressed-capture decode gap.** The acoustic-loop tool read captures
+   via soundfile only; libsndfile cannot read AAC, so the owner's m4a
+   failed outright ("Format not recognised"). Fix: fallback decode via the
+   bundled ffmpeg with NO sample-rate or channel forcing (resampling would
+   destroy the drift measurement), with the decoded WAV hashed into the
+   report. Regression: `test_m4a_decode_native_rate`.
+2. **Phantom marker peaks at capture edges.** The normalized matched filter
+   accepted partial-overlap windows; ~2 ms of content at the recording end
+   produced a spurious 0.32-confidence "marker" (above the then-0.50 gate).
+   Fix: only lags where the FULL template fits inside the capture are
+   eligible — which is also protocol-correct, since a partially captured
+   chirp must fail GT anyway. Regressions:
+   `test_full_template_overlap_required`,
+   `test_partially_captured_chirp_fails`,
+   `test_chirp_before_capture_start_fails`.
+3. **Confidence gate never validated on real acoustics.** The synthetic-era
+   0.50 gate rejected BOTH genuine markers on this take: measured
+   normalized matched-filter confidence was 0.226 / 0.243, while every
+   non-marker content peak stayed ≤ 0.049 (5–7× separation). Room
+   reverberation, phone AGC, and AAC compression cap sample-level phase
+   correlation well below its synthetic value even for intact sweeps
+   (verified independently by the frequency-trajectory analysis). Fix: the
+   gate constant is now a documented provisional 0.15 (≥3× rejection margin
+   against observed real competing content), with the failure and fix
+   recorded here and pinned by `test_min_marker_confidence_covers_real_
+   device_regime`. This gate MUST be re-derived from a multi-device pilot
+   before the final study; it is not frozen, and the digital shakedown's
+   committed results (produced under the 0.50 gate) remain the untouched
+   record of that engineering run.
+
+**Second owner take required: NO.** The machinery question this round was
+answered by the existing take; nothing about the capture needs redoing.
+
+THIS IS ENGINEERING SHAKEDOWN DATA.
+IT MUST NOT BE USED AS FINAL PAPER EVIDENCE.
+
 ## Artifacts
 
 All under `experiments/applied_system/results/shakedown/` (JSON committed;

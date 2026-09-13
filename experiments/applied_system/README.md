@@ -77,4 +77,8 @@ runtime fields.
 Shakedown verdict and findings:
 `docs/research/applied_system/BENCHMARK_SHAKEDOWN.md` — verdict
 `SHAKEDOWN_PASS_WITH_FIXES` (Panako PENDING; all required machinery gates
-passed).
+passed). The optional acoustic loop check has since succeeded on one real
+owner capture (GT_OK, −16.5 ppm drift, GT within 2.2 ms of an independent
+cross-check); three tooling defects it exposed (m4a decode gap, phantom
+edge peaks, synthetic-era confidence gate) are fixed and
+regression-tested. SHAKEDOWN_ONLY — NOT_PAPER_EVIDENCE.

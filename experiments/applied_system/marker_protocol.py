@@ -59,7 +59,19 @@ POST_TRIM_MARGIN_S = 0.05
 
 # Marker detector acceptance (deterministic; no manual override). Exactly
 # two occurrences are required by the two-marker QC (see find_marker_peaks).
-MIN_MARKER_CONFIDENCE = 0.50     # normalized matched-filter peak
+#
+# PROVISIONAL after the first real acoustic round trip (2026-09-14, owner
+# phone m4a capture): the original synthetic-era gate 0.50 rejected BOTH
+# genuine markers (measured normalized matched-filter confidence 0.226 /
+# 0.243) while every competing non-marker content peak stayed <= 0.049 —
+# room reverberation, phone AGC and AAC compression cap sample-level phase
+# correlation well below its synthetic value even for intact sweeps
+# (verified independently by the recorded chirp's frequency trajectory).
+# 0.15 keeps >= 3x rejection margin against the strongest observed
+# competing content on real audio while accepting true markers with
+# headroom. MUST be re-derived (and re-frozen) from a multi-device pilot
+# before the final study; do not treat as a frozen final-study threshold.
+MIN_MARKER_CONFIDENCE = 0.15     # normalized matched-filter peak
 
 # Two-marker QC: provisional clock-scale tolerance for the SHAKEDOWN only.
 # Consumer DAC/ADC chains drift tens to a few hundred ppm; 500 ppm covers
@@ -225,15 +237,26 @@ def find_marker_peaks(rec: np.ndarray, template: np.ndarray,
     """All accepted marker occurrences: normalized matched filter, then
     greedy non-maximum suppression with one-template-length separation.
 
-    A peak is accepted only above MIN_MARKER_CONFIDENCE. The protocol buffer
-    legitimately contains exactly TWO occurrences (pre and post chirp); the
-    two-marker QC in derive_ground_truth therefore requires exactly two
-    candidates — 0/1 means a missing or truncated marker, >=3 means
-    ambiguous or corrupted detection. Deterministic; no manual override.
+    A peak is accepted only above MIN_MARKER_CONFIDENCE, and only lags
+    where the FULL template fits inside the recording are considered —
+    partial-overlap windows (capture edges) produce spurious high
+    normalized correlations from a few milliseconds of content (observed
+    as phantom 0.32-confidence "markers" from ~2 ms of overlap on the
+    first real capture). A chirp not fully inside the capture is an
+    incomplete marker and must fail GT (protocol rule), so excluding
+    partial overlaps is correctness, not tuning.
+
+    The protocol buffer legitimately contains exactly TWO occurrences (pre
+    and post chirp); the two-marker QC in derive_ground_truth therefore
+    requires exactly two candidates — 0/1 means a missing or truncated
+    marker, >=3 means ambiguous or corrupted detection. Deterministic; no
+    manual override.
     """
     ncc, lags = _normalized_correlation(rec, template)
     if len(ncc) == 0:
         return []
+    valid = (lags >= 0) & (lags + len(template) <= len(rec))
+    ncc = np.where(valid, ncc, -np.inf)
     above = np.nonzero(ncc >= MIN_MARKER_CONFIDENCE)[0]
     order = above[np.argsort(-ncc[above], kind="stable")]
     sep = len(template)
@@ -492,14 +515,20 @@ def trim_capture(capture: np.ndarray, gt: GroundTruthResult, spec: BufferSpec,
 
 def marker_leakage_check(trimmed: np.ndarray, fs: int = FS) -> dict:
     """Mechanical leakage verification: re-run the detector on the final
-    benchmark input. Any accepted detection is a protocol failure."""
+    benchmark input. Any accepted detection is a protocol failure. Lags are
+    restricted to full-template overlaps (same rule as marker detection;
+    capture-edge partial overlaps can produce spurious correlations)."""
     template = chirp_template(fs)
     ncc, lags = _normalized_correlation(trimmed, template)
     if len(ncc) == 0:
         return {"leakage": False, "max_ncc": 0.0,
                 "threshold": MIN_MARKER_CONFIDENCE}
+    valid = (lags >= 0) & (lags + len(template) <= len(trimmed))
+    ncc = np.where(valid, ncc, -np.inf)
     k = int(np.argmax(ncc))
     peak = float(ncc[k])
+    if not np.isfinite(peak):
+        peak = 0.0
     return {
         "leakage": bool(peak >= MIN_MARKER_CONFIDENCE),
         "max_ncc": peak,
