@@ -1,0 +1,6 @@
+# Generated pilot media: regenerable from source_selection.json +
+# pilot_kit_build.py; all hashes live in kit_manifest.json / take_plan.json.
+# NEVER commit source or rendered audio.
+buffers/
+local/
+INTERFERENCE.*

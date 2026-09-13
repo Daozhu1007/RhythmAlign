@@ -1,14 +1,8 @@
 {
   "pilot_pack_only": "PILOT_PACK_TEMPLATE",
   "not_paper_evidence": "NOT_PAPER_EVIDENCE",
-  "status": "AWAITING_KIT_BUILD",
-  "status_note": (
-    "Take slots and ingest conventions are FROZEN (FRESH_PILOT_PLAN "
-    "section 5). The three playback buffer files cannot be rendered until "
-    "the owner's two clean songs + one interference track are received "
-    "(kit build = next agent round, FRESH_PILOT_PLAN section 12 step 1). "
-    "When rendered, buffer_files below are filled with real paths+hashes "
-    "and status becomes KIT_READY."),
+  "status": "KIT_READY",
+  "status_note": "Kit built and digitally validated (see kit_manifest.json and PILOT_KIT_BUILD.md). The three playback buffers and the interference copy exist under pilot_pack/. Recording may begin when the owner starts; slots are unchanged from FRESH_PILOT_PLAN section 5.",
   "authority": "docs/research/applied_system/FRESH_PILOT_PLAN.md",
   "devices": {
     "D1": "primary phone (the validated shakedown chain)",
@@ -18,16 +12,32 @@
     "P2": "phone loudspeaker (one take, playback-path generality)"
   },
   "buffer_files": {
-    "BUF-A": null,
-    "BUF-B1": null,
-    "BUF-BMID": null,
-    "INTERFERENCE": null,
-    "note": "filled by the agent's kit build: {path, sha256, duration_s}"
+    "BUF-A": {
+      "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\pilot_pack\\buffers\\BUF-A.wav",
+      "sha256": "fe224ed76115ca3bdd22abec1e78dc5f7e8c73b6f88591b38912da05970e49b3",
+      "duration_s": 63.5
+    },
+    "BUF-B1": {
+      "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\pilot_pack\\buffers\\BUF-B1.wav",
+      "sha256": "91c9740f0f320e2df02c46fa9d455d31f4ecd57456e13f522e1eaf6323ebfb1d",
+      "duration_s": 63.5
+    },
+    "BUF-BMID": {
+      "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\pilot_pack\\buffers\\BUF-BMID.wav",
+      "sha256": "f81b84fcaa73574e20999088d23b4c74e5b1777c7181e04b31da92fcf98b979a",
+      "duration_s": 63.5
+    },
+    "INTERFERENCE": {
+      "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\pilot_pack\\INTERFERENCE.mp3",
+      "sha256": "26f0284c9f104f54c2fcca5638c1b1398e924bf64a851f0a0732814393e80904",
+      "duration_s": 143.188,
+      "source_path": "D:\\Daozh\\Music\\舞萌手元用\\Divide et impera.mp3",
+      "note": "background source for take 8 only; never a reference in any pairing"
+    }
   },
   "ingest": {
     "owner_drop_folder": "experiments/applied_system/pilot_pack/incoming/",
-    "naming": "takeNN.<any extension> (e.g. take01.m4a); retakes get a "
-              "suffix: take01_b.m4a — both are kept and analyzed",
+    "naming": "takeNN.<any extension> (e.g. take01.m4a); retakes get a suffix: take01_b.m4a — both are kept and analyzed",
     "agent_steps": [
       "match take ids to the slots below",
       "decode at NATIVE rate (no resampling — drift must survive)",
@@ -37,40 +47,103 @@
     ]
   },
   "takes": [
-    {"take": "take01", "device": "D1", "playback": "P1", "buffer": "BUF-A",
-     "condition": "ordinary", "gt_class": "POSITIVE"},
-    {"take": "take02", "device": "D1", "playback": "P1", "buffer": "BUF-A",
-     "condition": "ordinary_repeat_strict_pair_of_take01",
-     "gt_class": "POSITIVE"},
-    {"take": "take03", "device": "D1", "playback": "P1",
-     "buffer": "BUF-BMID", "condition": "ordinary_mid_song_placement",
-     "gt_class": "POSITIVE"},
-    {"take": "take04", "device": "D1", "playback": "P1", "buffer": "BUF-A",
-     "condition": "low_playback_volume", "gt_class": "POSITIVE"},
-    {"take": "take05", "device": "D1", "playback": "P1",
-     "buffer": "BUF-BMID", "condition": "desk_taps_during_music",
-     "gt_class": "POSITIVE"},
-    {"take": "take06", "device": "D2", "playback": "P1", "buffer": "BUF-A",
-     "condition": "ordinary", "gt_class": "POSITIVE"},
-    {"take": "take07", "device": "D2", "playback": "P1", "buffer": "BUF-A",
-     "condition": "ordinary_repeat_strict_pair_of_take06",
-     "gt_class": "POSITIVE"},
-    {"take": "take08", "device": "D2", "playback": "P1", "buffer": "BUF-A",
-     "condition": "background_interference_second_device",
-     "gt_class": "POSITIVE"},
-    {"take": "take09", "device": "D3", "playback": "P1", "buffer": "BUF-A",
-     "condition": "ordinary", "gt_class": "POSITIVE"},
-    {"take": "take10", "device": "D3", "playback": "P1", "buffer": "BUF-A",
-     "condition": "low_playback_volume", "gt_class": "POSITIVE"},
-    {"take": "take11", "device": "D3", "playback": "P2", "buffer": "BUF-A",
-     "condition": "phone_speaker_playback", "gt_class": "POSITIVE"},
-    {"take": "take12", "device": "D3", "playback": "P1",
-     "buffer": "BUF-B1", "condition": "ordinary_difficult_song",
-     "gt_class": "POSITIVE"}
+    {
+      "take": "take01",
+      "device": "D1",
+      "playback": "P1",
+      "buffer": "BUF-A",
+      "condition": "ordinary",
+      "gt_class": "POSITIVE"
+    },
+    {
+      "take": "take02",
+      "device": "D1",
+      "playback": "P1",
+      "buffer": "BUF-A",
+      "condition": "ordinary_repeat_strict_pair_of_take01",
+      "gt_class": "POSITIVE"
+    },
+    {
+      "take": "take03",
+      "device": "D1",
+      "playback": "P1",
+      "buffer": "BUF-BMID",
+      "condition": "ordinary_mid_song_placement",
+      "gt_class": "POSITIVE"
+    },
+    {
+      "take": "take04",
+      "device": "D1",
+      "playback": "P1",
+      "buffer": "BUF-A",
+      "condition": "low_playback_volume",
+      "gt_class": "POSITIVE"
+    },
+    {
+      "take": "take05",
+      "device": "D1",
+      "playback": "P1",
+      "buffer": "BUF-BMID",
+      "condition": "desk_taps_during_music",
+      "gt_class": "POSITIVE"
+    },
+    {
+      "take": "take06",
+      "device": "D2",
+      "playback": "P1",
+      "buffer": "BUF-A",
+      "condition": "ordinary",
+      "gt_class": "POSITIVE"
+    },
+    {
+      "take": "take07",
+      "device": "D2",
+      "playback": "P1",
+      "buffer": "BUF-A",
+      "condition": "ordinary_repeat_strict_pair_of_take06",
+      "gt_class": "POSITIVE"
+    },
+    {
+      "take": "take08",
+      "device": "D2",
+      "playback": "P1",
+      "buffer": "BUF-A",
+      "condition": "background_interference_second_device",
+      "gt_class": "POSITIVE"
+    },
+    {
+      "take": "take09",
+      "device": "D3",
+      "playback": "P1",
+      "buffer": "BUF-A",
+      "condition": "ordinary",
+      "gt_class": "POSITIVE"
+    },
+    {
+      "take": "take10",
+      "device": "D3",
+      "playback": "P1",
+      "buffer": "BUF-A",
+      "condition": "low_playback_volume",
+      "gt_class": "POSITIVE"
+    },
+    {
+      "take": "take11",
+      "device": "D3",
+      "playback": "P2",
+      "buffer": "BUF-A",
+      "condition": "phone_speaker_playback",
+      "gt_class": "POSITIVE"
+    },
+    {
+      "take": "take12",
+      "device": "D3",
+      "playback": "P1",
+      "buffer": "BUF-B1",
+      "condition": "ordinary_difficult_song",
+      "gt_class": "POSITIVE"
+    }
   ],
-  "wrong_reference_note": (
-    "12 wrong-reference pairings are constructed at analysis time (takes "
-    "of A scored against ref B and vice versa); zero recording burden."),
-  "owner_instructions_doc":
-    "docs/research/applied_system/OWNER_PILOT_INSTRUCTIONS.md"
+  "wrong_reference_note": "12 wrong-reference pairings are constructed at analysis time (takes of A scored against ref B and vice versa); zero recording burden.",
+  "owner_instructions_doc": "docs/research/applied_system/OWNER_PILOT_INSTRUCTIONS.md"
 }

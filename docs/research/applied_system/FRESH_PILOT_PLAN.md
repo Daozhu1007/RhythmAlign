@@ -13,6 +13,9 @@ protocol is ready to freeze.
   −16.5 ppm, provisional marker gate 0.15, provisional drift gate ±500 ppm —
   both explicitly NOT final).
 - Branch: `research/applied-system-paper`.
+- Kit build (song selection + the three playback buffers + interference
+  copy): DONE 2026-09-14, verdict `PILOT_KIT_READY` — record:
+  `PILOT_KIT_BUILD.md`; owner script: `OWNER_PILOT_INSTRUCTIONS.md`.
 - Everything in this pilot is PILOT_ONLY / NOT_FINAL_PAPER_EVIDENCE. Pilot
   data can never be relabeled as final confirmatory evidence, and pilot
   songs are development-exposed forever (they must not appear in the final

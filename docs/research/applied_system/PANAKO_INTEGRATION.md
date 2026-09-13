@@ -259,5 +259,7 @@ For an agent reproducing this on the same machine:
   `README.md` (agent-facing conventions). Playback buffers cannot exist
   until the kit build receives the owner's two songs + interference
   track (`FRESH_PILOT_PLAN.md` section 12 step 1 — next agent round).
+  (UPDATE 2026-09-14: kit built — status `KIT_READY`, sources frozen,
+  buffers rendered + validated; record `PILOT_KIT_BUILD.md`.)
 - Owner instructions: `OWNER_PILOT_INSTRUCTIONS.md` (plain-language,
   no DSP terminology; ~1 hour total).

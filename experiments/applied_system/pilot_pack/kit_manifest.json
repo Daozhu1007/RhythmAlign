@@ -1,0 +1,340 @@
+{
+  "authority": "docs/research/applied_system/FRESH_PILOT_PLAN.md",
+  "buffers": {
+    "BUF-A": {
+      "bytes": 6096044,
+      "duration_s": 63.5,
+      "layout": "chirp 0.75s | guard 1.0s | payload 60.0s | guard 1.0s | chirp 0.75s @ 48 kHz PCM_16 mono",
+      "marker1_start_sample": 0,
+      "marker2_start_sample": 3012000,
+      "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\pilot_pack\\buffers\\BUF-A.wav",
+      "payload_end_sample": 2964000,
+      "payload_source": {
+        "identity": "D:\\Daozh\\Music\\舞萌手元用\\Bloody Trail.mp3",
+        "payload_end_s": 60.0,
+        "payload_start_s": 0.0,
+        "source_sha256": "0c1bad0c937b57ee49b7189a4d0ca7fd01f4d001859fd0723e9b0dd1165fd077"
+      },
+      "payload_start_sample": 84000,
+      "selfcheck": {
+        "gt_offset_s_payload_in_trimmed": 2.45,
+        "gt_status": "GT_VALID",
+        "intended_reference_gt_s": 2.45,
+        "mapping_disagreement_s": 2.4253192047278086e-15,
+        "marker_leakage_check": {
+          "leakage": false,
+          "max_ncc": 0.02517739362762077,
+          "max_ncc_lag_samples": 2524040,
+          "threshold": 0.15
+        },
+        "marker_qc": {
+          "clock_scale": 1.0,
+          "diagnostics": {
+            "mapping_disagreement_samples": 1.1641532182693481e-10,
+            "payload_end_samples_used": 3084000,
+            "payload_start_map_via_post_samples": 204000.00000001583,
+            "payload_start_map_via_pre_samples": 204000.00000001595,
+            "payload_start_samples_used": 204000,
+            "single_marker_payload_start_via_post_only_samples": 204000.00000001583,
+            "single_marker_payload_start_via_pre_only_samples": 204000.00000001595
+          },
+          "expected_marker_separation_samples": 3012000,
+          "fail_reason": null,
+          "max_mapping_disagreement_samples": 480,
+          "n_marker_candidates": 2,
+          "observed_marker_separation_samples": 3012000.0,
+          "post_marker": {
+            "confidence": 0.9999999992347678,
+            "found": true,
+            "start_sample": 3132000.000000016
+          },
+          "pre_marker": {
+            "confidence": 0.9999999992347678,
+            "found": true,
+            "start_sample": 120000.00000001596
+          },
+          "provisional_max_clock_scale_error": 0.0005,
+          "scale_error": 0.0,
+          "status": "GT_VALID",
+          "third_party_max_ncc": 0.9999999992347678
+        },
+        "n_marker_candidates": 2,
+        "passed": true,
+        "payload_placement": {
+          "buffer_payload_samples": [
+            84000,
+            2964000
+          ],
+          "payload_equals_reference_slice": true,
+          "reference_payload_samples": [
+            0,
+            2880000
+          ]
+        },
+        "post_marker_confidence": 0.9999999992347678,
+        "pre_marker_confidence": 0.9999999992347678,
+        "scale_error": 0.0,
+        "selfcheck_capture_sha256": "9ec626779318afab094fdf3a1f92ab5b09e696aacb8eaa73e7cef1c05a16887f",
+        "trim": {
+          "fail_reason": null,
+          "gt_offset_s": 2.45,
+          "holes": [
+            [
+              117600,
+              204000
+            ],
+            [
+              3084000,
+              3170400
+            ]
+          ],
+          "ok": true,
+          "payload_start_in_trimmed": 117600,
+          "trim_end_sample": 3264000,
+          "trim_start_sample": 0
+        }
+      },
+      "sha256": "fe224ed76115ca3bdd22abec1e78dc5f7e8c73b6f88591b38912da05970e49b3",
+      "total_samples": 3048000
+    },
+    "BUF-B1": {
+      "bytes": 6096044,
+      "duration_s": 63.5,
+      "layout": "chirp 0.75s | guard 1.0s | payload 60.0s | guard 1.0s | chirp 0.75s @ 48 kHz PCM_16 mono",
+      "marker1_start_sample": 0,
+      "marker2_start_sample": 3012000,
+      "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\pilot_pack\\buffers\\BUF-B1.wav",
+      "payload_end_sample": 2964000,
+      "payload_source": {
+        "identity": "D:\\Daozh\\Videos\\舞萌手元\\13.1\\steelyou\\track.mp3",
+        "payload_end_s": 60.0,
+        "payload_start_s": 0.0,
+        "source_sha256": "cf92dceb32aac347c7861308e1982be9fa98a6145b992e85dd1e51ff30e1eaf1"
+      },
+      "payload_start_sample": 84000,
+      "selfcheck": {
+        "gt_offset_s_payload_in_trimmed": 2.45,
+        "gt_status": "GT_VALID",
+        "intended_reference_gt_s": 2.45,
+        "mapping_disagreement_s": 2.4253192047278086e-15,
+        "marker_leakage_check": {
+          "leakage": false,
+          "max_ncc": 0.024708340862298624,
+          "max_ncc_lag_samples": 91232,
+          "threshold": 0.15
+        },
+        "marker_qc": {
+          "clock_scale": 1.0,
+          "diagnostics": {
+            "mapping_disagreement_samples": 1.1641532182693481e-10,
+            "payload_end_samples_used": 3084000,
+            "payload_start_map_via_post_samples": 204000.00000001583,
+            "payload_start_map_via_pre_samples": 204000.00000001595,
+            "payload_start_samples_used": 204000,
+            "single_marker_payload_start_via_post_only_samples": 204000.00000001583,
+            "single_marker_payload_start_via_pre_only_samples": 204000.00000001595
+          },
+          "expected_marker_separation_samples": 3012000,
+          "fail_reason": null,
+          "max_mapping_disagreement_samples": 480,
+          "n_marker_candidates": 2,
+          "observed_marker_separation_samples": 3012000.0,
+          "post_marker": {
+            "confidence": 0.9999999992347678,
+            "found": true,
+            "start_sample": 3132000.000000016
+          },
+          "pre_marker": {
+            "confidence": 0.9999999992347678,
+            "found": true,
+            "start_sample": 120000.00000001596
+          },
+          "provisional_max_clock_scale_error": 0.0005,
+          "scale_error": 0.0,
+          "status": "GT_VALID",
+          "third_party_max_ncc": 0.9999999992347678
+        },
+        "n_marker_candidates": 2,
+        "passed": true,
+        "payload_placement": {
+          "buffer_payload_samples": [
+            84000,
+            2964000
+          ],
+          "payload_equals_reference_slice": true,
+          "reference_payload_samples": [
+            0,
+            2880000
+          ]
+        },
+        "post_marker_confidence": 0.9999999992347678,
+        "pre_marker_confidence": 0.9999999992347678,
+        "scale_error": 0.0,
+        "selfcheck_capture_sha256": "c2ac762854e5981a34080a38f5c1d3da98458a266956e24bdb13296f35f63007",
+        "trim": {
+          "fail_reason": null,
+          "gt_offset_s": 2.45,
+          "holes": [
+            [
+              117600,
+              204000
+            ],
+            [
+              3084000,
+              3170400
+            ]
+          ],
+          "ok": true,
+          "payload_start_in_trimmed": 117600,
+          "trim_end_sample": 3264000,
+          "trim_start_sample": 0
+        }
+      },
+      "sha256": "91c9740f0f320e2df02c46fa9d455d31f4ecd57456e13f522e1eaf6323ebfb1d",
+      "total_samples": 3048000
+    },
+    "BUF-BMID": {
+      "bytes": 6096044,
+      "duration_s": 63.5,
+      "layout": "chirp 0.75s | guard 1.0s | payload 60.0s | guard 1.0s | chirp 0.75s @ 48 kHz PCM_16 mono",
+      "marker1_start_sample": 0,
+      "marker2_start_sample": 3012000,
+      "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\pilot_pack\\buffers\\BUF-BMID.wav",
+      "payload_end_sample": 2964000,
+      "payload_source": {
+        "identity": "D:\\Daozh\\Videos\\舞萌手元\\13.1\\steelyou\\track.mp3",
+        "payload_end_s": 150.0,
+        "payload_start_s": 90.0,
+        "source_sha256": "cf92dceb32aac347c7861308e1982be9fa98a6145b992e85dd1e51ff30e1eaf1"
+      },
+      "payload_start_sample": 84000,
+      "selfcheck": {
+        "gt_offset_s_payload_in_trimmed": 2.45,
+        "gt_status": "GT_VALID",
+        "intended_reference_gt_s": -87.55,
+        "mapping_disagreement_s": 2.4253192047278086e-15,
+        "marker_leakage_check": {
+          "leakage": false,
+          "max_ncc": 0.021954105704171462,
+          "max_ncc_lag_samples": 989599,
+          "threshold": 0.15
+        },
+        "marker_qc": {
+          "clock_scale": 1.0,
+          "diagnostics": {
+            "mapping_disagreement_samples": 1.1641532182693481e-10,
+            "payload_end_samples_used": 3084000,
+            "payload_start_map_via_post_samples": 204000.00000001583,
+            "payload_start_map_via_pre_samples": 204000.00000001595,
+            "payload_start_samples_used": 204000,
+            "single_marker_payload_start_via_post_only_samples": 204000.00000001583,
+            "single_marker_payload_start_via_pre_only_samples": 204000.00000001595
+          },
+          "expected_marker_separation_samples": 3012000,
+          "fail_reason": null,
+          "max_mapping_disagreement_samples": 480,
+          "n_marker_candidates": 2,
+          "observed_marker_separation_samples": 3012000.0,
+          "post_marker": {
+            "confidence": 0.9999999992347678,
+            "found": true,
+            "start_sample": 3132000.000000016
+          },
+          "pre_marker": {
+            "confidence": 0.9999999992347679,
+            "found": true,
+            "start_sample": 120000.00000001595
+          },
+          "provisional_max_clock_scale_error": 0.0005,
+          "scale_error": 0.0,
+          "status": "GT_VALID",
+          "third_party_max_ncc": 0.9999999992347679
+        },
+        "n_marker_candidates": 2,
+        "passed": true,
+        "payload_placement": {
+          "buffer_payload_samples": [
+            84000,
+            2964000
+          ],
+          "payload_equals_reference_slice": true,
+          "reference_payload_samples": [
+            4320000,
+            7200000
+          ]
+        },
+        "post_marker_confidence": 0.9999999992347678,
+        "pre_marker_confidence": 0.9999999992347679,
+        "scale_error": 0.0,
+        "selfcheck_capture_sha256": "ef04416ca776f02a9e942e4af86257b6314822f671dd51fa1950257eba5451e3",
+        "trim": {
+          "fail_reason": null,
+          "gt_offset_s": 2.45,
+          "holes": [
+            [
+              117600,
+              204000
+            ],
+            [
+              3084000,
+              3170400
+            ]
+          ],
+          "ok": true,
+          "payload_start_in_trimmed": 117600,
+          "trim_end_sample": 3264000,
+          "trim_start_sample": 0
+        }
+      },
+      "sha256": "f81b84fcaa73574e20999088d23b4c74e5b1777c7181e04b31da92fcf98b979a",
+      "total_samples": 3048000
+    }
+  },
+  "environment": {
+    "libsndfile": "1.2.2",
+    "numpy": "2.2.6",
+    "python": "3.10.11",
+    "scipy": "1.15.3",
+    "soundfile": "0.13.1"
+  },
+  "interference": {
+    "duration_s": 143.188,
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\pilot_pack\\INTERFERENCE.mp3",
+    "role": "background source for take 8 only; never a reference in any pairing",
+    "sha256": "26f0284c9f104f54c2fcca5638c1b1398e924bf64a851f0a0732814393e80904",
+    "source_identity": "26f0284c9f104f54c2fcca5638c1b1398e924bf64a851f0a0732814393e80904",
+    "source_path": "D:\\Daozh\\Music\\舞萌手元用\\Divide et impera.mp3"
+  },
+  "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+  "pilot_pack_only": "PILOT_PACK_ONLY",
+  "protocol": {
+    "bmid_gt_bookkeeping": "reference GT = payload GT in trimmed input - 90.0 s (reference pool = full decoded songs)",
+    "bmid_payload_start_s": 90.0,
+    "chirp_duration_s": 0.75,
+    "fs": 48000,
+    "guard_duration_s": 1.0,
+    "max_mapping_disagreement_s": 0.01,
+    "min_marker_confidence": 0.15,
+    "module": "experiments.applied_system.marker_protocol",
+    "payload_duration_s": 60.0,
+    "wav_format": "PCM_16 mono (protocol rate)"
+  },
+  "references": {
+    "REF-A": {
+      "duration_s": 150.072,
+      "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\pilot_pack\\local\\references\\REF-A.wav",
+      "role": "agent-side comparator reference (FULL decoded song); gitignored generated media, regenerable from the frozen source",
+      "sha256": "3bb5f4aa527d600c262030b9a517321ed3f03e47f13f80d4cfbe647afdbedc5d",
+      "source_sha256": "0c1bad0c937b57ee49b7189a4d0ca7fd01f4d001859fd0723e9b0dd1165fd077"
+    },
+    "REF-B": {
+      "duration_s": 152.842125,
+      "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\pilot_pack\\local\\references\\REF-B.wav",
+      "role": "agent-side comparator reference (FULL decoded song); gitignored generated media, regenerable from the frozen source",
+      "sha256": "9b9c7059be6dcfa661b777d0ba3ff90180b9f29c0ac2fb0feef9b33368db645b",
+      "source_sha256": "cf92dceb32aac347c7861308e1982be9fa98a6145b992e85dd1e51ff30e1eaf1"
+    }
+  },
+  "selection_record": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\pilot_pack\\source_selection.json",
+  "status": "KIT_READY"
+}

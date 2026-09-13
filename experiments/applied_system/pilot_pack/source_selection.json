@@ -1,0 +1,444 @@
+{
+ "pilot_pack_only": "PILOT_PACK_ONLY",
+ "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+ "status": "SELECTED_FROZEN",
+ "frozen_note": "Selection is FROZEN before buffer rendering. Sources may only be replaced before recording for the reasons pre-declared in FRESH_PILOT_PLAN section 9 (undecodable / technically impossible / protocol violation / access problem), documented BEFORE any benchmark outcome is observed. Never replaced because a comparator performs well or badly.",
+ "privacy_note": "Clean-pool and exclusion rows carry basenames + hashes only; full local paths are recorded for the three SELECTED sources (needed to re-run the kit build on this machine) and in the LOCAL-ONLY inventory. The full media listing is never committed.",
+ "media_roots_scanned": [
+  "D:\\Daozh\\Videos",
+  "D:\\Daozh\\Music"
+ ],
+ "scan_summary": {
+  "files_found": 40,
+  "unique_by_sha256": 38,
+  "exact_duplicate_files": 2,
+  "probed_files": 7,
+  "extensions": {
+   ".mp3": 40
+  },
+  "duration_range_s": [
+   126.1,
+   232.1
+  ],
+  "excluded_historical": 33
+ },
+ "historical_exclusions": [
+  {
+   "identity": "DROPS",
+   "pool_files_matched": [
+    "DROPS.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2C-CALIBRATION-HARDENING.md calibration list"
+   ]
+  },
+  {
+   "identity": "共感觉",
+   "pool_files_matched": [
+    "共感觉.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2C-CALIBRATION-HARDENING.md calibration list",
+    "docs/RA-1.2B-ALIGNMENT-ENGINE-V2.md dev corpus note"
+   ]
+  },
+  {
+   "identity": "延误列车 (yanwulieche)",
+   "pool_files_matched": [
+    "延误列车.mp3"
+   ],
+   "provenance": [
+    "task directive (this pilot round)",
+    "docs/RA-1.2C-CALIBRATION-HARDENING.md calibration list",
+    "experiments/ra12d1_temporal_support/reproduce_blocker.py (tr_yanwulieche reference)",
+    "docs/RA-1.2E-V1.2.0-RELEASE.md Astra blocker case"
+   ]
+  },
+  {
+   "identity": "白妄想 / 妄想感伤代偿联盟",
+   "pool_files_matched": [
+    "妄想感伤代偿联盟.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2C-CALIBRATION-HARDENING.md calibration list"
+   ]
+  },
+  {
+   "identity": "红Lividi",
+   "pool_files_matched": [
+    "track.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2C-CALIBRATION-HARDENING.md calibration list"
+   ]
+  },
+  {
+   "identity": "零对话 (lingduihua)",
+   "pool_files_matched": [
+    "track.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2C-CALIBRATION-HARDENING.md calibration list",
+    "docs/RA-1.2E-V1.2.0-RELEASE.md release validation cases",
+    "Astra exploratory research (tr_lingduihua video)"
+   ]
+  },
+  {
+   "identity": "DanceRobotDance",
+   "pool_files_matched": [
+    "DanceRobotDance.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2C-CALIBRATION-HARDENING.md holdout list"
+   ]
+  },
+  {
+   "identity": "白39 / 39",
+   "pool_files_matched": [
+    "39.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2C-CALIBRATION-HARDENING.md holdout list"
+   ]
+  },
+  {
+   "identity": "宙天",
+   "pool_files_matched": [
+    "宙天.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2C-CALIBRATION-HARDENING.md holdout list"
+   ]
+  },
+  {
+   "identity": "分诊",
+   "pool_files_matched": [
+    "分诊.mp3",
+    "分诊.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2C-CALIBRATION-HARDENING.md calibration list"
+   ]
+  },
+  {
+   "identity": "海底谭 / ウミユリ海底譚 (same song identity)",
+   "pool_files_matched": [
+    "ウミユリ海底譚_[cut_132sec].mp3",
+    "海底谭.mp3",
+    "海底谭.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2C-CALIBRATION-HARDENING.md holdout list (海底谭)",
+    "docs/RA-1.2B-ALIGNMENT-ENGINE-V2.md dev corpus (海底谭 已发)"
+   ]
+  },
+  {
+   "identity": "萨姆沙",
+   "pool_files_matched": [
+    "track.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2C-CALIBRATION-HARDENING.md calibration list"
+   ]
+  },
+  {
+   "identity": "90decision",
+   "pool_files_matched": [
+    "90decision.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2C-CALIBRATION-HARDENING.md calibration list"
+   ]
+  },
+  {
+   "identity": "Let u dive",
+   "pool_files_matched": [
+    "track.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2C-CALIBRATION-HARDENING.md holdout list"
+   ]
+  },
+  {
+   "identity": "Override / オーバーライド (both candidate tracks)",
+   "pool_files_matched": [
+    "track.mp3",
+    "オーバーライド - 重音テトSV[吉田夜世] - 吉田夜世.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2B-ALIGNMENT-ENGINE-V2.md 已发/Override note"
+   ]
+  },
+  {
+   "identity": "QUEEN",
+   "pool_files_matched": [
+    "QUEEN.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2C-CALIBRATION-HARDENING.md calibration list"
+   ]
+  },
+  {
+   "identity": "乐意效劳",
+   "pool_files_matched": [
+    "乐意效劳.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2C-CALIBRATION-HARDENING.md holdout list"
+   ]
+  },
+  {
+   "identity": "吃药睡觉",
+   "pool_files_matched": [
+    "track.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2C-CALIBRATION-HARDENING.md holdout list"
+   ]
+  },
+  {
+   "identity": "巴别塔",
+   "pool_files_matched": [
+    "巴别塔.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2C-CALIBRATION-HARDENING.md holdout list"
+   ]
+  },
+  {
+   "identity": "才不是恶魔呢",
+   "pool_files_matched": [
+    "才不是恶魔呢.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2C-CALIBRATION-HARDENING.md holdout list"
+   ]
+  },
+  {
+   "identity": "矛盾心理",
+   "pool_files_matched": [
+    "矛盾心理.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2C-CALIBRATION-HARDENING.md holdout list"
+   ]
+  },
+  {
+   "identity": "Arcaea手元 folders (Chelsea/7mai, Code Oblivion, One Step Closer)",
+   "pool_files_matched": [
+    "【Arcaea】Chelsea - 7mai【FTR譜面】【作業用】 - 【作業用】Arcaea - 譜面保管所.mp3",
+    "【Arcaea】Code Oblivion (ETERNAL)【作業用】 - 【作業用】Arcaea - 譜面保管所.mp3",
+    "【Arcaea】One Step Closer (FUTURE)【作業用】 - 【作業用】Arcaea - 譜面保管所.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2B-ALIGNMENT-ENGINE-V2.md dev corpus list ('all Arcaea手元 folders')"
+   ]
+  },
+  {
+   "identity": "INTERNETOVERDOSE",
+   "pool_files_matched": [
+    "INTERNETOVERDOSE.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2B-ALIGNMENT-ENGINE-V2.md dev corpus list"
+   ]
+  },
+  {
+   "identity": "on your mark",
+   "pool_files_matched": [
+    "on your mark.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2B-ALIGNMENT-ENGINE-V2.md dev corpus list"
+   ]
+  },
+  {
+   "identity": "强风大背头 / 強風オールバック",
+   "pool_files_matched": [
+    "Yukopi - 強風オールバック (feat.歌愛ユキ) - Yukopi.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2B-ALIGNMENT-ENGINE-V2.md dev corpus list"
+   ]
+  },
+  {
+   "identity": "右曲",
+   "pool_files_matched": [
+    "右曲.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2B-ALIGNMENT-ENGINE-V2.md dev corpus list"
+   ]
+  },
+  {
+   "identity": "心跳不止",
+   "pool_files_matched": [
+    "心跳不止.mp3"
+   ],
+   "provenance": [
+    "docs/RA-1.2B-ALIGNMENT-ENGINE-V2.md dev corpus list"
+   ]
+  }
+ ],
+ "clean_pool": [
+  {
+   "path": null,
+   "sha256": "0c1bad0c937b57ee49b7189a4d0ca7fd01f4d001859fd0723e9b0dd1165fd077",
+   "duration_s": 150.076,
+   "sample_rate": 48000,
+   "channels": 2,
+   "bit_rate_bps": 320000,
+   "leading_silence_s": 0.254,
+   "trailing_silence_s": 1.225,
+   "r_long": 0.97196,
+   "r_short": 0.97667,
+   "peak_lag_s": 22.0,
+   "excluded_by": [],
+   "basename": "Bloody Trail.mp3"
+  },
+  {
+   "path": null,
+   "sha256": "26f0284c9f104f54c2fcca5638c1b1398e924bf64a851f0a0732814393e80904",
+   "duration_s": 143.188,
+   "sample_rate": 48000,
+   "channels": 2,
+   "bit_rate_bps": 320000,
+   "leading_silence_s": 0.707,
+   "trailing_silence_s": 2.452,
+   "r_long": 0.97814,
+   "r_short": 0.9802,
+   "peak_lag_s": 142.5,
+   "excluded_by": [],
+   "basename": "Divide et impera.mp3"
+  },
+  {
+   "path": null,
+   "sha256": "3e61a90722f1a979a92f294c7256566bc796130deeabb35524f265caa4fe0ee6",
+   "duration_s": 232.083,
+   "sample_rate": 48000,
+   "channels": 2,
+   "bit_rate_bps": 320000,
+   "leading_silence_s": 1.887,
+   "trailing_silence_s": 1.19,
+   "r_long": 0.95204,
+   "r_short": 0.97006,
+   "peak_lag_s": 66.0,
+   "excluded_by": [],
+   "basename": "ARROW.mp3"
+  },
+  {
+   "path": null,
+   "sha256": "829bc0c618c5a18c5bde0f9c0cf380f0139f00707c378e4ce4778d8006f583d3",
+   "duration_s": 151.492,
+   "sample_rate": 48000,
+   "channels": 2,
+   "bit_rate_bps": 320000,
+   "leading_silence_s": 2.777,
+   "trailing_silence_s": 2.34,
+   "r_long": 0.94717,
+   "r_short": 0.96387,
+   "peak_lag_s": 150.5,
+   "excluded_by": [],
+   "basename": "かめりあ(Camellia) - Sage [From maimai でらっくす] - Camellia Official.mp3"
+  },
+  {
+   "path": null,
+   "sha256": "b57f61bbdd2fef77d6635fbdd126def25f5cd9494a7b8ad18c07cca0ac502585",
+   "duration_s": 128.331,
+   "sample_rate": 48000,
+   "channels": 2,
+   "bit_rate_bps": 320000,
+   "leading_silence_s": 0.807,
+   "trailing_silence_s": 1.413,
+   "r_long": 0.97226,
+   "r_short": 0.97309,
+   "peak_lag_s": 127.5,
+   "excluded_by": [],
+   "basename": "Scarlet Lance - MASAKI (ZUNATA) - Groove Coaster Originals BGs.mp3"
+  },
+  {
+   "path": null,
+   "sha256": "c7a499482e4e256ec46160d66a6e8eac679ba53dec39620fa66bea1d32506bcb",
+   "duration_s": 126.051,
+   "sample_rate": 48000,
+   "channels": 2,
+   "bit_rate_bps": 320000,
+   "leading_silence_s": 0.044,
+   "trailing_silence_s": 0.022,
+   "r_long": 0.97437,
+   "r_short": 0.97596,
+   "peak_lag_s": 51.5,
+   "excluded_by": [],
+   "basename": "さよならプリンセス _ 初音ミク - Kai.mp3"
+  },
+  {
+   "path": null,
+   "sha256": "cf92dceb32aac347c7861308e1982be9fa98a6145b992e85dd1e51ff30e1eaf1",
+   "duration_s": 152.842,
+   "sample_rate": 48000,
+   "channels": 2,
+   "bit_rate_bps": 256441,
+   "leading_silence_s": 1.606,
+   "trailing_silence_s": 0.169,
+   "r_long": 0.98811,
+   "r_short": 0.98884,
+   "peak_lag_s": 50.5,
+   "excluded_by": [],
+   "basename": "track.mp3"
+  }
+ ],
+ "selection_rules": {
+  "screening": "decodable; duration >= 60.0 s; leading and trailing silence <= 5.0 s at -60 dBFS; duplicates collapsed by SHA-256; historical exclusions applied",
+  "song_b": "highest R_long among candidates with duration >= 150.0 s (BUF-BMID needs 90.0 s + 60.0 s)",
+  "song_a": "closest duration to the clean-pool median among candidates with R_long strictly below song B (structure-blind ordinariness; B-feasibility clause guarantees song B is measurably more repetitive than song A)",
+  "interference": "maximum mean chroma-texture distance to {song A, song B} among remaining candidates",
+  "structural_metric": "R_long = mean cosine similarity of 2 Hz chroma blocks at lags >= 16 s (see module docstring). A deterministic selection heuristic, NOT a universal difficulty measure.",
+  "tie_break": "ascending SHA-256"
+ },
+ "clean_pool_median_duration_s": 150.076,
+ "song_a": {
+  "path": "D:\\Daozh\\Music\\舞萌手元用\\Bloody Trail.mp3",
+  "sha256": "0c1bad0c937b57ee49b7189a4d0ca7fd01f4d001859fd0723e9b0dd1165fd077",
+  "duration_s": 150.076,
+  "sample_rate": 48000,
+  "channels": 2,
+  "bit_rate_bps": 320000,
+  "leading_silence_s": 0.254,
+  "trailing_silence_s": 1.225,
+  "r_long": 0.97196,
+  "r_short": 0.97667,
+  "peak_lag_s": 22.0,
+  "excluded_by": [],
+  "role_note": "ordinary representative: duration closest to clean-pool median (150.1 s); R_long 0.972 < song B 0.988; clean decode, edge silence 0.25s/1.23s"
+ },
+ "song_b": {
+  "path": "D:\\Daozh\\Videos\\舞萌手元\\13.1\\steelyou\\track.mp3",
+  "sha256": "cf92dceb32aac347c7861308e1982be9fa98a6145b992e85dd1e51ff30e1eaf1",
+  "duration_s": 152.842,
+  "sample_rate": 48000,
+  "channels": 2,
+  "bit_rate_bps": 256441,
+  "leading_silence_s": 1.606,
+  "trailing_silence_s": 0.169,
+  "r_long": 0.98811,
+  "r_short": 0.98884,
+  "peak_lag_s": 50.5,
+  "excluded_by": [],
+  "role_note": "structurally difficult: highest R_long (0.988) among 150.0-eligible candidates; peak long-lag recurrence at 50.5 s (similarity 0.988); edge silence 1.61s/0.17s"
+ },
+ "interference": {
+  "path": "D:\\Daozh\\Music\\舞萌手元用\\Divide et impera.mp3",
+  "sha256": "26f0284c9f104f54c2fcca5638c1b1398e924bf64a851f0a0732814393e80904",
+  "duration_s": 143.188,
+  "sample_rate": 48000,
+  "channels": 2,
+  "bit_rate_bps": 320000,
+  "leading_silence_s": 0.707,
+  "trailing_silence_s": 2.452,
+  "r_long": 0.97814,
+  "r_short": 0.9802,
+  "peak_lag_s": 142.5,
+  "excluded_by": [],
+  "role_note": "maximum chroma-texture distance to song A and song B among remaining candidates (0.013); never a reference in any pairing"
+ }
+}
