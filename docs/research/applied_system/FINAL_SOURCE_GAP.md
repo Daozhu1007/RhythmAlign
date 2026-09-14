@@ -1,6 +1,28 @@
 # Final Source Pool Gap
 
-Status: `FINAL_SOURCE_POOL_INSUFFICIENT`
+Status: `FINAL_SOURCE_POOL_INSUFFICIENT` → **RESOLVED 2026-09-15**
+(see `FINAL_SOURCE_SELECTION.md`)
+
+> **2026-09-15 resolution note (historical record preserved below, never
+> deleted).** The insufficient pool documented on this page has been
+> resolved by the owner's fresh folder
+> `D:\Daozh\Music\RhythmAlign_FinalCandidates_Fresh` (13 files → 11 clean
+> eligible identities). The final source freeze, the 26-take acquisition
+> manifest, and the playback kit now exist; see
+> `FINAL_SOURCE_SELECTION.md` and
+> `experiments/applied_system/final_pack/`. The alias audit performed
+> during that resolution additionally found that THREE of the four
+> "remaining final-eligible identities" tabled below were wrong at the
+> identity level and are now PERMANENTLY_EXCLUDED_HISTORICAL, with
+> evidence recorded in the freeze: **Scarlet Lance = 红枪** (result-screen
+> evidence), **さよならプリンセス = 再见公主** (result-screen evidence),
+> and **Sage** (production RhythmAlign outputs `Sage_synced*.mp4`). Only
+> **ARROW** survives from the table below, and it is S06 of the final
+> freeze. The protocol, the ledger snapshot
+> `ab7572e352421e433b3ed6aff009fdc437d3c57bca73e257c626fcaef5385b9e`, and
+> the "6 + 1 missing sources" numbers below are historical statements of
+> that date; the missing-count requirement was satisfied by the fresh
+> intake. NO COMPARATOR WAS RUN AT ANY POINT, in either audit.
 
 This document records the performance-blind source audit required before the
 final acquisition kit can be built. The frozen benchmark protocol was not

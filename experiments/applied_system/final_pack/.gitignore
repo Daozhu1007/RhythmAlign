@@ -1,0 +1,6 @@
+# Generated final-pack media and the local audit inventory: personal
+# data + copyrighted audio. NEVER commit. Hashes live in the committed
+# freeze/manifest records.
+local/
+buffers/
+INTERFERENCE.*

@@ -1,0 +1,1573 @@
+{
+ "body": {
+  "authority": "docs/research/applied_system/FINAL_BENCHMARK_PROTOCOL.md + final_source_freeze.json",
+  "buffer_selfchecks": {
+   "BUF-S01": {
+    "gt_offset_s_payload_in_trimmed": 2.45,
+    "gt_status": "GT_VALID",
+    "intended_reference_gt_s": 2.45,
+    "mapping_disagreement_s": 2.4253192047278086e-15,
+    "marker_leakage_check": {
+     "leakage": false,
+     "max_ncc": 0.024283627288577407,
+     "max_ncc_lag_samples": 1660519,
+     "threshold": 0.15
+    },
+    "n_marker_candidates": 2,
+    "passed": true,
+    "payload_placement": {
+     "buffer_payload_samples": [
+      84000,
+      2964000
+     ],
+     "payload_equals_reference_slice": true,
+     "reference_payload_samples": [
+      0,
+      2880000
+     ]
+    },
+    "post_marker_confidence": 0.9999999992347678,
+    "pre_marker_confidence": 0.9999999992347679,
+    "scale_error": 0.0,
+    "selfcheck_capture_sha256": "16946cd5450f1b0608476a7684f630f02c610db4cd73fa65379ce23d6944ea68"
+   },
+   "BUF-S01-PART": {
+    "gt_offset_s_payload_in_trimmed": 2.45,
+    "gt_status": "GT_VALID",
+    "intended_reference_gt_s": -87.55,
+    "mapping_disagreement_s": 2.4253192047278086e-15,
+    "marker_leakage_check": {
+     "leakage": false,
+     "max_ncc": 0.02774282669060326,
+     "max_ncc_lag_samples": 1260543,
+     "threshold": 0.15
+    },
+    "n_marker_candidates": 2,
+    "passed": true,
+    "payload_placement": {
+     "buffer_payload_samples": [
+      84000,
+      2964000
+     ],
+     "payload_equals_reference_slice": true,
+     "reference_payload_samples": [
+      4320000,
+      7200000
+     ]
+    },
+    "post_marker_confidence": 0.9999999992347679,
+    "pre_marker_confidence": 0.9999999992347678,
+    "scale_error": 0.0,
+    "selfcheck_capture_sha256": "1c1b35fc624e8bb275a8d5da1caf0ba6cecf8d5d8c2c36e10981d6921444b18e"
+   },
+   "BUF-S02": {
+    "gt_offset_s_payload_in_trimmed": 2.45,
+    "gt_status": "GT_VALID",
+    "intended_reference_gt_s": 2.45,
+    "mapping_disagreement_s": 2.4253192047278086e-15,
+    "marker_leakage_check": {
+     "leakage": false,
+     "max_ncc": 0.02915643274789826,
+     "max_ncc_lag_samples": 954955,
+     "threshold": 0.15
+    },
+    "n_marker_candidates": 2,
+    "passed": true,
+    "payload_placement": {
+     "buffer_payload_samples": [
+      84000,
+      2964000
+     ],
+     "payload_equals_reference_slice": true,
+     "reference_payload_samples": [
+      0,
+      2880000
+     ]
+    },
+    "post_marker_confidence": 0.9999999992347678,
+    "pre_marker_confidence": 0.9999999992347679,
+    "scale_error": 0.0,
+    "selfcheck_capture_sha256": "f725eef4c7879f7e87b8160504f320a72594624c59afec013cfef9998200fa5a"
+   },
+   "BUF-S02-PART": {
+    "gt_offset_s_payload_in_trimmed": 2.45,
+    "gt_status": "GT_VALID",
+    "intended_reference_gt_s": -85.68791666666667,
+    "mapping_disagreement_s": 2.4253192047278086e-15,
+    "marker_leakage_check": {
+     "leakage": false,
+     "max_ncc": 0.02833532511852455,
+     "max_ncc_lag_samples": 2190901,
+     "threshold": 0.15
+    },
+    "n_marker_candidates": 2,
+    "passed": true,
+    "payload_placement": {
+     "buffer_payload_samples": [
+      84000,
+      2964000
+     ],
+     "payload_equals_reference_slice": true,
+     "reference_payload_samples": [
+      4230620,
+      7110620
+     ]
+    },
+    "post_marker_confidence": 0.9999999992347678,
+    "pre_marker_confidence": 0.9999999992347678,
+    "scale_error": 0.0,
+    "selfcheck_capture_sha256": "6376fb3748310cf1fed3f45a3c6d74c3e9f4885316f969fefc592020701df27e"
+   },
+   "BUF-S03": {
+    "gt_offset_s_payload_in_trimmed": 2.45,
+    "gt_status": "GT_VALID",
+    "intended_reference_gt_s": 2.45,
+    "mapping_disagreement_s": 2.4253192047278086e-15,
+    "marker_leakage_check": {
+     "leakage": false,
+     "max_ncc": 0.028291948558567856,
+     "max_ncc_lag_samples": 298556,
+     "threshold": 0.15
+    },
+    "n_marker_candidates": 2,
+    "passed": true,
+    "payload_placement": {
+     "buffer_payload_samples": [
+      84000,
+      2964000
+     ],
+     "payload_equals_reference_slice": true,
+     "reference_payload_samples": [
+      0,
+      2880000
+     ]
+    },
+    "post_marker_confidence": 0.9999999992347678,
+    "pre_marker_confidence": 0.9999999992347678,
+    "scale_error": 0.0,
+    "selfcheck_capture_sha256": "a1c411b58e852d7447fa9ec4140c0ba74dcb4b1cd6a88ebbf9b2c10bd2b5898b"
+   },
+   "BUF-S04": {
+    "gt_offset_s_payload_in_trimmed": 2.45,
+    "gt_status": "GT_VALID",
+    "intended_reference_gt_s": 2.45,
+    "mapping_disagreement_s": 2.4253192047278086e-15,
+    "marker_leakage_check": {
+     "leakage": false,
+     "max_ncc": 0.025208572500670955,
+     "max_ncc_lag_samples": 33146,
+     "threshold": 0.15
+    },
+    "n_marker_candidates": 2,
+    "passed": true,
+    "payload_placement": {
+     "buffer_payload_samples": [
+      84000,
+      2964000
+     ],
+     "payload_equals_reference_slice": true,
+     "reference_payload_samples": [
+      0,
+      2880000
+     ]
+    },
+    "post_marker_confidence": 0.9999999992347679,
+    "pre_marker_confidence": 0.9999999992347679,
+    "scale_error": 0.0,
+    "selfcheck_capture_sha256": "a73c41ae2df7fcc2609ed5a42e2ffd2f98513965d99a567cfd110772669a5201"
+   },
+   "BUF-S05": {
+    "gt_offset_s_payload_in_trimmed": 2.45,
+    "gt_status": "GT_VALID",
+    "intended_reference_gt_s": 2.45,
+    "mapping_disagreement_s": 2.4253192047278086e-15,
+    "marker_leakage_check": {
+     "leakage": false,
+     "max_ncc": 0.02501363086276654,
+     "max_ncc_lag_samples": 344235,
+     "threshold": 0.15
+    },
+    "n_marker_candidates": 2,
+    "passed": true,
+    "payload_placement": {
+     "buffer_payload_samples": [
+      84000,
+      2964000
+     ],
+     "payload_equals_reference_slice": true,
+     "reference_payload_samples": [
+      0,
+      2880000
+     ]
+    },
+    "post_marker_confidence": 0.9999999992347678,
+    "pre_marker_confidence": 0.9999999992347678,
+    "scale_error": 0.0,
+    "selfcheck_capture_sha256": "f9388efbce7f9a8af4e7d4a66f18174f09fc8528e1076bd7d38e7749ab16e91a"
+   },
+   "BUF-S06": {
+    "gt_offset_s_payload_in_trimmed": 2.45,
+    "gt_status": "GT_VALID",
+    "intended_reference_gt_s": 2.45,
+    "mapping_disagreement_s": 2.4253192047278086e-15,
+    "marker_leakage_check": {
+     "leakage": false,
+     "max_ncc": 0.026116280269148303,
+     "max_ncc_lag_samples": 2984517,
+     "threshold": 0.15
+    },
+    "n_marker_candidates": 2,
+    "passed": true,
+    "payload_placement": {
+     "buffer_payload_samples": [
+      84000,
+      2964000
+     ],
+     "payload_equals_reference_slice": true,
+     "reference_payload_samples": [
+      0,
+      2880000
+     ]
+    },
+    "post_marker_confidence": 0.9999999992347679,
+    "pre_marker_confidence": 0.9999999992347679,
+    "scale_error": 0.0,
+    "selfcheck_capture_sha256": "93c6363f2900f8eb98bfc507ef3762acc4c4e929ecfc2f533e8e703062eff2b9"
+   },
+   "BUF-S07": {
+    "gt_offset_s_payload_in_trimmed": 2.45,
+    "gt_status": "GT_VALID",
+    "intended_reference_gt_s": 2.45,
+    "mapping_disagreement_s": 2.4253192047278086e-15,
+    "marker_leakage_check": {
+     "leakage": false,
+     "max_ncc": 0.026604017577560434,
+     "max_ncc_lag_samples": 1218031,
+     "threshold": 0.15
+    },
+    "n_marker_candidates": 2,
+    "passed": true,
+    "payload_placement": {
+     "buffer_payload_samples": [
+      84000,
+      2964000
+     ],
+     "payload_equals_reference_slice": true,
+     "reference_payload_samples": [
+      0,
+      2880000
+     ]
+    },
+    "post_marker_confidence": 0.9999999992347678,
+    "pre_marker_confidence": 0.9999999992347679,
+    "scale_error": 0.0,
+    "selfcheck_capture_sha256": "666d365f16d1055f3cf6eff271eaf7aa16525d0c688168441dfe1f20623181ad"
+   },
+   "BUF-S08": {
+    "gt_offset_s_payload_in_trimmed": 2.45,
+    "gt_status": "GT_VALID",
+    "intended_reference_gt_s": 2.45,
+    "mapping_disagreement_s": 2.4253192047278086e-15,
+    "marker_leakage_check": {
+     "leakage": false,
+     "max_ncc": 0.02363029595600744,
+     "max_ncc_lag_samples": 48419,
+     "threshold": 0.15
+    },
+    "n_marker_candidates": 2,
+    "passed": true,
+    "payload_placement": {
+     "buffer_payload_samples": [
+      84000,
+      2964000
+     ],
+     "payload_equals_reference_slice": true,
+     "reference_payload_samples": [
+      0,
+      2880000
+     ]
+    },
+    "post_marker_confidence": 0.9999999992347678,
+    "pre_marker_confidence": 0.9999999992347679,
+    "scale_error": 0.0,
+    "selfcheck_capture_sha256": "46cff4d3c02b76920bb9dc61f7cf12dd0f9021b1b1367d0c5ea13a0db5f76638"
+   },
+   "BUF-S09": {
+    "gt_offset_s_payload_in_trimmed": 2.45,
+    "gt_status": "GT_VALID",
+    "intended_reference_gt_s": 2.45,
+    "mapping_disagreement_s": 2.4253192047278086e-15,
+    "marker_leakage_check": {
+     "leakage": false,
+     "max_ncc": 0.023542497585013915,
+     "max_ncc_lag_samples": 259178,
+     "threshold": 0.15
+    },
+    "n_marker_candidates": 2,
+    "passed": true,
+    "payload_placement": {
+     "buffer_payload_samples": [
+      84000,
+      2964000
+     ],
+     "payload_equals_reference_slice": true,
+     "reference_payload_samples": [
+      0,
+      2880000
+     ]
+    },
+    "post_marker_confidence": 0.9999999992347679,
+    "pre_marker_confidence": 0.9999999992347678,
+    "scale_error": 0.0,
+    "selfcheck_capture_sha256": "6e982c11c92d9f7985add0d4683b833d6e1264d2a18065f1f560e710b37e7f5e"
+   },
+   "BUF-S10": {
+    "gt_offset_s_payload_in_trimmed": 2.45,
+    "gt_status": "GT_VALID",
+    "intended_reference_gt_s": 2.45,
+    "mapping_disagreement_s": 2.4253192047278086e-15,
+    "marker_leakage_check": {
+     "leakage": false,
+     "max_ncc": 0.023459084742025692,
+     "max_ncc_lag_samples": 91386,
+     "threshold": 0.15
+    },
+    "n_marker_candidates": 2,
+    "passed": true,
+    "payload_placement": {
+     "buffer_payload_samples": [
+      84000,
+      2964000
+     ],
+     "payload_equals_reference_slice": true,
+     "reference_payload_samples": [
+      0,
+      2880000
+     ]
+    },
+    "post_marker_confidence": 0.9999999992347678,
+    "pre_marker_confidence": 0.9999999992347679,
+    "scale_error": 0.0,
+    "selfcheck_capture_sha256": "cdf6a32d472b973b351e25090393541db9aff5632bbae2497303c3f72b6ecf76"
+   }
+  },
+  "buffers": {
+   "BUF-S01": {
+    "buffer_id": "BUF-S01",
+    "bytes": 6096044,
+    "condition_role": "ordinary payload from song start",
+    "duration_s": 63.5,
+    "intended_gt": {
+     "bookkeeping": "reference GT = payload GT - slice start",
+     "payload_gt_s_with_standard_lead": 2.45,
+     "reference_gt_s_with_standard_lead": 2.45
+    },
+    "marker_positions": {
+     "marker1_start_sample": 0,
+     "marker2_start_sample": 3012000,
+     "payload_end_sample": 2964000,
+     "payload_start_sample": 84000,
+     "total_samples": 3048000
+    },
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\buffers\\BUF-S01.wav",
+    "payload_slice_s": [
+     0.0,
+     60.0
+    ],
+    "payload_slice_start_sample": 0,
+    "sha256": "06addc56170ed928b8f7e9f28ea803dc14e6bceda9f36c119c6dd9a512b65026",
+    "source_sha256": "087fce52c70b885c2e29ec0d3e4222eaf9bc633aeeb38b2ce3f3e4307eff5b90",
+    "source_slot": "S01",
+    "used_by_takes": [
+     "final01",
+     "final11",
+     "repeat01"
+    ]
+   },
+   "BUF-S01-PART": {
+    "buffer_id": "BUF-S01-PART",
+    "bytes": 6096044,
+    "condition_role": "partial payload starting at 90.000 s (min(90 s, duration-60 s))",
+    "duration_s": 63.5,
+    "intended_gt": {
+     "bookkeeping": "reference GT = payload GT - slice start",
+     "payload_gt_s_with_standard_lead": 2.45,
+     "reference_gt_s_with_standard_lead": -87.55
+    },
+    "marker_positions": {
+     "marker1_start_sample": 0,
+     "marker2_start_sample": 3012000,
+     "payload_end_sample": 2964000,
+     "payload_start_sample": 84000,
+     "total_samples": 3048000
+    },
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\buffers\\BUF-S01-PART.wav",
+    "payload_slice_s": [
+     90.0,
+     150.0
+    ],
+    "payload_slice_start_sample": 4320000,
+    "sha256": "eaaea0177a5797c31ac4d618a6e6cacd6ca1781dbcb2b57fdec1cf56a8e58d99",
+    "source_sha256": "087fce52c70b885c2e29ec0d3e4222eaf9bc633aeeb38b2ce3f3e4307eff5b90",
+    "source_slot": "S01",
+    "used_by_takes": [
+     "final21"
+    ]
+   },
+   "BUF-S02": {
+    "buffer_id": "BUF-S02",
+    "bytes": 6096044,
+    "condition_role": "ordinary payload from song start",
+    "duration_s": 63.5,
+    "intended_gt": {
+     "bookkeeping": "reference GT = payload GT - slice start",
+     "payload_gt_s_with_standard_lead": 2.45,
+     "reference_gt_s_with_standard_lead": 2.45
+    },
+    "marker_positions": {
+     "marker1_start_sample": 0,
+     "marker2_start_sample": 3012000,
+     "payload_end_sample": 2964000,
+     "payload_start_sample": 84000,
+     "total_samples": 3048000
+    },
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\buffers\\BUF-S02.wav",
+    "payload_slice_s": [
+     0.0,
+     60.0
+    ],
+    "payload_slice_start_sample": 0,
+    "sha256": "95da11e77374f0e61d3491d24f7fd4402c90604919efe5c3e4685fd941d708f8",
+    "source_sha256": "1347b77c7b789165da18ff2e502a10871649552cae33e9570ebeaeae05e925ab",
+    "source_slot": "S02",
+    "used_by_takes": [
+     "final02",
+     "final12",
+     "repeat02"
+    ]
+   },
+   "BUF-S02-PART": {
+    "buffer_id": "BUF-S02-PART",
+    "bytes": 6096044,
+    "condition_role": "partial payload starting at 88.138 s (min(90 s, duration-60 s))",
+    "duration_s": 63.5,
+    "intended_gt": {
+     "bookkeeping": "reference GT = payload GT - slice start",
+     "payload_gt_s_with_standard_lead": 2.45,
+     "reference_gt_s_with_standard_lead": -85.687917
+    },
+    "marker_positions": {
+     "marker1_start_sample": 0,
+     "marker2_start_sample": 3012000,
+     "payload_end_sample": 2964000,
+     "payload_start_sample": 84000,
+     "total_samples": 3048000
+    },
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\buffers\\BUF-S02-PART.wav",
+    "payload_slice_s": [
+     88.137917,
+     148.137917
+    ],
+    "payload_slice_start_sample": 4230620,
+    "sha256": "a61067ea30ac0a872b65fa277272396ba6c51623744ef2bb20e1f132681336a0",
+    "source_sha256": "1347b77c7b789165da18ff2e502a10871649552cae33e9570ebeaeae05e925ab",
+    "source_slot": "S02",
+    "used_by_takes": [
+     "final22"
+    ]
+   },
+   "BUF-S03": {
+    "buffer_id": "BUF-S03",
+    "bytes": 6096044,
+    "condition_role": "ordinary payload from song start",
+    "duration_s": 63.5,
+    "intended_gt": {
+     "bookkeeping": "reference GT = payload GT - slice start",
+     "payload_gt_s_with_standard_lead": 2.45,
+     "reference_gt_s_with_standard_lead": 2.45
+    },
+    "marker_positions": {
+     "marker1_start_sample": 0,
+     "marker2_start_sample": 3012000,
+     "payload_end_sample": 2964000,
+     "payload_start_sample": 84000,
+     "total_samples": 3048000
+    },
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\buffers\\BUF-S03.wav",
+    "payload_slice_s": [
+     0.0,
+     60.0
+    ],
+    "payload_slice_start_sample": 0,
+    "sha256": "eb66ae651d287937dd87433591f35940f9a43ba9cebbf9de0a8fcb4a6843b44d",
+    "source_sha256": "25548ff816d53f5f4c7b7cf0559c1e500521fc482709e6cdd9a4b44f15a40602",
+    "source_slot": "S03",
+    "used_by_takes": [
+     "final03",
+     "final13"
+    ]
+   },
+   "BUF-S04": {
+    "buffer_id": "BUF-S04",
+    "bytes": 6096044,
+    "condition_role": "ordinary payload from song start",
+    "duration_s": 63.5,
+    "intended_gt": {
+     "bookkeeping": "reference GT = payload GT - slice start",
+     "payload_gt_s_with_standard_lead": 2.45,
+     "reference_gt_s_with_standard_lead": 2.45
+    },
+    "marker_positions": {
+     "marker1_start_sample": 0,
+     "marker2_start_sample": 3012000,
+     "payload_end_sample": 2964000,
+     "payload_start_sample": 84000,
+     "total_samples": 3048000
+    },
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\buffers\\BUF-S04.wav",
+    "payload_slice_s": [
+     0.0,
+     60.0
+    ],
+    "payload_slice_start_sample": 0,
+    "sha256": "18cdb2048ffaa78a2f443a57462154193d002a314011fbe0858df2ef6338ded6",
+    "source_sha256": "32413fa39a23553540add9fc1f0ccd06f9d3bef4a10e87ebf281a7e930957e05",
+    "source_slot": "S04",
+    "used_by_takes": [
+     "final04",
+     "final14"
+    ]
+   },
+   "BUF-S05": {
+    "buffer_id": "BUF-S05",
+    "bytes": 6096044,
+    "condition_role": "ordinary payload from song start",
+    "duration_s": 63.5,
+    "intended_gt": {
+     "bookkeeping": "reference GT = payload GT - slice start",
+     "payload_gt_s_with_standard_lead": 2.45,
+     "reference_gt_s_with_standard_lead": 2.45
+    },
+    "marker_positions": {
+     "marker1_start_sample": 0,
+     "marker2_start_sample": 3012000,
+     "payload_end_sample": 2964000,
+     "payload_start_sample": 84000,
+     "total_samples": 3048000
+    },
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\buffers\\BUF-S05.wav",
+    "payload_slice_s": [
+     0.0,
+     60.0
+    ],
+    "payload_slice_start_sample": 0,
+    "sha256": "2a6be3c50f5d0138799b7032a786d2ba1bd01713809cb2573744d46371273b26",
+    "source_sha256": "3723944c36e3877419564327b5256ba2aeb39eb517286198ca8c187aaaaae217",
+    "source_slot": "S05",
+    "used_by_takes": [
+     "final05",
+     "final15"
+    ]
+   },
+   "BUF-S06": {
+    "buffer_id": "BUF-S06",
+    "bytes": 6096044,
+    "condition_role": "ordinary payload from song start",
+    "duration_s": 63.5,
+    "intended_gt": {
+     "bookkeeping": "reference GT = payload GT - slice start",
+     "payload_gt_s_with_standard_lead": 2.45,
+     "reference_gt_s_with_standard_lead": 2.45
+    },
+    "marker_positions": {
+     "marker1_start_sample": 0,
+     "marker2_start_sample": 3012000,
+     "payload_end_sample": 2964000,
+     "payload_start_sample": 84000,
+     "total_samples": 3048000
+    },
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\buffers\\BUF-S06.wav",
+    "payload_slice_s": [
+     0.0,
+     60.0
+    ],
+    "payload_slice_start_sample": 0,
+    "sha256": "8936da95750b00e667303ef4fd13942c6b3e17f93b6576eb8459cc0a65107a45",
+    "source_sha256": "3e61a90722f1a979a92f294c7256566bc796130deeabb35524f265caa4fe0ee6",
+    "source_slot": "S06",
+    "used_by_takes": [
+     "final06",
+     "final16"
+    ]
+   },
+   "BUF-S07": {
+    "buffer_id": "BUF-S07",
+    "bytes": 6096044,
+    "condition_role": "ordinary payload from song start",
+    "duration_s": 63.5,
+    "intended_gt": {
+     "bookkeeping": "reference GT = payload GT - slice start",
+     "payload_gt_s_with_standard_lead": 2.45,
+     "reference_gt_s_with_standard_lead": 2.45
+    },
+    "marker_positions": {
+     "marker1_start_sample": 0,
+     "marker2_start_sample": 3012000,
+     "payload_end_sample": 2964000,
+     "payload_start_sample": 84000,
+     "total_samples": 3048000
+    },
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\buffers\\BUF-S07.wav",
+    "payload_slice_s": [
+     0.0,
+     60.0
+    ],
+    "payload_slice_start_sample": 0,
+    "sha256": "bc080780df0e6ec24d73393eebbe3332fa8231dbba1cf83697843cd78528c8fb",
+    "source_sha256": "49c26864446ce0fa07cda11a4b64d332f0afa2ca5e47962f0c7263261fe0c82b",
+    "source_slot": "S07",
+    "used_by_takes": [
+     "final07",
+     "final17"
+    ]
+   },
+   "BUF-S08": {
+    "buffer_id": "BUF-S08",
+    "bytes": 6096044,
+    "condition_role": "ordinary payload from song start",
+    "duration_s": 63.5,
+    "intended_gt": {
+     "bookkeeping": "reference GT = payload GT - slice start",
+     "payload_gt_s_with_standard_lead": 2.45,
+     "reference_gt_s_with_standard_lead": 2.45
+    },
+    "marker_positions": {
+     "marker1_start_sample": 0,
+     "marker2_start_sample": 3012000,
+     "payload_end_sample": 2964000,
+     "payload_start_sample": 84000,
+     "total_samples": 3048000
+    },
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\buffers\\BUF-S08.wav",
+    "payload_slice_s": [
+     0.0,
+     60.0
+    ],
+    "payload_slice_start_sample": 0,
+    "sha256": "08f1c3d6fc5efaf14c9dabef57ea8805290d9268fd54f83005a0aa3c62a2c1cb",
+    "source_sha256": "5888dc3ef9e3fa32ccb4fddb5e0ef5df3122836c6a082b20a1fd14b7fb5e8d53",
+    "source_slot": "S08",
+    "used_by_takes": [
+     "final08",
+     "final18"
+    ]
+   },
+   "BUF-S09": {
+    "buffer_id": "BUF-S09",
+    "bytes": 6096044,
+    "condition_role": "ordinary payload from song start",
+    "duration_s": 63.5,
+    "intended_gt": {
+     "bookkeeping": "reference GT = payload GT - slice start",
+     "payload_gt_s_with_standard_lead": 2.45,
+     "reference_gt_s_with_standard_lead": 2.45
+    },
+    "marker_positions": {
+     "marker1_start_sample": 0,
+     "marker2_start_sample": 3012000,
+     "payload_end_sample": 2964000,
+     "payload_start_sample": 84000,
+     "total_samples": 3048000
+    },
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\buffers\\BUF-S09.wav",
+    "payload_slice_s": [
+     0.0,
+     60.0
+    ],
+    "payload_slice_start_sample": 0,
+    "sha256": "39be3a516e1ff961bbdf8b7edaada23b547d73553b0f36f9317e272115d49a0c",
+    "source_sha256": "7e7df8adb965dedd51f8f8157ba961741a7ce02af3b1721e22ab81caa0e40481",
+    "source_slot": "S09",
+    "used_by_takes": [
+     "final09",
+     "final19",
+     "final23"
+    ]
+   },
+   "BUF-S10": {
+    "buffer_id": "BUF-S10",
+    "bytes": 6096044,
+    "condition_role": "ordinary payload from song start",
+    "duration_s": 63.5,
+    "intended_gt": {
+     "bookkeeping": "reference GT = payload GT - slice start",
+     "payload_gt_s_with_standard_lead": 2.45,
+     "reference_gt_s_with_standard_lead": 2.45
+    },
+    "marker_positions": {
+     "marker1_start_sample": 0,
+     "marker2_start_sample": 3012000,
+     "payload_end_sample": 2964000,
+     "payload_start_sample": 84000,
+     "total_samples": 3048000
+    },
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\buffers\\BUF-S10.wav",
+    "payload_slice_s": [
+     0.0,
+     60.0
+    ],
+    "payload_slice_start_sample": 0,
+    "sha256": "3f28c97ffb10d017f60454549d797fbba4c5ec8118d6718335f8242bb5aa2d8a",
+    "source_sha256": "bc7f4d08d9fc7bdaeca5eba2fa815df83a78d88322232c8d7a3b86c45c3776e2",
+    "source_slot": "S10",
+    "used_by_takes": [
+     "final10",
+     "final20",
+     "final24"
+    ]
+   }
+  },
+  "counts": {
+   "conditions": {
+    "DEVICE_VARIATION": 2,
+    "INTERFERENCE": 4,
+    "LOW_LEVEL": 3,
+    "ORDINARY": 10,
+    "PARTIAL": 2,
+    "TAP_DOMINANT": 3
+   },
+   "primary_positives": 24,
+   "recording_devices": 2,
+   "rooms": 2,
+   "sessions": 3,
+   "strict_repeats": 2,
+   "total_physical_recordings": 26
+  },
+  "devices": {
+   "D1": "primary recording device (the pilot-validated phone chain)",
+   "D2": "second recording device (second phone / tablet / laptop internal microphone)",
+   "P1": "main playback path (PC speakers)",
+   "P2": "second playback device for the interference source (final17-final20 only)"
+  },
+  "environment": {
+   "libsndfile": "1.2.2",
+   "numpy": "2.2.6",
+   "python": "3.10.11",
+   "scipy": "1.15.3",
+   "soundfile": "0.13.1"
+  },
+  "final_pack": "FINAL_PACK",
+  "gt_contract": {
+   "drift_tolerance_ppm": 128.486056,
+   "frozen_marker_threshold": 0.163837792269,
+   "gt_stratum": "EXACT_GT (dual-marker ground truth per take)",
+   "marker_threshold": 0.15,
+   "max_mapping_disagreement_s": 0.01,
+   "reference_gt_bookkeeping": "ORD buffers: reference GT = payload GT (payload starts at song start). PART buffers: reference GT = payload GT - slice start. Actual per-take GT is derived from the two markers at analysis time.",
+   "trim_rule": "remove marker/guard holes with 50 ms external margins; concatenate; never resample/stretch"
+  },
+  "interference": {
+   "artist": "和田たけあき",
+   "basename": "てらてら.mp3",
+   "duration_s": 135.789,
+   "identity": "てらてら",
+   "path": "D:\\Daozh\\Music\\RhythmAlign_FinalCandidates_Fresh\\てらてら.mp3",
+   "role": "acoustic interference during final17-final20 only; never a reference in any pairing",
+   "sha256": "b8c41c719b53790621084aadc26929d331c3181de8e5a57388bbc640dd742ef4",
+   "takes": [
+    "final17",
+    "final18",
+    "final19",
+    "final20"
+   ]
+  },
+  "interference_asset": {
+   "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\INTERFERENCE.mp3",
+   "role": "owner hand-off copy for the second playback device (final17-final20 only); never a reference",
+   "sha256": "b8c41c719b53790621084aadc26929d331c3181de8e5a57388bbc640dd742ef4",
+   "source_path": "D:\\Daozh\\Music\\RhythmAlign_FinalCandidates_Fresh\\てらてら.mp3"
+  },
+  "no_comparator_run": true,
+  "performance_blind": true,
+  "references": {
+   "REF-S01": {
+    "duration_s": 150.285917,
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\local\\references\\REF-S01.wav",
+    "role": "agent-side comparator reference (FULL decoded song); gitignored, regenerable from the frozen source",
+    "sha256": "509188c1b80745846ecd1ae1190df769418c6b0c26f6e162a5f6e4b254a5e387",
+    "source_sha256": "087fce52c70b885c2e29ec0d3e4222eaf9bc633aeeb38b2ce3f3e4307eff5b90"
+   },
+   "REF-S02": {
+    "duration_s": 148.137917,
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\local\\references\\REF-S02.wav",
+    "role": "agent-side comparator reference (FULL decoded song); gitignored, regenerable from the frozen source",
+    "sha256": "c3d5375474c9cfc1bbe1e4874a8afaddc70608dc4f949b942f5832bb48667415",
+    "source_sha256": "1347b77c7b789165da18ff2e502a10871649552cae33e9570ebeaeae05e925ab"
+   },
+   "REF-S03": {
+    "duration_s": 153.214375,
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\local\\references\\REF-S03.wav",
+    "role": "agent-side comparator reference (FULL decoded song); gitignored, regenerable from the frozen source",
+    "sha256": "12c13f4aef191eec500d61ca4c5471813df07afc178d2ac4becf2bcc2e8d76d8",
+    "source_sha256": "25548ff816d53f5f4c7b7cf0559c1e500521fc482709e6cdd9a4b44f15a40602"
+   },
+   "REF-S04": {
+    "duration_s": 83.333375,
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\local\\references\\REF-S04.wav",
+    "role": "agent-side comparator reference (FULL decoded song); gitignored, regenerable from the frozen source",
+    "sha256": "4de941f3455cbbcd91f14bfca9099377c632db52d6974bbee23b9b2381c15e75",
+    "source_sha256": "32413fa39a23553540add9fc1f0ccd06f9d3bef4a10e87ebf281a7e930957e05"
+   },
+   "REF-S05": {
+    "duration_s": 159.560458,
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\local\\references\\REF-S05.wav",
+    "role": "agent-side comparator reference (FULL decoded song); gitignored, regenerable from the frozen source",
+    "sha256": "ed5915d814932105eb4a0c5d080b447b37ea7d40b31641250f6bcb7787a087ab",
+    "source_sha256": "3723944c36e3877419564327b5256ba2aeb39eb517286198ca8c187aaaaae217"
+   },
+   "REF-S06": {
+    "duration_s": 232.08,
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\local\\references\\REF-S06.wav",
+    "role": "agent-side comparator reference (FULL decoded song); gitignored, regenerable from the frozen source",
+    "sha256": "da6a091a3ef74bdd09a2621653ac4a29d71ee82382d6bdb6664359450da8ba5c",
+    "source_sha256": "3e61a90722f1a979a92f294c7256566bc796130deeabb35524f265caa4fe0ee6"
+   },
+   "REF-S07": {
+    "duration_s": 137.061521,
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\local\\references\\REF-S07.wav",
+    "role": "agent-side comparator reference (FULL decoded song); gitignored, regenerable from the frozen source",
+    "sha256": "37aac116470b0dba158d0eadd183465028c7828120f4038974afe522df5863ab",
+    "source_sha256": "49c26864446ce0fa07cda11a4b64d332f0afa2ca5e47962f0c7263261fe0c82b"
+   },
+   "REF-S08": {
+    "duration_s": 152.228583,
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\local\\references\\REF-S08.wav",
+    "role": "agent-side comparator reference (FULL decoded song); gitignored, regenerable from the frozen source",
+    "sha256": "d2fed02ab4e39029c5a78b3549023050e50ea7d0ceb8149f502c2e33c3a665ae",
+    "source_sha256": "5888dc3ef9e3fa32ccb4fddb5e0ef5df3122836c6a082b20a1fd14b7fb5e8d53"
+   },
+   "REF-S09": {
+    "duration_s": 153.885021,
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\local\\references\\REF-S09.wav",
+    "role": "agent-side comparator reference (FULL decoded song); gitignored, regenerable from the frozen source",
+    "sha256": "cefdc00f1c5020369e9eff81b938cee160ca78b4ff7f1a7d1dd792cfe8578c98",
+    "source_sha256": "7e7df8adb965dedd51f8f8157ba961741a7ce02af3b1721e22ab81caa0e40481"
+   },
+   "REF-S10": {
+    "duration_s": 153.333354,
+    "path": "D:\\Code\\RhythmAlign\\experiments\\applied_system\\final_pack\\local\\references\\REF-S10.wav",
+    "role": "agent-side comparator reference (FULL decoded song); gitignored, regenerable from the frozen source",
+    "sha256": "821e3ad4603af9602d4c10e34993cf5fec3c937785c77218ad7f6f9295e68a49",
+    "source_sha256": "bc7f4d08d9fc7bdaeca5eba2fa815df83a78d88322232c8d7a3b86c45c3776e2"
+   }
+  },
+  "rooms": {
+   "ROOM_A": "main recording room (the pilot-validated room)",
+   "ROOM_B": "second room with different acoustics"
+  },
+  "selection_rule_id": "FINAL-SELECT-V1",
+  "sessions": {
+   "SESSION_1": {
+    "playback_device": "P1",
+    "recording_device": "D1",
+    "room": "ROOM_A",
+    "takes": [
+     "final01",
+     "final02",
+     "final03",
+     "final04",
+     "final05",
+     "final06",
+     "final07",
+     "final08",
+     "final09",
+     "final10",
+     "repeat01",
+     "repeat02"
+    ]
+   },
+   "SESSION_2": {
+    "playback_device": "P1",
+    "recording_device": "D1",
+    "room": "ROOM_A",
+    "takes": [
+     "final11",
+     "final12",
+     "final13",
+     "final14",
+     "final15",
+     "final16",
+     "final21",
+     "final22"
+    ]
+   },
+   "SESSION_3": {
+    "playback_device": "P1",
+    "recording_device": "D2",
+    "room": "ROOM_B",
+    "takes": [
+     "final17",
+     "final18",
+     "final19",
+     "final20",
+     "final23",
+     "final24"
+    ]
+   }
+  },
+  "slots": {
+   "S01": {
+    "artist": "打打だいず",
+    "basename": "World's end loneliness.mp3",
+    "duration_s": 150.286,
+    "identity": "World's end loneliness",
+    "path": "D:\\Daozh\\Music\\RhythmAlign_FinalCandidates_Fresh\\World's end loneliness.mp3",
+    "r_long": 0.9594,
+    "repetitive_flag": "ORDINARY",
+    "sha256": "087fce52c70b885c2e29ec0d3e4222eaf9bc633aeeb38b2ce3f3e4307eff5b90"
+   },
+   "S02": {
+    "artist": "ピノキオピー",
+    "basename": "転生林檎.mp3",
+    "duration_s": 148.138,
+    "identity": "転生林檎",
+    "path": "D:\\Daozh\\Music\\RhythmAlign_FinalCandidates_Fresh\\転生林檎.mp3",
+    "r_long": 0.97467,
+    "repetitive_flag": "ORDINARY",
+    "sha256": "1347b77c7b789165da18ff2e502a10871649552cae33e9570ebeaeae05e925ab"
+   },
+   "S03": {
+    "artist": "削除",
+    "basename": "7 Wonders.mp3",
+    "duration_s": 153.214,
+    "identity": "7 Wonders",
+    "path": "D:\\Daozh\\Music\\RhythmAlign_FinalCandidates_Fresh\\7 Wonders.mp3",
+    "r_long": 0.97535,
+    "repetitive_flag": "ORDINARY",
+    "sha256": "25548ff816d53f5f4c7b7cf0559c1e500521fc482709e6cdd9a4b44f15a40602"
+   },
+   "S04": {
+    "artist": "Tsukasa(Arte Refact)",
+    "basename": "Fragrance.mp3",
+    "duration_s": 83.333,
+    "identity": "Fragrance",
+    "path": "D:\\Daozh\\Music\\RhythmAlign_FinalCandidates_Fresh\\Fragrance.mp3",
+    "r_long": 0.97438,
+    "repetitive_flag": "ORDINARY",
+    "sha256": "32413fa39a23553540add9fc1f0ccd06f9d3bef4a10e87ebf281a7e930957e05"
+   },
+   "S05": {
+    "artist": "森羅万象",
+    "basename": "ホシシズク.mp3",
+    "duration_s": 159.56,
+    "identity": "ホシシズク",
+    "path": "D:\\Daozh\\Music\\RhythmAlign_FinalCandidates_Fresh\\ホシシズク.mp3",
+    "r_long": 0.9692,
+    "repetitive_flag": "ORDINARY",
+    "sha256": "3723944c36e3877419564327b5256ba2aeb39eb517286198ca8c187aaaaae217"
+   },
+   "S06": {
+    "artist": "niki official",
+    "basename": "ARROW.mp3",
+    "duration_s": 232.083,
+    "identity": "ARROW / niki feat.Lily",
+    "path": "D:\\Daozh\\Music\\舞萌手元用\\ARROW.mp3",
+    "r_long": 0.95204,
+    "repetitive_flag": "ORDINARY",
+    "sha256": "3e61a90722f1a979a92f294c7256566bc796130deeabb35524f265caa4fe0ee6"
+   },
+   "S07": {
+    "artist": "隣の庭は青い(庭師+Aoi)",
+    "basename": "躯樹の墓守.mp3",
+    "duration_s": 137.062,
+    "identity": "躯樹の墓守",
+    "path": "D:\\Daozh\\Music\\RhythmAlign_FinalCandidates_Fresh\\躯樹の墓守.mp3",
+    "r_long": 0.96266,
+    "repetitive_flag": "ORDINARY",
+    "sha256": "49c26864446ce0fa07cda11a4b64d332f0afa2ca5e47962f0c7263261fe0c82b"
+   },
+   "S08": {
+    "artist": "削除",
+    "basename": "Cryptarithm.mp3",
+    "duration_s": 152.229,
+    "identity": "Cryptarithm",
+    "path": "D:\\Daozh\\Music\\RhythmAlign_FinalCandidates_Fresh\\Cryptarithm.mp3",
+    "r_long": 0.98968,
+    "repetitive_flag": "REPETITIVE_STRESS_SOURCE",
+    "sha256": "5888dc3ef9e3fa32ccb4fddb5e0ef5df3122836c6a082b20a1fd14b7fb5e8d53"
+   },
+   "S09": {
+    "artist": "DECO*27",
+    "basename": "アニマル.mp3",
+    "duration_s": 153.885,
+    "identity": "アニマル",
+    "path": "D:\\Daozh\\Music\\RhythmAlign_FinalCandidates_Fresh\\アニマル.mp3",
+    "r_long": 0.98511,
+    "repetitive_flag": "REPETITIVE_STRESS_SOURCE",
+    "sha256": "7e7df8adb965dedd51f8f8157ba961741a7ce02af3b1721e22ab81caa0e40481"
+   },
+   "S10": {
+    "artist": "Cosmograph",
+    "basename": "Straight into the lights.mp3",
+    "duration_s": 153.333,
+    "identity": "Straight into the lights",
+    "path": "D:\\Daozh\\Music\\RhythmAlign_FinalCandidates_Fresh\\Straight into the lights.mp3",
+    "r_long": 0.98607,
+    "repetitive_flag": "REPETITIVE_STRESS_SOURCE",
+    "sha256": "bc7f4d08d9fc7bdaeca5eba2fa815df83a78d88322232c8d7a3b86c45c3776e2"
+   }
+  },
+  "source_freeze_sha256": "0a81c47339a7d9d565c26a46866065fa6b5ce41aa8deeca95874e2d6e2ecb029",
+  "status": "AWAITING_FINAL_RECORDING",
+  "takes": {
+   "final01": {
+    "condition": "ORDINARY",
+    "destination_basename": "final01",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": null,
+    "interference_playback_device": null,
+    "playback_buffer": "BUF-S01",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D1",
+    "room": "ROOM_A",
+    "session": "SESSION_1",
+    "source_identity": "World's end loneliness",
+    "source_sha256": "087fce52c70b885c2e29ec0d3e4222eaf9bc633aeeb38b2ce3f3e4307eff5b90",
+    "source_slot": "S01",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final01",
+    "wrong_reference_sha256": "1347b77c7b789165da18ff2e502a10871649552cae33e9570ebeaeae05e925ab",
+    "wrong_reference_slot": "S02"
+   },
+   "final02": {
+    "condition": "ORDINARY",
+    "destination_basename": "final02",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": null,
+    "interference_playback_device": null,
+    "playback_buffer": "BUF-S02",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D1",
+    "room": "ROOM_A",
+    "session": "SESSION_1",
+    "source_identity": "転生林檎",
+    "source_sha256": "1347b77c7b789165da18ff2e502a10871649552cae33e9570ebeaeae05e925ab",
+    "source_slot": "S02",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final02",
+    "wrong_reference_sha256": "25548ff816d53f5f4c7b7cf0559c1e500521fc482709e6cdd9a4b44f15a40602",
+    "wrong_reference_slot": "S03"
+   },
+   "final03": {
+    "condition": "ORDINARY",
+    "destination_basename": "final03",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": null,
+    "interference_playback_device": null,
+    "playback_buffer": "BUF-S03",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D1",
+    "room": "ROOM_A",
+    "session": "SESSION_1",
+    "source_identity": "7 Wonders",
+    "source_sha256": "25548ff816d53f5f4c7b7cf0559c1e500521fc482709e6cdd9a4b44f15a40602",
+    "source_slot": "S03",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final03",
+    "wrong_reference_sha256": "32413fa39a23553540add9fc1f0ccd06f9d3bef4a10e87ebf281a7e930957e05",
+    "wrong_reference_slot": "S04"
+   },
+   "final04": {
+    "condition": "ORDINARY",
+    "destination_basename": "final04",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": null,
+    "interference_playback_device": null,
+    "playback_buffer": "BUF-S04",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D1",
+    "room": "ROOM_A",
+    "session": "SESSION_1",
+    "source_identity": "Fragrance",
+    "source_sha256": "32413fa39a23553540add9fc1f0ccd06f9d3bef4a10e87ebf281a7e930957e05",
+    "source_slot": "S04",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final04",
+    "wrong_reference_sha256": "3723944c36e3877419564327b5256ba2aeb39eb517286198ca8c187aaaaae217",
+    "wrong_reference_slot": "S05"
+   },
+   "final05": {
+    "condition": "ORDINARY",
+    "destination_basename": "final05",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": null,
+    "interference_playback_device": null,
+    "playback_buffer": "BUF-S05",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D1",
+    "room": "ROOM_A",
+    "session": "SESSION_1",
+    "source_identity": "ホシシズク",
+    "source_sha256": "3723944c36e3877419564327b5256ba2aeb39eb517286198ca8c187aaaaae217",
+    "source_slot": "S05",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final05",
+    "wrong_reference_sha256": "3e61a90722f1a979a92f294c7256566bc796130deeabb35524f265caa4fe0ee6",
+    "wrong_reference_slot": "S06"
+   },
+   "final06": {
+    "condition": "ORDINARY",
+    "destination_basename": "final06",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": null,
+    "interference_playback_device": null,
+    "playback_buffer": "BUF-S06",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D1",
+    "room": "ROOM_A",
+    "session": "SESSION_1",
+    "source_identity": "ARROW / niki feat.Lily",
+    "source_sha256": "3e61a90722f1a979a92f294c7256566bc796130deeabb35524f265caa4fe0ee6",
+    "source_slot": "S06",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final06",
+    "wrong_reference_sha256": "49c26864446ce0fa07cda11a4b64d332f0afa2ca5e47962f0c7263261fe0c82b",
+    "wrong_reference_slot": "S07"
+   },
+   "final07": {
+    "condition": "ORDINARY",
+    "destination_basename": "final07",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": null,
+    "interference_playback_device": null,
+    "playback_buffer": "BUF-S07",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D1",
+    "room": "ROOM_A",
+    "session": "SESSION_1",
+    "source_identity": "躯樹の墓守",
+    "source_sha256": "49c26864446ce0fa07cda11a4b64d332f0afa2ca5e47962f0c7263261fe0c82b",
+    "source_slot": "S07",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final07",
+    "wrong_reference_sha256": "5888dc3ef9e3fa32ccb4fddb5e0ef5df3122836c6a082b20a1fd14b7fb5e8d53",
+    "wrong_reference_slot": "S08"
+   },
+   "final08": {
+    "condition": "ORDINARY",
+    "destination_basename": "final08",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": null,
+    "interference_playback_device": null,
+    "playback_buffer": "BUF-S08",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D1",
+    "room": "ROOM_A",
+    "session": "SESSION_1",
+    "source_identity": "Cryptarithm",
+    "source_sha256": "5888dc3ef9e3fa32ccb4fddb5e0ef5df3122836c6a082b20a1fd14b7fb5e8d53",
+    "source_slot": "S08",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final08",
+    "wrong_reference_sha256": "7e7df8adb965dedd51f8f8157ba961741a7ce02af3b1721e22ab81caa0e40481",
+    "wrong_reference_slot": "S09"
+   },
+   "final09": {
+    "condition": "ORDINARY",
+    "destination_basename": "final09",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": null,
+    "interference_playback_device": null,
+    "playback_buffer": "BUF-S09",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D1",
+    "room": "ROOM_A",
+    "session": "SESSION_1",
+    "source_identity": "アニマル",
+    "source_sha256": "7e7df8adb965dedd51f8f8157ba961741a7ce02af3b1721e22ab81caa0e40481",
+    "source_slot": "S09",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final09",
+    "wrong_reference_sha256": "bc7f4d08d9fc7bdaeca5eba2fa815df83a78d88322232c8d7a3b86c45c3776e2",
+    "wrong_reference_slot": "S10"
+   },
+   "final10": {
+    "condition": "ORDINARY",
+    "destination_basename": "final10",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": null,
+    "interference_playback_device": null,
+    "playback_buffer": "BUF-S10",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D1",
+    "room": "ROOM_A",
+    "session": "SESSION_1",
+    "source_identity": "Straight into the lights",
+    "source_sha256": "bc7f4d08d9fc7bdaeca5eba2fa815df83a78d88322232c8d7a3b86c45c3776e2",
+    "source_slot": "S10",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final10",
+    "wrong_reference_sha256": "087fce52c70b885c2e29ec0d3e4222eaf9bc633aeeb38b2ce3f3e4307eff5b90",
+    "wrong_reference_slot": "S01"
+   },
+   "final11": {
+    "condition": "LOW_LEVEL",
+    "destination_basename": "final11",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": null,
+    "interference_playback_device": null,
+    "playback_buffer": "BUF-S01",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D1",
+    "room": "ROOM_A",
+    "session": "SESSION_2",
+    "source_identity": "World's end loneliness",
+    "source_sha256": "087fce52c70b885c2e29ec0d3e4222eaf9bc633aeeb38b2ce3f3e4307eff5b90",
+    "source_slot": "S01",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final11",
+    "wrong_reference_sha256": "1347b77c7b789165da18ff2e502a10871649552cae33e9570ebeaeae05e925ab",
+    "wrong_reference_slot": "S02"
+   },
+   "final12": {
+    "condition": "TAP_DOMINANT",
+    "destination_basename": "final12",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": null,
+    "interference_playback_device": null,
+    "playback_buffer": "BUF-S02",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D1",
+    "room": "ROOM_A",
+    "session": "SESSION_2",
+    "source_identity": "転生林檎",
+    "source_sha256": "1347b77c7b789165da18ff2e502a10871649552cae33e9570ebeaeae05e925ab",
+    "source_slot": "S02",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final12",
+    "wrong_reference_sha256": "25548ff816d53f5f4c7b7cf0559c1e500521fc482709e6cdd9a4b44f15a40602",
+    "wrong_reference_slot": "S03"
+   },
+   "final13": {
+    "condition": "LOW_LEVEL",
+    "destination_basename": "final13",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": null,
+    "interference_playback_device": null,
+    "playback_buffer": "BUF-S03",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D1",
+    "room": "ROOM_A",
+    "session": "SESSION_2",
+    "source_identity": "7 Wonders",
+    "source_sha256": "25548ff816d53f5f4c7b7cf0559c1e500521fc482709e6cdd9a4b44f15a40602",
+    "source_slot": "S03",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final13",
+    "wrong_reference_sha256": "32413fa39a23553540add9fc1f0ccd06f9d3bef4a10e87ebf281a7e930957e05",
+    "wrong_reference_slot": "S04"
+   },
+   "final14": {
+    "condition": "TAP_DOMINANT",
+    "destination_basename": "final14",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": null,
+    "interference_playback_device": null,
+    "playback_buffer": "BUF-S04",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D1",
+    "room": "ROOM_A",
+    "session": "SESSION_2",
+    "source_identity": "Fragrance",
+    "source_sha256": "32413fa39a23553540add9fc1f0ccd06f9d3bef4a10e87ebf281a7e930957e05",
+    "source_slot": "S04",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final14",
+    "wrong_reference_sha256": "3723944c36e3877419564327b5256ba2aeb39eb517286198ca8c187aaaaae217",
+    "wrong_reference_slot": "S05"
+   },
+   "final15": {
+    "condition": "LOW_LEVEL",
+    "destination_basename": "final15",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": null,
+    "interference_playback_device": null,
+    "playback_buffer": "BUF-S05",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D1",
+    "room": "ROOM_A",
+    "session": "SESSION_2",
+    "source_identity": "ホシシズク",
+    "source_sha256": "3723944c36e3877419564327b5256ba2aeb39eb517286198ca8c187aaaaae217",
+    "source_slot": "S05",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final15",
+    "wrong_reference_sha256": "3e61a90722f1a979a92f294c7256566bc796130deeabb35524f265caa4fe0ee6",
+    "wrong_reference_slot": "S06"
+   },
+   "final16": {
+    "condition": "TAP_DOMINANT",
+    "destination_basename": "final16",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": null,
+    "interference_playback_device": null,
+    "playback_buffer": "BUF-S06",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D1",
+    "room": "ROOM_A",
+    "session": "SESSION_2",
+    "source_identity": "ARROW / niki feat.Lily",
+    "source_sha256": "3e61a90722f1a979a92f294c7256566bc796130deeabb35524f265caa4fe0ee6",
+    "source_slot": "S06",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final16",
+    "wrong_reference_sha256": "49c26864446ce0fa07cda11a4b64d332f0afa2ca5e47962f0c7263261fe0c82b",
+    "wrong_reference_slot": "S07"
+   },
+   "final17": {
+    "condition": "INTERFERENCE",
+    "destination_basename": "final17",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": "てらてら",
+    "interference_playback_device": "P2",
+    "playback_buffer": "BUF-S07",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D2",
+    "room": "ROOM_B",
+    "session": "SESSION_3",
+    "source_identity": "躯樹の墓守",
+    "source_sha256": "49c26864446ce0fa07cda11a4b64d332f0afa2ca5e47962f0c7263261fe0c82b",
+    "source_slot": "S07",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final17",
+    "wrong_reference_sha256": "5888dc3ef9e3fa32ccb4fddb5e0ef5df3122836c6a082b20a1fd14b7fb5e8d53",
+    "wrong_reference_slot": "S08"
+   },
+   "final18": {
+    "condition": "INTERFERENCE",
+    "destination_basename": "final18",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": "てらてら",
+    "interference_playback_device": "P2",
+    "playback_buffer": "BUF-S08",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D2",
+    "room": "ROOM_B",
+    "session": "SESSION_3",
+    "source_identity": "Cryptarithm",
+    "source_sha256": "5888dc3ef9e3fa32ccb4fddb5e0ef5df3122836c6a082b20a1fd14b7fb5e8d53",
+    "source_slot": "S08",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final18",
+    "wrong_reference_sha256": "7e7df8adb965dedd51f8f8157ba961741a7ce02af3b1721e22ab81caa0e40481",
+    "wrong_reference_slot": "S09"
+   },
+   "final19": {
+    "condition": "INTERFERENCE",
+    "destination_basename": "final19",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": "てらてら",
+    "interference_playback_device": "P2",
+    "playback_buffer": "BUF-S09",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D2",
+    "room": "ROOM_B",
+    "session": "SESSION_3",
+    "source_identity": "アニマル",
+    "source_sha256": "7e7df8adb965dedd51f8f8157ba961741a7ce02af3b1721e22ab81caa0e40481",
+    "source_slot": "S09",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final19",
+    "wrong_reference_sha256": "bc7f4d08d9fc7bdaeca5eba2fa815df83a78d88322232c8d7a3b86c45c3776e2",
+    "wrong_reference_slot": "S10"
+   },
+   "final20": {
+    "condition": "INTERFERENCE",
+    "destination_basename": "final20",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": "てらてら",
+    "interference_playback_device": "P2",
+    "playback_buffer": "BUF-S10",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D2",
+    "room": "ROOM_B",
+    "session": "SESSION_3",
+    "source_identity": "Straight into the lights",
+    "source_sha256": "bc7f4d08d9fc7bdaeca5eba2fa815df83a78d88322232c8d7a3b86c45c3776e2",
+    "source_slot": "S10",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final20",
+    "wrong_reference_sha256": "087fce52c70b885c2e29ec0d3e4222eaf9bc633aeeb38b2ce3f3e4307eff5b90",
+    "wrong_reference_slot": "S01"
+   },
+   "final21": {
+    "condition": "PARTIAL",
+    "destination_basename": "final21",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": null,
+    "interference_playback_device": null,
+    "playback_buffer": "BUF-S01-PART",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D1",
+    "room": "ROOM_A",
+    "session": "SESSION_2",
+    "source_identity": "World's end loneliness",
+    "source_sha256": "087fce52c70b885c2e29ec0d3e4222eaf9bc633aeeb38b2ce3f3e4307eff5b90",
+    "source_slot": "S01",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final21",
+    "wrong_reference_sha256": "1347b77c7b789165da18ff2e502a10871649552cae33e9570ebeaeae05e925ab",
+    "wrong_reference_slot": "S02"
+   },
+   "final22": {
+    "condition": "PARTIAL",
+    "destination_basename": "final22",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": null,
+    "interference_playback_device": null,
+    "playback_buffer": "BUF-S02-PART",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D1",
+    "room": "ROOM_A",
+    "session": "SESSION_2",
+    "source_identity": "転生林檎",
+    "source_sha256": "1347b77c7b789165da18ff2e502a10871649552cae33e9570ebeaeae05e925ab",
+    "source_slot": "S02",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final22",
+    "wrong_reference_sha256": "25548ff816d53f5f4c7b7cf0559c1e500521fc482709e6cdd9a4b44f15a40602",
+    "wrong_reference_slot": "S03"
+   },
+   "final23": {
+    "condition": "DEVICE_VARIATION",
+    "destination_basename": "final23",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": null,
+    "interference_playback_device": null,
+    "playback_buffer": "BUF-S09",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D2",
+    "room": "ROOM_B",
+    "session": "SESSION_3",
+    "source_identity": "アニマル",
+    "source_sha256": "7e7df8adb965dedd51f8f8157ba961741a7ce02af3b1721e22ab81caa0e40481",
+    "source_slot": "S09",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final23",
+    "wrong_reference_sha256": "32413fa39a23553540add9fc1f0ccd06f9d3bef4a10e87ebf281a7e930957e05",
+    "wrong_reference_slot": "S04"
+   },
+   "final24": {
+    "condition": "DEVICE_VARIATION",
+    "destination_basename": "final24",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": null,
+    "interference_playback_device": null,
+    "playback_buffer": "BUF-S10",
+    "playback_device": "P1",
+    "primary": true,
+    "recording_device": "D2",
+    "room": "ROOM_B",
+    "session": "SESSION_3",
+    "source_identity": "Straight into the lights",
+    "source_sha256": "bc7f4d08d9fc7bdaeca5eba2fa815df83a78d88322232c8d7a3b86c45c3776e2",
+    "source_slot": "S10",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "final24",
+    "wrong_reference_sha256": "3723944c36e3877419564327b5256ba2aeb39eb517286198ca8c187aaaaae217",
+    "wrong_reference_slot": "S05"
+   },
+   "repeat01": {
+    "condition": "ORDINARY_REPEAT_STRICT_PAIR_OF_FINAL01",
+    "destination_basename": "repeat01",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": null,
+    "interference_playback_device": null,
+    "playback_buffer": "BUF-S01",
+    "playback_device": "P1",
+    "primary": false,
+    "recording_device": "D1",
+    "room": "ROOM_A",
+    "session": "SESSION_1",
+    "source_identity": "World's end loneliness",
+    "source_sha256": "087fce52c70b885c2e29ec0d3e4222eaf9bc633aeeb38b2ce3f3e4307eff5b90",
+    "source_slot": "S01",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "repeat01",
+    "wrong_reference_sha256": null,
+    "wrong_reference_slot": null
+   },
+   "repeat02": {
+    "condition": "ORDINARY_REPEAT_STRICT_PAIR_OF_FINAL02",
+    "destination_basename": "repeat02",
+    "destination_dir": "experiments/applied_system/final_pack/incoming/",
+    "gt_stratum": "EXACT_GT",
+    "interference_identity": null,
+    "interference_playback_device": null,
+    "playback_buffer": "BUF-S02",
+    "playback_device": "P1",
+    "primary": false,
+    "recording_device": "D1",
+    "room": "ROOM_A",
+    "session": "SESSION_1",
+    "source_identity": "転生林檎",
+    "source_sha256": "1347b77c7b789165da18ff2e502a10871649552cae33e9570ebeaeae05e925ab",
+    "source_slot": "S02",
+    "status": "AWAITING_FINAL_RECORDING",
+    "take": "repeat02",
+    "wrong_reference_sha256": null,
+    "wrong_reference_slot": null
+   }
+  },
+  "wrong_reference_rule": "take i is offered reference slot S(i mod 10)+1 (frozen before identities were filled); any ACCEPT is WRONG_ACCEPT, refusal is SAFE_ABSTAIN; never changed from results"
+ },
+ "manifest_hash": "7e1c1d54e3c50576d68aa8b8c983c1ee7fb921d4ad2486c48b638ad3790b906a"
+}
