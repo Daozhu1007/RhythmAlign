@@ -1,6 +1,6 @@
 # Pilot Pack — status and conventions
 
-KIT_READY / NOT PAPER EVIDENCE / NO RECORDING HAS BEGUN.
+PILOT COMPLETE / PILOT_ONLY / NOT_FINAL_PAPER_EVIDENCE.
 
 This folder is the owner-facing hand-off point for the fresh acoustic
 pilot (`docs/research/applied_system/FRESH_PILOT_PLAN.md`). Everything the
@@ -41,8 +41,12 @@ Kit-build record: `docs/research/applied_system/PILOT_KIT_BUILD.md`.
   paths, never committed), decoded full-song references (REF-A/REF-B,
   the comparator reference pool), and self-check captures.
 - `README.md` — this file (agent-facing).
+- `results/` — committed machine-readable pilot calibration, immutable
+  measurement/case/pairing freezes, two comparator passes, scores,
+  reproduction check, source-exclusion ledger, transparent correction record,
+  and verdict. Decoded/trimmed audio remains local and gitignored.
 
-## Ingest contract (for the future `pilot_harness.py`)
+## Implemented ingest contract (`pilot_harness.py`)
 
 1. Read `incoming/takeNN.*`, match `NN` to `take_plan.json` slots.
 2. Decode at native rate via ffmpeg (AAC/M4A expected from phones); never
@@ -58,10 +62,14 @@ Kit-build record: `docs/research/applied_system/PILOT_KIT_BUILD.md`.
 6. The owner never renames (beyond the take number), trims, converts, or
    analyzes anything.
 
-## What is deliberately NOT here yet
+## Completed analysis state
 
-- `pilot_harness.py` — the next research round implements ingest +
-  analysis + freeze-rule computation + comparator sweep.
-- Any recording. Do not start the pilot before the owner begins; the
-  comparator stack is frozen (Panako contract:
-  `docs/research/applied_system/PANAKO_INTEGRATION.md`).
+- All 12 raw recordings remain only in gitignored `incoming/`, byte-identical
+  to their ingested hashes; they are never committed.
+- The measurement freeze was written before comparator execution and remains
+  immutable. A later audit found one omitted, outcome-independent direct-GT
+  diagnostic; the original freeze was preserved and a separate versioned
+  correction record validates all 12 takes.
+- Human-readable result: `docs/research/applied_system/FRESH_PILOT_RESULTS.md`.
+- Final protocol (created only because every pre-declared gate passed):
+  `docs/research/applied_system/FINAL_BENCHMARK_PROTOCOL.md`.

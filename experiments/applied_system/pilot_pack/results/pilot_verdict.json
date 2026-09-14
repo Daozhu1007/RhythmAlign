@@ -1,0 +1,113 @@
+{
+  "fired_kill_criteria": [],
+  "gt_valid": 12,
+  "kill_criteria": {
+    "1_marker_gt_unreliable_common_device": {
+      "evidence": {
+        "direct_crosscheck_failures": [],
+        "zero_valid_devices": []
+      },
+      "fired": false
+    },
+    "2_confidence_distributions_overlap": {
+      "evidence": {
+        "D1": 8.022099742619075,
+        "D2": 4.924470130434823,
+        "D3": 7.033553915932821
+      },
+      "fired": false
+    },
+    "3_fixed_offset_invalidated": {
+      "evidence": 128.48605577686635,
+      "fired": false
+    },
+    "4_fingerprint_threat_unintegratable": {
+      "evidence": [],
+      "fired": false
+    },
+    "5_selectivity_transport_failure": {
+      "evidence": {
+        "ra_wrong_accepts": 0
+      },
+      "fired": false
+    },
+    "6_conditions_not_reproducible": {
+      "evidence": {
+        "all_repeat_pairs_gt_consistent": true,
+        "pairs": [
+          {
+            "both_gt_valid": true,
+            "drift_ppm_abs_delta": 33.2005312084771,
+            "pair": [
+              "take01",
+              "take02"
+            ],
+            "post_confidence_abs_delta": 0.11569549405698368,
+            "pre_confidence_abs_delta": 0.0679232494220525,
+            "reference_gt_offset_abs_delta_s": 0.041020833333333506
+          },
+          {
+            "both_gt_valid": true,
+            "drift_ppm_abs_delta": 15.936254980086773,
+            "pair": [
+              "take06",
+              "take07"
+            ],
+            "post_confidence_abs_delta": 0.01666478372351704,
+            "pre_confidence_abs_delta": 0.024364553934983185,
+            "reference_gt_offset_abs_delta_s": 1.2986666666666666
+          }
+        ]
+      },
+      "fired": false
+    },
+    "7_workload_blowout": {
+      "evidence": "owner reported recordings done and no workload blowout or unusual event",
+      "fired": false
+    }
+  },
+  "not_final_paper_evidence": "NOT_FINAL_PAPER_EVIDENCE",
+  "owner_action_required": "NONE",
+  "panako_median_abs_offset_error_s": 0.0015416666666663303,
+  "panako_role": "PLACEMENT_COMPARATOR",
+  "pilot_only": "PILOT_ONLY",
+  "repeatability": {
+    "all_repeat_pairs_gt_consistent": true,
+    "pairs": [
+      {
+        "both_gt_valid": true,
+        "drift_ppm_abs_delta": 33.2005312084771,
+        "pair": [
+          "take01",
+          "take02"
+        ],
+        "post_confidence_abs_delta": 0.11569549405698368,
+        "pre_confidence_abs_delta": 0.0679232494220525,
+        "reference_gt_offset_abs_delta_s": 0.041020833333333506
+      },
+      {
+        "both_gt_valid": true,
+        "drift_ppm_abs_delta": 15.936254980086773,
+        "pair": [
+          "take06",
+          "take07"
+        ],
+        "post_confidence_abs_delta": 0.01666478372351704,
+        "pre_confidence_abs_delta": 0.024364553934983185,
+        "reference_gt_offset_abs_delta_s": 1.2986666666666666
+      }
+    ]
+  },
+  "success_criteria": {
+    "1_gt_survival": true,
+    "2_confidence_feasibility": true,
+    "3_trajectory_policy_decidable": true,
+    "4_drift_feasibility": true,
+    "5_trim_leakage_mapping": true,
+    "6_comparators": true,
+    "7_wrong_reference_sanity": true,
+    "8_reproducibility": true
+  },
+  "verdict": "PILOT_PASS_PROTOCOL_FREEZE_READY",
+  "warning": "PILOT_ONLY — NOT_FINAL_PAPER_EVIDENCE"
+}

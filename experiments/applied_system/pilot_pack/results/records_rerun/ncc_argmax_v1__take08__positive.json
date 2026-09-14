@@ -1,0 +1,26 @@
+{
+  "case_id": "take08__positive",
+  "decision": "ACCEPT",
+  "input_sha256": {
+    "reference": "3bb5f4aa527d600c262030b9a517321ed3f03e47f13f80d4cfbe647afdbedc5d",
+    "trimmed_input": "270b6e28361b6a1340128f7e4e008a40d5b89cf770a6754a03214194550b5d9f"
+  },
+  "native_scores": {
+    "implementation": "ncc_argmax_v1",
+    "lag_samples": 3299749,
+    "ncc_peak_value": 0.13013769685404925,
+    "runtime_curve_s": 1.4753441000011662
+  },
+  "not_final_paper_evidence": "NOT_FINAL_PAPER_EVIDENCE",
+  "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+  "notes": {
+    "always_output": true,
+    "no_threshold_invented": true
+  },
+  "output_semantics": "ALWAYS_OUTPUT",
+  "pilot_only": "PILOT_ONLY",
+  "predicted_offset_s": 68.74477083333333,
+  "runtime_s": 1.5170909999997093,
+  "system": "ncc_argmax_v1",
+  "warning": "PILOT_ONLY — NOT_FINAL_PAPER_EVIDENCE"
+}

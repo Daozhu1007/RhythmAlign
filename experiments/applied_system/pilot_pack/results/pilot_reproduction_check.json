@@ -1,0 +1,12 @@
+{
+  "differences": [],
+  "not_final_paper_evidence": "NOT_FINAL_PAPER_EVIDENCE",
+  "pilot_only": "PILOT_ONLY",
+  "records_compared": 96,
+  "reproduced": true,
+  "volatile_fields_ignored": [
+    "keys containing runtime",
+    "Panako temporary store_dir"
+  ],
+  "warning": "PILOT_ONLY — NOT_FINAL_PAPER_EVIDENCE"
+}

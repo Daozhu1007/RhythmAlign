@@ -1,0 +1,327 @@
+{
+  "buffer": "BUF-A",
+  "condition": "ordinary",
+  "device": "D1",
+  "marker_diagnostics": {
+    "clock_scale": 1.0000282204515272,
+    "derived_payload_offset_on_trimmed_input_s": 2.9913958333333333,
+    "derived_reference_offset_on_trimmed_input_s": 2.9913958333333333,
+    "diagnostic_gt_status": "GT_VALID",
+    "diagnostic_selection_rule": "ungated full-template-overlap peaks; strongest two-peak pair within the pre-declared 1000 ppm detectable separation band",
+    "drift_ppm": 28.22045152717223,
+    "expected_marker_separation_samples": 3012000,
+    "final_clock_scale": 1.0000283398779934,
+    "final_drift_ppm": 28.339877993444063,
+    "final_mapping_disagreement_s": 1.2126596023639043e-15,
+    "final_marker_leakage": {
+      "frozen_threshold": 0.16383779226920248,
+      "leakage": false,
+      "max_ncc": 0.024969767169926497,
+      "max_ncc_lag_samples": 634717,
+      "passes_frozen_threshold": true,
+      "threshold": 0.15
+    },
+    "final_trim": {
+      "fail_reason": null,
+      "gt_offset_s": 2.9913958333333333,
+      "holes": [
+        [
+          143587,
+          229987
+        ],
+        [
+          3110069,
+          3196469
+        ]
+      ],
+      "ok": true,
+      "payload_start_in_trimmed": 143587,
+      "trim_end_sample": 3265536,
+      "trim_start_sample": 0
+    },
+    "frozen_threshold_candidate_count": 2,
+    "full_template_overlap_required": true,
+    "genuine_post_marker": {
+      "confidence": 0.22988294192906863,
+      "full_template_overlap": true,
+      "start_sample": 3158070,
+      "sweep_trajectory": {
+        "corroborated": true,
+        "n_frames": 124,
+        "r_squared": 0.8387878711938286,
+        "slope_hz_per_s": 10283.216955153423,
+        "slope_ratio": 0.9640515895456334,
+        "template_slope_hz_per_s": 10666.666666666666
+      }
+    },
+    "genuine_pre_marker": {
+      "confidence": 0.30483448610560904,
+      "full_template_overlap": true,
+      "start_sample": 145985,
+      "sweep_trajectory": {
+        "corroborated": true,
+        "n_frames": 131,
+        "r_squared": 0.902666194499533,
+        "slope_hz_per_s": 10632.030332501472,
+        "slope_ratio": 0.9967528436720131,
+        "template_slope_hz_per_s": 10666.666666666666
+      }
+    },
+    "gt_fail_reason": null,
+    "gt_status": "GT_VALID",
+    "mapping_disagreement_s": 7.275957614183426e-15,
+    "mapping_disagreement_samples": 3.4924596548080444e-10,
+    "observed_marker_separation_samples": 3012085,
+    "post_trim_leakage_diagnostic": {
+      "leakage": false,
+      "max_ncc": 0.024969767169926497,
+      "max_ncc_lag_samples": 634717,
+      "threshold": 0.15
+    },
+    "preliminary_trim": {
+      "fail_reason": null,
+      "gt_offset_s": 2.9913958333333333,
+      "holes": [
+        [
+          143587,
+          229987
+        ],
+        [
+          3110069,
+          3196469
+        ]
+      ],
+      "ok": true,
+      "payload_start_in_trimmed": 143587,
+      "trim_end_sample": 3265536,
+      "trim_start_sample": 0
+    },
+    "provisional_candidate_count": 2,
+    "provisional_threshold_used_for_diagnostics": false,
+    "strongest_competing_peak": {
+      "confidence": 0.02497192792995907,
+      "full_template_overlap": true,
+      "start_sample": 721117,
+      "sweep_trajectory": {
+        "corroborated": false,
+        "n_frames": 157,
+        "r_squared": -5.641077976938339,
+        "slope_hz_per_s": 428.85374641836086,
+        "slope_ratio": 0.040205038726721334,
+        "template_slope_hz_per_s": 10666.666666666666
+      }
+    },
+    "take_competing_B": 0.02497192792995907,
+    "top_candidate_diagnostics": [
+      {
+        "above_gate": true,
+        "candidate_role": "GENUINE_PRE",
+        "lag_samples": 145985,
+        "ncc": 0.30483448610560904,
+        "sweep_trajectory": {
+          "corroborated": true,
+          "n_frames": 131,
+          "r_squared": 0.902666194499533,
+          "slope_hz_per_s": 10632.030332501472,
+          "slope_ratio": 0.9967528436720131,
+          "template_slope_hz_per_s": 10666.666666666666
+        },
+        "time_s": 3.041354166666667
+      },
+      {
+        "above_gate": true,
+        "candidate_role": "GENUINE_POST",
+        "lag_samples": 3158070,
+        "ncc": 0.22988294192906863,
+        "sweep_trajectory": {
+          "corroborated": true,
+          "n_frames": 124,
+          "r_squared": 0.8387878711938286,
+          "slope_hz_per_s": 10283.216955153423,
+          "slope_ratio": 0.9640515895456334,
+          "template_slope_hz_per_s": 10666.666666666666
+        },
+        "time_s": 65.793125
+      },
+      {
+        "above_gate": false,
+        "candidate_role": "NON_MARKER",
+        "lag_samples": 721117,
+        "ncc": 0.02497192792995907,
+        "sweep_trajectory": {
+          "corroborated": false,
+          "n_frames": 157,
+          "r_squared": -5.641077976938339,
+          "slope_hz_per_s": 428.85374641836086,
+          "slope_ratio": 0.040205038726721334,
+          "template_slope_hz_per_s": 10666.666666666666
+        },
+        "time_s": 15.023270833333333
+      },
+      {
+        "above_gate": false,
+        "candidate_role": "NON_MARKER",
+        "lag_samples": 2631816,
+        "ncc": 0.023156192285631143,
+        "sweep_trajectory": {
+          "corroborated": false,
+          "n_frames": 157,
+          "r_squared": -9.778080939554844,
+          "slope_hz_per_s": -1058.166298359889,
+          "slope_ratio": -0.0992030904712396,
+          "template_slope_hz_per_s": 10666.666666666666
+        },
+        "time_s": 54.8295
+      },
+      {
+        "above_gate": false,
+        "candidate_role": "NON_MARKER",
+        "lag_samples": 38394,
+        "ncc": 0.02184923545104836,
+        "sweep_trajectory": {
+          "corroborated": false,
+          "n_frames": 64,
+          "r_squared": -1.8070361549161857,
+          "slope_hz_per_s": -388.39879762825467,
+          "slope_ratio": -0.03641238727764888,
+          "template_slope_hz_per_s": 10666.666666666666
+        },
+        "time_s": 0.799875
+      },
+      {
+        "above_gate": false,
+        "candidate_role": "NON_MARKER",
+        "lag_samples": 2287589,
+        "ncc": 0.020044017648449826,
+        "sweep_trajectory": {
+          "corroborated": false,
+          "n_frames": 157,
+          "r_squared": -6.13741783511671,
+          "slope_hz_per_s": 673.2744898489201,
+          "slope_ratio": 0.06311948342333626,
+          "template_slope_hz_per_s": 10666.666666666666
+        },
+        "time_s": 47.65810416666667
+      },
+      {
+        "above_gate": false,
+        "candidate_role": "NON_MARKER",
+        "lag_samples": 2495730,
+        "ncc": 0.01987791841263644,
+        "sweep_trajectory": {
+          "corroborated": false,
+          "n_frames": 157,
+          "r_squared": -5.754030699681914,
+          "slope_hz_per_s": 43.00802108981083,
+          "slope_ratio": 0.004032001977169766,
+          "template_slope_hz_per_s": 10666.666666666666
+        },
+        "time_s": 51.994375
+      },
+      {
+        "above_gate": false,
+        "candidate_role": "NON_MARKER",
+        "lag_samples": 2200485,
+        "ncc": 0.019873346968623796,
+        "sweep_trajectory": {
+          "corroborated": false,
+          "n_frames": 157,
+          "r_squared": -6.207333996523677,
+          "slope_hz_per_s": -16.652662158348377,
+          "slope_ratio": -0.0015611870773451606,
+          "template_slope_hz_per_s": 10666.666666666666
+        },
+        "time_s": 45.8434375
+      },
+      {
+        "above_gate": false,
+        "candidate_role": "NON_MARKER",
+        "lag_samples": 590097,
+        "ncc": 0.019851674301659013,
+        "sweep_trajectory": {
+          "corroborated": false,
+          "n_frames": 157,
+          "r_squared": -13.725190297736495,
+          "slope_hz_per_s": 220.6545872896757,
+          "slope_ratio": 0.0206863675584071,
+          "template_slope_hz_per_s": 10666.666666666666
+        },
+        "time_s": 12.2936875
+      },
+      {
+        "above_gate": false,
+        "candidate_role": "NON_MARKER",
+        "lag_samples": 3088954,
+        "ncc": 0.018763764909968797,
+        "sweep_trajectory": {
+          "corroborated": false,
+          "n_frames": 96,
+          "r_squared": -19.595811108757726,
+          "slope_hz_per_s": -1154.130758698454,
+          "slope_ratio": -0.10819975862798006,
+          "template_slope_hz_per_s": 10666.666666666666
+        },
+        "time_s": 64.35320833333333
+      },
+      {
+        "above_gate": false,
+        "candidate_role": "NON_MARKER",
+        "lag_samples": 2449025,
+        "ncc": 0.018761055893707204,
+        "sweep_trajectory": {
+          "corroborated": false,
+          "n_frames": 157,
+          "r_squared": -20.786689136890008,
+          "slope_hz_per_s": -265.48867771599856,
+          "slope_ratio": -0.024889563535874865,
+          "template_slope_hz_per_s": 10666.666666666666
+        },
+        "time_s": 51.02135416666667
+      },
+      {
+        "above_gate": false,
+        "candidate_role": "NON_MARKER",
+        "lag_samples": 986171,
+        "ncc": 0.018647580241515988,
+        "sweep_trajectory": {
+          "corroborated": false,
+          "n_frames": 157,
+          "r_squared": -3.0465857519916293,
+          "slope_hz_per_s": -749.8603829175951,
+          "slope_ratio": -0.07029941089852454,
+          "template_slope_hz_per_s": 10666.666666666666
+        },
+        "time_s": 20.545229166666665
+      }
+    ],
+    "trimmed_input_sha256": "02f4ef29e6694705ab04eb4f8dbbc1bb712ecc506a67294de58a49a37cff67a9",
+    "trimmed_working_path": "experiments/applied_system/pilot_pack/results/trimmed/take01.wav"
+  },
+  "not_final_paper_evidence": "NOT_FINAL_PAPER_EVIDENCE",
+  "pilot_only": "PILOT_ONLY",
+  "playback": "P1",
+  "provenance": "PILOT_ONLY",
+  "raw": {
+    "byte_identical_preserved": true,
+    "codec": "aac",
+    "container": "mov,mp4,m4a,3gp,3g2,mj2",
+    "decode": {
+      "no_channel_forcing": true,
+      "no_resampling": true,
+      "output_codec": "pcm_s16le",
+      "tool": "C:\\Users\\Daozh\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe"
+    },
+    "decoded_working_path": "experiments/applied_system/pilot_pack/results/decoded/take01.wav",
+    "decoded_working_sha256": "9428a1bb0a1fe2e2f8cd7363c36cc70a6328885f9099a384e38173f4d9522225",
+    "duration_s": 68.032,
+    "native_channel_count": 2,
+    "native_sample_rate_hz": 48000,
+    "original_bytes": 1109171,
+    "original_filename": "take01.m4a",
+    "path": "experiments/applied_system/pilot_pack/incoming/take01.m4a",
+    "raw_sha256": "08da59ed4abe73df4468ebc88bdaca5032c47ecab4b2ebf6f678efd9c3658d8f",
+    "raw_sha256_after_analysis": "08da59ed4abe73df4468ebc88bdaca5032c47ecab4b2ebf6f678efd9c3658d8f",
+    "raw_sha256_after_decode": "08da59ed4abe73df4468ebc88bdaca5032c47ecab4b2ebf6f678efd9c3658d8f"
+  },
+  "take_id": "take01"
+}

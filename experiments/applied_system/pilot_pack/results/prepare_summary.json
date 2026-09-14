@@ -1,0 +1,8 @@
+{
+  "case_manifest_hash": "202c3d4783c588b6a85b23f37e72b7d940cdadd247f65fb6cebf29b07a600511",
+  "gt_valid": 12,
+  "measurement_freeze_file_sha256": "49f296ec3c8d58bbd1b05f403079c7268f3bc18679620a2ccc2579eeb50bd125",
+  "measurement_freeze_hash": "20dbc530c9dffba14a4e51b6773ab8efbf1db1681f597babfd47e7ba6ab039cd",
+  "trajectory_gate": "TRAJECTORY_GATE_FROZEN_OFF",
+  "wrong_pairing_hash": "4aeb8c73f040c1dc43206cd123b69fb67fb21ba50108350fb2e757a7f71921c6"
+}

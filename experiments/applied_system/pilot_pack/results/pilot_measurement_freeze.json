@@ -1,0 +1,205 @@
+{
+  "body": {
+    "assets": {
+      "buffers": {
+        "BUF-A": {
+          "path": "experiments/applied_system/pilot_pack/buffers/BUF-A.wav",
+          "sha256": "fe224ed76115ca3bdd22abec1e78dc5f7e8c73b6f88591b38912da05970e49b3"
+        },
+        "BUF-B1": {
+          "path": "experiments/applied_system/pilot_pack/buffers/BUF-B1.wav",
+          "sha256": "91c9740f0f320e2df02c46fa9d455d31f4ecd57456e13f522e1eaf6323ebfb1d"
+        },
+        "BUF-BMID": {
+          "path": "experiments/applied_system/pilot_pack/buffers/BUF-BMID.wav",
+          "sha256": "f81b84fcaa73574e20999088d23b4c74e5b1777c7181e04b31da92fcf98b979a"
+        }
+      },
+      "references": {
+        "REF-A": {
+          "path": "experiments/applied_system/pilot_pack/local/references/REF-A.wav",
+          "sha256": "3bb5f4aa527d600c262030b9a517321ed3f03e47f13f80d4cfbe647afdbedc5d",
+          "source_sha256": "0c1bad0c937b57ee49b7189a4d0ca7fd01f4d001859fd0723e9b0dd1165fd077"
+        },
+        "REF-B": {
+          "path": "experiments/applied_system/pilot_pack/local/references/REF-B.wav",
+          "sha256": "9b9c7059be6dcfa661b777d0ba3ff90180b9f29c0ac2fb0feef9b33368db645b",
+          "source_sha256": "cf92dceb32aac347c7861308e1982be9fa98a6145b992e85dd1e51ff30e1eaf1"
+        }
+      }
+    },
+    "authority": "docs/research/applied_system/FRESH_PILOT_PLAN.md",
+    "candidate_count_rule": "exactly two accepted full-template marker candidates",
+    "case_manifest_hash": "202c3d4783c588b6a85b23f37e72b7d940cdadd247f65fb6cebf29b07a600511",
+    "comparators": {
+      "gcc_phat_argmax_v1": {
+        "decision_semantics": "ALWAYS_OUTPUT argmax; no rejection threshold",
+        "role": "ESSENTIAL",
+        "runner_sha256": "6f6f07f09f73fec90eb4b3638e566c9b559ccf750ddccbc219deda5136d504c9"
+      },
+      "ncc_argmax_v1": {
+        "decision_semantics": "ALWAYS_OUTPUT argmax; no rejection threshold",
+        "role": "USEFUL_OPTIONAL",
+        "runner_sha256": "5651cb91604da8002647cc9187dd0b54acd5376b5c12006138db47a7574d467e",
+        "status": "RUN"
+      },
+      "panako_fingerprint": {
+        "available_at_freeze": true,
+        "decision_semantics": "native ACCEPT / NO_MATCH / ERROR; no invented threshold",
+        "environment": {
+          "clone_url": "https://github.com/JorenSix/Panako.git",
+          "ffmpeg_version_line": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+          "jar_resolved_path": "/home/daozh/.panako/panako.jar",
+          "jar_sha256": "77c56eabf93defe64ddddf0fb75478c415dc7b64ddb065b5a34a27f6b9fb2276",
+          "jar_wsl_path": "$HOME/.panako/panako.jar",
+          "java_version_line": "openjdk version \"17.0.20\" 2026-07-21",
+          "panako_version_line": "Version: 2.1 - 2026-09-14 Build on: 17.0.20 (Ubuntu 17.0.20+8-1-24.04-Ubuntu) - Linux amd64 6.6.87.2-microsoft-standard-WSL2",
+          "pinned_commit": "e4b0e1dbb55e340bc66c90bac0ceb82b2cf84211",
+          "route": "WSL2 (Ubuntu 24.04)",
+          "strategy": "OLAF"
+        },
+        "offset_convention": "predicted_offset_s = Query start - Match start (reference begins this many seconds into the input; verified empirically on shakedown GT)",
+        "pinned_commit": "e4b0e1dbb55e340bc66c90bac0ceb82b2cf84211",
+        "role": "ESSENTIAL",
+        "runner_sha256": "7a4ed419607a48f06b9af454c7d3a86f72c459dec8093279be7fa974db18da02",
+        "strategy": "OLAF"
+      },
+      "rhythmalign_v1_2_0": {
+        "decision_semantics": "native ACCEPT or ABSTAIN; one alignment decision per pair",
+        "engine_label": "Engine v2 (evidence-gated)",
+        "frozen_release": "v1.2.0",
+        "production_tag_commit": "3a622fc33af1212178296ad9dad57ce9693eed48",
+        "role": "ESSENTIAL",
+        "runner_sha256": "a57d22b12e59c52a17a34452697e285df95b112bda737a5ec32b251d51d21169"
+      }
+    },
+    "drift_rule": "T_drift = max(3 × D_max, 111 ppm); T_drift ≤ 1000 ppm",
+    "drift_tolerance_ppm": 128.48605577686635,
+    "final_exclusion_hash": "ab7572e352421e433b3ed6aff009fdc437d3c57bca73e257c626fcaef5385b9e",
+    "full_template_overlap_rule": "mandatory; capture-edge partial overlaps excluded",
+    "gt_status_definitions": {
+      "GT_FAILED": "protocol failure retained in ledger; never alignment success/failure",
+      "GT_VALID": "exactly two candidates plus drift, mapping, trajectory-if-gated, trim, and leakage gates"
+    },
+    "mapping_disagreement_observed_max_s": 9.701276818911234e-15,
+    "mapping_disagreement_tolerance_s": 0.01,
+    "mapping_rule": "10 ms re-affirmed; no valid take showed borderline behavior",
+    "marker_confidence_threshold": 0.16383779226920248,
+    "marker_confidence_threshold_documentation_2dp": 0.16,
+    "marker_threshold_rule": "T = sqrt(T_low × T_high), with T_low = 3 × B and T_high = 0.8 × G",
+    "not_final_paper_evidence": "NOT_FINAL_PAPER_EVIDENCE",
+    "offset_correctness_tolerance_s": 0.1,
+    "offset_sensitivity_tolerances_s": [
+      0.05,
+      0.15
+    ],
+    "pilot_only": "PILOT_ONLY",
+    "prohibited": [
+      "comparator-dependent threshold changes",
+      "manual marker rescue",
+      "payload time-warp",
+      "per-take comparator special cases"
+    ],
+    "research_starting_head": "b7f4d1af6badf689729d181733c1a84bec0fdfe7",
+    "scoring_definitions": {
+      "positive": "ACCEPT within tolerance=CORRECT_ACCEPT; ACCEPT outside=WRONG_ACCEPT; ABSTAIN/NO_MATCH=SAFE_ABSTAIN",
+      "wrong_reference": "ACCEPT=WRONG_ACCEPT; ABSTAIN/NO_MATCH=SAFE_ABSTAIN"
+    },
+    "source_recordings": [
+      {
+        "decoded_sha256": "9428a1bb0a1fe2e2f8cd7363c36cc70a6328885f9099a384e38173f4d9522225",
+        "filename": "take01.m4a",
+        "sha256": "08da59ed4abe73df4468ebc88bdaca5032c47ecab4b2ebf6f678efd9c3658d8f",
+        "take_id": "take01",
+        "trimmed_sha256": "02f4ef29e6694705ab04eb4f8dbbc1bb712ecc506a67294de58a49a37cff67a9"
+      },
+      {
+        "decoded_sha256": "34c6cfc2eb7e4c4d659d673335b250f767be0919986d3c2d3bf95bacc722a3c0",
+        "filename": "take02.m4a",
+        "sha256": "5cff3d0338ee0bca4afacf3c60526c1ab73a1e647cc66344f3ac2b87e9254a33",
+        "take_id": "take02",
+        "trimmed_sha256": "65ecf942d4b080fc10034242018b0c6352b1c89c3a932686bffeab0b033173da"
+      },
+      {
+        "decoded_sha256": "e1489f64f49af3e4f959ac3f45ca7e639a90d46394c729d66cac015292b8baad",
+        "filename": "take03.m4a",
+        "sha256": "a52ef6ef5301db67641de45ab8daa06c61ec046d28da03111fe0cab1212e673d",
+        "take_id": "take03",
+        "trimmed_sha256": "fada063a32f5bfef5017d7ef68d8c30a8b8a8575c22597d8cc129a803ee47c54"
+      },
+      {
+        "decoded_sha256": "bc498fcbdc1431956b27fcac0857e54a7cdac1638fb1893d053cada8eb9f1317",
+        "filename": "take04.m4a",
+        "sha256": "af68dbe8f50c73f55b63328b99c1590b60c495a38a879a327b37613a30261308",
+        "take_id": "take04",
+        "trimmed_sha256": "0bf9b57d871653eb5e12e79965b2096aa6d91fe409d901a9aec42f30bd836300"
+      },
+      {
+        "decoded_sha256": "9f2e785ac56cfe32a7d662bd791d09a8082321f871231ae1d37350d197f3cbc2",
+        "filename": "take05.m4a",
+        "sha256": "1494efece25f15ab4882791e7ed7ec9aee0b33e97a6d99cea5efefbc4145a79d",
+        "take_id": "take05",
+        "trimmed_sha256": "23e83f30e9d6538f6eb1f700ead2cda26330a3defaa1958c231be3e399737ab0"
+      },
+      {
+        "decoded_sha256": "e139140db5e83984ab06b8c6e6ccb435794c51ae9ea76684e083b29c967fecc9",
+        "filename": "take06.m4a",
+        "sha256": "1f9b13e10e04aae589801f8a27d4c9a24a9e186f0503397e61dfa012f9401304",
+        "take_id": "take06",
+        "trimmed_sha256": "5edbeba30c4b8e59061f8059af66d3a784acb5a91c1ac8f7cf0423a6b1088886"
+      },
+      {
+        "decoded_sha256": "dbb36d6a7df77a0dcfde0329cf1d91813131d9f0cd519e305bff21f96e432292",
+        "filename": "take07.m4a",
+        "sha256": "611de34cce256e348c1c72f2b58978d89bb450e574babfc2409f47936ff68dbb",
+        "take_id": "take07",
+        "trimmed_sha256": "4574e4b0bad48b124867dcbc7f643dcffa0863e8a3f7b89aab803199a61f2a61"
+      },
+      {
+        "decoded_sha256": "ce08f0681dfdd3708de2e53482d90d6f4277c623c9d1d9527d6025577f5abcf4",
+        "filename": "take08.m4a",
+        "sha256": "41d9063d9e4cad6dd4a4b53e9a3ea13b0f0a66be1d04db2a040ff887bc878e47",
+        "take_id": "take08",
+        "trimmed_sha256": "270b6e28361b6a1340128f7e4e008a40d5b89cf770a6754a03214194550b5d9f"
+      },
+      {
+        "decoded_sha256": "fd02eb4a6f3128e04bfab22afc72ec2ad86ba253b744b39702d2b49c5f97c9a2",
+        "filename": "take09.aac",
+        "sha256": "89ff32b6d3968f05aaf73143d3f666c1afe671627634ff1ef5ec7bf75a29dd3e",
+        "take_id": "take09",
+        "trimmed_sha256": "c0ba9662f75c98cbcbde4d42e3699d72e01879720d084c0d34b8b19bb7341b4a"
+      },
+      {
+        "decoded_sha256": "ce4847fd0bbaf209e147f253c3787e6e933153620d5eb753a453983865116a82",
+        "filename": "take10.aac",
+        "sha256": "14abe9228afb7001dbbec050b9f4b8b5e90b7de8760c59f05f9cbbd75f06a098",
+        "take_id": "take10",
+        "trimmed_sha256": "f3a32ef659e125dce8e00bf8298d722c9a52dd01f7a998c1b117cfe39bddc054"
+      },
+      {
+        "decoded_sha256": "c888256cf858e0180a20bd3d2a1c8977018e058c344c689866fca289b5d6349d",
+        "filename": "take11.aac",
+        "sha256": "77cfb151f33601cd755a8f8e40348fb472f47b0f274ce353bdd5a7a25ba2694c",
+        "take_id": "take11",
+        "trimmed_sha256": "00aa8fce6075dad165632d3519943ead906410620c3377cbc23fbd6eb5a24df1"
+      },
+      {
+        "decoded_sha256": "4258a451e3141a5091a49be65a2f0d3e183cb10eead3cb0b4ea032cd00b269d7",
+        "filename": "take12.aac",
+        "sha256": "97e28c2b58806580dc7c9ad18ae81e998f7f04f14ca4649ef97e7acf4ae76e64",
+        "take_id": "take12",
+        "trimmed_sha256": "883e8bb4ec68eb3bf3736aaa1caaa519f34915cd8ee8d3636cd1b4aeda1050f1"
+      }
+    ],
+    "status": "PILOT_MEASUREMENT_CONTRACT_FROZEN_BEFORE_COMPARATOR_SWEEP",
+    "trajectory_gate_state": "TRAJECTORY_GATE_FROZEN_OFF",
+    "trimming_rule": {
+      "construction": "remove marker+guard holes; concatenate only; never resample or warp",
+      "post_margin_s": 0.05,
+      "pre_margin_s": 0.05
+    },
+    "warning": "PILOT_ONLY — NOT_FINAL_PAPER_EVIDENCE",
+    "wrong_pairing_hash": "4aeb8c73f040c1dc43206cd123b69fb67fb21ba50108350fb2e757a7f71921c6"
+  },
+  "measurement_freeze_hash": "20dbc530c9dffba14a4e51b6773ab8efbf1db1681f597babfd47e7ba6ab039cd"
+}

@@ -1,0 +1,26 @@
+{
+  "case_id": "take10__wrong_ref",
+  "decision": "ACCEPT",
+  "input_sha256": {
+    "reference": "9b9c7059be6dcfa661b777d0ba3ff90180b9f29c0ac2fb0feef9b33368db645b",
+    "trimmed_input": "f3a32ef659e125dce8e00bf8298d722c9a52dd01f7a998c1b117cfe39bddc054"
+  },
+  "native_scores": {
+    "implementation": "ncc_argmax_v1",
+    "lag_samples": 2986520,
+    "ncc_peak_value": 0.034265163309266565,
+    "runtime_curve_s": 1.4690088000006654
+  },
+  "not_final_paper_evidence": "NOT_FINAL_PAPER_EVIDENCE",
+  "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+  "notes": {
+    "always_output": true,
+    "no_threshold_invented": true
+  },
+  "output_semantics": "ALWAYS_OUTPUT",
+  "pilot_only": "PILOT_ONLY",
+  "predicted_offset_s": 62.219166666666666,
+  "runtime_s": 1.5023094999996829,
+  "system": "ncc_argmax_v1",
+  "warning": "PILOT_ONLY — NOT_FINAL_PAPER_EVIDENCE"
+}

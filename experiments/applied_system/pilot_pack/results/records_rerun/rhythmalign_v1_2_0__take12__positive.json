@@ -1,0 +1,84 @@
+{
+  "case_id": "take12__positive",
+  "decision": "ACCEPT",
+  "input_sha256": {
+    "reference": "9b9c7059be6dcfa661b777d0ba3ff90180b9f29c0ac2fb0feef9b33368db645b",
+    "trimmed_input": "883e8bb4ec68eb3bf3736aaa1caaa519f34915cd8ee8d3636cd1b4aeda1050f1"
+  },
+  "native_scores": {
+    "engine_label": "Engine v2 (evidence-gated)",
+    "reason_code": "ACCEPT_DUAL_FAMILY",
+    "status": "accepted"
+  },
+  "not_final_paper_evidence": "NOT_FINAL_PAPER_EVIDENCE",
+  "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+  "notes": {
+    "frozen_release": "v1.2.0",
+    "n_clusters": 9,
+    "raw_decision": {
+      "evidence": {
+        "families": {
+          "hybrid": {
+            "error": null,
+            "family": "tonal",
+            "runtime_s": 1.315,
+            "z": 12.748
+          },
+          "onset": {
+            "error": null,
+            "family": "onset_temporal",
+            "runtime_s": 0.17,
+            "z": 2.486
+          },
+          "pcen": {
+            "error": null,
+            "family": "pcen_spectral",
+            "runtime_s": 0.202,
+            "z": 33.243
+          },
+          "pcen_hpss": {
+            "error": null,
+            "family": "pcen_spectral",
+            "runtime_s": 0.801,
+            "z": 51.229
+          }
+        },
+        "music_duration_s": 152.842,
+        "n_clusters": 9,
+        "temporal_support": {
+          "applied": true,
+          "effective_bins": 51.99,
+          "max_top_bin_share": 0.25,
+          "n_bins": 62,
+          "top_bin_share": 0.0411,
+          "verified_method": "pcen_hpss"
+        },
+        "video_duration_s": 62.747
+      },
+      "offset": 1.7647165532879818,
+      "policy": {
+        "ambiguity_z_ratio": 0.95,
+        "bin_width_s": 1.0,
+        "cluster_tol_s": 0.15,
+        "margin_floor_a": 1.0,
+        "margin_floor_b": 1.4,
+        "max_top_bin_share": 0.25,
+        "min_overlap_s": 30.0,
+        "onset_corroboration_z_floor": 2.0,
+        "pcen_primary_z_floor": 7.0,
+        "pcen_z_floor": 5.6,
+        "tonal_z_floor": 5.0,
+        "top_candidates_per_family": 4
+      },
+      "reason_code": "ACCEPT_DUAL_FAMILY",
+      "runtime_s": 2.4926144999990356,
+      "status": "accepted"
+    }
+  },
+  "output_semantics": "SELECTIVE_NO_MATCH",
+  "pilot_only": "PILOT_ONLY",
+  "predicted_offset_s": 1.7647165532879818,
+  "runtime_s": 2.4926144999990356,
+  "system": "rhythmalign_v1_2_0",
+  "warning": "PILOT_ONLY — NOT_FINAL_PAPER_EVIDENCE"
+}

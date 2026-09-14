@@ -1,0 +1,47 @@
+{
+  "case_id": "take03__positive",
+  "decision": "ACCEPT",
+  "input_sha256": {
+    "reference": "9b9c7059be6dcfa661b777d0ba3ff90180b9f29c0ac2fb0feef9b33368db645b",
+    "trimmed_input": "fada063a32f5bfef5017d7ef68d8c30a8b8a8575c22597d8cc129a803ee47c54"
+  },
+  "native_scores": {
+    "match_rows": [
+      {
+        "frequency_factor_percent": 1.0,
+        "index": 1,
+        "is_valid_match": true,
+        "match_id": "1068676254",
+        "match_path": "/mnt/d/Code/RhythmAlign/experiments/applied_system/pilot_pack/local/references/REF-B.wav",
+        "match_score": 66.0,
+        "match_start_s": 91.32,
+        "match_stop_s": 144.544,
+        "query_path": "/mnt/d/Code/RhythmAlign/experiments/applied_system/pilot_pack/results/trimmed/take03.wav",
+        "query_start_s": 4.296,
+        "query_stop_s": 57.512,
+        "seconds_with_match_percent": 0.54,
+        "time_factor_percent": 1.0,
+        "total": 1
+      }
+    ],
+    "n_empty_rows": 0,
+    "n_valid_match_rows": 1
+  },
+  "not_final_paper_evidence": "NOT_FINAL_PAPER_EVIDENCE",
+  "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+  "notes": {
+    "hybrid_refinement": "none (forbidden by study plan)",
+    "no_threshold_invented": true,
+    "offset_convention": "predicted_offset_s = Query start - Match start (reference begins this many seconds into the input; verified empirically on shakedown GT)",
+    "selected_match_score": 66.0,
+    "selected_row_index": 1,
+    "store_dir": "/tmp/panako_runner_store_31748_1222e393c0ee4cd6b9cd11bf61d6359e",
+    "strategy": "OLAF"
+  },
+  "output_semantics": "SELECTIVE_NO_MATCH",
+  "pilot_only": "PILOT_ONLY",
+  "predicted_offset_s": -87.02399999999999,
+  "runtime_s": 2.1420576999998957,
+  "system": "panako_fingerprint",
+  "warning": "PILOT_ONLY — NOT_FINAL_PAPER_EVIDENCE"
+}

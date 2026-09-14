@@ -1,0 +1,1141 @@
+{
+  "case_manifest_hash": "202c3d4783c588b6a85b23f37e72b7d940cdadd247f65fb6cebf29b07a600511",
+  "not_final_paper_evidence": "NOT_FINAL_PAPER_EVIDENCE",
+  "per_case": [
+    {
+      "abs_error_s": 0.003978316326530784,
+      "case_id": "take01__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take01",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 37.05497916666667,
+      "case_id": "take01__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take01",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0006041666666667389,
+      "case_id": "take01__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take01",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0027083333333335347,
+      "case_id": "take01__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take01",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take01__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take01",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take01__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take01",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take01__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take01",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take01__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take01",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.009397392290249496,
+      "case_id": "take02__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take02",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 37.056958333333334,
+      "case_id": "take02__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take02",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0004166666666667318,
+      "case_id": "take02__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take02",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 61.43031249999999,
+      "case_id": "take02__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take02",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take02__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take02",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take02__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take02",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take02__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take02",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take02__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take02",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.002515022675737555,
+      "case_id": "take03__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take03",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.004458333333332121,
+      "case_id": "take03__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take03",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0018750000000125056,
+      "case_id": "take03__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take03",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.002916666666664014,
+      "case_id": "take03__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take03",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take03__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take03",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take03__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take03",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take03__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take03",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take03__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take03",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0010420918367346488,
+      "case_id": "take04__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take04",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 37.05822916666667,
+      "case_id": "take04__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take04",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take04__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take04",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.00029166666666657903,
+      "case_id": "take04__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take04",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take04__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take04",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take04__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take04",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take04__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take04",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take04__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take04",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.003487386621316091,
+      "case_id": "take05__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take05",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.002583333333333826,
+      "case_id": "take05__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take05",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.009437500000004206,
+      "case_id": "take05__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take05",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.005604166666671517,
+      "case_id": "take05__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take05",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take05__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take05",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take05__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take05",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take05__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take05",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take05__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take05",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0005257936507936378,
+      "case_id": "take06__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take06",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 37.055104166666666,
+      "case_id": "take06__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take06",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0011250000000000426,
+      "case_id": "take06__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take06",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 61.238958333333336,
+      "case_id": "take06__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take06",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take06__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take06",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take06__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take06",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take06__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take06",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take06__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take06",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0011249999999995985,
+      "case_id": "take07__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take07",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 37.054125,
+      "case_id": "take07__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take07",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0015416666666663303,
+      "case_id": "take07__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take07",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 61.555145833333334,
+      "case_id": "take07__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take07",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take07__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take07",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take07__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take07",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take07__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take07",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take07__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take07",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.014995890022675873,
+      "case_id": "take08__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take08",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 37.055104166666666,
+      "case_id": "take08__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take08",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0066875000000008455,
+      "case_id": "take08__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take08",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 62.81545833333333,
+      "case_id": "take08__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take08",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take08__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take08",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take08__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take08",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take08__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take08",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take08__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take08",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.008415958049886374,
+      "case_id": "take09__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take09",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 37.056979166666665,
+      "case_id": "take09__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take09",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0002708333333334423,
+      "case_id": "take09__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take09",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 61.57160416666666,
+      "case_id": "take09__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take09",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take09__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take09",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take09__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take09",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take09__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take09",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take09__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take09",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0020792233560089635,
+      "case_id": "take10__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take10",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 37.054833333333335,
+      "case_id": "take10__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take10",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.007104166666667133,
+      "case_id": "take10__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take10",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 60.961354166666666,
+      "case_id": "take10__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take10",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take10__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take10",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take10__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take10",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take10__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take10",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take10__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take10",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.010163265306122327,
+      "case_id": "take11__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take11",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 35.721354166666664,
+      "case_id": "take11__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take11",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take11__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take11",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.003249999999999975,
+      "case_id": "take11__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take11",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take11__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take11",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take11__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take11",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take11__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take11",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take11__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take11",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.007908446712018069,
+      "case_id": "take12__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take12",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.0007708333333331652,
+      "case_id": "take12__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take12",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take12__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take12",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": 0.005437500000000206,
+      "case_id": "take12__positive",
+      "gt_stratum": "EXACT_GT",
+      "outcome": "CORRECT_ACCEPT",
+      "pair_type": "POSITIVE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take12",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take12__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "rhythmalign_v1_2_0",
+      "take_id": "take12",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take12__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "gcc_phat_argmax_v1",
+      "take_id": "take12",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take12__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "outcome": "SAFE_ABSTAIN",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "panako_fingerprint",
+      "take_id": "take12",
+      "tolerance_s": 0.1
+    },
+    {
+      "abs_error_s": null,
+      "case_id": "take12__wrong_ref",
+      "gt_stratum": "NO_MATCH",
+      "notes": "placement accepted on a no-match pair",
+      "outcome": "WRONG_ACCEPT",
+      "pair_type": "WRONG_REFERENCE",
+      "protocol_failure": false,
+      "system": "ncc_argmax_v1",
+      "take_id": "take12",
+      "tolerance_s": 0.1
+    }
+  ],
+  "pilot_only": "PILOT_ONLY",
+  "protocol_failures": [],
+  "summary": {
+    "gcc_phat_argmax_v1": {
+      "CORRECT_ACCEPT": 3,
+      "WRONG_ACCEPT": 21
+    },
+    "ncc_argmax_v1": {
+      "CORRECT_ACCEPT": 6,
+      "WRONG_ACCEPT": 18
+    },
+    "panako_fingerprint": {
+      "CORRECT_ACCEPT": 9,
+      "SAFE_ABSTAIN": 15
+    },
+    "rhythmalign_v1_2_0": {
+      "CORRECT_ACCEPT": 12,
+      "SAFE_ABSTAIN": 12
+    }
+  },
+  "summary_by_pair_type": {
+    "POSITIVE": {
+      "gcc_phat_argmax_v1": {
+        "CORRECT_ACCEPT": 3,
+        "WRONG_ACCEPT": 9
+      },
+      "ncc_argmax_v1": {
+        "CORRECT_ACCEPT": 6,
+        "WRONG_ACCEPT": 6
+      },
+      "panako_fingerprint": {
+        "CORRECT_ACCEPT": 9,
+        "SAFE_ABSTAIN": 3
+      },
+      "rhythmalign_v1_2_0": {
+        "CORRECT_ACCEPT": 12
+      }
+    },
+    "WRONG_REFERENCE": {
+      "gcc_phat_argmax_v1": {
+        "WRONG_ACCEPT": 12
+      },
+      "ncc_argmax_v1": {
+        "WRONG_ACCEPT": 12
+      },
+      "panako_fingerprint": {
+        "SAFE_ABSTAIN": 12
+      },
+      "rhythmalign_v1_2_0": {
+        "SAFE_ABSTAIN": 12
+      }
+    }
+  },
+  "tolerance_s": 0.1,
+  "warning": "PILOT_ONLY — NOT_FINAL_PAPER_EVIDENCE"
+}

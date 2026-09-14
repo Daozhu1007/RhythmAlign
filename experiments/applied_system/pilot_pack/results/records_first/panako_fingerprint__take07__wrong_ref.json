@@ -1,0 +1,46 @@
+{
+  "case_id": "take07__wrong_ref",
+  "decision": "NO_MATCH",
+  "input_sha256": {
+    "reference": "9b9c7059be6dcfa661b777d0ba3ff90180b9f29c0ac2fb0feef9b33368db645b",
+    "trimmed_input": "4574e4b0bad48b124867dcbc7f643dcffa0863e8a3f7b89aab803199a61f2a61"
+  },
+  "native_scores": {
+    "match_rows": [
+      {
+        "frequency_factor_percent": -1.0,
+        "index": 1,
+        "is_valid_match": false,
+        "match_id": "null",
+        "match_path": null,
+        "match_score": -1.0,
+        "match_start_s": -1.0,
+        "match_stop_s": -1.0,
+        "query_path": "/mnt/d/Code/RhythmAlign/experiments/applied_system/pilot_pack/results/trimmed/take07.wav",
+        "query_start_s": 0.0,
+        "query_stop_s": 0.0,
+        "seconds_with_match_percent": 0.0,
+        "time_factor_percent": -1.0,
+        "total": 1
+      }
+    ],
+    "n_empty_rows": 1,
+    "n_valid_match_rows": 0,
+    "native_refusal": "no valid match row (native empty-result row or no rows)"
+  },
+  "not_final_paper_evidence": "NOT_FINAL_PAPER_EVIDENCE",
+  "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+  "notes": {
+    "hybrid_refinement": "none (forbidden by study plan)",
+    "no_threshold_invented": true,
+    "offset_convention": "predicted_offset_s = Query start - Match start (reference begins this many seconds into the input; verified empirically on shakedown GT)",
+    "store_dir": "/tmp/panako_runner_store_31748_205a3f7817c84c1485b34f901c557acb",
+    "strategy": "OLAF"
+  },
+  "output_semantics": "SELECTIVE_NO_MATCH",
+  "pilot_only": "PILOT_ONLY",
+  "predicted_offset_s": null,
+  "runtime_s": 2.008063800000855,
+  "system": "panako_fingerprint",
+  "warning": "PILOT_ONLY — NOT_FINAL_PAPER_EVIDENCE"
+}

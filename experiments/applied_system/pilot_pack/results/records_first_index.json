@@ -1,0 +1,486 @@
+{
+  "not_final_paper_evidence": "NOT_FINAL_PAPER_EVIDENCE",
+  "pilot_only": "PILOT_ONLY",
+  "records": [
+    {
+      "case_id": "take01__positive",
+      "record_sha256": "901fb6945f9c12ceade206f2494bd392f9daacc34f2628499437a7797ae1dc79",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take01__positive",
+      "record_sha256": "4f19f1f1357df6b052350329ffbdde3b29b82fba752a7eb779e121a13aa52c0c",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take01__positive",
+      "record_sha256": "9793f06e0af6cbe4fa754a91b42d55a49e3dbe39084799a79482d654fce92a37",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take01__positive",
+      "record_sha256": "e6d7009a45c4f0f1015a3fc49e37e0a7e14e52590b6dfdf875ee2800ee79a74d",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take01__wrong_ref",
+      "record_sha256": "a7e9c7e652dc1fbcf82c98b876934e8558dc4e93d1e5a721e938c9bcbaceb983",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take01__wrong_ref",
+      "record_sha256": "b3154e54717fc5b3afb18d6a13d68336d2deaea9b84f2c2a9e5a14b4039b4566",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take01__wrong_ref",
+      "record_sha256": "a9954f87d1d501d8e0999d3208bdc062a4d9fb2e002878d461627f01b10c9f7c",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take01__wrong_ref",
+      "record_sha256": "a5b96e732e9fdee7bfd7ab9d0bd7e7ed99e927c2cc116995fe7bd0299ac1448b",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take02__positive",
+      "record_sha256": "58cacd9e7fba7121a66e1d51e7fc0caedf33aba919654c39db4626191c6d0441",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take02__positive",
+      "record_sha256": "1fc6b66efa1ba16c54e1871c224995078fdc8ea8ac0c1ee10667b38e4767ddcf",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take02__positive",
+      "record_sha256": "587b4bdd134db92604f47c9b2c36808b579c7ca6697497953f658ff9ef27f327",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take02__positive",
+      "record_sha256": "515bce117aa49bd2b4f8ea8e9b8dc5f6a4c01597a25cc47112972d652931c5c6",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take02__wrong_ref",
+      "record_sha256": "c78aaf15bf29d469d21b1d90d87b6efd65e7e6cdc9b51b3d751a07a3de5e1bc2",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take02__wrong_ref",
+      "record_sha256": "1080d0d4ce62034f0ce3013fa9205b61fad2e6bd9edbcab0c796d620789b04e9",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take02__wrong_ref",
+      "record_sha256": "aef0696f8d2d8c5725c4bb91c744dde41001f1f9e2cc0eeffb0b85cdd835c1c3",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take02__wrong_ref",
+      "record_sha256": "3bdf5722c3fe7c5c9e8cade25197cffd4139e099ad437e1877d00d9fdcacdd03",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take03__positive",
+      "record_sha256": "8c14bb2865603bee2b82fe92ef28d21e37335f63aa053dd03129e1d46fa0905b",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take03__positive",
+      "record_sha256": "07b8d7e4bb73460512e1be3bbab642f54f821c61431028fab2ced2087d2602f1",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take03__positive",
+      "record_sha256": "12a69258d260a345ddb96bba786856a625aa2181851b1c4da55f37bb2b8bc612",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take03__positive",
+      "record_sha256": "8ec08b67c818e5e53942001bd631005a7d0b9c773fbb908e02f31b97b4bbe6c4",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take03__wrong_ref",
+      "record_sha256": "9b6d101ae5c4a22070327bf66f95f925756d86e4fe6f5ca318eb8e54d775c808",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take03__wrong_ref",
+      "record_sha256": "73705cf5208f875fe94bddfb2b1f8594452c1356e8dc757d3f7b8cfa3d5a2c17",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take03__wrong_ref",
+      "record_sha256": "c4084746f03ced563cc255f8e5a1e02bf811cb80367f950bcb044a5e5afaf87d",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take03__wrong_ref",
+      "record_sha256": "d46a74bbf3b9bdcd5158f759bc9760bc90d4a7d89691a29e228fd72352b09eea",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take04__positive",
+      "record_sha256": "65d9ca669cf847867569515bf3ec3fd9e8ad89a789324392246696fe01efafc4",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take04__positive",
+      "record_sha256": "63d5d40da6c00dbd74dd7a52e65f5343311dc595e2339ab6d6a0dcb80d0716a1",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take04__positive",
+      "record_sha256": "3310925c1d04a3c8d955a70929e5f7dd3495c5ff22f8d74911299761452c433c",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take04__positive",
+      "record_sha256": "fef7555a39dd9e1387db0ce6a759a7a4dc7aec783f35c85911b2fbaec2c5d3a4",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take04__wrong_ref",
+      "record_sha256": "52d949c41484e8fe72bf096cc211cd7bb1dc852b5ca426218813477ac2bda5fc",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take04__wrong_ref",
+      "record_sha256": "6e73d025820e504c9d1e5dee5b979fb1e4465eb98954e9a1b64af4acde9499fc",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take04__wrong_ref",
+      "record_sha256": "6dd99d27019789d99d2dabbbc6a39895ebea7d8de2ea44a9fb71f95c8d1c5ecb",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take04__wrong_ref",
+      "record_sha256": "418eea1409502e02fa5e91844f0bc5fa03eda445fa1692801d1945a8021b205f",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take05__positive",
+      "record_sha256": "0826f892fc1ac2ecffcdeabdc41a78d4d9260052d5b526e58b978ad7749d8683",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take05__positive",
+      "record_sha256": "6001b63ef6af9810d401ae34703137e8690cf439e6f1c7e35c6ccb0f5fb8df7a",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take05__positive",
+      "record_sha256": "c4cd8ee7d846bda9b472187e32509a0cd38a9b4ae119615c15c3510e4c8089d9",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take05__positive",
+      "record_sha256": "06909ce711042fefabb075ca13a2a34cf47ac5474ebf27a6cde3366c5fe04efe",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take05__wrong_ref",
+      "record_sha256": "caeb958baffca4f6dca80e652557cd753f258e0accfd78f5effc00e1268299d8",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take05__wrong_ref",
+      "record_sha256": "6cacf98fa6d107722266fccb59b2c96d005fb1ad465027ef796502e282a095bf",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take05__wrong_ref",
+      "record_sha256": "f6c872f1b487a06a410c0c2b8e1b7a9894abcb2926af6dd53ebc4d1311d7ffc5",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take05__wrong_ref",
+      "record_sha256": "195139e3afd25351a930ad9b37754c4b6c96c3828784430d5c1751f8ec7508c6",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take06__positive",
+      "record_sha256": "8917a8d6bd5730916c90ca5079d722ab94369864ceb88f78b91b710d0b723ab2",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take06__positive",
+      "record_sha256": "1f157de2a048251de37fe24cca537eaa8851d2ab0c26859f4d3135d39b32e838",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take06__positive",
+      "record_sha256": "19e4ea74514f1ab050d07598ef68b4d827953e31dd07625cd7a9f370fd9022a1",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take06__positive",
+      "record_sha256": "5b6cd639b30a904660527dac4fad1a96a103063aa730daa84e2c093910ed4182",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take06__wrong_ref",
+      "record_sha256": "28692729c6b336d85815e636db6bfa484125b09666d25a3b55ddc525bff5126d",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take06__wrong_ref",
+      "record_sha256": "7e4fd100fe69eccea158dc1c40be67d092cbb2799f5443479d1261ee572e79ff",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take06__wrong_ref",
+      "record_sha256": "1d7a357502e381856cc73631b0e56891b1dcf50cf95a999090b812a025f6021f",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take06__wrong_ref",
+      "record_sha256": "e1172ecde3e90f73a118dd597d8e290b9171d7076eb5191535706d45788bb473",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take07__positive",
+      "record_sha256": "1781584d45f1c2564dc95180bca25d1a08577e77965e181f0dc7aba713f03df1",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take07__positive",
+      "record_sha256": "d0d862c898763d0a83e72ebaddc894cd30f7681496ecd5a35cf155d5645cffed",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take07__positive",
+      "record_sha256": "0531329fcc1be76b6c6f3226a03d4e72633881b05e67a6823415bf2d18cd8e98",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take07__positive",
+      "record_sha256": "af0e6c7613ead1791f9348599626758a2a15dbe42a0894d22546a8228670f3ea",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take07__wrong_ref",
+      "record_sha256": "edf973fc5c3372b42c7a6826f9caeb424038fa3a5a998d5fadb0e6fe6d2fb6a7",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take07__wrong_ref",
+      "record_sha256": "a806b08c8830039ba2b43539eaf3f92068a0148c06ced2771da81b051d283dd9",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take07__wrong_ref",
+      "record_sha256": "eb8d62a12016aa44bb500a26e8cb53063d078ed203fdc97f503cd96ac3946596",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take07__wrong_ref",
+      "record_sha256": "ff2849c64314c4359cbbced9befc30f5816a0d51e313020a62721377663f64a7",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take08__positive",
+      "record_sha256": "0287cfcd9906f67c0feb9bff5e29057c6c4ccf8e2577b258d2a6d3dd0b9cf3bf",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take08__positive",
+      "record_sha256": "6fb6a665819d4f876cf4ace189de14179b18615af20990a7aeb2b9fb95f4c299",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take08__positive",
+      "record_sha256": "36eca45f727b3f0cc0620b9c914693564f75ef4ef57830639480feb39a815cb2",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take08__positive",
+      "record_sha256": "07b7d524d8c9c2078affdb6f373433f50a031a3fe8f4a182fd5233cd41f34fb8",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take08__wrong_ref",
+      "record_sha256": "f8aebaef0807eaf7c4ffd3e07a54d6004a78f3c3a534e73ae7c1f84503e6ce01",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take08__wrong_ref",
+      "record_sha256": "b3a2bf55c2e493084b95961f235e5a08b187d97be3dce58485544e00492655cf",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take08__wrong_ref",
+      "record_sha256": "fa6c2dd3123cc19aea67073fc096d38d56713a65cac4e0ef0bfbb88ab52e0fcf",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take08__wrong_ref",
+      "record_sha256": "22d838e819aaf272d9bc2917f70a9d97f8bfd33fb42c82571b4a32bb73b730ab",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take09__positive",
+      "record_sha256": "9ff9c55944c4e40c5e330ccde2b77f04f57a898445dcd42789970a15e9c261b8",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take09__positive",
+      "record_sha256": "11508b5869a83a90472139aa493e18f53c220583429ddfe2ba6e10516b1fecd7",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take09__positive",
+      "record_sha256": "4d993ee3b81f03cb568dde7d838c7fe94b698048d51959ad23a886b16ed77d64",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take09__positive",
+      "record_sha256": "7df197cd18d937640ac389b56e1462408795798d1c3cca1557fdf07552987528",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take09__wrong_ref",
+      "record_sha256": "c1432bb408c350118c895dd3e3d1a8b2834ec4c5a62b842dfd6f8466fee16dfa",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take09__wrong_ref",
+      "record_sha256": "b285d03722d5e8de14c15762375b699bfae489a25add193ea655e6499b45b8fd",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take09__wrong_ref",
+      "record_sha256": "0e7cbff455debb272a726c0bce15547fa381f0e322b1d37b72d33e696ef7c521",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take09__wrong_ref",
+      "record_sha256": "44ab118cc26e3b7bceec64a2243aff4d468b1c76334b7c3d849d7904b560d5f3",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take10__positive",
+      "record_sha256": "4fd148a8dbde51f630fcd8979fd4b39c18678a5c60559745b6b3073347fcbf59",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take10__positive",
+      "record_sha256": "0010c98a2b494b866d68a2b03f199a4b3590bcc86cf7170621f2d64551ecb160",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take10__positive",
+      "record_sha256": "30dc9f8d6bde0a40ad5f0c30aaa6d7c2e832e2fe6f4c5484f908008a2c76d5e0",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take10__positive",
+      "record_sha256": "a723835c584ae61278d3c7d70ebd2ae6188ca5b4fa65b9ab965327f0eeb400cf",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take10__wrong_ref",
+      "record_sha256": "75be8c643d6c55b8bf4dda07d762f4802a4073091cf8149b721b99f447db3354",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take10__wrong_ref",
+      "record_sha256": "b6179b805c27d10945732ff8f155d268ecf2e0c0b06933163a669242c99204f8",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take10__wrong_ref",
+      "record_sha256": "7db8b050576ad330251419d318d0aa4c9f7332b8312e746e486d0b8669a14117",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take10__wrong_ref",
+      "record_sha256": "23f4a3d1ec817833daba74f0e7542882b42426a99d80ad3f128c3208b109504c",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take11__positive",
+      "record_sha256": "9291fbab08d37cd52a4d780bc96f8d5f803f190ac02ff51fa10ac28f9c3379fa",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take11__positive",
+      "record_sha256": "9cab4b1be92635aa40cde5828a1a26115fb301bc1b71f37244e6b5b4599d48f2",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take11__positive",
+      "record_sha256": "dc7d1f11bfde2bb157a9285adeb642ffaddb6d227cdb9dd4387eeb78c1fddb47",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take11__positive",
+      "record_sha256": "7336ed95af5cebde094055e1cdec047cd020ad672552a794da99a65b237cc000",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take11__wrong_ref",
+      "record_sha256": "0b1e6ee89feb0cf5dfd1642290323c6bb309a341e4f86263d21651f907b29eb7",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take11__wrong_ref",
+      "record_sha256": "86aa54ba2cfb4976d1c2850c6c86278bf0b2c7425c7e311fa1b94674e8638a13",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take11__wrong_ref",
+      "record_sha256": "697280a97364d2d02eb4bf8d46c02b928738004c86d8f8da4160fa5dc6bfc0da",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take11__wrong_ref",
+      "record_sha256": "84742c6321d0008ff1f974e5ea3adc7125578bce24e225c569da01a7ebfe0af8",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take12__positive",
+      "record_sha256": "6e2018f6a235e8bb7873f4d470c54ef64756a4e840090bda1b6ad47ecfc19083",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take12__positive",
+      "record_sha256": "bab8f5ba3d53049cae5c0a359b29828b29d764eaec6349f2dbefac19c482f442",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take12__positive",
+      "record_sha256": "9e9031778c447d46a5ff3f1469d1e29eb6719545b12f5296d3d99506efd6b87f",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take12__positive",
+      "record_sha256": "0c76c1257881b8d35e163fa07c9cc375a530f6f3effad9624e49c8bd4eb3bde2",
+      "system": "ncc_argmax_v1"
+    },
+    {
+      "case_id": "take12__wrong_ref",
+      "record_sha256": "037b2da05f7806af21d2b4325854cbfe5138c1ff4249e8d646bd7e7c87d1ba15",
+      "system": "rhythmalign_v1_2_0"
+    },
+    {
+      "case_id": "take12__wrong_ref",
+      "record_sha256": "f08c118aaea36adcd56e4c01f72899192a7cde94684aabe014ab692cc93865de",
+      "system": "gcc_phat_argmax_v1"
+    },
+    {
+      "case_id": "take12__wrong_ref",
+      "record_sha256": "6700bb549868f0292fb9323cbfebab94467a6269e09a5c7d07e2355f1c739e0c",
+      "system": "panako_fingerprint"
+    },
+    {
+      "case_id": "take12__wrong_ref",
+      "record_sha256": "f5301f4a2de3ac8eb1aca792e4d99911a183e8e5f97e9f2f2ef9c721bbd0ed69",
+      "system": "ncc_argmax_v1"
+    }
+  ]
+}

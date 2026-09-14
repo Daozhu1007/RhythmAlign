@@ -1,0 +1,76 @@
+{
+  "case_id": "take11__wrong_ref",
+  "decision": "ABSTAIN",
+  "input_sha256": {
+    "reference": "9b9c7059be6dcfa661b777d0ba3ff90180b9f29c0ac2fb0feef9b33368db645b",
+    "trimmed_input": "00aa8fce6075dad165632d3519943ead906410620c3377cbc23fbd6eb5a24df1"
+  },
+  "native_scores": {
+    "engine_label": "Engine v2 (evidence-gated)",
+    "reason_code": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+    "status": "abstained"
+  },
+  "not_final_paper_evidence": "NOT_FINAL_PAPER_EVIDENCE",
+  "not_paper_evidence": "NOT_PAPER_EVIDENCE",
+  "notes": {
+    "frozen_release": "v1.2.0",
+    "n_clusters": 16,
+    "raw_decision": {
+      "evidence": {
+        "families": {
+          "hybrid": {
+            "error": null,
+            "family": "tonal",
+            "runtime_s": 1.278,
+            "z": 4.269
+          },
+          "onset": {
+            "error": null,
+            "family": "onset_temporal",
+            "runtime_s": 0.159,
+            "z": 1.112
+          },
+          "pcen": {
+            "error": null,
+            "family": "pcen_spectral",
+            "runtime_s": 0.2,
+            "z": 5.7
+          },
+          "pcen_hpss": {
+            "error": null,
+            "family": "pcen_spectral",
+            "runtime_s": 0.781,
+            "z": 4.553
+          }
+        },
+        "music_duration_s": 152.842,
+        "n_clusters": 16,
+        "video_duration_s": 63.067
+      },
+      "offset": null,
+      "policy": {
+        "ambiguity_z_ratio": 0.95,
+        "bin_width_s": 1.0,
+        "cluster_tol_s": 0.15,
+        "margin_floor_a": 1.0,
+        "margin_floor_b": 1.4,
+        "max_top_bin_share": 0.25,
+        "min_overlap_s": 30.0,
+        "onset_corroboration_z_floor": 2.0,
+        "pcen_primary_z_floor": 7.0,
+        "pcen_z_floor": 5.6,
+        "tonal_z_floor": 5.0,
+        "top_candidates_per_family": 4
+      },
+      "reason_code": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+      "runtime_s": 2.422501700000794,
+      "status": "abstained"
+    }
+  },
+  "output_semantics": "SELECTIVE_NO_MATCH",
+  "pilot_only": "PILOT_ONLY",
+  "predicted_offset_s": null,
+  "runtime_s": 2.422501700000794,
+  "system": "rhythmalign_v1_2_0",
+  "warning": "PILOT_ONLY — NOT_FINAL_PAPER_EVIDENCE"
+}

@@ -1,0 +1,119 @@
+{
+  "body": {
+    "authority": "FRESH_PILOT_PLAN.md section 7",
+    "not_final_paper_evidence": "NOT_FINAL_PAPER_EVIDENCE",
+    "pairings": [
+      {
+        "construction": "offer the OTHER pilot song's clean reference",
+        "correct_reference": "REF-A",
+        "provenance": "PILOT_ONLY",
+        "rate_estimation_evidence": false,
+        "source_buffer": "BUF-A",
+        "take_id": "take01",
+        "wrong_reference": "REF-B"
+      },
+      {
+        "construction": "offer the OTHER pilot song's clean reference",
+        "correct_reference": "REF-A",
+        "provenance": "PILOT_ONLY",
+        "rate_estimation_evidence": false,
+        "source_buffer": "BUF-A",
+        "take_id": "take02",
+        "wrong_reference": "REF-B"
+      },
+      {
+        "construction": "offer the OTHER pilot song's clean reference",
+        "correct_reference": "REF-B",
+        "provenance": "PILOT_ONLY",
+        "rate_estimation_evidence": false,
+        "source_buffer": "BUF-BMID",
+        "take_id": "take03",
+        "wrong_reference": "REF-A"
+      },
+      {
+        "construction": "offer the OTHER pilot song's clean reference",
+        "correct_reference": "REF-A",
+        "provenance": "PILOT_ONLY",
+        "rate_estimation_evidence": false,
+        "source_buffer": "BUF-A",
+        "take_id": "take04",
+        "wrong_reference": "REF-B"
+      },
+      {
+        "construction": "offer the OTHER pilot song's clean reference",
+        "correct_reference": "REF-B",
+        "provenance": "PILOT_ONLY",
+        "rate_estimation_evidence": false,
+        "source_buffer": "BUF-BMID",
+        "take_id": "take05",
+        "wrong_reference": "REF-A"
+      },
+      {
+        "construction": "offer the OTHER pilot song's clean reference",
+        "correct_reference": "REF-A",
+        "provenance": "PILOT_ONLY",
+        "rate_estimation_evidence": false,
+        "source_buffer": "BUF-A",
+        "take_id": "take06",
+        "wrong_reference": "REF-B"
+      },
+      {
+        "construction": "offer the OTHER pilot song's clean reference",
+        "correct_reference": "REF-A",
+        "provenance": "PILOT_ONLY",
+        "rate_estimation_evidence": false,
+        "source_buffer": "BUF-A",
+        "take_id": "take07",
+        "wrong_reference": "REF-B"
+      },
+      {
+        "construction": "offer the OTHER pilot song's clean reference",
+        "correct_reference": "REF-A",
+        "provenance": "PILOT_ONLY",
+        "rate_estimation_evidence": false,
+        "source_buffer": "BUF-A",
+        "take_id": "take08",
+        "wrong_reference": "REF-B"
+      },
+      {
+        "construction": "offer the OTHER pilot song's clean reference",
+        "correct_reference": "REF-A",
+        "provenance": "PILOT_ONLY",
+        "rate_estimation_evidence": false,
+        "source_buffer": "BUF-A",
+        "take_id": "take09",
+        "wrong_reference": "REF-B"
+      },
+      {
+        "construction": "offer the OTHER pilot song's clean reference",
+        "correct_reference": "REF-A",
+        "provenance": "PILOT_ONLY",
+        "rate_estimation_evidence": false,
+        "source_buffer": "BUF-A",
+        "take_id": "take10",
+        "wrong_reference": "REF-B"
+      },
+      {
+        "construction": "offer the OTHER pilot song's clean reference",
+        "correct_reference": "REF-A",
+        "provenance": "PILOT_ONLY",
+        "rate_estimation_evidence": false,
+        "source_buffer": "BUF-A",
+        "take_id": "take11",
+        "wrong_reference": "REF-B"
+      },
+      {
+        "construction": "offer the OTHER pilot song's clean reference",
+        "correct_reference": "REF-B",
+        "provenance": "PILOT_ONLY",
+        "rate_estimation_evidence": false,
+        "source_buffer": "BUF-B1",
+        "take_id": "take12",
+        "wrong_reference": "REF-A"
+      }
+    ],
+    "pilot_only": "PILOT_ONLY",
+    "warning": "PILOT_ONLY — NOT_FINAL_PAPER_EVIDENCE"
+  },
+  "pairing_hash": "4aeb8c73f040c1dc43206cd123b69fb67fb21ba50108350fb2e757a7f71921c6"
+}

@@ -1,0 +1,319 @@
+{
+  "body": {
+    "historical_exclusions_snapshot": [
+      {
+        "identity": "延误列车 (yanwulieche)",
+        "patterns": [
+          "延误列车"
+        ],
+        "provenance": [
+          "task directive (this pilot round)",
+          "docs/RA-1.2C-CALIBRATION-HARDENING.md calibration list",
+          "experiments/ra12d1_temporal_support/reproduce_blocker.py (tr_yanwulieche reference)",
+          "docs/RA-1.2E-V1.2.0-RELEASE.md Astra blocker case"
+        ]
+      },
+      {
+        "identity": "零对话 (lingduihua)",
+        "patterns": [
+          "零对话"
+        ],
+        "provenance": [
+          "docs/RA-1.2C-CALIBRATION-HARDENING.md calibration list",
+          "docs/RA-1.2E-V1.2.0-RELEASE.md release validation cases",
+          "Astra exploratory research (tr_lingduihua video)"
+        ]
+      },
+      {
+        "identity": "红Lividi",
+        "patterns": [
+          "红lividi"
+        ],
+        "provenance": [
+          "docs/RA-1.2C-CALIBRATION-HARDENING.md calibration list"
+        ]
+      },
+      {
+        "identity": "DROPS",
+        "patterns": [
+          "drops"
+        ],
+        "provenance": [
+          "docs/RA-1.2C-CALIBRATION-HARDENING.md calibration list"
+        ]
+      },
+      {
+        "identity": "白妄想 / 妄想感伤代偿联盟",
+        "patterns": [
+          "白妄想",
+          "妄想感伤代偿联盟"
+        ],
+        "provenance": [
+          "docs/RA-1.2C-CALIBRATION-HARDENING.md calibration list"
+        ]
+      },
+      {
+        "identity": "共感觉",
+        "patterns": [
+          "共感觉"
+        ],
+        "provenance": [
+          "docs/RA-1.2C-CALIBRATION-HARDENING.md calibration list",
+          "docs/RA-1.2B-ALIGNMENT-ENGINE-V2.md dev corpus note"
+        ]
+      },
+      {
+        "identity": "分诊",
+        "patterns": [
+          "分诊"
+        ],
+        "provenance": [
+          "docs/RA-1.2C-CALIBRATION-HARDENING.md calibration list"
+        ]
+      },
+      {
+        "identity": "萨姆沙",
+        "patterns": [
+          "萨姆沙"
+        ],
+        "provenance": [
+          "docs/RA-1.2C-CALIBRATION-HARDENING.md calibration list"
+        ]
+      },
+      {
+        "identity": "90decision",
+        "patterns": [
+          "90decision"
+        ],
+        "provenance": [
+          "docs/RA-1.2C-CALIBRATION-HARDENING.md calibration list"
+        ]
+      },
+      {
+        "identity": "QUEEN",
+        "patterns": [
+          "queen"
+        ],
+        "provenance": [
+          "docs/RA-1.2C-CALIBRATION-HARDENING.md calibration list"
+        ]
+      },
+      {
+        "identity": "DanceRobotDance",
+        "patterns": [
+          "dancerobotdance"
+        ],
+        "provenance": [
+          "docs/RA-1.2C-CALIBRATION-HARDENING.md holdout list"
+        ]
+      },
+      {
+        "identity": "白39 / 39",
+        "patterns": [
+          "白39",
+          "39.mp3"
+        ],
+        "provenance": [
+          "docs/RA-1.2C-CALIBRATION-HARDENING.md holdout list"
+        ]
+      },
+      {
+        "identity": "宙天",
+        "patterns": [
+          "宙天"
+        ],
+        "provenance": [
+          "docs/RA-1.2C-CALIBRATION-HARDENING.md holdout list"
+        ]
+      },
+      {
+        "identity": "海底谭 / ウミユリ海底譚 (same song identity)",
+        "patterns": [
+          "海底谭",
+          "ウミユリ海底譚"
+        ],
+        "provenance": [
+          "docs/RA-1.2C-CALIBRATION-HARDENING.md holdout list (海底谭)",
+          "docs/RA-1.2B-ALIGNMENT-ENGINE-V2.md dev corpus (海底谭 已发)"
+        ]
+      },
+      {
+        "identity": "Let u dive",
+        "patterns": [
+          "let u dive"
+        ],
+        "provenance": [
+          "docs/RA-1.2C-CALIBRATION-HARDENING.md holdout list"
+        ]
+      },
+      {
+        "identity": "乐意效劳",
+        "patterns": [
+          "乐意效劳"
+        ],
+        "provenance": [
+          "docs/RA-1.2C-CALIBRATION-HARDENING.md holdout list"
+        ]
+      },
+      {
+        "identity": "吃药睡觉",
+        "patterns": [
+          "吃药睡觉"
+        ],
+        "provenance": [
+          "docs/RA-1.2C-CALIBRATION-HARDENING.md holdout list"
+        ]
+      },
+      {
+        "identity": "巴别塔",
+        "patterns": [
+          "巴别塔"
+        ],
+        "provenance": [
+          "docs/RA-1.2C-CALIBRATION-HARDENING.md holdout list"
+        ]
+      },
+      {
+        "identity": "才不是恶魔呢",
+        "patterns": [
+          "才不是恶魔呢"
+        ],
+        "provenance": [
+          "docs/RA-1.2C-CALIBRATION-HARDENING.md holdout list"
+        ]
+      },
+      {
+        "identity": "矛盾心理",
+        "patterns": [
+          "矛盾心理"
+        ],
+        "provenance": [
+          "docs/RA-1.2C-CALIBRATION-HARDENING.md holdout list"
+        ]
+      },
+      {
+        "identity": "INTERNETOVERDOSE",
+        "patterns": [
+          "internetoverdose"
+        ],
+        "provenance": [
+          "docs/RA-1.2B-ALIGNMENT-ENGINE-V2.md dev corpus list"
+        ]
+      },
+      {
+        "identity": "on your mark",
+        "patterns": [
+          "on your mark"
+        ],
+        "provenance": [
+          "docs/RA-1.2B-ALIGNMENT-ENGINE-V2.md dev corpus list"
+        ]
+      },
+      {
+        "identity": "右曲",
+        "patterns": [
+          "右曲"
+        ],
+        "provenance": [
+          "docs/RA-1.2B-ALIGNMENT-ENGINE-V2.md dev corpus list"
+        ]
+      },
+      {
+        "identity": "强风大背头 / 強風オールバック",
+        "patterns": [
+          "强风大背头",
+          "強風オールバック"
+        ],
+        "provenance": [
+          "docs/RA-1.2B-ALIGNMENT-ENGINE-V2.md dev corpus list"
+        ]
+      },
+      {
+        "identity": "心跳不止",
+        "patterns": [
+          "心跳不止"
+        ],
+        "provenance": [
+          "docs/RA-1.2B-ALIGNMENT-ENGINE-V2.md dev corpus list"
+        ]
+      },
+      {
+        "identity": "Arcaea手元 folders (Chelsea/7mai, Code Oblivion, One Step Closer)",
+        "patterns": [
+          "arcaea"
+        ],
+        "provenance": [
+          "docs/RA-1.2B-ALIGNMENT-ENGINE-V2.md dev corpus list ('all Arcaea手元 folders')"
+        ]
+      },
+      {
+        "identity": "Override / オーバーライド (both candidate tracks)",
+        "patterns": [
+          "override",
+          "オーバーライド"
+        ],
+        "provenance": [
+          "docs/RA-1.2B-ALIGNMENT-ENGINE-V2.md 已发/Override note"
+        ]
+      },
+      {
+        "identity": "猫娘打架 (no current-pool file)",
+        "patterns": [
+          "猫娘打架"
+        ],
+        "provenance": [
+          "docs/RA-1.2B-ALIGNMENT-ENGINE-V2.md dev corpus list"
+        ]
+      },
+      {
+        "identity": "红枪 (no current-pool file)",
+        "patterns": [
+          "红枪"
+        ],
+        "provenance": [
+          "docs/RA-1.2B-ALIGNMENT-ENGINE-V2.md dev corpus list"
+        ]
+      },
+      {
+        "identity": "水神1.5 (no current-pool file)",
+        "patterns": [
+          "水神"
+        ],
+        "provenance": [
+          "docs/RA-1.2B-ALIGNMENT-ENGINE-V2.md dev corpus list"
+        ]
+      },
+      {
+        "identity": "再见公主 (no current-pool file)",
+        "patterns": [
+          "再见公主"
+        ],
+        "provenance": [
+          "docs/RA-1.2B-ALIGNMENT-ENGINE-V2.md dev corpus list"
+        ]
+      }
+    ],
+    "pilot_development_exposed": [
+      {
+        "identity": "Bloody Trail",
+        "role": "pilot Song A",
+        "sha256": "0c1bad0c937b57ee49b7189a4d0ca7fd01f4d001859fd0723e9b0dd1165fd077"
+      },
+      {
+        "identity": "スティールユー / Steel You",
+        "role": "pilot Song B",
+        "sha256": "cf92dceb32aac347c7861308e1982be9fa98a6145b992e85dd1e51ff30e1eaf1"
+      },
+      {
+        "identity": "Divide et impera",
+        "role": "pilot interference",
+        "sha256": "26f0284c9f104f54c2fcca5638c1b1398e924bf64a851f0a0732814393e80904"
+      }
+    ],
+    "pilot_only": "PILOT_ONLY",
+    "rule": "Final data excludes all pilot, historical development, holdout, and shakedown material.",
+    "shakedown_material": "all experiments/applied_system/results/shakedown synthetic and acoustic fixtures",
+    "status": "FINAL_SOURCE_EXCLUSIONS_FROZEN"
+  },
+  "exclusion_hash": "ab7572e352421e433b3ed6aff009fdc437d3c57bca73e257c626fcaef5385b9e"
+}
