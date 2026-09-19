@@ -65,12 +65,23 @@ Full environment: `results/final_comparator_environment.json`.
 
 ## Primary positive results (24 EXACT_GT positives, 100 ms)
 
-| System | CORRECT_ACCEPT | WRONG_ACCEPT | SAFE_ABSTAIN/NO_MATCH | Coverage |
-|---|---:|---:|---:|---:|
-| RhythmAlign v1.2.0 | **20** | 0 | 4 (abstain) | 83.3% |
-| NCC argmax | 19 | 5 | 0 (never refuses) | 79.2% |
-| GCC-PHAT argmax | 10 | 14 | 0 (never refuses) | 41.7% |
-| Panako OLAF | 2 | 0 | 22 (no match) | 8.3% |
+Acceptance coverage (accepts / positives) and correct-placement yield
+(CORRECT_ACCEPT / positives) are distinct metrics; they are shown in
+separate columns. They coincide numerically for RhythmAlign and Panako
+here because every accept those systems made was correct — a coincidence
+of this benchmark, not a merger of definitions (reporting audit:
+`RESULTS_INTEGRITY_AUDIT.md`).
+
+| System | CORRECT_ACCEPT | WRONG_ACCEPT | SAFE_ABSTAIN/NO_MATCH | Acceptance coverage | Correct-placement yield |
+|---|---:|---:|---:|---:|---:|
+| RhythmAlign v1.2.0 | **20** | 0 | 4 (abstain) | 83.3% (20/24) | 83.3% (20/24) |
+| NCC argmax | 19 | 5 | 0 (never refuses) | **100%** (24/24) | 79.2% (19/24) |
+| GCC-PHAT argmax | 10 | 14 | 0 (never refuses) | **100%** (24/24) | 41.7% (10/24) |
+| Panako OLAF | 2 | 0 | 22 (no match) | 8.3% (2/24) | 8.3% (2/24) |
+
+The always-output baselines never refuse, so their acceptance coverage
+is 100% by construction; their correct-placement yield is what separates
+them from RhythmAlign.
 
 RhythmAlign's 4 abstentions are final08 (ORDINARY), final18
 (INTERFERENCE), final20 (INTERFERENCE), final24 (DEVICE_VARIATION) — all
@@ -97,16 +108,19 @@ implementation bugs.
 
 ## Risk / coverage results
 
-- Selective-risk position of RhythmAlign: 20/24 coverage with 0 wrong
-  accepts anywhere (positives and wrong-references). Every refused case
-  is a safe refusal; every accepted case is correct at 100 ms.
+- Selective-risk position of RhythmAlign: 20/24 acceptance coverage —
+  and, every accept being correct, 20/24 correct-placement yield — with
+  0 wrong accepts anywhere (positives and wrong-references). Every
+  refused case is a safe refusal; every accepted case is correct at
+  100 ms.
 - Panako is equally safe (0 false accepts) but its coverage on this task
   contract collapses to 2/24 — fingerprint occurrence matching does not
   deliver whole-song placement offsets for degraded 60 s room queries at
   its shipped thresholds. It does NOT dominate RhythmAlign.
-- Accepted-positive risk (wrong accepts among accepts): RhythmAlign 0/20,
-  GCC-PHAT 14/24, NCC 5/19, Panako 0/2 (denominators differ by refusal
-  behavior; shown raw, not as rates).
+- Accepted risk (wrong accepts among ACCEPTED placements; refusals are
+  not in the denominator): RhythmAlign 0/20 = 0%, GCC-PHAT 14/24 =
+  58.3%, NCC 5/24 = 20.8%, Panako 0/2 = 0%. Denominators are each
+  system's total accepts; shown raw and as rates.
 
 ## Condition-level results (positives, raw counts; denominators in parentheses)
 
@@ -122,19 +136,28 @@ implementation bugs.
 CA = CORRECT_ACCEPT, WA = WRONG_ACCEPT, AB = abstain, NM = no match.
 Denominators are small; no subgroup inference is drawn.
 
-## Offset-error results (accepted positives, 100 ms)
+## Offset-error results (CORRECT_ACCEPT-conditional, 100 ms)
 
-| System | n | median | IQR | max |
+| System | n (correct accepts) | median | IQR | max |
 |---|---:|---:|---|---:|
 | GCC-PHAT (correct cases) | 10 | 0.22 ms | 0.20–0.30 ms | 3.8 ms |
 | NCC (correct cases) | 19 | 3.8 ms | 3.7–3.9 ms | 3.9 ms |
 | RhythmAlign | 20 | 7.9 ms | 5.5–10.6 ms | 15.7 ms |
 | Panako (correct cases) | 2 | 15.1 ms | 11.7–18.5 ms | 21.9 ms |
 
-Every accepted placement of every system lies below 25 ms — the 50/100/
-150 ms tolerance grid changes **no** outcome anywhere in the benchmark.
-Separation between systems is decided entirely by *what they refuse*,
-not by placement precision.
+This table is conditioned on CORRECT_ACCEPT and must not be read as
+global placement precision: the always-output baselines also produce
+WRONG_ACCEPT placements with errors of tens to hundreds of seconds
+(all-produced-accept maxima on positives: GCC-PHAT 184.1 s, NCC
+153.4 s — a distribution the conditional table cannot show; both
+distributions are reported separately in
+`results/final_benchmark_reporting_v2.json` and
+`figures/final_produced_placement_errors_v2.png`). What IS true: every
+**CORRECT_ACCEPT** placement of every system lies below 25 ms (max
+21.9 ms). Combined with the fact that no accepted placement error falls
+in (25 ms, 150 ms], the 50/100/150 ms tolerance grid changes **no**
+outcome anywhere in the benchmark. Separation between systems is decided
+entirely by *what they refuse*, not by placement precision.
 
 Kdenlive stratum (separate, n=10): 2 produced placements correct
 (5.3 ms, 0.1 ms); 8 wrong placements with errors 0.85 s to 149.4 s
@@ -150,10 +173,19 @@ S01 3/3, S02 3/3, S03 2/2, S04 2/2, S05 2/2, S06 2/2, S07 2/2,
 **S08 0/2 (both abstained)**, S09 3/3, **S10 1/3 (two abstained)**.
 RhythmAlign refused every wrong-reference pair from every source.
 Song-level bootstrap (resampling the 10 source identities, 10,000
-replicates, seed 20260920; descriptive only): RhythmAlign coverage
-CI95 [0.60, 1.00]; NCC [0.63, 0.95]; GCC-PHAT [0.17, 0.70]; Panako
-[0.00, 0.19]. Wrong-reference false accepts: RhythmAlign and Panako
-[0, 0]; GCC-PHAT and NCC [21, 27]. No claim of n=24 independent songs
+replicates, seed 20260920; RATE intervals — numerator / resampled
+denominator inside every replicate, so every value stays in [0, 1];
+descriptive only): RhythmAlign correct-placement yield CI95 [0.60, 1.00];
+NCC [0.63, 0.95]; GCC-PHAT [0.17, 0.70]; Panako [0.00, 0.19].
+Wrong-reference false-accept rate: RhythmAlign and Panako [0.0, 0.0];
+GCC-PHAT and NCC [1.0, 1.0] — honestly degenerate, because the
+wrong-reference behavior is deterministic in every source resample; the
+exact raw counts (0/24, 24/24) are the primary fact. (An earlier draft
+quoted resampled COUNT intervals for the wrong-reference stratum, e.g.
+[21, 27]; those have a variable per-replicate denominator because
+sources contribute unequal numbers of takes, are not a CI on the
+observed fixed n = 24, and are no longer quoted in paper-facing text —
+see `RESULTS_INTEGRITY_AUDIT.md`.) No claim of n=24 independent songs
 is made anywhere.
 
 ## Strict-repeat reliability (reported separately; never in primary counts)
@@ -173,9 +205,15 @@ The repeats expose a second, independent instability of the
 always-output baselines: on two near-identical recordings of the same
 song their placements differ by about a minute. "Outcome agreement"
 (here, ACCEPT = ACCEPT) hides that both outputs can be wrong; the signed
-error change is the honest statistic. RhythmAlign moved 8–14 ms between
-originals and repeats. Panako refused the repeats of the very takes it
-had accepted.
+error change is the honest statistic. Decision-state agreement and
+placement movement are separate metrics and are reported separately:
+GCC-PHAT repeat01 matches final01 only in the sense that both placements
+are consistently wrong (|error| ≈ 61.9 s at both takes); on repeat02 the
+placements of GCC-PHAT and NCC moved by 67.2 s and 60.5 s respectively
+between near-identical takes — ACCEPT→ACCEPT is not repeatability
+evidence. RhythmAlign moved 8–14 ms between originals and repeats.
+Panako refused the repeats of the very takes it had accepted. The n=2
+repeats are observations, not rates.
 
 ## Kdenlive technical stratum (separate; never pooled with the n=24)
 
@@ -208,9 +246,11 @@ operator-time result.
 ## Result robustness at 50/100/150 ms
 
 Primary counts are identical at all three tolerances for every system
-and stratum: all accepted errors (automated) are < 25 ms and all
-Kdenlive errors are either ≤ 5.3 ms or ≥ 0.85 s. The benchmark's
-separation is refusal behavior, not tolerance sensitivity.
+and stratum: all CORRECT_ACCEPT errors (automated) are ≤ 21.9 ms, all
+WRONG_ACCEPT placements are ≥ 0.85 s off, and all Kdenlive errors are
+either ≤ 5.3 ms or ≥ 0.85 s — no tolerance on the grid can flip any
+outcome. The benchmark's separation is refusal behavior, not tolerance
+sensitivity.
 
 ## Claim audit
 
@@ -224,8 +264,10 @@ positive coverage.*
 - Catastrophic-error reduction: RhythmAlign 0/24 wrong-reference false
   accepts vs 24/24 (GCC-PHAT) and 24/24 (NCC); and 0/24 wrong accepts on
   positives vs 14/24 (GCC-PHAT) and 5/24 (NCC). Total, not marginal.
-- Useful coverage retained: 20/24 (83.3%), bootstrap CI95 [0.60, 1.00],
-  all correct placements ≤ 15.7 ms.
+- Useful coverage retained: correct-placement yield 20/24 (83.3%),
+  bootstrap CI95 [0.60, 1.00], all correct placements ≤ 15.7 ms. Every
+  accept was correct, so acceptance coverage coincides numerically at
+  83.3%; the claim is supported under either definition.
 - Kill criteria: comparator dominance — not fired (Panako ties safety at
   2/24 coverage; no system reaches RA coverage with ≤ its wrong accepts);
   safety collapse — not fired (0 ≥ 3 threshold); coverage collapse — not
@@ -299,11 +341,31 @@ identical artifacts from the frozen raw assembly.
 | `results/final_comparator_environment.json` | `c92d6457fca39b0cbdbac8437ffe7fcd3967b60f907ddee64b8c8d25df248e92` |
 | `kdenlive/kdenlive_owner_run_freeze.json` | `b7a557f47661ed0e5a2bf017365a2f55ef033bb1f4a0d16b644735e64b84a3c3` |
 | `results/evidence_kdenlive_parser_v1_native_failure.json` | `1f8c241ecc5ace2315749a06605d6ff75511651af875adb502931a9d57d44bcf` |
+| `results/final_benchmark_reporting_v2.json` | `b46b9357dca0de9f50d879d9b6dd1952fb7eb21a29581ab8f559b7c7ec5d9acc` (body `73a0d9f5…`) |
 
 Figures (aggregate views; tables above are the authority):
 `results/figures/final_outcome_composition.png`,
-`results/figures/final_accepted_offset_errors.png`,
+`results/figures/final_accepted_offset_errors.png` (frozen; superseded
+for paper use by the corrected-label
+`results/figures/final_correct_accept_errors_v2.png` and
+`results/figures/final_produced_placement_errors_v2.png` — see the
+reporting audit),
 `results/figures/final_condition_summary.png`.
+
+## Reporting corrections (RESULTS-INTEGRITY-1)
+
+A post-result reporting-integrity audit (`RESULTS_INTEGRITY_AUDIT.md`)
+recomputed every count above from the raw records (exact match) and
+corrected four paper-facing reporting defects without touching any
+frozen artifact: the NCC accepted-risk denominator (5/19 → 5/24 =
+20.8%), the "every accepted placement" wording (→ every CORRECT_ACCEPT
+placement, with the all-produced distribution stated separately), the
+coverage/correct-placement-yield terminology, and the wrong-reference
+bootstrap presentation (count → rate intervals). The corrected metric
+set for paper use lives in `results/final_benchmark_reporting_v2.json`
+(hash below), regenerated deterministically by
+`experiments/applied_system/final_reporting_v2.py`; the frozen
+artifacts listed above are unchanged.
 
 ## Post-freeze corrections (both outcome-independent, evidence preserved)
 
