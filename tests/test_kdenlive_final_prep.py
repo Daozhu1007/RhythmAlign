@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import ast
 import json
+import re
 import subprocess
 from pathlib import Path
 
@@ -210,6 +211,27 @@ def test_owner_instructions_carry_no_scientific_metadata():
     low = text.lower()
     for token in prep.OWNER_FACING_FORBIDDEN_SUBSTRINGS:
         assert token.lower() not in low, "owner instructions leak %r" % token
+
+
+def test_owner_instructions_prescribe_two_distinct_audio_tracks():
+    """The two pure-WAV inputs must be prescribed onto two distinct AUDIO
+    timeline tracks (A1 and A2), both starting at 00:00 — and the
+    instructions must never prescribe video tracks (V1/V2) for them."""
+    text = INSTRUCTIONS_PATH.read_text(encoding="utf-8")
+    placement = [line for line in text.splitlines() if "拖到" in line]
+    assert placement, "no timeline placement step found"
+    placed = "\n".join(placement)
+    assert "recording.wav" in placed and "reference.wav" in placed, \
+        "placement step must cover both inputs"
+    assert "音频轨道" in placed, "inputs must be placed on audio tracks"
+    assert re.search(r"A1", placed) and re.search(r"A2", placed), \
+        "recording.wav -> A1 and reference.wav -> A2 required"
+    assert placed.index("A1") < placed.index("A2"), \
+        "the two clips must sit on distinct audio tracks"
+    assert "00:00" in placed, "both clips must start at 00:00"
+    for no, line in enumerate(text.splitlines(), 1):
+        assert not re.search(r"\bV[12]\b", line), \
+            "owner instructions prescribe a video track at line %d" % no
 
 
 def test_timer_console_labels_carry_no_scientific_metadata():

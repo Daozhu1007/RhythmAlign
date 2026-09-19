@@ -35,7 +35,8 @@ python owner_timer.py pair01
    - `reference.wav` —— 干净的参考音乐
 3. 打开 Kdenlive,新建一个空白工程。
 4. 把这两条音频从文件夹拖进 Kdenlive 上方的「项目剪辑箱(Project Bin)」。
-5. 把 `recording.wav` 拖到时间轴 V1 轨道,把 `reference.wav` 拖到时间轴 V2 轨道,**两条都从最左边 00:00 位置开始放**。
+5. 这两条都是纯音频文件,必须放在**音频轨道**上:把 `recording.wav` 拖到 **A1** 音频轨道,把 `reference.wav` 拖到 **A2** 音频轨道,**两条都从最左边 00:00 位置开始放**。
+   - 新建空白工程默认就有 A1、A2 两条音频轨道。如果只有一条音频轨道,在时间轴左侧任意轨道头上**右键 → 「插入轨道」**,轨道类型选**「音频」**,加出第二条后再放。
 6. 在时间轴上**右键点击 `recording.wav` 那一段**,选:
    - **「设置音频辅助线」(Set Audio Reference)**
 7. 再**左键单击选中 `reference.wav` 那一段**,右键,选:
