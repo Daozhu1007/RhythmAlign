@@ -9,6 +9,7 @@ invoked anywhere.
 from __future__ import annotations
 
 import ast
+import importlib.util
 import json
 import re
 import subprocess
@@ -277,6 +278,53 @@ def test_timing_record_schema_rejects_bad_records(mutation):
 def test_timing_record_schema_reports_missing_fields():
     assert "missing field: observation" in prep.validate_timing_record(
         {"pair": "pair01", "elapsed_seconds": 1.0})
+
+
+# ---------------------------------------------------------------------------
+# owner timer pair-ID validation (canonical zero-padded IDs must be accepted)
+# ---------------------------------------------------------------------------
+
+TIMER_PATH = KDENLIVE_DIR / "owner_timer.py"
+
+
+@pytest.fixture(scope="module")
+def timer():
+    spec = importlib.util.spec_from_file_location(
+        "owner_timer_under_test", TIMER_PATH)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def test_timer_accepts_every_canonical_pair_id(timer):
+    for i in range(1, prep.PAIR_COUNT + 1):
+        assert timer.valid_pair("pair%02d" % i) == "pair%02d" % i
+
+
+def test_timer_accepts_unpadded_aliases_and_returns_canonical(timer):
+    for i in range(1, prep.PAIR_COUNT + 1):
+        assert timer.valid_pair("pair%d" % i) == "pair%02d" % i
+
+
+def test_timer_alias_and_canonical_agree(timer):
+    for i in range(1, prep.PAIR_COUNT + 1):
+        assert timer.valid_pair("pair%d" % i) == \
+            timer.valid_pair("pair%02d" % i)
+
+
+@pytest.mark.parametrize("bad", [
+    "pair00", "pair0", "pair11", "pair001", "pair", "pair01x",
+    "pair-1", "pair 01", "pair1.5", "", "abc", "pairten", "10x",
+])
+def test_timer_rejects_out_of_range_and_malformed_ids(timer, bad):
+    with pytest.raises(SystemExit):
+        timer.valid_pair(bad)
+
+
+def test_timer_accepts_documented_invocation_forms(timer):
+    assert timer.valid_pair("pair01") == "pair01"
+    assert timer.valid_pair(" pair07 ") == "pair07"
+    assert timer.valid_pair("PAIR10") == "pair10"
 
 
 # ---------------------------------------------------------------------------

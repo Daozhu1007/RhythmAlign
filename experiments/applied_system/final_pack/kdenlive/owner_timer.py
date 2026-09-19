@@ -18,6 +18,7 @@ Usage (from any console):
 from __future__ import annotations
 
 import json
+import re
 import sys
 import time
 from datetime import datetime, timezone
@@ -57,10 +58,10 @@ def existing_pairs():
 
 def valid_pair(arg: str) -> str:
     name = arg.strip().lower()
-    numbers = [str(i) for i in range(1, PAIR_COUNT + 1)]
     if name.startswith("pair"):
         name = name[4:]
-    if name not in numbers:
+    # canonical IDs pair01..pair10; unpadded pair1..pair9 are aliases
+    if not re.fullmatch(r"0?[1-9]|10", name):
         raise SystemExit("用法: python owner_timer.py pair01 .. pair%02d"
                          % PAIR_COUNT)
     return "pair%02d" % int(name)
