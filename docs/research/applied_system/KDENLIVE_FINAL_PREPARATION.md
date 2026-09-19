@@ -192,6 +192,19 @@ only on synthetic fixtures — no final project has been touched):
 instructions. The owner needs only: open folder → Kdenlive native
 alignment → save project → press Enter.
 
+## Post-freeze correction record
+
+- 2026-09-20 — pair01 negative-frame failure audited
+  (`KDENLIVE_PAIR01_AUDIT.md`): verdict
+  `KDENLIVE_OWNER_PROCEDURE_BUG`. Owner procedure corrected to
+  `KDENLIVE-PLACEMENT-V2` (both clips start at the neutral 00:03:00
+  headroom instead of 00:00; value derived from pack input sizes only).
+  pair01 run 1 is void for scoring, preserved verbatim under
+  `final_pack/kdenlive/owner_run_evidence/pair01_run1/`, and redone as
+  `pair01r2` under the corrected procedure
+  (`kdenlive_run_policy.json`). Freeze, pack manifest, pair inputs,
+  scoring semantics, and comparator seal untouched.
+
 ## Readiness
 
 - `KDENLIVE_ENV_READY`: Kdenlive 26.08.1 installed and hash-recorded.

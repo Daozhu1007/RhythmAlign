@@ -1,0 +1,17 @@
+{
+  "status": "KDENLIVE_RUN_POLICY_V2",
+  "updated_utc": "2026-09-19T21:32:38Z",
+  "authority": "docs/research/applied_system/KDENLIVE_PAIR01_AUDIT.md",
+  "procedure": "KDENLIVE-PLACEMENT-V2",
+  "placement_headroom_seconds": 180,
+  "headroom_rule": "smallest whole minute >= the longest frozen pack input duration, computed from kdenlive_owner_pack_manifest.json byte sizes (48 kHz / 16-bit / mono); result-independent: no GT, marker, comparator, or observed alignment outcome feeds the value",
+  "rules": {
+    "pair01": {
+      "void_runs": ["pair01"],
+      "scoring_run": "pair01r2",
+      "void_reason": "PROCEDURE_V1_TIMELINE_ZERO_LEFT_BOUNDARY",
+      "evidence_dir": "owner_run_evidence/pair01_run1"
+    }
+  },
+  "scoring_rule": "Score each canonical pair from exactly one saved project: the scoring_run project when this file has a rule for the pair, otherwise the canonical pairNN project. void_runs are preserved as evidence only and are never scored. Automated comparators stay sealed until the ten scoring runs exist."
+}

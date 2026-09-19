@@ -41,7 +41,9 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import platform
+import re
 import shutil
 import sys
 from datetime import datetime, timezone
@@ -87,6 +89,32 @@ TIMING_RECORD_REQUIRED_KEYS = (
     "pair", "start_utc", "end_utc", "elapsed_seconds",
     "observation", "schema_version",
 )
+
+# ---------------------------------------------------------------------------
+# Post-freeze correction v2 (2026-09-20): neutral timeline placement.
+#
+# Owner procedure v1 placed both clips at timeline 00:00. Kdenlive cannot
+# place a clip at a negative frame, so every alignment that has to move the
+# aligned clip left of the timeline origin is refused outright ("Cannot move
+# clip to frame N") — an artificial left boundary created by our own
+# procedure, not by Kdenlive's analyis. v2 starts both clips at a common
+# headroom instead. The headroom value is derived ONLY from the frozen pack
+# input sizes: a Kdenlive audio-alignment move can never exceed the clip
+# lengths themselves, so one whole minute >= the longest frozen input is
+# sufficient for every pair and every possible correlation output. No GT,
+# marker, or observed outcome feeds this number. Full analysis:
+# docs/research/applied_system/KDENLIVE_PAIR01_AUDIT.md
+PLACEMENT_VERSION = "KDENLIVE-PLACEMENT-V2"
+
+# Frozen acquisition format of every pack WAV (48 kHz / 16-bit / mono), used
+# to convert the pack manifest byte sizes into durations without touching
+# any media file.
+WAV_SAMPLE_RATE = 48000
+WAV_BYTES_PER_SAMPLE = 2
+WAV_CHANNELS = 1
+
+RERUN_MANIFEST_PATH = KDENLIVE_DIR / "kdenlive_owner_pack_rerun_manifest.json"
+RUN_POLICY_PATH = KDENLIVE_DIR / "kdenlive_run_policy.json"
 
 # Owner-facing artifacts must never contain scientific metadata. Take IDs
 # are "final01".."final24"/"repeat01"/"repeat02", so the digit-bearing
@@ -536,6 +564,134 @@ def validate_timing_record(rec: dict) -> list:
 
 
 # ---------------------------------------------------------------------------
+# post-freeze correction v2 helpers: run ids, headroom rule, rerun packs
+# ---------------------------------------------------------------------------
+
+
+_RUN_ID_RE = re.compile(r"^pair(0?[1-9]|10)(r([2-9]))?$")
+
+
+def parse_run_id(text: str) -> str:
+    """Canonicalize a run id: pairNN (original run) or pairNNrK (K>=2 rerun).
+
+    Rerun ids exist so a pair can be redone under a corrected procedure
+    without touching or re-timing its original run (whose evidence is
+    preserved verbatim). r1 is deliberately not a valid tag: the original
+    run keeps its untagged id.
+    """
+    name = str(text).strip().lower()
+    match = _RUN_ID_RE.match(name)
+    if not match:
+        raise ValueError("bad run id: %r (expected pair01..pair10 "
+                         "or pairNNr2..pairNNr9)" % text)
+    pair = "pair%02d" % int(match.group(1))
+    return pair if not match.group(2) else pair + match.group(2)
+
+
+def canonical_pair_of(run_id: str) -> str:
+    """The frozen pair a run id belongs to (pair01r2 -> pair01)."""
+    return re.match(r"^pair\d{2}", parse_run_id(run_id)).group(0)
+
+
+def wav_seconds(num_bytes: float) -> float:
+    """Duration of a frozen-format pack WAV from its byte size."""
+    return num_bytes / (WAV_SAMPLE_RATE * WAV_BYTES_PER_SAMPLE * WAV_CHANNELS)
+
+
+def placement_headroom_seconds(max_wav_bytes: float) -> int:
+    """Neutral left headroom for the v2 timeline placement, in whole seconds.
+
+    Rule: the smallest whole minute that is >= the longest frozen input.
+    Any audio-alignment move Kdenlive can request is bounded by the clip
+    lengths themselves, so a headroom of this size keeps every possible
+    move target non-negative for every frozen pair — derived from input
+    sizes only, never from an observed outcome.
+    """
+    return max(60, int(math.ceil(wav_seconds(max_wav_bytes) / 60.0)) * 60)
+
+
+def pack_max_input_bytes(pack_manifest: dict) -> int:
+    return max(max(entry["recording_bytes"], entry["reference_bytes"])
+               for entry in pack_manifest["pairs"].values())
+
+
+def pack_headroom_seconds(pack_manifest: dict) -> int:
+    return placement_headroom_seconds(pack_max_input_bytes(pack_manifest))
+
+
+def build_rerun_pack(run_id: str) -> dict:
+    """Materialize a rerun pack folder for a frozen pair.
+
+    Copies the pair's pack media (hash-verified against the committed pack
+    manifest) into owner_pack/<run_id>/ so the pair can be redone under the
+    corrected procedure without touching the original run's folder, project
+    file, or timing record. Extends kdenlive_owner_pack_rerun_manifest.json;
+    the original pack manifest is never modified.
+    """
+    run_id = parse_run_id(run_id)
+    pair = canonical_pair_of(run_id)
+    pack = load_json(PACK_MANIFEST_PATH)
+    if pack.get("status") != "KDENLIVE_OWNER_PACK_BUILT":
+        raise SystemExit("pack manifest status is %r; refusing rerun build"
+                         % pack.get("status"))
+    entry = pack["pairs"][pair]
+    doc_path = RERUN_MANIFEST_PATH
+    doc = load_json(doc_path) if doc_path.exists() else {
+        "status": "KDENLIVE_OWNER_PACK_RERUN_BUILT",
+        "created_utc": now_utc(),
+        "pair_freeze_sha256": pack["pair_freeze_sha256"],
+        "blindness": ("filenames and this manifest carry no GT, marker, "
+                      "wrong-reference, or comparator information"),
+        "reruns": {},
+    }
+    if run_id in doc["reruns"]:
+        print("rerun pack already built: %s" % run_id)
+        return doc
+    dst_dir = OWNER_PACK / run_id
+    dst_dir.mkdir(parents=True, exist_ok=True)
+    for role in ("recording", "reference"):
+        src = KDENLIVE_DIR / entry[role]
+        if sha256_file(src) != entry[role + "_sha256"]:
+            raise SystemExit("%s hash drifted for %s; refusing rerun build"
+                             % (role, pair))
+        dst = dst_dir / ("%s.wav" % role)
+        if not dst.exists() or sha256_file(dst) != entry[role + "_sha256"]:
+            shutil.copyfile(src, dst)
+        if sha256_file(dst) != entry[role + "_sha256"]:
+            raise SystemExit("rerun copy verification failed for " + run_id)
+    doc["reruns"][run_id] = {
+        "canonical_pair": pair,
+        "pack_dir": "owner_pack/" + run_id,
+        "recording": "owner_pack/%s/recording.wav" % run_id,
+        "recording_sha256": entry["recording_sha256"],
+        "reference": "owner_pack/%s/reference.wav" % run_id,
+        "reference_sha256": entry["reference_sha256"],
+        "expected_project_file": "owner_pack/%s/%s.kdenlive" % (run_id, run_id),
+        "procedure": PLACEMENT_VERSION,
+    }
+    save_json(doc_path, doc)
+    return doc
+
+
+def verify_rerun_and_policy() -> None:
+    """Verify the rerun pack manifest and the run policy, if present."""
+    if RERUN_MANIFEST_PATH.exists():
+        reruns = load_json(RERUN_MANIFEST_PATH)
+        for run_id, entry in reruns["reruns"].items():
+            rec = KDENLIVE_DIR / entry["recording"]
+            ref = KDENLIVE_DIR / entry["reference"]
+            assert sha256_file(rec) == entry["recording_sha256"], run_id
+            assert sha256_file(ref) == entry["reference_sha256"], run_id
+    if RUN_POLICY_PATH.exists():
+        policy = load_json(RUN_POLICY_PATH)
+        for pair, rule in policy["rules"].items():
+            assert canonical_pair_of(rule["scoring_run"]) == pair, pair
+            assert rule["scoring_run"] not in rule["void_runs"], pair
+            evidence = KDENLIVE_DIR / rule["evidence_dir"]
+            assert evidence.is_dir(), str(evidence)
+
+
+# ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
 
@@ -548,6 +704,8 @@ def main(argv=None) -> int:
                     help=argparse.SUPPRESS)
     ap.add_argument("--build-pack", action="store_true",
                     help="materialize the blind owner pack (gitignored)")
+    ap.add_argument("--build-rerun", metavar="RUNID",
+                    help="materialize a rerun pack folder, e.g. pair01r2")
     ap.add_argument("--verify", action="store_true",
                     help="verify freeze + pack manifest + environment")
     ap.add_argument("--record-env", nargs=4, metavar=(
@@ -576,6 +734,12 @@ def main(argv=None) -> int:
         verify_environment()
         pack = build_owner_pack(freeze_doc)
         print("pack built:", len(pack["pairs"]), "pairs at", OWNER_PACK)
+    if args.build_rerun:
+        verify_freeze()
+        doc = build_rerun_pack(args.build_rerun)
+        print("rerun pack built:", args.build_rerun, "->",
+              OWNER_PACK / parse_run_id(args.build_rerun),
+              "(%d reruns recorded)" % len(doc["reruns"]))
     if args.verify:
         verify_freeze()
         verify_environment()
@@ -586,8 +750,12 @@ def main(argv=None) -> int:
                 ref = OWNER_PACK / pid / "reference.wav"
                 assert sha256_file(rec) == e["recording_sha256"]
                 assert sha256_file(ref) == e["reference_sha256"]
+            headroom = pack_headroom_seconds(pack)
+            print("placement headroom (v2): %ds (%dm)" % (headroom, headroom // 60))
+        verify_rerun_and_policy()
         print("verify ok")
-    if not (args.freeze or args.build_pack or args.verify or args.record_env):
+    if not (args.freeze or args.build_pack or args.build_rerun
+            or args.verify or args.record_env):
         ap.print_help()
     return 0
 

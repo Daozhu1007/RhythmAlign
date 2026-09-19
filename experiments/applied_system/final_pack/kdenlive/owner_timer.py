@@ -13,6 +13,7 @@ the observed Kdenlive behavior, and an optional note.
 
 Usage (from any console):
   python owner_timer.py pair01
+  python owner_timer.py pair01r2   (redo a pair under a corrected procedure)
   python owner_timer.py --status
 """
 from __future__ import annotations
@@ -57,14 +58,13 @@ def existing_pairs():
 
 
 def valid_pair(arg: str) -> str:
-    name = arg.strip().lower()
-    if name.startswith("pair"):
-        name = name[4:]
-    # canonical IDs pair01..pair10; unpadded pair1..pair9 are aliases
-    if not re.fullmatch(r"0?[1-9]|10", name):
-        raise SystemExit("用法: python owner_timer.py pair01 .. pair%02d"
-                         % PAIR_COUNT)
-    return "pair%02d" % int(name)
+    # canonical ids pair01..pair10; unpadded pair1..pair9 are aliases;
+    # rerun ids pairNNr2..pairNNr9 redo a pair under a corrected procedure
+    # without touching the original run (KDENLIVE-PLACEMENT-V2 policy).
+    try:
+        return prep.parse_run_id(arg)
+    except ValueError as exc:
+        raise SystemExit(str(exc))
 
 
 def utc_now() -> str:
@@ -120,7 +120,9 @@ def run_timer(pair: str) -> None:
 
 def show_status() -> None:
     done = existing_pairs()
-    print("已计时 %d/10:" % len(done))
+    original_done = {rid for rid in done
+                     if re.fullmatch(r"pair\d{2}", rid)}
+    print("已计时 %d/10:" % len(original_done))
     for i in range(1, PAIR_COUNT + 1):
         pid = "pair%02d" % i
         print("  %s %s" % (pid, "OK" if pid in done else "待做"))

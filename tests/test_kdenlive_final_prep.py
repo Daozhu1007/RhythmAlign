@@ -216,8 +216,10 @@ def test_owner_instructions_carry_no_scientific_metadata():
 
 def test_owner_instructions_prescribe_two_distinct_audio_tracks():
     """The two pure-WAV inputs must be prescribed onto two distinct AUDIO
-    timeline tracks (A1 and A2), both starting at 00:00 — and the
-    instructions must never prescribe video tracks (V1/V2) for them."""
+    timeline tracks (A1 and A2), both starting at the neutral 00:03:00
+    headroom (KDENLIVE-PLACEMENT-V2, pair01 audit 2026-09-20) — never on
+    video tracks, and never at the v1 00:00 placement that blocks negative
+    alignment moves at the timeline origin."""
     text = INSTRUCTIONS_PATH.read_text(encoding="utf-8")
     placement = [line for line in text.splitlines() if "拖到" in line]
     assert placement, "no timeline placement step found"
@@ -229,10 +231,17 @@ def test_owner_instructions_prescribe_two_distinct_audio_tracks():
         "recording.wav -> A1 and reference.wav -> A2 required"
     assert placed.index("A1") < placed.index("A2"), \
         "the two clips must sit on distinct audio tracks"
-    assert "00:00" in placed, "both clips must start at 00:00"
+    assert "00:03:00" in placed, \
+        "both clips must start at the 00:03:00 headroom (KDENLIVE-PLACEMENT-V2)"
+    assert "最左边 00:00" not in text, \
+        "the v1 00:00 placement must not come back (pair01 audit)"
     for no, line in enumerate(text.splitlines(), 1):
-        assert not re.search(r"\bV[12]\b", line), \
-            "owner instructions prescribe a video track at line %d" % no
+        if re.search(r"\bV[12]\b", line):
+            # the only tolerated V1/V2 mentions are procedure version
+            # labels; a video-track prescription would name tracks or
+            # dragging in the same line
+            assert not re.search(r"轨道|拖到|视频", line), \
+                "owner instructions prescribe video tracks at line %d" % no
 
 
 def test_timer_console_labels_carry_no_scientific_metadata():
@@ -417,6 +426,197 @@ def test_synthetic_xml_bin_only_clip_is_not_placed():
     summary = kpx.project_summary(parsed, _expected())
     states = {f["role"]: f["state"] for f in summary["failures"]}
     assert states["reference"] == "NOT_PLACED_ON_TIMELINE"
+
+
+# ---------------------------------------------------------------------------
+# post-freeze correction v2 (pair01 audit 2026-09-20): neutral placement
+# headroom, run-id/rerun policy, preserved pair01 run-1 evidence
+# ---------------------------------------------------------------------------
+
+EVIDENCE_DIR = KDENLIVE_DIR / "owner_run_evidence" / "pair01_run1"
+RERUN_MANIFEST_PATH = KDENLIVE_DIR / "kdenlive_owner_pack_rerun_manifest.json"
+RUN_POLICY_PATH = KDENLIVE_DIR / "kdenlive_run_policy.json"
+
+
+def test_run_ids_canonical_and_rerun_forms():
+    assert prep.parse_run_id("pair01") == "pair01"
+    assert prep.parse_run_id(" pair7 ") == "pair07"
+    assert prep.parse_run_id("PAIR10") == "pair10"
+    assert prep.parse_run_id("pair01r2") == "pair01r2"
+    assert prep.parse_run_id("Pair01R2") == "pair01r2"
+    assert prep.parse_run_id("pair10r9") == "pair10r9"
+    assert prep.canonical_pair_of("pair01r2") == "pair01"
+    assert prep.canonical_pair_of("pair07") == "pair07"
+
+
+@pytest.mark.parametrize("bad", [
+    "pair00", "pair11", "pair001", "pair", "pair01x", "pair-1", "",
+    "pair01r1", "pair01r10", "pair01rx", "pair01r", "pair01rr2",
+    "pair1.5", "pairten",
+])
+def test_run_ids_reject_malformed_and_r1(bad):
+    with pytest.raises(ValueError):
+        prep.parse_run_id(bad)
+
+
+def test_timer_accepts_rerun_id_and_canonicalizes(timer):
+    assert timer.valid_pair("pair01r2") == "pair01r2"
+    assert timer.valid_pair(" pair01R2 ") == "pair01r2"
+    assert timer.valid_pair("pair01") == "pair01"
+    with pytest.raises(SystemExit):
+        timer.valid_pair("pair01r1")
+
+
+@pytest.mark.parametrize("num_bytes,expected", [
+    (14427492, 180),  # longest frozen reference: 150.286 s -> 3 min
+    (5760000, 60),    # exactly 60 s
+    (5769600, 120),   # 60.1 s rounds up to the next whole minute
+    (48000, 60),      # floor of one minute
+])
+def test_headroom_rule_is_whole_minute_over_longest_input(num_bytes, expected):
+    assert prep.placement_headroom_seconds(num_bytes) == expected
+
+
+def test_headroom_covers_every_frozen_pair_from_manifest_sizes_only():
+    pack = json.loads(PACK_MANIFEST_PATH.read_text(encoding="utf-8"))
+    headroom = prep.pack_headroom_seconds(pack)
+    assert headroom == 180  # KDENLIVE-PLACEMENT-V2, uniform for all 10 pairs
+    longest = max(max(e["recording_bytes"], e["reference_bytes"])
+                  for e in pack["pairs"].values())
+    assert prep.wav_seconds(longest) <= headroom
+
+
+def test_headroom_absorbs_any_alignment_move_kdenlive_can_request():
+    """Kdenlive's align handler moves a clip placed at headroom H to
+    H + shift, where the correlation shift is bounded by the clip lengths
+    themselves ([-L_child, +L_main] frames). Verify that bound in frames so
+    every possible request stays non-negative for every frozen pair — no
+    observed outcome involved."""
+    fps = 60  # the profile the owner's project actually used
+    pack = json.loads(PACK_MANIFEST_PATH.read_text(encoding="utf-8"))
+    h_frames = prep.pack_headroom_seconds(pack) * fps
+    for entry in pack["pairs"].values():
+        for num_bytes in (entry["recording_bytes"], entry["reference_bytes"]):
+            length_frames = int(prep.wav_seconds(num_bytes) * fps) + 1
+            assert h_frames - length_frames >= 0, entry["pack_dir"]
+
+
+def test_run_policy_and_rerun_manifest_are_consistent():
+    policy = json.loads(RUN_POLICY_PATH.read_text(encoding="utf-8"))
+    assert policy["status"] == "KDENLIVE_RUN_POLICY_V2"
+    assert policy["procedure"] == prep.PLACEMENT_VERSION
+    pack = json.loads(PACK_MANIFEST_PATH.read_text(encoding="utf-8"))
+    for pair, rule in policy["rules"].items():
+        assert pair in pack["pairs"]
+        assert prep.canonical_pair_of(rule["scoring_run"]) == pair
+        assert rule["scoring_run"] not in rule["void_runs"]
+        assert (KDENLIVE_DIR / rule["evidence_dir"]).is_dir()
+    reruns = json.loads(RERUN_MANIFEST_PATH.read_text(encoding="utf-8"))
+    assert set(reruns["reruns"]) == \
+        {r["scoring_run"] for r in policy["rules"].values()}
+    for run_id, entry in reruns["reruns"].items():
+        frozen = pack["pairs"][entry["canonical_pair"]]
+        assert entry["recording_sha256"] == frozen["recording_sha256"]
+        assert entry["reference_sha256"] == frozen["reference_sha256"]
+        assert entry["expected_project_file"] == \
+            "owner_pack/%s/%s.kdenlive" % (run_id, run_id)
+        assert entry["procedure"] == prep.PLACEMENT_VERSION
+
+
+def test_prep_verify_rerun_and_policy_passes():
+    if not (KDENLIVE_DIR / "owner_pack" / "pair01").exists():
+        pytest.skip("owner pack not materialized in this checkout")
+    prep.verify_rerun_and_policy()
+
+
+def test_pair01_run1_evidence_is_hash_identical():
+    expected_hashes = {
+        "pair01.kdenlive":
+            "b2b3fb5aa8dea8e7f24f4628bd87d34a28f7ffd3ca846bc68bf3322bd454af8e",
+        "pair01_run1.timing_log.jsonl":
+            "0d712bc35cdecaaf305c3a20e47b8b2cdbc36c323bfd58247f0d0aa636f8c4ee",
+    }
+    for name, digest in expected_hashes.items():
+        copy = EVIDENCE_DIR / name
+        assert copy.is_file(), name
+        assert prep.sha256_file(copy) == digest, name
+    originals = {
+        "pair01.kdenlive":
+            KDENLIVE_DIR / "owner_pack" / "pair01" / "pair01.kdenlive",
+        "pair01_run1.timing_log.jsonl":
+            KDENLIVE_DIR / "owner_pack" / "timing_log.jsonl",
+    }
+    if not originals["pair01.kdenlive"].parent.exists():
+        pytest.skip("owner pack not materialized in this checkout")
+    for name, original in originals.items():
+        assert prep.sha256_file(original) == expected_hashes[name], name
+
+
+def test_pair01_run1_timing_record_is_the_observed_failure():
+    line = (EVIDENCE_DIR / "pair01_run1.timing_log.jsonl") \
+        .read_text(encoding="utf-8").strip()
+    rec = json.loads(line)
+    assert rec["pair"] == "pair01"
+    assert rec["observation"] == "OTHER"
+    assert rec["notes"] == "Cannot move clip to frame -17472"
+    assert rec["schema_version"] == "KDENLIVE-TIMER-V1"
+    assert rec["start_utc"] == "2026-09-19T20:55:32Z"
+    assert rec["end_utc"] == "2026-09-19T20:59:23Z"
+
+
+FPS60 = ('<profile description="HD 1080p 60 fps" width="1920" height="1080"'
+         ' progressive="1" sample_aspect_num="1" sample_aspect_den="1"'
+         ' display_aspect_num="16" display_aspect_den="9"'
+         ' frame_rate_num="60" frame_rate_den="1" colorspace="709"/>')
+
+
+def _headroom_project(blank_frames):
+    blank = '<blank length="%d"/>' % blank_frames if blank_frames else ""
+    return f'''<mlt LC_NUMERIC="C" version="7.30.0" title="Kdenlive">
+  {FPS60}
+  <producer id="producer0" in="00:00:00.000" out="00:01:05.400">
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="resource">C:\\somewhere\\recording.wav</property>
+  </producer>
+  <producer id="producer1" in="00:00:00.000" out="00:02:30.267">
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="resource">C:\\somewhere\\reference.wav</property>
+  </producer>
+  <playlist id="main_bin">
+    <entry producer="producer0" in="0" out="3924"/>
+    <entry producer="producer1" in="0" out="9016"/>
+  </playlist>
+  <playlist id="playlist0">
+    {blank}
+    <entry producer="producer0" in="0" out="3924"/>
+  </playlist>
+  <playlist id="playlist1">
+    {blank}
+    <entry producer="producer1" in="0" out="9016"/>
+  </playlist>
+  <tractor id="tractor0" title="Kdenlive Sequence" global_feed="1">
+    <track producer="background"/>
+    <track producer="playlist0"/>
+    <track producer="playlist1"/>
+  </tractor>
+</mlt>
+'''
+
+
+def test_clip_offset_is_invariant_under_common_headroom_shift():
+    """Procedure v2 shifts both clips by the same headroom; the scored
+    quantity (clip_offset_frames) must not move."""
+    base = kpx.project_summary(
+        kpx.parse_project(_headroom_project(0).encode("utf-8")), _expected())
+    shifted = kpx.project_summary(
+        kpx.parse_project(_headroom_project(5400).encode("utf-8")),
+        _expected())
+    assert base["state"] == "OK" and shifted["state"] == "OK"
+    assert base["clip_offset_frames"] == shifted["clip_offset_frames"]
+    assert shifted["roles"]["recording"]["start_frame"] == \
+        base["roles"]["recording"]["start_frame"] + 5400
+    assert shifted["roles"]["reference"]["start_frame"] == \
+        base["roles"]["reference"]["start_frame"] + 5400
 
 
 # ---------------------------------------------------------------------------

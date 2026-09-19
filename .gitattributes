@@ -1,0 +1,3 @@
+# Verbatim evidence archives must survive checkout byte-identical
+# (their SHA-256 hashes are asserted by tests and recorded in EVIDENCE.md).
+experiments/applied_system/final_pack/kdenlive/owner_run_evidence/** -text

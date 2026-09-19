@@ -1,0 +1,18 @@
+{
+ "status": "KDENLIVE_OWNER_PACK_RERUN_BUILT",
+ "created_utc": "2026-09-19T21:31:40Z",
+ "pair_freeze_sha256": "2edd734b53e06d47e4774605d398b0f02521437d668f151fcabd69f0cccdbc0f",
+ "blindness": "filenames and this manifest carry no GT, marker, wrong-reference, or comparator information",
+ "reruns": {
+  "pair01r2": {
+   "canonical_pair": "pair01",
+   "pack_dir": "owner_pack/pair01r2",
+   "recording": "owner_pack/pair01r2/recording.wav",
+   "recording_sha256": "01fa9ecf4fc24abece23ce6f0e79f4222ac704ab40c3876d7d04c0a7bdd6590e",
+   "reference": "owner_pack/pair01r2/reference.wav",
+   "reference_sha256": "509188c1b80745846ecd1ae1190df769418c6b0c26f6e162a5f6e4b254a5e387",
+   "expected_project_file": "owner_pack/pair01r2/pair01r2.kdenlive",
+   "procedure": "KDENLIVE-PLACEMENT-V2"
+  }
+ }
+}
