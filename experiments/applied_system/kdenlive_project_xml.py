@@ -4,14 +4,25 @@ Reads a saved Kdenlive project (.kdenlive, an MLT XML document) and
 recovers, WITHOUT scoring anything:
 
 - the profile (frame rate etc.) needed to interpret frame positions;
-- every producer's resource (the imported media files) and Kdenlive
-  document properties;
+- every producer's AND chain's resource (Kdenlive 26.08 saves timeline
+  clips as <chain> elements) and Kdenlive document properties;
 - every timeline playlist with blank/entry children and each clip's
   absolute start/end frame on its track;
 - the placement summary used later by scoring: where the recording clip
   and the reference clip sit on the timeline, the frame offset between
   them, and a native-failure state when representable (expected clip
   missing from the project, or present in the bin but never placed).
+
+v2 correction (2026-09-20, before any final scoring existed): real
+Kdenlive 26.08 documents nest one tractor per timeline track beneath the
+main tractor and hold clip resources in chains, so the original
+"first <tractor> element = timeline" rule missed nested-track playlists
+and chain resources on real projects. placements() now treats as timeline
+every playlist reachable from any tractor. The correction reads document
+structure only — no GT, no comparator output, no placement value — so it
+is outcome-independent under the post-freeze policy; the invalid
+NATIVE_FAILURE scoring output it had produced is preserved verbatim at
+`final_pack/results/evidence_kdenlive_parser_v1_native_failure.json`.
 
 This module is deliberately scoring-free: it never loads GT, never
 compares a placement to GT, and never imports any comparator. Final
@@ -71,18 +82,23 @@ def parse_project(xml_bytes: bytes) -> dict:
 
     producers = {}
     doc_properties = {}
-    for producer in root.iter("producer"):
-        pid = producer.get("id")
-        props = _properties(producer)
-        for key, value in props.items():
-            if key.startswith("kdenlive:docproperties."):
-                doc_properties[key] = value
-        producers[pid] = {
-            "id": pid,
-            "resource": props.get("resource", ""),
-            "mlt_service": props.get("mlt_service", ""),
-            "kdenlive_clipname": props.get("kdenlive:clipname", ""),
-        }
+    # v2 correction (2026-09-20, outcome-independent): Kdenlive 26.08 saves
+    # timeline clips as <chain> elements alongside legacy <producer>
+    # elements; entry resources must resolve from both. Pure document
+    # structure — no GT, no comparator output, no placement value feeds it.
+    for element_tag in ("producer", "chain"):
+        for producer in root.iter(element_tag):
+            pid = producer.get("id")
+            props = _properties(producer)
+            for key, value in props.items():
+                if key.startswith("kdenlive:docproperties."):
+                    doc_properties[key] = value
+            producers[pid] = {
+                "id": pid,
+                "resource": props.get("resource", ""),
+                "mlt_service": props.get("mlt_service", ""),
+                "kdenlive_clipname": props.get("kdenlive:clipname", ""),
+            }
 
     playlists = []
     for playlist in root.iter("playlist"):
@@ -116,6 +132,15 @@ def parse_project(xml_bytes: bytes) -> dict:
             "entries": entries,
         })
 
+    # v2 correction (2026-09-20, outcome-independent): real Kdenlive 26.08
+    # documents nest one tractor per timeline track beneath the main
+    # tractor, so the FIRST <tractor> element is not necessarily the main
+    # one. Record every tractor's track list; placements() then treats as
+    # timeline every playlist reachable from any tractor. Structure only.
+    tractors = {}
+    for tractor in root.iter("tractor"):
+        tractors[tractor.get("id", "")] = [
+            t.get("producer", "") for t in tractor.findall("track")]
     tractor = root.find("tractor")
     tracks = []
     if tractor is not None:
@@ -129,20 +154,37 @@ def parse_project(xml_bytes: bytes) -> dict:
         "doc_properties": doc_properties,
         "playlists": playlists,
         "tractor_tracks": tracks,
+        "tractor_track_lists": tractors,
     }
 
 
 def placements(parsed: dict) -> list:
     """Timeline clip placements with absolute track positions.
 
-    Only playlists that the main tractor lists as tracks are the timeline;
-    Kdenlive's project bin is itself a playlist (its entries are bin
-    references, not placements) and is excluded here.
+    Only playlists reachable from a tractor (directly or through nested
+    sub-tractors) are the timeline; Kdenlive's project bin is itself a
+    playlist but is referenced by no tractor, so its entries are excluded.
     """
-    track_ids = set(parsed["tractor_tracks"])
+    playlist_by_id = {pl["id"]: pl for pl in parsed["playlists"]}
+    timeline_ids = set()
+
+    def visit(track_ids) -> None:
+        for tid in track_ids:
+            if tid in timeline_ids:
+                continue
+            timeline_ids.add(tid)
+            sub = parsed.get("tractor_track_lists", {}).get(tid)
+            if sub:
+                visit(sub)
+
+    for track_ids in parsed.get("tractor_track_lists", {}).values():
+        visit(track_ids)
+    if not timeline_ids:  # fall back to the legacy first-tractor view
+        timeline_ids = set(parsed["tractor_tracks"])
     out = []
-    for playlist in parsed["playlists"]:
-        if playlist["id"] not in track_ids:
+    for pid in sorted(timeline_ids):
+        playlist = playlist_by_id.get(pid)
+        if playlist is None:
             continue
         for entry in playlist["entries"]:
             if entry["kind"] != "entry":
@@ -150,7 +192,7 @@ def placements(parsed: dict) -> list:
             out.append({
                 "producer": entry["producer"],
                 "resource": entry["resource"],
-                "playlist": playlist["id"],
+                "playlist": pid,
                 "in_frame": entry["in_frame"],
                 "out_frame": entry["out_frame"],
                 "start_frame": entry["position_start_frames"],

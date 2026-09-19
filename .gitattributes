@@ -1,3 +1,7 @@
 # Verbatim evidence archives must survive checkout byte-identical
 # (their SHA-256 hashes are asserted by tests and recorded in EVIDENCE.md).
 experiments/applied_system/final_pack/kdenlive/owner_run_evidence/** -text
+# Final benchmark artifacts carry SHA-256 sidecars asserting exact bytes;
+# EOL conversion on checkout would invalidate every recorded hash.
+experiments/applied_system/final_pack/results/** -text
+experiments/applied_system/final_pack/kdenlive/kdenlive_owner_run_freeze.json -text

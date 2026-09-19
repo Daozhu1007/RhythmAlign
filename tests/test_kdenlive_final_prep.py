@@ -548,8 +548,19 @@ def test_pair01_run1_evidence_is_hash_identical():
     }
     if not originals["pair01.kdenlive"].parent.exists():
         pytest.skip("owner pack not materialized in this checkout")
-    for name, original in originals.items():
-        assert prep.sha256_file(original) == expected_hashes[name], name
+    # The void project must stay byte-identical forever.
+    assert prep.sha256_file(originals["pair01.kdenlive"]) == \
+        expected_hashes["pair01.kdenlive"], "pair01.kdenlive"
+    # The live timing log is append-only by design (one line per pair
+    # timed), so it legitimately grew after the void-run archive; the
+    # chain-of-custody property is that the archived pair01 record is
+    # still present in it byte-for-byte, never edited.
+    archived_line = (EVIDENCE_DIR / "pair01_run1.timing_log.jsonl") \
+        .read_text(encoding="utf-8").strip()
+    live_lines = originals["pair01_run1.timing_log.jsonl"] \
+        .read_text(encoding="utf-8").splitlines()
+    assert live_lines and live_lines[0].strip() == archived_line, \
+        "pair01_run1.timing_log.jsonl"
 
 
 def test_pair01_run1_timing_record_is_the_observed_failure():
@@ -619,6 +630,73 @@ def test_clip_offset_is_invariant_under_common_headroom_shift():
         base["roles"]["reference"]["start_frame"] + 5400
 
 
+NESTED_CHAIN_PROJECT = f'''<mlt LC_NUMERIC="C" version="7.31.0" title="Kdenlive">
+  {FPS60}
+  <producer id="producer0" in="00:00:00.000" out="00:00:20.000">
+    <property name="mlt_service">color</property>
+    <property name="resource">black</property>
+  </producer>
+  <chain id="chain0" out="9016">
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="resource">C:\\somewhere\\pairNN\\reference.wav</property>
+    <property name="kdenlive:clipname">reference.wav</property>
+  </chain>
+  <chain id="chain1" out="3924">
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="resource">C:\\somewhere\\pairNN\\recording.wav</property>
+    <property name="kdenlive:clipname">recording.wav</property>
+  </chain>
+  <playlist id="main_bin">
+    <entry producer="producer0" in="0" out="0"/>
+    <entry producer="chain0" in="0" out="9016"/>
+    <entry producer="chain1" in="0" out="3924"/>
+  </playlist>
+  <playlist id="playlist0">
+    <blank length="10800"/>
+    <entry producer="chain0" in="0" out="9016"/>
+  </playlist>
+  <playlist id="playlist1"/>
+  <playlist id="playlist2">
+    <blank length="10200"/>
+    <entry producer="chain1" in="0" out="3924"/>
+  </playlist>
+  <playlist id="playlist3"/>
+  <tractor id="tractor0"><track producer="playlist0"/><track producer="playlist1"/></tractor>
+  <tractor id="tractor1"><track producer="playlist2"/><track producer="playlist3"/></tractor>
+  <tractor id="{{guid-main}}">
+    <track producer="producer0"/>
+    <track producer="tractor0"/>
+    <track producer="tractor1"/>
+  </tractor>
+  <tractor id="tractor-root"><track producer="{{guid-main}}"/></tractor>
+</mlt>
+'''
+
+
+def test_real_kdenlive_26_nested_tractors_and_chains_are_placed():
+    """v2 parser correction (outcome-independent): Kdenlive 26.08 nests one
+    tractor per timeline track and stores clip resources in <chain>
+    elements; the first <tractor> element alone sees only one of the two
+    clips. The corrected reachability rule must place both clips, exclude
+    the bin, and keep the offset arithmetic identical."""
+    parsed = kpx.parse_project(NESTED_CHAIN_PROJECT.encode("utf-8"))
+    summary = kpx.project_summary(parsed, _expected())
+    assert summary["state"] == "OK"
+    placed = sorted((p["resource"], p["start_frame"])
+                    for p in summary["placements"])
+    assert placed == [("C:\\somewhere\\pairNN\\recording.wav", 10200),
+                      ("C:\\somewhere\\pairNN\\reference.wav", 10800)]
+    # clip_offset_frames = recording.start - reference.start = -600
+    assert summary["clip_offset_frames"] == 10200 - 10800
+
+
+def test_real_kdenlive_26_bin_entries_stay_out_of_placements():
+    parsed = kpx.parse_project(NESTED_CHAIN_PROJECT.encode("utf-8"))
+    placed_playlists = {p["playlist"] for p in kpx.placements(parsed)}
+    assert placed_playlists == {"playlist0", "playlist2"}
+    assert len(kpx.placements(parsed)) == 2
+
+
 # ---------------------------------------------------------------------------
 # comparator hygiene + no copyrighted media tracked
 # ---------------------------------------------------------------------------
@@ -659,8 +737,16 @@ def test_no_copyrighted_media_is_tracked():
         cwd=REPO, capture_output=True, text=True, check=True).stdout.split()
     assert out, "kdenlive preparation files must be committed"
     allowed = {".py", ".json", ".md"}
+    # The committed pair01 void-run evidence archive holds a verbatim
+    # project XML and its single timing-log line (no audio anywhere).
+    evidence_allowed = allowed | {".kdenlive", ".jsonl"}
+    evidence_prefix = \
+        "experiments/applied_system/final_pack/kdenlive/owner_run_evidence/"
     for path in out:
-        assert Path(path).suffix in allowed, "tracked media: %s" % path
+        ok = (Path(path).suffix in evidence_allowed
+              if path.replace("\\", "/").startswith(evidence_prefix)
+              else Path(path).suffix in allowed)
+        assert ok, "tracked media: %s" % path
 
 
 def test_owner_pack_directory_is_gitignored():
