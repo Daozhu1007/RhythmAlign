@@ -1,0 +1,16 @@
+{
+ "status": "KDENLIVE_ENV_READY",
+ "recorded_utc": "2026-09-19T19:00:16Z",
+ "pinned_series": "26.08",
+ "version": "26.08.1",
+ "exe_path": "C:\\Users\\Daozh\\AppData\\Local\\Programs\\Kdenlive\\bin\\kdenlive.exe",
+ "exe_sha256": "4ba2e9c5dc181e429bde94f7206c02f536e4ef633a9145625d4ec9c180350dee",
+ "install_source": "winget:KDE.Kdenlive@26.08.1",
+ "installer_url": "https://download.kde.org/stable/kdenlive/26.08/windows/kdenlive-26.08.1.exe",
+ "installer_hash_verified": "winget verified the installer hash before install",
+ "os": {
+  "system": "Windows",
+  "release": "10",
+  "version": "10.0.26100"
+ }
+}

@@ -1,0 +1,113 @@
+{
+ "status": "KDENLIVE_OWNER_PACK_BUILT",
+ "created_utc": "2026-09-19T19:02:56Z",
+ "pair_freeze_sha256": "2edd734b53e06d47e4774605d398b0f02521437d668f151fcabd69f0cccdbc0f",
+ "naming": {
+  "recording.wav": "需要被对齐的现场录音",
+  "reference.wav": "干净的参考音乐",
+  "pairNN.kdenlive": "owner saves the Kdenlive project here"
+ },
+ "blindness": "filenames and this manifest carry no GT, marker, wrong-reference, or comparator information",
+ "pairs": {
+  "pair01": {
+   "pack_dir": "owner_pack/pair01",
+   "recording": "owner_pack/pair01/recording.wav",
+   "recording_sha256": "01fa9ecf4fc24abece23ce6f0e79f4222ac704ab40c3876d7d04c0a7bdd6590e",
+   "recording_bytes": 6279724,
+   "reference": "owner_pack/pair01/reference.wav",
+   "reference_sha256": "509188c1b80745846ecd1ae1190df769418c6b0c26f6e162a5f6e4b254a5e387",
+   "reference_bytes": 14427492,
+   "expected_project_file": "owner_pack/pair01/pair01.kdenlive"
+  },
+  "pair02": {
+   "pack_dir": "owner_pack/pair02",
+   "recording": "owner_pack/pair02/recording.wav",
+   "recording_sha256": "77071199821a3d084c6cd1f86b134635235684173aca6541e17e86611e142527",
+   "recording_bytes": 6238764,
+   "reference": "owner_pack/pair02/reference.wav",
+   "reference_sha256": "c3d5375474c9cfc1bbe1e4874a8afaddc70608dc4f949b942f5832bb48667415",
+   "reference_bytes": 14221284,
+   "expected_project_file": "owner_pack/pair02/pair02.kdenlive"
+  },
+  "pair03": {
+   "pack_dir": "owner_pack/pair03",
+   "recording": "owner_pack/pair03/recording.wav",
+   "recording_sha256": "a01e9fb367170676e46ff6fd4e832e84e87c139fd44ea1b82f68608a1ef71600",
+   "recording_bytes": 6158892,
+   "reference": "owner_pack/pair03/reference.wav",
+   "reference_sha256": "12c13f4aef191eec500d61ca4c5471813df07afc178d2ac4becf2bcc2e8d76d8",
+   "reference_bytes": 14708624,
+   "expected_project_file": "owner_pack/pair03/pair03.kdenlive"
+  },
+  "pair04": {
+   "pack_dir": "owner_pack/pair04",
+   "recording": "owner_pack/pair04/recording.wav",
+   "recording_sha256": "4d7ea9ed7b4aad43ab7698477995760a8e24fef21a2460b47c35886ece77ac46",
+   "recording_bytes": 6597164,
+   "reference": "owner_pack/pair04/reference.wav",
+   "reference_sha256": "4de941f3455cbbcd91f14bfca9099377c632db52d6974bbee23b9b2381c15e75",
+   "reference_bytes": 8000048,
+   "expected_project_file": "owner_pack/pair04/pair04.kdenlive"
+  },
+  "pair05": {
+   "pack_dir": "owner_pack/pair05",
+   "recording": "owner_pack/pair05/recording.wav",
+   "recording_sha256": "b225d0e84ad6578edfc4b02880ee9932307001af606be36ff36ee20e27ab2bb4",
+   "recording_bytes": 6144556,
+   "reference": "owner_pack/pair05/reference.wav",
+   "reference_sha256": "509188c1b80745846ecd1ae1190df769418c6b0c26f6e162a5f6e4b254a5e387",
+   "reference_bytes": 14427492,
+   "expected_project_file": "owner_pack/pair05/pair05.kdenlive"
+  },
+  "pair06": {
+   "pack_dir": "owner_pack/pair06",
+   "recording": "owner_pack/pair06/recording.wav",
+   "recording_sha256": "38a6c65a1b8b0acaf5add4aa981e51b83843d8e0630a747742e44f9acad27239",
+   "recording_bytes": 6095404,
+   "reference": "owner_pack/pair06/reference.wav",
+   "reference_sha256": "c3d5375474c9cfc1bbe1e4874a8afaddc70608dc4f949b942f5832bb48667415",
+   "reference_bytes": 14221284,
+   "expected_project_file": "owner_pack/pair06/pair06.kdenlive"
+  },
+  "pair07": {
+   "pack_dir": "owner_pack/pair07",
+   "recording": "owner_pack/pair07/recording.wav",
+   "recording_sha256": "7d2ed2a5240594e04835c6bd52d08ca08fb40583e93203a484a1f53e28bb7117",
+   "recording_bytes": 13140524,
+   "reference": "owner_pack/pair07/reference.wav",
+   "reference_sha256": "37aac116470b0dba158d0eadd183465028c7828120f4038974afe522df5863ab",
+   "reference_bytes": 13157950,
+   "expected_project_file": "owner_pack/pair07/pair07.kdenlive"
+  },
+  "pair08": {
+   "pack_dir": "owner_pack/pair08",
+   "recording": "owner_pack/pair08/recording.wav",
+   "recording_sha256": "639708a850edd053b9818042db18f7e408ae4c8ba2e4759042f09538d30773c4",
+   "recording_bytes": 13371948,
+   "reference": "owner_pack/pair08/reference.wav",
+   "reference_sha256": "d2fed02ab4e39029c5a78b3549023050e50ea7d0ceb8149f502c2e33c3a665ae",
+   "reference_bytes": 14613988,
+   "expected_project_file": "owner_pack/pair08/pair08.kdenlive"
+  },
+  "pair09": {
+   "pack_dir": "owner_pack/pair09",
+   "recording": "owner_pack/pair09/recording.wav",
+   "recording_sha256": "eb717196692496ffafc09f8ed44423de673efb302e2abe16b9ec2daa90902639",
+   "recording_bytes": 6287916,
+   "reference": "owner_pack/pair09/reference.wav",
+   "reference_sha256": "509188c1b80745846ecd1ae1190df769418c6b0c26f6e162a5f6e4b254a5e387",
+   "reference_bytes": 14427492,
+   "expected_project_file": "owner_pack/pair09/pair09.kdenlive"
+  },
+  "pair10": {
+   "pack_dir": "owner_pack/pair10",
+   "recording": "owner_pack/pair10/recording.wav",
+   "recording_sha256": "5d3e970d0f80e4f63de2ccccac3b9b5007b3e2c671a02e7789da62519a924e8d",
+   "recording_bytes": 6193708,
+   "reference": "owner_pack/pair10/reference.wav",
+   "reference_sha256": "cefdc00f1c5020369e9eff81b938cee160ca78b4ff7f1a7d1dd792cfe8578c98",
+   "reference_bytes": 14773006,
+   "expected_project_file": "owner_pack/pair10/pair10.kdenlive"
+  }
+ }
+}

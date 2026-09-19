@@ -4,3 +4,6 @@
 local/
 buffers/
 INTERFERENCE.*
+
+# Blind owner-operated Kdenlive pack: generated media + owner results.
+kdenlive/owner_pack/
