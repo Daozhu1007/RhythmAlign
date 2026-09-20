@@ -21,6 +21,14 @@ release/
 experiments/low_snr_alignment/local_corpus.json
 experiments/low_snr_alignment/local_sources.json
 
+# Applied-system research working data (raw/personal/copyrighted audio and
+# local QC artifacts). Owned by research/applied-system-paper, which carries
+# its own nested .gitignore rules; never commit from main.
+experiments/applied_system/
+
 # System files
 Thumbs.db
 Desktop.ini
+
+# ZCode local tool config (auto-synced from .gitignore; machine-local)
+.zcodeignore
