@@ -1,0 +1,27 @@
+{
+  "mission": "NIGHTSHIFT-1 archive reproducibility audit (CP-2 claim: controlled reproducibility)",
+  "source_revision": "d231e7cb25a575fe6ed94a49f095b44a4be81c01",
+  "ci_run": 35529323382,
+  "comparison": {
+    "original_attempt": {
+      "attempt": 1,
+      "sha256": "c3096e61ed0b316c85bfa857c1c77e9ae6763cda4de970b98c17f1ca9e266fe2",
+      "size_bytes": 185014321
+    },
+    "rebuild_attempt": {
+      "attempt": 3,
+      "sha256": "e953eeeef5814249b12e120a99710c589948b5e878b4f241fb3b5fae7b74124a",
+      "size_bytes": 185009492
+    },
+    "build_env_frozen_txt": "byte-identical",
+    "file_lists": "identical (663 files)",
+    "files_byte_identical": 662,
+    "files_differing": [
+      {
+        "path": "RhythmAlign/_internal/base_library.zip",
+        "classification": "expected toolchain nondeterminism (PyInstaller stdlib zip assembly); not dependency drift (freeze identical), not timestamp-only"
+      }
+    ]
+  },
+  "conclusion": "CP-2 controlled-reproducibility claim SURVIVES and is strengthened: only PyInstaller's base_library.zip differs across independent same-revision builds."
+}
