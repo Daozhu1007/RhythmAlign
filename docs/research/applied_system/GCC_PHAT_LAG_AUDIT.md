@@ -271,3 +271,29 @@ every system consumed hash-identical delivered files, and this audit's
 lengths (and the frozen manifest's) are read from the delivered files.
 Recorded here so future geometry work uses actual file frames, not the QC
 trim bookkeeping.
+
+## 12. Clarifying addendum (second review, 2026-09-20): PHAT weighting and the zero-overlap region
+
+Purely clarifying; sections 1–11 above are preserved verbatim and no recorded
+value, hash, prediction, or outcome changes. The second independent review
+flagged that the zero-overlap statements above could be over-read, so this
+addendum states the boundary explicitly:
+
+- §2's identity `C[j] = 0` on `[Lx, N-Ly]` is a statement about the ORDINARY
+  linear cross-correlation, where it holds algebraically because `y_ref`'s
+  zero padding kills every wrapped term. The evaluated curve is the
+  PHAT-weighted spectral correlation, and PHAT weighting does not preserve
+  those zeros exactly: values of the weighted curve in the zero-overlap index
+  region are not mathematically guaranteed to be zero, and they are not
+  claimed to be numerical roundoff.
+- This audit makes no claim — general or empirical — about PHAT-weighted
+  values outside the physical overlap support, and the final benchmark does
+  not validate any theorem about them.
+- The facts this evidence relies on are narrower and sufficient: (a) the
+  physically meaningful linear-lag support is determined by the two signal
+  lengths; (b) the v2 unwrap follows that physical support geometry, while
+  the v1 midpoint unwrap was invalid for unequal lengths; and (c) none of the
+  50 stored final argmax indices fell in the physical zero-overlap index
+  region (§6: 0 records there), so the weighted curve's behavior in that
+  region and the unwrap choice there are immaterial to every recorded and
+  scored v2 outcome.
