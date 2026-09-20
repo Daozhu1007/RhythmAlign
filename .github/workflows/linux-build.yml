@@ -98,6 +98,12 @@ jobs:
           name: RhythmAlign-linux-x86_64-beta
           path: dist
 
+      - name: Install GL runtime libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libegl1 libgl1 libxkbcommon0 libdbus-1-3 libfontconfig1 libglib2.0-0
+
       - name: Extract and validate on a newer environment
         run: |
           tar xzf dist/RhythmAlign-v*-linux-x86_64-beta.tar.gz -C dist
