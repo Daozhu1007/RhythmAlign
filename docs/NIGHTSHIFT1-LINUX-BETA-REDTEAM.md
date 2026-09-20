@@ -70,9 +70,9 @@ Extracted from the verified tarball into fresh directories (WSL home / container
 | Environment | glibc | Result | Engine decision |
 |---|---|---|---|
 | WSL2 Ubuntu 24.04.4 host | 2.39 | **PASS** (all 22 checks) | `accepted` / `ACCEPT_DUAL_FAMILY` / `2.995374149659864` |
+| Docker `ubuntu:22.04` — **the support baseline** | 2.35 | **PASS ×4 tonight**: three CI build jobs (original + 2 reruns) each run this exact packaged validation inside `ubuntu:22.04`, **plus a direct local container run** — all green | bit-identical |
 | Docker `fedora:41` (non-Debian family) | 2.40 | **PASS** (all 22 checks) | bit-identical |
-| Ubuntu 22.04 container (support baseline) | 2.35 | **PASS ×3 tonight via CI** — the `build-linux` job runs this exact packaged validation inside `ubuntu:22.04` (original + 2 reruns); a direct local container run is logged in §9 | bit-identical |
-| Docker `debian:12` | 2.36 | launched locally; result appended in §9 when complete | — |
+| Docker `debian:12` | 2.36 | local run in progress at doc time (host Docker-network throttling made apt take ~2 h; see §9) | — |
 
 Notes: Qt ran `offscreen` (headless); no GUI claim is made from these runs (consistent with CP-2's separation — interactive evidence remains CP-2's WSLg screenshots). Isolation from repository resources: extraction paths contained no checkout; the report's `resource:*` checks resolve from `_internal` (`sys._MEIPASS`), and the executable-cwd test used workdirs unrelated to any checkout. (Host-side container oddities: the minimal `ubuntu:22.04`/`debian:12`/`fedora:41` images ship no `python3`; the harness host installs it, mirroring the CI workflow's own prerequisite step.)
 
