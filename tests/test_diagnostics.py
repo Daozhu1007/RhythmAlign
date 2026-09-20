@@ -5,6 +5,8 @@ triage (kernel, libc, Qt platform plugin, FFmpeg H.264/HEVC encoder
 inventory), that probing degrades gracefully, and that report generation
 works without a QApplication or a live GUI.
 """
+import pytest
+
 import diagnostics
 
 
