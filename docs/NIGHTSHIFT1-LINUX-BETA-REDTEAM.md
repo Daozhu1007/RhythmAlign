@@ -171,6 +171,8 @@ Engine decisions bit-identical in every completed run. No GUI/interactive claim 
 
 Sources were never damaged in any non-self-overwrite case; `.partial` cleanup verified after every failure; no false success in any scenario (see §13).
 
+**POSIX-specific spot checks** (source level in WSL against the pinned release stack, numpy 1.24.4/librosa 0.11.0; `docs/nightshift1-evidence/posix_fs_matrix.py`): missing output dir and a **truly unwritable directory** (chmod 555 — not simulatable on Windows) both raise with zero `.partial` leftovers; a target held open by another process is atomically replaced (POSIX semantics — the Windows locked-target `PermissionError` has no Linux equivalent, so the §11 "locked target" row is Windows-only); the output==source overwrite footgun (B2) reproduces identically on Linux; corrupt input raises cleanly. **8/8 PASS.**
+
 ## 12. Media Failure Matrix (source level)
 
 | Case | Result |
@@ -375,6 +377,8 @@ Full decomposition performed (engine read line-by-line; result feeds CP/MOB plan
 **Minimal feasible experiment (defined, not implemented):** `decide_from_families` is already librosa-free and array-driven (tests drive it with synthetic curves) — run it with **golden curves exported from desktop** to prove the decision layer is platform-independent, then validate each numpy feature re-implementation curve-by-curve against librosa on a golden audio set before any end-to-end equivalence claim. **Dominant risk: thin calibration margins** — `pcen_z_floor` 5.6 vs measured null 5.55–5.67 (headroom ≈ 0.05–0.07), onset corroboration margin ≈ 0.01 — so feature-substitution numerics propagate directly into accept/abstain outcomes. Subprocess/file contact ends exactly at `find_offset_v2`'s boundary (temp WAVs + ffmpeg extraction); `decide_alignment` itself is file-free.
 
 **Refined blocker statement:** mobile is blocked not by what RhythmAlign uses (numpy + a scipy subset + five feature computations) but by what librosa *imports* (numba/llvmlite/sklearn with no mobile story) — i.e., a bounded, enumerable feature-layer extraction problem, exactly the shape CP-0 predicted, now with per-call-site evidence.
+
+**iOS note (§32 of the mission):** tonight's decomposition marginally *improves* the prior iOS outlook — the feature-layer extraction Android needs is smaller than feared — but iOS's hard blocker is unchanged and architectural: the subprocess-based FFmpeg pipeline remains invalid on iOS, so the Android experiment's results would transfer to iOS only after a library-shaped media layer exists. No change to `IOS_REQUIRES_SEPARATE_FEASIBILITY_PHASE`.
 
 ## 30. Remaining Release Risks
 
