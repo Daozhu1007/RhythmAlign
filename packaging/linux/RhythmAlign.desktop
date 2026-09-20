@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=RhythmAlign
+Comment=Auto audio-video sync for rhythm game hand-cams
+Comment[zh_CN]=音游手元音频自动对齐工具
+Exec=__APP_DIR__/RhythmAlign
+Path=__APP_DIR__
+Icon=__APP_DIR__/assets/logo.png
+Terminal=false
+Categories=AudioVideo;AudioVideoEditing;Audio;
+Keywords=rhythm;sync;audio;video;音游;对齐;
+StartupWMClass=RhythmAlign

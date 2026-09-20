@@ -42,6 +42,31 @@ from app_info import (
 )
 
 
+def gpu_switch_should_be_enabled(platform_name, nvenc_available):
+    """Decision core for the visible "Use GPU" toggle (CP-2 GPU policy).
+
+    Windows keeps the v1.2.0 behavior unconditionally. Elsewhere the toggle
+    is only offered when the FFmpeg binary the product actually uses (the
+    bundled imageio-ffmpeg one) exposes h264_nvenc; exports must never run
+    down a predictably broken GPU path."""
+    if platform_name == "win32":
+        return True
+    return bool(nvenc_available)
+
+
+def gpu_switch_available():
+    """Whether this install's bundled FFmpeg can serve the GPU toggle."""
+    if os.name == "nt":
+        return True
+    try:
+        import imageio_ffmpeg
+        from auto_sync import ffmpeg_has_encoder
+
+        return ffmpeg_has_encoder(imageio_ffmpeg.get_ffmpeg_exe(), "h264_nvenc")
+    except Exception:
+        return False
+
+
 def current_executable_path():
     return sys.executable if getattr(sys, "frozen", False) else os.path.abspath(__file__)
 
@@ -1305,6 +1330,9 @@ class SettingInterface(ScrollArea):
             icon=FIF.GAME, title=i18n.tr("set_gpu"), content=i18n.tr("set_gpu_desc"),
             configItem=cfg.use_gpu, parent=self.video_group
         )
+        if not gpu_switch_available():
+            self.gpu_switch.setEnabled(False)
+            self.gpu_switch.setContent(i18n.tr("set_gpu_desc_unavailable"))
 
         self.bitrate_combo = OptionsSettingCard(
             configItem=cfg.bitrate, icon=FIF.VIDEO, title=i18n.tr("set_bitrate"), content=i18n.tr("set_bitrate_desc"),
@@ -1743,6 +1771,14 @@ class RhythmAlignApp(FluentWindow):
 
 
 if __name__ == '__main__':
+    # CP-2 packaged-runtime validation: exercises the frozen build (resources,
+    # locales, bundled FFmpeg, Engine v2, export) without constructing the
+    # GUI. Used by CI and release validation; interactive start is unchanged.
+    if len(sys.argv) > 1 and sys.argv[1] in ("--check-only", "--validate"):
+        import selftest
+
+        sys.exit(selftest.main(sys.argv[1:]))
+
     app = QApplication(sys.argv)
     app.setApplicationName(APP_NAME)
     app.setApplicationVersion(APP_VERSION)

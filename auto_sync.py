@@ -12,6 +12,42 @@ import imageio_ffmpeg
 
 _IS_WINDOWS = os.name == "nt"
 
+# CP-2 GPU policy: encoder capability probing. One bounded `-encoders`
+# subprocess per binary, cached for the process lifetime; any failure
+# degrades to an empty set so callers treat "unknown" as "not supported"
+# and fall back to software encoding instead of a predictably broken run.
+_ENCODER_PROBE_TIMEOUT_S = 5
+_encoder_inventory_cache = {}
+
+
+def ffmpeg_supported_encoders(ffmpeg_bin):
+    """Return the set of encoder names the given FFmpeg binary reports."""
+    cached = _encoder_inventory_cache.get(ffmpeg_bin)
+    if cached is not None:
+        return cached
+
+    names = set()
+    try:
+        process = subprocess.run(
+            [ffmpeg_bin, "-hide_banner", "-encoders"],
+            **_subprocess_no_window_kwargs(
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                text=True, errors='replace', timeout=_ENCODER_PROBE_TIMEOUT_S,
+            )
+        )
+        for line in (process.stdout or "").splitlines():
+            match = re.match(r"^\s*[AVS][A-Z0-9._]{5}\s+(\S+)", line)
+            if match:
+                names.add(match.group(1))
+    except Exception:
+        names = set()
+    _encoder_inventory_cache[ffmpeg_bin] = names
+    return names
+
+
+def ffmpeg_has_encoder(ffmpeg_bin, name):
+    return name in ffmpeg_supported_encoders(ffmpeg_bin)
+
 
 class CorrelationLowConfidenceError(RuntimeError):
     """互相关峰值置信度过低，无法可靠确定偏移量。"""
@@ -367,7 +403,15 @@ def mix_and_export(video_path, music_path, offset, output_path, vol_original=1.0
         if ui_log_callback:
             ui_log_callback(tr("log_stream_copy"))
     else:
-        vcodec = "h264_nvenc" if use_gpu else "libx264"
+        vcodec = "libx264"
+        if use_gpu:
+            if ffmpeg_has_encoder(ffmpeg_bin, "h264_nvenc"):
+                vcodec = "h264_nvenc"
+            elif ui_log_callback:
+                # The visible "Use GPU" toggle must never select a path that
+                # predictably fails (Linux builds bundle an FFmpeg without
+                # NVENC): degrade to software encoding and say so.
+                ui_log_callback(tr("log_gpu_fallback"))
         cmd.extend(["-c:v", vcodec, "-b:v", bitrate, "-c:a", "aac", "-b:a", "320k"])
         if ui_log_callback:
             ui_log_callback(tr("log_encode_mode", vcodec, bitrate))

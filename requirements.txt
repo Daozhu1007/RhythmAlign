@@ -10,3 +10,7 @@ PyQt6-Fluent-Widgets>=1.3
 # guarded, but the dependency must be declared for reproducible envs.
 pywin32>=306; sys_platform == "win32"
 certifi>=2024.8.30
+# Release build tool: the release processes (RELEASE.md, CI, Linux
+# packaging) assume PyInstaller in the environment — declared so a fresh
+# env from this file is a complete build env (CP-2).
+PyInstaller>=6.18

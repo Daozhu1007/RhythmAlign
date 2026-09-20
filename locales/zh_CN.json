@@ -104,6 +104,7 @@
     "set_copy_desc": "不进行二次渲染，保留原画质并快速导出（开启此项将忽略下方的GPU和码率设置）",
     "set_gpu": "硬件加速渲染",
     "set_gpu_desc": "仅当关闭上方[无损直通]时有效。启用 N 卡 GPU 渲染压缩视频",
+    "set_gpu_desc_unavailable": "仅当关闭上方[无损直通]时有效。当前不可用：本版本的 FFmpeg 不含 N 卡 NVENC 编码器，导出将使用软件编码。",
     "set_bitrate": "画面质量 (码率)",
     "set_bitrate_desc": "仅当关闭上方[无损直通]时有效",
     "bitrate_6k": "6000k (适合日常分享)",
@@ -170,6 +171,7 @@
 
     "log_stream_copy": "已启用 [视频无损直通]：保留原画质，重新封装音轨。",
     "log_encode_mode": "已启用 [重新编码模式] (引擎: {0}, 码率: {1})。",
+    "log_gpu_fallback": "内置 FFmpeg 不支持 h264_nvenc，已回退到软件编码 (libx264)。",
     "log_target_offset": "目标混合偏移量: {0:+.4f}s",
     "task_copy_ing": "无损封装中",
     "task_rendering": "画面渲染",

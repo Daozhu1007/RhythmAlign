@@ -104,6 +104,7 @@
     "set_copy_desc": "Skip re-encoding, keep 100% original quality & export instantly (ignores GPU & Bitrate).",
     "set_gpu": "Hardware Accelerated Render",
     "set_gpu_desc": "Effective only when [Stream Copy] is OFF. Enable NVIDIA GPU rendering.",
+    "set_gpu_desc_unavailable": "Effective only when [Stream Copy] is OFF. Unavailable: this build's FFmpeg has no NVIDIA NVENC encoder; exports use software encoding.",
     "set_bitrate": "Video Quality (Bitrate)",
     "set_bitrate_desc": "Effective only when [Stream Copy] is OFF.",
     "bitrate_6k": "6000k (Good for sharing)",
@@ -170,6 +171,7 @@
 
     "log_stream_copy": "Enabled [Stream Copy]: Keeping original video quality, remuxing audio.",
     "log_encode_mode": "Enabled [Re-encode Mode] (Engine: {0}, Bitrate: {1}).",
+    "log_gpu_fallback": "h264_nvenc is not available in the bundled FFmpeg — falling back to software encoding (libx264).",
     "log_target_offset": "Target mix offset: {0:+.4f}s",
     "task_copy_ing": "Stream Copying",
     "task_rendering": "Rendering Video",

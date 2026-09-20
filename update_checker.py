@@ -3,6 +3,7 @@ import json
 import os
 import re
 import ssl
+import sys
 import tempfile
 import urllib.error
 import urllib.request
@@ -15,6 +16,26 @@ from app_info import APP_NAME, APP_VERSION, GITHUB_LATEST_RELEASE_API, UPDATE_MA
 
 USER_AGENT = f"{APP_NAME}/{APP_VERSION}"
 SHA256_RE = re.compile(r"\b[a-fA-F0-9]{64}\b")
+
+
+def current_platform():
+    """Client platform used for release-asset selection.
+
+    The Linux beta does not self-install: off-Windows clients are routed to
+    the GitHub Releases page instead of ever being offered a Windows
+    installer (CP-2 update policy)."""
+    if sys.platform == "win32":
+        return "windows"
+    if sys.platform == "darwin":
+        return "macos"
+    if sys.platform.startswith("linux"):
+        return "linux"
+    return "other"
+
+
+def _is_windows_installer_name(name):
+    lower = (name or "").lower()
+    return lower.endswith(".exe") or lower.endswith(".msi")
 
 
 @dataclass(frozen=True)
@@ -75,7 +96,17 @@ def _ssl_context():
         return ssl.create_default_context()
 
 
-def _find_setup_asset(assets):
+def _find_setup_asset(assets, platform=None):
+    if platform is None:
+        platform = current_platform()
+
+    # Windows keeps the v1.2.0 ranking below unchanged. Other platforms
+    # never self-install from release assets in the beta: returning None
+    # routes the client to the releases page rather than selecting a
+    # Windows .exe/.msi (CP-2 update policy).
+    if platform != "windows":
+        return None
+
     ranked = []
     for asset in assets or []:
         name = asset.get("name") or ""
@@ -123,30 +154,41 @@ def _fetch_json(url, timeout):
         return json.loads(response.read().decode("utf-8"))
 
 
-def release_from_manifest(data, source=""):
+def release_from_manifest(data, source="", platform=None):
+    platform = current_platform() if platform is None else platform
     version = (data.get("version") or data.get("tag_name") or "0.0.0").strip().lstrip("vV")
     tag_name = data.get("tag_name") or f"v{version}"
     setup = data.get("setup") or {}
+
+    setup_name = setup.get("name")
+    setup_url = setup.get("url")
+    setup_size = setup.get("size")
+
+    # The shipped manifest carries the Windows installer in `setup`.
+    # Off-Windows clients must not present a Windows installer as their
+    # update: clearing the installer routes the UI to the releases page.
+    if platform != "windows" and _is_windows_installer_name(setup_name or setup_url):
+        setup_name = setup_url = setup_size = None
 
     return ReleaseInfo(
         tag_name=tag_name,
         version=version,
         html_url=data.get("release_url") or "",
-        setup_name=setup.get("name"),
-        setup_url=setup.get("url"),
-        setup_size=setup.get("size"),
+        setup_name=setup_name,
+        setup_url=setup_url,
+        setup_size=setup_size,
         sha256=(setup.get("sha256") or "").lower() or None,
         body=data.get("notes") or "",
         source=source,
     )
 
 
-def release_from_github_api(data, source="github-api"):
+def release_from_github_api(data, source="github-api", platform=None):
 
     tag_name = data.get("tag_name") or data.get("name") or ""
     version = tag_name.strip().lstrip("vV") or "0.0.0"
     body = data.get("body") or ""
-    setup_asset = _find_setup_asset(data.get("assets"))
+    setup_asset = _find_setup_asset(data.get("assets"), platform=platform)
 
     return ReleaseInfo(
         tag_name=tag_name,

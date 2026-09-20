@@ -1,0 +1,41 @@
+# CP-2: Linux release-build constraints (used together with requirements.txt).
+#
+#   pip install -r requirements.txt -r requirements-dev.txt -c constraints-linux.txt
+#
+# requirements.txt stays the runtime minimums; this file pins the
+# release-critical build stack for the Linux x86_64 beta so two CI builds of
+# the same revision cannot silently receive materially different dependency
+# versions. The pinned set is the exact stack proven in CP-1/CP-2 (Windows
+# v1.2.0 release parity for the scientific stack, CP-1-proven tooling).
+#
+# Target: Python 3.10 (Ubuntu 22.04 build container). All listed wheels
+# resolve on glibc >= 2.35; scipy 1.10.1 additionally requires Python < 3.12.
+#
+# Engine-affecting scientific stack (Windows v1.2.0 release parity; CP-1
+# verified bit-identical engine decisions across stack generations, but the
+# release build must not drift between CI runs):
+numpy==1.24.4
+scipy==1.10.1
+librosa==0.11.0
+numba==0.58.1
+llvmlite==0.41.1
+soundfile==0.13.1
+soxr==0.3.7
+
+# Bundled FFmpeg provider. 0.6.0 is the CP-1-proven Linux wheel
+# (ffmpeg-linux-x86_64-v7.0.2); Windows release builds are unaffected and
+# keep their own environment.
+imageio-ffmpeg==0.6.0
+
+# Qt stack (PyQt6-Qt6 6.7.3 ships manylinux_2_28 wheels; newer 6.x wheels
+# raise the glibc floor for no product benefit).
+PyQt6==6.7.1
+PyQt6-Qt6==6.7.3
+PyQt6-sip<14
+PyQt6-Fluent-Widgets==1.11.1
+
+# Release-critical build tool.
+PyInstaller==6.22.3
+
+# Keep the test runner from silently jumping major versions in CI.
+pytest<9

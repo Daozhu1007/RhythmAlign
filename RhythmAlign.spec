@@ -1,5 +1,12 @@
 # -*- mode: python ; coding: utf-8 -*-
+import sys
+
 from PyInstaller.utils.hooks import collect_data_files, copy_metadata
+
+# UPX is part of the documented Windows release toolchain (RELEASE.md). On
+# Linux builds UPX is deliberately skipped so the artifact never depends on
+# whether the build host happens to have an upx binary installed.
+_IS_WINDOWS_BUILD = sys.platform == "win32"
 
 datas = [
     ('assets', 'assets'),
@@ -53,7 +60,7 @@ exe = EXE(
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
-    upx=True,
+    upx=_IS_WINDOWS_BUILD,
     console=False,
     disable_windowed_traceback=False,
     argv_emulation=False,
@@ -67,7 +74,7 @@ coll = COLLECT(
     a.binaries,
     a.datas,
     strip=False,
-    upx=True,
+    upx=_IS_WINDOWS_BUILD,
     upx_exclude=[],
     name='RhythmAlign',
 )
