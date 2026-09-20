@@ -1,0 +1,99 @@
+# NIGHTSHIFT-1 — disposable macOS portability probe (CP-3 feasibility).
+#
+# NOT a release pipeline: no signing, no notarization, no artifacts of
+# release shape. This file lives only on the nightshift branch and its
+# push trigger is scoped to that branch with a paths filter on itself, so
+# it runs once when pushed and again only if the probe itself changes.
+#
+# Goal: turn CP-3 from speculation into evidence — do the unpinned
+# dependencies resolve on macOS, does the suite pass, does PyInstaller
+# build the onedir layout, and does the packaged binary complete the
+# full Engine v2 workflow on the deterministic +3.0 s pair?
+
+name: macOS portability probe
+
+on:
+  push:
+    branches:
+      - nightshift/linux-beta-redteam
+    paths:
+      - '.github/workflows/macos-probe.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  QT_QPA_PLATFORM: offscreen
+
+jobs:
+  probe:
+    name: Probe (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, macos-13]  # arm64 (Apple silicon) and Intel
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Record host facts
+        run: |
+          sw_vers
+          uname -m
+          python --version
+
+      - name: Install dependencies (unpinned probe resolve)
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt -r requirements-dev.txt
+          pip freeze > build-env-frozen-${{ matrix.os }}.txt
+
+      - name: Run test suite
+        run: python -m pytest tests/ -q
+
+      - name: Probe bundled FFmpeg wheel
+        run: |
+          python - <<'PY'
+          import imageio_ffmpeg, subprocess, os
+          exe = imageio_ffmpeg.get_ffmpeg_exe()
+          print("ffmpeg exe:", exe)
+          print("first line:", subprocess.run([exe, "-version"], capture_output=True,
+                text=True).stdout.splitlines()[0])
+          import platform
+          print("host machine:", platform.machine())
+          with open(exe + ".machine.txt", "w") as fh:
+              fh.write(platform.machine())
+          PY
+          file "$(python -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')"
+
+      - name: PyInstaller build (probe)
+        run: pyinstaller RhythmAlign.spec --clean --noconfirm
+
+      - name: Packaged --check-only
+        run: |
+          ./dist/RhythmAlign/RhythmAlign --check-only --json check-only-${{ matrix.os }}.json
+          cat check-only-${{ matrix.os }}.json
+
+      - name: Packaged full Engine v2 workflow (deterministic +3.0 s pair)
+        run: |
+          python packaging/linux/validate_artifact.py --app dist/RhythmAlign/RhythmAlign \
+            --workdir probe-work --keep
+          echo "=== engine decision (reference: accepted/ACCEPT_DUAL_FAMILY/2.995374149659864) ==="
+          cat probe-work/selftest_report.json
+
+      - name: Upload probe evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-probe-${{ matrix.os }}
+          path: |
+            build-env-frozen-${{ matrix.os }}.txt
+            check-only-${{ matrix.os }}.json
+            probe-work/selftest_report.json
+          if-no-files-found: warn
