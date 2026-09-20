@@ -13,6 +13,11 @@ APP_DIR="$(cd "$(dirname "$0")" && pwd)"
 DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 DESKTOP_FILE="$DATA_HOME/applications/rhythmalign.desktop"
 
+# Escape sed replacement metacharacters so install paths containing "&"
+# or "|" are inserted literally (a bare & would expand to the match).
+APP_DIR_ESC="${APP_DIR//&/\\&}"
+APP_DIR_ESC="${APP_DIR_ESC//|/\\|}"
+
 case "${1:---install}" in
   --install)
     [ -f "$APP_DIR/RhythmAlign.desktop" ] || {
@@ -20,7 +25,7 @@ case "${1:---install}" in
       exit 1
     }
     mkdir -p "$(dirname "$DESKTOP_FILE")"
-    sed "s|__APP_DIR__|$APP_DIR|g" "$APP_DIR/RhythmAlign.desktop" > "$DESKTOP_FILE"
+    sed "s|__APP_DIR__|$APP_DIR_ESC|g" "$APP_DIR/RhythmAlign.desktop" > "$DESKTOP_FILE"
     if command -v update-desktop-database >/dev/null 2>&1; then
       update-desktop-database "$DATA_HOME/applications" || true
     fi
