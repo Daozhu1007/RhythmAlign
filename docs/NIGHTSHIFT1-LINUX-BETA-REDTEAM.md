@@ -2,7 +2,7 @@
 
 > Status: COMPLETE · Date: 2026-09-21 · Baseline: `cross-platform/linux` @ `a2f5ede`
 > Branch: `nightshift/linux-beta-redteam` (worktree `D:/Code/RhythmAlign-nightshift`)
-> Verdicts: **LINUX_BETA_REDTEAM_PASS_WITH_NOTES** · **READY_FOR_OWNER_RELEASE_DECISION** · macOS probe §28 · Android §29
+> Verdicts: **LINUX_BETA_REDTEAM_PASS_WITH_NOTES** · **READY_FOR_OWNER_RELEASE_DECISION** · **MACOS_BUILD_PROBE_CONFIRMED** (arm64) · **ANDROID_DEPENDENCY_BLOCKER_REFINED**
 
 ---
 
@@ -347,24 +347,27 @@ All of §23 B2–B12: none reproduced as user-facing breakage, each has a bounde
 ## 27. Algorithm Integrity
 
 - `git diff a2f5ede -- alignment_engine_v2.py auto_sync.py`: **empty**. No threshold, scoring, family, gate, or offset-semantics change.
-- Deterministic +3.000 s pair gate: **accepted / ACCEPT_DUAL_FAMILY / 2.995374149659864** — reproduced bit-identically on: Windows source (venv), artifact on WSL Ubuntu 24.04, artifact on Fedora 41, artifact on Ubuntu 22.04, artifact on Debian 12, and artifact path-torture runs (4 cases).
+- Deterministic +3.000 s pair gate: **accepted / ACCEPT_DUAL_FAMILY / 2.995374149659864** — reproduced bit-identically on: Windows source (venv), artifact on WSL Ubuntu 24.04, artifact on Fedora 41, artifact on Ubuntu 22.04, artifact on Debian 12, artifact path-torture runs (4 cases), and — from the macOS probe — the packaged build on **Apple silicon (macos-14 arm64)**.
 - Nightshift commits touched only: tests, the Linux-only packaging script, and two CI workflow files. **Alignment semantics unchanged.**
 
 ## 28. macOS Probe
 
 Disposable GitHub Actions probe (`macos-probe.yml`, nightshift branch only, no signing, no release artifacts): unpinned dependency resolve → full test suite → PyInstaller onedir → packaged `--check-only` → packaged full deterministic-pair workflow. Matrix: `macos-14` (Apple silicon) + `macos-13` (Intel).
 
-Results (attempt 1, run 35533297135, macos-14):
+**macos-14 (arm64): fully GREEN** (after one probe-harness fix — attempt 1 passed a *relative* `--workdir` to the validation harness, which double-resolves media paths under `cwd=workdir`; probe bug, not a port blocker; fixed same-night):
 
 | Step | Result |
 |---|---|
-| Dependency install (unpinned) | PASS — resolves incl. `ffmpeg-macos-aarch64-v7.1` wheel (arm64 FFmpeg present, confirming CP0-007's `imageio-ffmpeg≥0.6.0` requirement is satisfied by current resolves) |
-| Test suite | PASS (offscreen Qt) |
+| Dependency install (unpinned) | PASS — resolves incl. `ffmpeg-macos-aarch64-v7.1` wheel (arm64 FFmpeg present; CP0-007's `imageio-ffmpeg≥0.6.0` requirement satisfied by current resolves) |
+| Test suite | **PASS — 147 passed** (incl. the 3 POSIX desktop-entry tests, which correctly run on macOS) |
 | PyInstaller build | PASS |
-| Packaged `--check-only` | PASS |
-| Packaged full workflow | **FAIL — probe-harness bug, not a port blocker**: the probe passed a *relative* `--workdir`, and `validate_artifact.py` runs the app with `cwd=workdir`, so media paths double-resolved (`probe-work/probe-work/…`) → exit 1, no report. Fixed same-night (absolute workdir); rerun dispatched |
+| Packaged `--check-only` | PASS (frozen, all resources, locales 174 keys) |
+| Packaged full workflow | **PASS — engine `accepted` / `ACCEPT_DUAL_FAMILY` / `2.995374149659864`, bit-identical on Apple silicon; export 48.02 s; no partials** |
+| Notable | The macOS FFmpeg bundle carries **`h264_videotoolbox`** — unlike Linux, macOS has a real hardware encoder in the shipped binary (future product option; nothing changes tonight) |
 
-**Interim verdict: MACOS_PARTIAL.** Even before the rerun, the probe established that arm64 macOS resolves all dependencies, passes the suite, builds, and starts packaged — the only red was the probe's own path bug. Most important next step for CP-3: read the rerun's packaged-workflow result (engine decision equality on arm64), then decide Intel-vs-arm64-vs-universal2 and the `.app`/`.icns`/signing path. No macOS support claim is made.
+**macos-13 (Intel):** queued on the runner pool at close of mission; not completed. Per the mission's "one architecture suffices" rule the probe is judged on arm64.
+
+**Verdict: MACOS_BUILD_PROBE_CONFIRMED (arm64; Intel leg pending queue).** CP-3 is no longer speculation: arm64 macOS resolves, passes, builds, packages, and produces the bit-identical engine decision end-to-end. Remaining CP-3 scope is exactly the packaging/distribution layer: `.app` bundle + `.icns`, arch strategy (arm64-first recommended; Intel runner is end-of-life-adjacent), config-path convention (CP0-013), signing/notarization (Owner decision). No macOS support claim is made beyond this probe.
 
 ## 29. Android Dependency Decomposition
 
@@ -395,7 +398,7 @@ Full decomposition performed (engine read line-by-line; result feeds CP/MOB plan
 
 ## 32. Recommended Next Mission
 
-**CP-3 — macOS Proof-of-Life**, scoped by tonight's probe: consume the rerun evidence (packaged engine decision on arm64), pick arch strategy (arm64-only recommended first — Intel runner is end-of-life-adjacent), then `.app` bundle + `.icns` + config-path convention (CP0-013) on a real macOS host, with signing/notarization as a separate Owner decision. Linux beta publication (§31) is the immediate Owner action and needs no mission.
+**CP-3 — macOS Proof-of-Life**, scoped by tonight's probe: the arm64 runtime question is answered (bit-identical engine decision, full packaged workflow green), so CP-3 narrows to the packaging/distribution layer — arch strategy (arm64-first recommended; Intel runner is end-of-life-adjacent), `.app` bundle + `.icns`, config-path convention (CP0-013), with signing/notarization as a separate Owner decision. Linux beta publication (§31) is the immediate Owner action and needs no mission.
 
 ## 33. Git Evidence
 
