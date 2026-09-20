@@ -179,5 +179,6 @@
     "msg_progress_busy": "{0}: 进行中 | 预计剩余: {1}",
     "log_prefix_err": "错误: ",
     "log_prefix_ok": "成功: ",
-    "log_saved_to": "处理成功！保存至: {0}"
+    "log_saved_to": "处理成功！保存至: {0}",
+    "log_reveal_failed": "无法打开文件管理器（导出已完成）: {0}"
 }

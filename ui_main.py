@@ -136,6 +136,7 @@ from alignment_engine_v2 import (
     find_offset_v2,
 )
 from diagnostics import build_diagnostic_report
+from file_reveal import reveal_in_file_manager
 from update_checker import (
     default_download_path,
     download_file,
@@ -918,7 +919,10 @@ class SyncInterface(BaseMediaInterface):
         self.btn_start.setEnabled(True)
         if success:
             self.log(i18n.tr("log_saved_to", os.path.basename(path)), "success")
-            if open_folder: subprocess.Popen(['explorer', '/select,', os.path.normpath(path)])
+            # Shell integration is secondary: a failed reveal must never
+            # invalidate the successful export (CP0-001).
+            if open_folder and not reveal_in_file_manager(path):
+                self.log(i18n.tr("log_reveal_failed", path))
             InfoBar.success(title=i18n.tr("msg_success"), content=i18n.tr("msg_export_ok"), parent=self, position=InfoBarPosition.TOP)
         elif abstain_message:
             # ABSTAIN: safe product stop. Persistent notice (user-dismissed),

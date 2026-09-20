@@ -68,10 +68,68 @@ def _qt_versions():
         return "unknown", "unknown"
 
 
+def _qt_platform_name():
+    """Name of the Qt platform plugin in use (e.g. windows/xcb/wayland/
+    offscreen) — the single most useful field when a Qt port fails to
+    start. Reports gracefully when no application exists (headless use)."""
+    try:
+        from PyQt6.QtGui import QGuiApplication
+
+        app = QGuiApplication.instance()
+        if app is None:
+            return "application not created"
+        return app.platformName()
+    except Exception as exc:
+        return f"unknown ({type(exc).__name__})"
+
+
+def _libc_label():
+    try:
+        name, version = platform.libc_ver()
+        label = f"{name} {version}".strip()
+        return label or "unknown"
+    except Exception:
+        return "unknown"
+
+
+_ENCODER_PROBE_TIMEOUT_S = 5
+
+
+def _ffmpeg_encoder_inventory(path):
+    """Relevant H.264/HEVC encoder names an FFmpeg binary reports.
+
+    One ``-encoders`` call with a timeout; any failure degrades to an
+    empty list so diagnostics can never crash or hang startup.
+    """
+    if not path:
+        return []
+    try:
+        creationflags = subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0
+        result = subprocess.run(
+            [path, "-hide_banner", "-encoders"],
+            capture_output=True,
+            text=True,
+            errors="replace",
+            timeout=_ENCODER_PROBE_TIMEOUT_S,
+            creationflags=creationflags,
+        )
+    except Exception:
+        return []
+    names = []
+    for line in (result.stdout or "").splitlines():
+        parts = line.split()
+        if len(parts) >= 2 and (
+            parts[1] == "libx264" or parts[1].startswith(("h264_", "hevc_"))
+        ):
+            names.append(parts[1])
+    return names
+
+
 def build_diagnostic_report(config, user_config_path, base_dir, recent_logs=None):
     qt_version, pyqt_version = _qt_versions()
     imageio_ffmpeg = _imageio_ffmpeg_path()
     path_ffmpeg = shutil.which("ffmpeg")
+    encoders = _ffmpeg_encoder_inventory(imageio_ffmpeg)
 
     lines = [
         f"{APP_NAME} Diagnostics",
@@ -89,11 +147,14 @@ def build_diagnostic_report(config, user_config_path, base_dir, recent_logs=None
         "",
         "[System]",
         f"OS: {platform.platform()}",
+        f"Kernel: {platform.release()}",
         f"Machine: {platform.machine()}",
+        f"Libc: {_libc_label()}",
         f"Python: {platform.python_version()}",
         f"Qt: {qt_version}",
+        f"Qt platform plugin: {_qt_platform_name()}",
         f"PyQt: {pyqt_version}",
-        f"PyQt-Fluent-Widgets: {_package_version('PyQt-Fluent-Widgets', 'pyqt-fluent-widgets')}",
+        f"Fluent Widgets: {_package_version('PyQt6-Fluent-Widgets', 'PyQt-Fluent-Widgets')}",
         "",
         "[Settings]",
         f"Language: {_config_value(config, 'language')}",
@@ -107,6 +168,7 @@ def build_diagnostic_report(config, user_config_path, base_dir, recent_logs=None
         "[FFmpeg]",
         f"imageio-ffmpeg path: {imageio_ffmpeg or 'not found'}",
         f"imageio-ffmpeg version: {_probe_executable(imageio_ffmpeg)}",
+        f"imageio-ffmpeg H.264/HEVC encoders: {', '.join(encoders) if encoders else 'none detected'}",
         f"PATH ffmpeg: {path_ffmpeg or 'not found'}",
         f"PATH ffmpeg version: {_probe_executable(path_ffmpeg)}",
     ]

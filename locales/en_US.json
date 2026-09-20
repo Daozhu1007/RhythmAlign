@@ -179,5 +179,6 @@
     "msg_progress_busy": "{0}: Working | ETA: {1}",
     "log_prefix_err": "Error: ",
     "log_prefix_ok": "Success: ",
-    "log_saved_to": "Processing successful! Saved to: {0}"
+    "log_saved_to": "Processing successful! Saved to: {0}",
+    "log_reveal_failed": "File manager could not be opened (export completed): {0}"
 }
