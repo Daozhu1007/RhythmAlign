@@ -83,8 +83,10 @@ jobs:
 
       - name: Packaged full Engine v2 workflow (deterministic +3.0 s pair)
         run: |
+          # workdir must be ABSOLUTE: validate_artifact.py runs the packaged
+          # app with cwd=workdir, so relative media paths would double-resolve.
           python packaging/linux/validate_artifact.py --app dist/RhythmAlign/RhythmAlign \
-            --workdir probe-work --keep
+            --workdir "$PWD/probe-work" --keep
           echo "=== engine decision (reference: accepted/ACCEPT_DUAL_FAMILY/2.995374149659864) ==="
           cat probe-work/selftest_report.json
 
