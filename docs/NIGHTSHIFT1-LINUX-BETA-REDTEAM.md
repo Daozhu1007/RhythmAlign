@@ -78,7 +78,7 @@ Notes: Qt ran `offscreen` (headless); no GUI claim is made from these runs (cons
 
 ## 6. Release Identity / Versioning Audit
 
-**Ground truth established:** stable release `v1.2.0` exists (published 2026-09-12, `prerelease: false`, assets `RhythmAlign-v1.2.0-Portable.zip` + `RhythmAlign_v1.2.0_Setup.exe`); tag `v1.2.0` points at the Windows-release commit (`3a622fc` lineage), **not** at any cross-platform commit. The Linux artifact is built from `d231e7c` — five commits the stable tag does not contain. Client updates are **manifest-driven** (`update.json` on `main`, currently `1.2.0`); the UI never enables the GitHub-API fallback, so `/releases/latest` is not consulted by the app at all. `parse_version` discards prerelease/build suffixes (§7).
+**Ground truth established:** stable release `v1.2.0` exists (published 2026-09-12, `prerelease: false`, assets `RhythmAlign-v1.2.0-Portable.zip` + `RhythmAlign_v1.2.0_Setup.exe`); tag `v1.2.0` points at the Windows-release commit (`3a622fc` lineage), **not** at any cross-platform commit. The Linux artifact is built from `d231e7c` — five commits the stable tag does not contain. Client updates are **manifest-driven** (`update.json` on `main`, currently `1.2.0`); the UI never enables the GitHub-API fallback, so `/releases/latest` is not consulted by the app at all. `parse_version` discards prerelease/build suffixes (§7). **Existing-release integrity verified tonight:** both v1.2.0 Windows assets were downloaded and re-hashed — SHA256s match `update.json`'s recorded values exactly (Setup `025323C6…8774`, Portable `CFCED7CC…3579`; sizes match too), so the Windows update chain's checksums are genuine.
 
 Options evaluated:
 
