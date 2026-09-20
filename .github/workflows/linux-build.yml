@@ -14,6 +14,20 @@ name: Linux beta build
 
 on:
   workflow_dispatch:
+    # NOTE: workflow_dispatch becomes triggerable from the UI/API once this
+    # file lands on the default branch (release time). Until then the beta
+    # build runs on pushes to the packaging branch below.
+  push:
+    branches:
+      - cross-platform/linux
+    paths:
+      - 'requirements.txt'
+      - 'requirements-dev.txt'
+      - 'constraints-linux.txt'
+      - 'RhythmAlign.spec'
+      - 'packaging/**'
+      - '.github/workflows/linux-build.yml'
+      - '**/*.py'
 
 jobs:
   build-linux:
