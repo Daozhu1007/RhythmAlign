@@ -71,14 +71,18 @@ jobs:
           tar xzf dist/RhythmAlign-v*-linux-x86_64-beta.tar.gz -C dist
           python3 packaging/linux/validate_artifact.py --app dist/RhythmAlign/RhythmAlign
 
+      - name: Stage release files
+        run: |
+          mkdir -p release-staging
+          cp dist/RhythmAlign-v*-linux-x86_64-beta.tar.gz \
+             dist/RhythmAlign-v*-linux-x86_64-beta.tar.gz.sha256 \
+             build-env-frozen.txt release-staging/
+
       - name: Upload workflow artifact
         uses: actions/upload-artifact@v4
         with:
           name: RhythmAlign-linux-x86_64-beta
-          path: |
-            dist/RhythmAlign-v*-linux-x86_64-beta.tar.gz
-            dist/RhythmAlign-v*-linux-x86_64-beta.tar.gz.sha256
-            build-env-frozen.txt
+          path: release-staging/*
           if-no-files-found: error
 
   validate-24-04:
