@@ -12,7 +12,7 @@ CP-2's **LINUX_BETA_READY** was treated as a release-candidate claim by another 
 
 - The CI artifact was downloaded fresh from run 35529323382 and its SHA256 matches the report exactly (`c3096e61…e2`, 185,014,321 bytes); the build commit `d231e7c` differs from the branch tip only by the CP-2 report file itself.
 - A full ELF sweep of all **373 bundled binaries** found a maximum required GLIBC symbol version of **2.35** — meaning the published floor is not merely a policy number but the artifact's *true minimal* requirement (binding files: `libgcc_s.so.1`, `libmvec.so.1`, `libpython3.10.so.1.0`).
-- Clean-room runs of the downloaded artifact **passed the complete headless product workflow** (analysis → export → validation) on Ubuntu 24.04, Fedora 41, Ubuntu 22.04, and Debian 12, with the Engine v2 decision **bit-identical** (`accepted` / `ACCEPT_DUAL_FAMILY` / `2.995374149659864`) everywhere — including through input paths containing spaces, four CJK variants, parentheses, apostrophes, and ampersands.
+- Clean-room runs of the downloaded artifact **passed the complete headless product workflow** (analysis → export → validation) on Ubuntu 24.04, Fedora 41, Ubuntu 22.04 (the support baseline — locally and ×3 in CI reruns), and Debian 12, with the Engine v2 decision **bit-identical** (`accepted` / `ACCEPT_DUAL_FAMILY` / `2.995374149659864`) everywhere — including through input paths containing spaces, four CJK variants, parentheses, apostrophes, and ampersands — and, from the macOS probe, on Apple silicon.
 - Two independent same-revision CI rebuilds produced **identical file lists, byte-identical dependency freezes, and 662-of-663 byte-identical files**; the only differing file is PyInstaller's `base_library.zip` — textbook controlled reproducibility, exactly as CP-2 claimed and stronger than CP-2 documented.
 - The Windows suite grew from 113 to **144 passed + 3 skipped** with zero production-semantics changes; the Engine v2 semantic diff against the baseline is empty.
 - The Windows test suite, updater gating, GPU fallback, and update-manifest policy were all probed adversarially; the one genuine **reproduced defect** (desktop-menu entry corruption for install paths containing `&`) is fixed with a regression test.
@@ -70,9 +70,9 @@ Extracted from the verified tarball into fresh directories (WSL home / container
 | Environment | glibc | Result | Engine decision |
 |---|---|---|---|
 | WSL2 Ubuntu 24.04.4 host | 2.39 | **PASS** (all 22 checks) | `accepted` / `ACCEPT_DUAL_FAMILY` / `2.995374149659864` |
-| Docker `ubuntu:22.04` — **the support baseline** | 2.35 | **PASS ×4 tonight**: three CI build jobs (original + 2 reruns) each run this exact packaged validation inside `ubuntu:22.04`, **plus a direct local container run** — all green | bit-identical |
+| Docker `ubuntu:22.04` — **the support baseline** | 2.35 | **PASS** (all 22 checks, local) — additionally re-proven ×3 by tonight's CI reruns, whose build job runs this exact validation inside `ubuntu:22.04` | bit-identical |
+| Docker `debian:12` | 2.36 | **PASS** (all 22 checks) | bit-identical |
 | Docker `fedora:41` (non-Debian family) | 2.40 | **PASS** (all 22 checks) | bit-identical |
-| Docker `debian:12` | 2.36 | local run in progress at doc time (host Docker-network throttling made apt take ~2 h; see §9) | — |
 
 Notes: Qt ran `offscreen` (headless); no GUI claim is made from these runs (consistent with CP-2's separation — interactive evidence remains CP-2's WSLg screenshots). Isolation from repository resources: extraction paths contained no checkout; the report's `resource:*` checks resolve from `_internal` (`sys._MEIPASS`), and the executable-cwd test used workdirs unrelated to any checkout. (Host-side container oddities: the minimal `ubuntu:22.04`/`debian:12`/`fedora:41` images ship no `python3`; the harness host installs it, mirroring the CI workflow's own prerequisite step.)
 
@@ -137,12 +137,12 @@ Method: every file under the extracted tree checked for the ELF magic; for each 
 
 | Environment | ELF starts / `--check-only` | Full `--validate` (Engine v2 + FFmpeg + export) | Qt offscreen | Notes |
 |---|---|---|---|---|
-| Ubuntu 22.04 (glibc 2.35) — **the support baseline** | PASS | **PASS ×3 tonight**: CI build job runs the complete packaged validation inside the `ubuntu:22.04` container (original run + 2 nightshift reruns, all green); local Docker run in progress at doc time | yes | baseline directly exercised by every CI build |
+| Ubuntu 22.04 (glibc 2.35) — **the support baseline** | PASS | **PASS** (local container, all 22 checks) **and ×3 in CI** — the build job runs this exact packaged validation inside `ubuntu:22.04` (original run + 2 nightshift reruns, all green) | yes | baseline exercised locally and by every CI build |
 | Ubuntu 24.04 (WSL host, glibc 2.39) | PASS | **PASS** (local, this audit) | yes | forward compatibility |
-| Debian 12 (container, glibc 2.36) | PASS | local Docker validation launched (result to be appended; CI has no Debian leg) | yes | non-U Debian family |
+| Debian 12 (container, glibc 2.36) | PASS | **PASS** (local container, all 22 checks) | yes | non-U Debian family |
 | Fedora 41 (container, glibc 2.40) | PASS | **PASS** (local, this audit) | yes | non-Debian family (dnf) |
 
-Engine decisions bit-identical in every completed run. No GUI/interactive claim from any headless run (CP-2's WSLg Wayland/xcb evidence stands unchallenged; no re-test performed tonight). Local Docker note: the minimal distro images ship no `python3` — installed before validation, mirroring the CI workflow's own prerequisite step.
+Engine decisions bit-identical in every completed run. No GUI/interactive claim from any headless run (CP-2's WSLg Wayland/xcb evidence stands unchallenged; no re-test performed tonight). Local Docker notes: the minimal distro images ship no `python3` — installed before validation, mirroring the CI workflow's own prerequisite step; the host's Docker VM network path degraded to ~20 kB/s mid-audit, stretching apt phases to ~2 h (control-channel checks and WSL networking were unaffected — an environment quirk, not an artifact issue).
 
 ## 10. Path Torture Matrix
 
@@ -347,7 +347,7 @@ All of §23 B2–B12: none reproduced as user-facing breakage, each has a bounde
 ## 27. Algorithm Integrity
 
 - `git diff a2f5ede -- alignment_engine_v2.py auto_sync.py`: **empty**. No threshold, scoring, family, gate, or offset-semantics change.
-- Deterministic +3.000 s pair gate: **accepted / ACCEPT_DUAL_FAMILY / 2.995374149659864** — reproduced bit-identically on: Windows source (venv), artifact on WSL Ubuntu 24.04, artifact on Fedora 41, artifact on Ubuntu 22.04, artifact on Debian 12, artifact path-torture runs (4 cases), and — from the macOS probe — the packaged build on **Apple silicon (macos-14 arm64)**.
+- Deterministic +3.000 s pair gate: **accepted / ACCEPT_DUAL_FAMILY / 2.995374149659864** — reproduced bit-identically on: Windows source (venv), artifact on WSL Ubuntu 24.04, artifact on Fedora 41, artifact on Ubuntu 22.04 (local), artifact on Debian 12 (local), artifact path-torture runs (4 cases), and — from the macOS probe — the packaged build on **Apple silicon (macos-14 arm64)**.
 - Nightshift commits touched only: tests, the Linux-only packaging script, and two CI workflow files. **Alignment semantics unchanged.**
 
 ## 28. macOS Probe
