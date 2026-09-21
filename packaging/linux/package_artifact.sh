@@ -35,6 +35,9 @@ cp packaging/linux/README-linux.txt "$STAGE/RhythmAlign/"
 cp packaging/linux/RhythmAlign.desktop "$STAGE/RhythmAlign/"
 cp packaging/linux/install-desktop-integration.sh "$STAGE/RhythmAlign/"
 cp LICENSE "$STAGE/RhythmAlign/"
+# REL-0: third-party attribution and license texts for redistributed
+# components (required/recommended for binary distribution).
+cp THIRD-PARTY-NOTICES.txt "$STAGE/RhythmAlign/"
 chmod +x "$STAGE/RhythmAlign/RhythmAlign" "$STAGE/RhythmAlign/install-desktop-integration.sh"
 
 # Normalize timestamps so identical content produces a stable archive.
