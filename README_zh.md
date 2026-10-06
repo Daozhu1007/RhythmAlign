@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-v1.2.0-blue" alt="Version">
+  <img src="https://img.shields.io/badge/version-v1.2.1-blue" alt="Version">
   <img src="https://img.shields.io/badge/platform-Windows%2010%2F11-blue" alt="Platform">
   <img src="https://img.shields.io/badge/python-3.9%2B-blue" alt="Python">
   <img src="https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-lightgrey" alt="License">
@@ -60,7 +60,7 @@ README 只保留当前版本的能力说明。每个版本的详细更新记录�
 
 RhythmAlign 不直接对原始波形做互相关。手机麦克风、机台喇叭、敲击声、削波、压缩和环境噪声都会让录音波形与干净音源差异巨大，直接匹配波形非常容易失败。
 
-v1.2.0 的对齐不再依赖任何单一证据，而是综合多种相互独立的音乐证据：
+v1.2.1 的对齐不再依赖任何单一证据，而是综合多种相互独立的音乐证据：
 
 1. **解码分析音频**
 
@@ -177,7 +177,7 @@ python diagnose_offset.py "video.mp4" "music.mp3"
 
 ## 可靠性边界
 
-v1.2.0 在困难录音——安静手元、强噪声、重复谱面段落——下明显更稳，并且在证据不支持任何偏移时会拒绝猜测。但它仍是固定偏移对齐工具，不是万能修复器。以下场景仍可能遇到困难：
+v1.2.1 在困难录音——安静手元、强噪声、重复谱面段落——下明显更稳，并且在证据不支持任何偏移时会拒绝猜测。但它仍是固定偏移对齐工具，不是万能修复器。以下场景仍可能遇到困难：
 
 - 参考音乐和视频中的音源不是同一个版本。
 - 视频中途被剪切过。

@@ -1,5 +1,5 @@
 #define MyAppName "RhythmAlign"
-#define MyAppVersion "1.2.0"
+#define MyAppVersion "1.2.1"
 #define MyAppPublisher "Limitime"
 #define MyAppURL "https://github.com/Daozhu1007/RhythmAlign"
 #define MyAppExeName "RhythmAlign.exe"
@@ -17,7 +17,7 @@ DefaultDirName={autopf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
 OutputDir=dist
-OutputBaseFilename=RhythmAlign_v1.2.0_Setup
+OutputBaseFilename=RhythmAlign_v1.2.1_Setup
 SetupIconFile=assets\logo.ico
 Compression=lzma2
 SolidCompression=yes

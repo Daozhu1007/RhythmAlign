@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-v1.2.0-blue" alt="Version">
+  <img src="https://img.shields.io/badge/version-v1.2.1-blue" alt="Version">
   <img src="https://img.shields.io/badge/platform-Windows%2010%2F11-blue" alt="Platform">
   <img src="https://img.shields.io/badge/python-3.9%2B-blue" alt="Python">
   <img src="https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-lightgrey" alt="License">
@@ -58,7 +58,7 @@ This README describes the current app. Per-version change logs are kept in the R
 
 Raw waveform correlation is fragile. A phone microphone, arcade cabinet speakers, hand taps, compression, clipping, and background noise can make the recorded waveform look nothing like the clean music file.
 
-RhythmAlign v1.2.0 aligns by combining several independent kinds of musical evidence instead of trusting any single one:
+RhythmAlign v1.2.1 aligns by combining several independent kinds of musical evidence instead of trusting any single one:
 
 1. **Decode to analysis audio**
 
@@ -175,7 +175,7 @@ The diagnostic output includes audio duration, RMS/peak levels, Chroma variance,
 
 ## Reliability Notes
 
-RhythmAlign v1.2.0 is substantially more robust on difficult recordings — quiet handcams, heavy noise, repeated chart sections — and it now refuses to guess when the evidence does not support any placement. It is still a fixed-offset aligner, not a universal repair tool. It can still struggle when:
+RhythmAlign v1.2.1 is substantially more robust on difficult recordings — quiet handcams, heavy noise, repeated chart sections — and it now refuses to guess when the evidence does not support any placement. It is still a fixed-offset aligner, not a universal repair tool. It can still struggle when:
 
 - the reference music is not the same version as the video audio,
 - the video was cut in the middle,
