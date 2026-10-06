@@ -1,0 +1,4230 @@
+{
+  "baseline": "c92e82763350d70e7d5982de2dcdcb99cebc1e83",
+  "branch": "hotfix/ra12f1-evidence-ownership",
+  "verdict": "READY_FOR_RA12F1_CTO_REVIEW",
+  "unchanged_ast": [
+    "DecisionPolicy",
+    "_case_a_failed_checks",
+    "_case_b_failed_checks",
+    "_comparable_competitor_exists",
+    "_choose_offset",
+    "_independent_peak_indices",
+    "_concentration_profile",
+    "_apply_temporal_support"
+  ],
+  "tests": {
+    "pytest": 96,
+    "engine-tests": 13,
+    "temporal-tests": 11,
+    "ownership-tests": 16
+  },
+  "ap": {
+    "runs": [
+      {
+        "status": "accepted",
+        "offset": 11.377777777777778,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0241,
+          "effective_bins": 81.21,
+          "n_bins": 140,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "status": "accepted",
+        "offset": 11.377777777777778,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0241,
+          "effective_bins": 81.21,
+          "n_bins": 140,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "status": "accepted",
+        "offset": 11.377777777777778,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0241,
+          "effective_bins": 81.21,
+          "n_bins": 140,
+          "max_top_bin_share": 0.25
+        }
+      }
+    ],
+    "deterministic": true,
+    "canonical_decision_sha256": "498a3af0d6f83093493b3009fcbee112f4d2d9ae4b792e1bc316175be30a015b",
+    "clusters": [
+      {
+        "offset_s": -40.7046,
+        "representative_offset_s": -40.704580498866214,
+        "overlap_s": 98.86,
+        "candidates": [
+          {
+            "method": "hybrid",
+            "family": "tonal",
+            "offset_s": -40.704580498866214,
+            "z": 4.806934043751191,
+            "peak_margin": 0.475781446869869,
+            "usable_overlap_s": 98.86063492063491,
+            "top_competing_offsets_s": [
+              11.3313,
+              0.8824,
+              21.7571
+            ],
+            "notes": {},
+            "peak_index": 8775,
+            "peak_id": "hybrid:8775"
+          }
+        ],
+        "case_a_failed_checks": [
+          "tonal_z",
+          "tonal_margin",
+          "pcen_missing"
+        ],
+        "case_b_failed_checks": [
+          "pcen_missing",
+          "onset_missing"
+        ],
+        "families": {
+          "tonal": {
+            "methods": [
+              "hybrid"
+            ],
+            "z_at_cluster": 4.807,
+            "margin_at_cluster": 0.476,
+            "best_member_offset_s": -40.7046,
+            "supplier_method": "hybrid",
+            "supplier_peak_id": "hybrid:8775",
+            "supplier_peak_index": 8775,
+            "supplier_peak_offset_s": -40.704580498866214,
+            "supplier_owned": true
+          }
+        }
+      },
+      {
+        "offset_s": 0.952,
+        "representative_offset_s": 0.9520181405895691,
+        "overlap_s": 139.57,
+        "candidates": [
+          {
+            "method": "hybrid",
+            "family": "tonal",
+            "offset_s": 0.8823582766439909,
+            "z": 6.513348923630629,
+            "peak_margin": 0.6446792376696027,
+            "usable_overlap_s": 139.56521541950113,
+            "top_competing_offsets_s": [
+              11.3313,
+              21.7571,
+              -40.7046
+            ],
+            "notes": {},
+            "peak_index": 6984,
+            "peak_id": "hybrid:6984"
+          },
+          {
+            "method": "pcen_hpss",
+            "family": "pcen_spectral",
+            "offset_s": 0.9520181405895691,
+            "z": 8.190525018526731,
+            "peak_margin": 0.3262348359168227,
+            "usable_overlap_s": 139.56521541950113,
+            "top_competing_offsets_s": [
+              11.3778,
+              21.8035,
+              63.553
+            ],
+            "notes": {},
+            "peak_index": 6981,
+            "peak_id": "pcen_hpss:6981"
+          }
+        ],
+        "case_a_failed_checks": [
+          "tonal_margin",
+          "pcen_margin"
+        ],
+        "case_b_failed_checks": [
+          "pcen_margin",
+          "onset_missing"
+        ],
+        "families": {
+          "tonal": {
+            "methods": [
+              "hybrid"
+            ],
+            "z_at_cluster": 6.513,
+            "margin_at_cluster": 0.645,
+            "best_member_offset_s": 0.8824,
+            "supplier_method": "hybrid",
+            "supplier_peak_id": "hybrid:6984",
+            "supplier_peak_index": 6984,
+            "supplier_peak_offset_s": 0.8823582766439909,
+            "supplier_owned": true
+          },
+          "pcen_spectral": {
+            "methods": [
+              "pcen_hpss"
+            ],
+            "z_at_cluster": 8.191,
+            "margin_at_cluster": 0.326,
+            "best_member_offset_s": 0.952,
+            "supplier_method": "pcen_hpss",
+            "supplier_peak_id": "pcen_hpss:6981",
+            "supplier_peak_index": 6981,
+            "supplier_peak_offset_s": 0.9520181405895691,
+            "supplier_owned": true
+          }
+        }
+      },
+      {
+        "offset_s": 1.2074,
+        "representative_offset_s": 1.207437641723356,
+        "overlap_s": 139.57,
+        "candidates": [
+          {
+            "method": "onset",
+            "family": "onset_temporal",
+            "offset_s": 1.207437641723356,
+            "z": 2.680501699447632,
+            "peak_margin": 0.9890845417976379,
+            "usable_overlap_s": 139.56521541950113,
+            "top_competing_offsets_s": [
+              9.0326,
+              3.8081,
+              11.6332
+            ],
+            "notes": {},
+            "peak_index": 6970,
+            "peak_id": "onset:6970"
+          }
+        ],
+        "case_a_failed_checks": [
+          "tonal_missing",
+          "pcen_missing"
+        ],
+        "case_b_failed_checks": [
+          "pcen_missing"
+        ],
+        "families": {
+          "onset_temporal": {
+            "methods": [
+              "onset"
+            ],
+            "z_at_cluster": 2.681,
+            "margin_at_cluster": 0.989,
+            "best_member_offset_s": 1.2074,
+            "supplier_method": "onset",
+            "supplier_peak_id": "onset:6970",
+            "supplier_peak_index": 6970,
+            "supplier_peak_offset_s": 1.207437641723356,
+            "supplier_owned": true
+          }
+        }
+      },
+      {
+        "offset_s": 3.8081,
+        "representative_offset_s": 3.8080725623582765,
+        "overlap_s": 139.57,
+        "candidates": [
+          {
+            "method": "onset",
+            "family": "onset_temporal",
+            "offset_s": 3.8080725623582765,
+            "z": 2.695221424102783,
+            "peak_margin": 0.9925090074539185,
+            "usable_overlap_s": 139.5652154195011,
+            "top_competing_offsets_s": [
+              9.0326,
+              1.2074,
+              11.6332
+            ],
+            "notes": {},
+            "peak_index": 6858,
+            "peak_id": "onset:6858"
+          },
+          {
+            "method": "pcen",
+            "family": "pcen_spectral",
+            "offset_s": 3.8080725623582765,
+            "z": 5.217991702656706,
+            "peak_margin": 0.9634207140795725,
+            "usable_overlap_s": 139.5652154195011,
+            "top_competing_offsets_s": [
+              9.6827,
+              11.6332,
+              17.5078
+            ],
+            "notes": {},
+            "peak_index": 6858,
+            "peak_id": "pcen:6858"
+          }
+        ],
+        "case_a_failed_checks": [
+          "tonal_missing",
+          "pcen_z",
+          "pcen_margin"
+        ],
+        "case_b_failed_checks": [
+          "pcen_z",
+          "pcen_margin"
+        ],
+        "families": {
+          "onset_temporal": {
+            "methods": [
+              "onset"
+            ],
+            "z_at_cluster": 2.695,
+            "margin_at_cluster": 0.993,
+            "best_member_offset_s": 3.8081,
+            "supplier_method": "onset",
+            "supplier_peak_id": "onset:6858",
+            "supplier_peak_index": 6858,
+            "supplier_peak_offset_s": 3.8080725623582765,
+            "supplier_owned": true
+          },
+          "pcen_spectral": {
+            "methods": [
+              "pcen"
+            ],
+            "z_at_cluster": 5.218,
+            "margin_at_cluster": 0.963,
+            "best_member_offset_s": 3.8081,
+            "supplier_method": "pcen",
+            "supplier_peak_id": "pcen:6858",
+            "supplier_peak_index": 6858,
+            "supplier_peak_offset_s": 3.8080725623582765,
+            "supplier_owned": true
+          }
+        }
+      },
+      {
+        "offset_s": 9.0326,
+        "representative_offset_s": 9.032562358276644,
+        "overlap_s": 139.57,
+        "candidates": [
+          {
+            "method": "onset",
+            "family": "onset_temporal",
+            "offset_s": 9.032562358276644,
+            "z": 2.72741961479187,
+            "peak_margin": 1.0075474977493286,
+            "usable_overlap_s": 139.56521541950113,
+            "top_competing_offsets_s": [
+              3.8081,
+              1.2074,
+              11.6332
+            ],
+            "notes": {},
+            "peak_index": 6633,
+            "peak_id": "onset:6633"
+          }
+        ],
+        "case_a_failed_checks": [
+          "tonal_missing",
+          "pcen_missing"
+        ],
+        "case_b_failed_checks": [
+          "pcen_missing"
+        ],
+        "families": {
+          "onset_temporal": {
+            "methods": [
+              "onset"
+            ],
+            "z_at_cluster": 2.727,
+            "margin_at_cluster": 1.008,
+            "best_member_offset_s": 9.0326,
+            "supplier_method": "onset",
+            "supplier_peak_id": "onset:6633",
+            "supplier_peak_index": 6633,
+            "supplier_peak_offset_s": 9.032562358276644,
+            "supplier_owned": true
+          }
+        }
+      },
+      {
+        "offset_s": 9.6827,
+        "representative_offset_s": 9.682721088435374,
+        "overlap_s": 139.57,
+        "candidates": [
+          {
+            "method": "pcen",
+            "family": "pcen_spectral",
+            "offset_s": 9.682721088435374,
+            "z": 5.4161091062297135,
+            "peak_margin": 1.034024311075093,
+            "usable_overlap_s": 139.56521541950113,
+            "top_competing_offsets_s": [
+              11.6332,
+              3.8081,
+              17.5078
+            ],
+            "notes": {},
+            "peak_index": 6605,
+            "peak_id": "pcen:6605"
+          }
+        ],
+        "case_a_failed_checks": [
+          "tonal_missing",
+          "pcen_z"
+        ],
+        "case_b_failed_checks": [
+          "pcen_z",
+          "pcen_margin",
+          "onset_missing"
+        ],
+        "families": {
+          "pcen_spectral": {
+            "methods": [
+              "pcen"
+            ],
+            "z_at_cluster": 5.416,
+            "margin_at_cluster": 1.034,
+            "best_member_offset_s": 9.6827,
+            "supplier_method": "pcen",
+            "supplier_peak_id": "pcen:6605",
+            "supplier_peak_index": 6605,
+            "supplier_peak_offset_s": 9.682721088435374,
+            "supplier_owned": true
+          }
+        }
+      },
+      {
+        "offset_s": 11.3778,
+        "representative_offset_s": 11.377777777777778,
+        "overlap_s": 139.57,
+        "candidates": [
+          {
+            "method": "hybrid",
+            "family": "tonal",
+            "offset_s": 11.331337868480725,
+            "z": 10.103239786617873,
+            "peak_margin": 1.5511589974803854,
+            "usable_overlap_s": 139.56521541950113,
+            "top_competing_offsets_s": [
+              0.8824,
+              21.7571,
+              -40.7046
+            ],
+            "notes": {},
+            "peak_index": 6534,
+            "peak_id": "hybrid:6534"
+          },
+          {
+            "method": "pcen_hpss",
+            "family": "pcen_spectral",
+            "offset_s": 11.377777777777778,
+            "z": 25.1062244640698,
+            "peak_margin": 3.065276573513938,
+            "usable_overlap_s": 139.56521541950113,
+            "top_competing_offsets_s": [
+              0.952,
+              21.8035,
+              63.553
+            ],
+            "notes": {},
+            "peak_index": 6532,
+            "peak_id": "pcen_hpss:6532"
+          }
+        ],
+        "case_a_failed_checks": [],
+        "case_b_failed_checks": [
+          "onset_missing"
+        ],
+        "families": {
+          "tonal": {
+            "methods": [
+              "hybrid"
+            ],
+            "z_at_cluster": 10.103,
+            "margin_at_cluster": 1.551,
+            "best_member_offset_s": 11.3313,
+            "supplier_method": "hybrid",
+            "supplier_peak_id": "hybrid:6534",
+            "supplier_peak_index": 6534,
+            "supplier_peak_offset_s": 11.331337868480725,
+            "supplier_owned": true
+          },
+          "pcen_spectral": {
+            "methods": [
+              "pcen_hpss"
+            ],
+            "z_at_cluster": 25.106,
+            "margin_at_cluster": 3.065,
+            "best_member_offset_s": 11.3778,
+            "supplier_method": "pcen_hpss",
+            "supplier_peak_id": "pcen_hpss:6532",
+            "supplier_peak_index": 6532,
+            "supplier_peak_offset_s": 11.377777777777778,
+            "supplier_owned": true
+          }
+        }
+      },
+      {
+        "offset_s": 11.6332,
+        "representative_offset_s": 11.633197278911565,
+        "overlap_s": 139.57,
+        "candidates": [
+          {
+            "method": "onset",
+            "family": "onset_temporal",
+            "offset_s": 11.633197278911565,
+            "z": 2.6698808670043945,
+            "peak_margin": 0.9866136312484741,
+            "usable_overlap_s": 139.56521541950113,
+            "top_competing_offsets_s": [
+              9.0326,
+              3.8081,
+              1.2074
+            ],
+            "notes": {},
+            "peak_index": 6521,
+            "peak_id": "onset:6521"
+          },
+          {
+            "method": "pcen",
+            "family": "pcen_spectral",
+            "offset_s": 11.633197278911565,
+            "z": 5.237893392079429,
+            "peak_margin": 0.9670952503624239,
+            "usable_overlap_s": 139.56521541950113,
+            "top_competing_offsets_s": [
+              9.6827,
+              3.8081,
+              17.5078
+            ],
+            "notes": {},
+            "peak_index": 6521,
+            "peak_id": "pcen:6521"
+          }
+        ],
+        "case_a_failed_checks": [
+          "tonal_missing",
+          "pcen_z",
+          "pcen_margin"
+        ],
+        "case_b_failed_checks": [
+          "pcen_z",
+          "pcen_margin"
+        ],
+        "families": {
+          "onset_temporal": {
+            "methods": [
+              "onset"
+            ],
+            "z_at_cluster": 2.67,
+            "margin_at_cluster": 0.987,
+            "best_member_offset_s": 11.6332,
+            "supplier_method": "onset",
+            "supplier_peak_id": "onset:6521",
+            "supplier_peak_index": 6521,
+            "supplier_peak_offset_s": 11.633197278911565,
+            "supplier_owned": true
+          },
+          "pcen_spectral": {
+            "methods": [
+              "pcen"
+            ],
+            "z_at_cluster": 5.238,
+            "margin_at_cluster": 0.967,
+            "best_member_offset_s": 11.6332,
+            "supplier_method": "pcen",
+            "supplier_peak_id": "pcen:6521",
+            "supplier_peak_index": 6521,
+            "supplier_peak_offset_s": 11.633197278911565,
+            "supplier_owned": true
+          }
+        }
+      },
+      {
+        "offset_s": 17.5078,
+        "representative_offset_s": 17.507845804988662,
+        "overlap_s": 139.57,
+        "candidates": [
+          {
+            "method": "pcen",
+            "family": "pcen_spectral",
+            "offset_s": 17.507845804988662,
+            "z": 5.08812051264163,
+            "peak_margin": 0.9394420261565956,
+            "usable_overlap_s": 139.5652154195011,
+            "top_competing_offsets_s": [
+              9.6827,
+              11.6332,
+              3.8081
+            ],
+            "notes": {},
+            "peak_index": 6268,
+            "peak_id": "pcen:6268"
+          }
+        ],
+        "case_a_failed_checks": [
+          "tonal_missing",
+          "pcen_z",
+          "pcen_margin"
+        ],
+        "case_b_failed_checks": [
+          "pcen_z",
+          "pcen_margin",
+          "onset_missing"
+        ],
+        "families": {
+          "pcen_spectral": {
+            "methods": [
+              "pcen"
+            ],
+            "z_at_cluster": 5.088,
+            "margin_at_cluster": 0.939,
+            "best_member_offset_s": 17.5078,
+            "supplier_method": "pcen",
+            "supplier_peak_id": "pcen:6268",
+            "supplier_peak_index": 6268,
+            "supplier_peak_offset_s": 17.507845804988662,
+            "supplier_owned": true
+          }
+        }
+      },
+      {
+        "offset_s": 21.8035,
+        "representative_offset_s": 21.803537414965987,
+        "overlap_s": 139.57,
+        "candidates": [
+          {
+            "method": "hybrid",
+            "family": "tonal",
+            "offset_s": 21.757097505668934,
+            "z": 5.680432591833591,
+            "peak_margin": 0.5622387186491187,
+            "usable_overlap_s": 139.56521541950113,
+            "top_competing_offsets_s": [
+              11.3313,
+              0.8824,
+              -40.7046
+            ],
+            "notes": {},
+            "peak_index": 6085,
+            "peak_id": "hybrid:6085"
+          },
+          {
+            "method": "pcen_hpss",
+            "family": "pcen_spectral",
+            "offset_s": 21.803537414965987,
+            "z": 6.421656783159325,
+            "peak_margin": 0.25577946984221117,
+            "usable_overlap_s": 139.5652154195011,
+            "top_competing_offsets_s": [
+              11.3778,
+              0.952,
+              63.553
+            ],
+            "notes": {},
+            "peak_index": 6083,
+            "peak_id": "pcen_hpss:6083"
+          }
+        ],
+        "case_a_failed_checks": [
+          "tonal_margin",
+          "pcen_margin"
+        ],
+        "case_b_failed_checks": [
+          "pcen_z",
+          "pcen_margin",
+          "onset_missing"
+        ],
+        "families": {
+          "tonal": {
+            "methods": [
+              "hybrid"
+            ],
+            "z_at_cluster": 5.68,
+            "margin_at_cluster": 0.562,
+            "best_member_offset_s": 21.7571,
+            "supplier_method": "hybrid",
+            "supplier_peak_id": "hybrid:6085",
+            "supplier_peak_index": 6085,
+            "supplier_peak_offset_s": 21.757097505668934,
+            "supplier_owned": true
+          },
+          "pcen_spectral": {
+            "methods": [
+              "pcen_hpss"
+            ],
+            "z_at_cluster": 6.422,
+            "margin_at_cluster": 0.256,
+            "best_member_offset_s": 21.8035,
+            "supplier_method": "pcen_hpss",
+            "supplier_peak_id": "pcen_hpss:6083",
+            "supplier_peak_index": 6083,
+            "supplier_peak_offset_s": 21.803537414965987,
+            "supplier_owned": true
+          }
+        }
+      },
+      {
+        "offset_s": 63.553,
+        "representative_offset_s": 63.55301587301587,
+        "overlap_s": 99.52,
+        "candidates": [
+          {
+            "method": "pcen_hpss",
+            "family": "pcen_spectral",
+            "offset_s": 63.55301587301587,
+            "z": 6.211806010740502,
+            "peak_margin": 0.24742095409966505,
+            "usable_overlap_s": 99.51900226757368,
+            "top_competing_offsets_s": [
+              11.3778,
+              0.952,
+              21.8035
+            ],
+            "notes": {},
+            "peak_index": 4285,
+            "peak_id": "pcen_hpss:4285"
+          }
+        ],
+        "case_a_failed_checks": [
+          "tonal_missing",
+          "pcen_margin"
+        ],
+        "case_b_failed_checks": [
+          "pcen_z",
+          "pcen_margin",
+          "onset_missing"
+        ],
+        "families": {
+          "pcen_spectral": {
+            "methods": [
+              "pcen_hpss"
+            ],
+            "z_at_cluster": 6.212,
+            "margin_at_cluster": 0.247,
+            "best_member_offset_s": 63.553,
+            "supplier_method": "pcen_hpss",
+            "supplier_peak_id": "pcen_hpss:4285",
+            "supplier_peak_index": 4285,
+            "supplier_peak_offset_s": 63.55301587301587,
+            "supplier_owned": true
+          }
+        }
+      }
+    ],
+    "wrong_references": [
+      {
+        "case_id": "ap_x_tr_babieta",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "ap_x_tr_bai39",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "ap_x_tr_baixiwang",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "ap_x_tr_caibushimo",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "ap_x_tr_chiyaoshuijiao",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "ap_x_tr_decision90",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "ap_x_tr_drd",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "ap_x_tr_drops",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "ap_x_tr_fenzhen",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "ap_x_tr_haiditan",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "ap_x_tr_hongzhoutian",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "ap_x_tr_letudive",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "ap_x_tr_leyixiaolao",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "ap_x_tr_lingduihua",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "ap_x_tr_lividi",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "ap_x_tr_maodunxinli",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "ap_x_tr_queen",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "ap_x_tr_samesha",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "ap_x_tr_yanwulieche",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      }
+    ]
+  },
+  "positives": {
+    "total": 85,
+    "statuses": {
+      "accepted": 55,
+      "abstained": 30
+    },
+    "changes": [],
+    "max_accepted_offset_change_s": 0.0,
+    "low_snr": {
+      "case_id": "lingduihua_132",
+      "split": "real",
+      "level": "positive_low_snr",
+      "gt": 12.4,
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "reason": "ACCEPT_PRIMARY_WITH_CORROBORATION",
+      "outcome": "CORRECT_ACCEPT",
+      "offset_error": 0.0923356009070293,
+      "temporal_support": {
+        "verified_method": "pcen_hpss",
+        "applied": true,
+        "top_bin_share": 0.0836,
+        "effective_bins": 39.5,
+        "n_bins": 153,
+        "max_top_bin_share": 0.25
+      }
+    },
+    "rows": [
+      {
+        "case_id": "ss_cal_001",
+        "split": "calibration",
+        "level": "L1",
+        "gt": 4.7,
+        "status": "accepted",
+        "offset": 4.713650793650793,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": 0.013650793650793247,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0164,
+          "effective_bins": 132.5,
+          "n_bins": 159,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_cal_002",
+        "split": "calibration",
+        "level": "L3",
+        "gt": 19.3,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_cal_003",
+        "split": "calibration",
+        "level": "L4",
+        "gt": -6.2,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_cal_004",
+        "split": "calibration",
+        "level": "L2",
+        "gt": 11.8,
+        "status": "accepted",
+        "offset": 11.795736961451247,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": -0.004263038548753428,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0184,
+          "effective_bins": 104.98,
+          "n_bins": 139,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_cal_005",
+        "split": "calibration",
+        "level": "L3",
+        "gt": -3.1,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_cal_006",
+        "split": "calibration",
+        "level": "L4",
+        "gt": 8.9,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_cal_007",
+        "split": "calibration",
+        "level": "L1",
+        "gt": 0.4,
+        "status": "accepted",
+        "offset": 0.3947392290249433,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": -0.005260770975056728,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0256,
+          "effective_bins": 102.98,
+          "n_bins": 145,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_cal_008",
+        "split": "calibration",
+        "level": "L2",
+        "gt": 27.5,
+        "status": "accepted",
+        "offset": 27.492426303854874,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": -0.007573696145126263,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0245,
+          "effective_bins": 77.24,
+          "n_bins": 140,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_cal_009",
+        "split": "calibration",
+        "level": "L4",
+        "gt": -12.4,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_cal_010",
+        "split": "calibration",
+        "level": "L2",
+        "gt": 15.6,
+        "status": "accepted",
+        "offset": 15.603809523809524,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": 0.0038095238095241513,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.016,
+          "effective_bins": 117.04,
+          "n_bins": 147,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_cal_011",
+        "split": "calibration",
+        "level": "L3",
+        "gt": 2.2,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_cal_012",
+        "split": "calibration",
+        "level": "L1",
+        "gt": -8.7,
+        "status": "accepted",
+        "offset": -8.70748299319728,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": -0.007482993197280408,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0239,
+          "effective_bins": 102.66,
+          "n_bins": 137,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_cal_013",
+        "split": "calibration",
+        "level": "L3",
+        "gt": 5.9,
+        "status": "accepted",
+        "offset": 5.897868480725624,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": -0.002131519274376714,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0264,
+          "effective_bins": 97.77,
+          "n_bins": 159,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_cal_014",
+        "split": "calibration",
+        "level": "L4",
+        "gt": 21.4,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_cal_015",
+        "split": "calibration",
+        "level": "L2",
+        "gt": -4.6,
+        "status": "accepted",
+        "offset": -4.597551020408163,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": 0.00244897959183632,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0185,
+          "effective_bins": 109.87,
+          "n_bins": 144,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_cal_016",
+        "split": "calibration",
+        "level": "L1",
+        "gt": 9.3,
+        "status": "accepted",
+        "offset": 9.311201814058958,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": 0.011201814058956927,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.018,
+          "effective_bins": 112.35,
+          "n_bins": 137,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_cal_017",
+        "split": "calibration",
+        "level": "L4",
+        "gt": -7.8,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_cal_018",
+        "split": "calibration",
+        "level": "L3",
+        "gt": 13.7,
+        "status": "accepted",
+        "offset": 13.699773242630386,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": -0.00022675736961375037,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0269,
+          "effective_bins": 77.32,
+          "n_bins": 147,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_cal_019",
+        "split": "calibration",
+        "level": "L2",
+        "gt": 17.1,
+        "status": "accepted",
+        "offset": 17.11310657596372,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": 0.013106575963718115,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0298,
+          "effective_bins": 82.01,
+          "n_bins": 135,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_cal_020",
+        "split": "calibration",
+        "level": "L4",
+        "gt": -1.8,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_cal_021",
+        "split": "calibration",
+        "level": "L1",
+        "gt": 6.4,
+        "status": "accepted",
+        "offset": 6.408707482993197,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": 0.008707482993196791,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0218,
+          "effective_bins": 118.46,
+          "n_bins": 145,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_cal_022",
+        "split": "calibration",
+        "level": "L3",
+        "gt": -9.5,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_cal_023",
+        "split": "calibration",
+        "level": "L1",
+        "gt": 12.9,
+        "status": "accepted",
+        "offset": 12.910294784580499,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": 0.010294784580498373,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0213,
+          "effective_bins": 110.6,
+          "n_bins": 143,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_cal_024",
+        "split": "calibration",
+        "level": "L2",
+        "gt": 3.7,
+        "status": "accepted",
+        "offset": 3.6919727891156464,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": -0.008027210884353764,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0266,
+          "effective_bins": 99.19,
+          "n_bins": 137,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_cal_025",
+        "split": "calibration",
+        "level": "L4",
+        "gt": 7.1,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_cal_026",
+        "split": "calibration",
+        "level": "L2",
+        "gt": 23.8,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_cal_027",
+        "split": "calibration",
+        "level": "L3",
+        "gt": -5.3,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_cal_028",
+        "split": "calibration",
+        "level": "L1",
+        "gt": 14.2,
+        "status": "accepted",
+        "offset": 14.210612244897959,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": 0.010612244897959755,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0261,
+          "effective_bins": 91.94,
+          "n_bins": 140,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_cal_029",
+        "split": "calibration",
+        "level": "L3",
+        "gt": -11.6,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_cal_030",
+        "split": "calibration",
+        "level": "L2",
+        "gt": 1.5,
+        "status": "accepted",
+        "offset": 1.509297052154195,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": 0.009297052154195073,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0163,
+          "effective_bins": 116.83,
+          "n_bins": 149,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_cal_031",
+        "split": "calibration",
+        "level": "L2",
+        "gt": -4.9,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_cal_032",
+        "split": "calibration",
+        "level": "L4",
+        "gt": 10.6,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_cal_033",
+        "split": "calibration",
+        "level": "L3",
+        "gt": 18.4,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_cal_034",
+        "split": "calibration",
+        "level": "L3",
+        "gt": 3.3,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_cal_035",
+        "split": "calibration",
+        "level": "L1",
+        "gt": 26.1,
+        "status": "accepted",
+        "offset": 26.09922902494331,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": -0.0007709750566924356,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0145,
+          "effective_bins": 126.57,
+          "n_bins": 149,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_cal_036",
+        "split": "calibration",
+        "level": "L4",
+        "gt": -7.2,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_ho_001",
+        "split": "holdout",
+        "level": "L1",
+        "gt": 5.3,
+        "status": "accepted",
+        "offset": 5.294149659863946,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": -0.005850340136054122,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.024,
+          "effective_bins": 94.54,
+          "n_bins": 120,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_ho_002",
+        "split": "holdout",
+        "level": "L4",
+        "gt": -8.9,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_ho_003",
+        "split": "holdout",
+        "level": "L2",
+        "gt": 12.7,
+        "status": "accepted",
+        "offset": 12.701315192743763,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": 0.0013151927437640154,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0221,
+          "effective_bins": 101.85,
+          "n_bins": 135,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_ho_004",
+        "split": "holdout",
+        "level": "L3",
+        "gt": 1.1,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_ho_005",
+        "split": "holdout",
+        "level": "L3",
+        "gt": -4.4,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_ho_006",
+        "split": "holdout",
+        "level": "L1",
+        "gt": 16.9,
+        "status": "accepted",
+        "offset": 16.904126984126986,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": 0.00412698412698731,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0188,
+          "effective_bins": 110.92,
+          "n_bins": 138,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_ho_007",
+        "split": "holdout",
+        "level": "L4",
+        "gt": 8.2,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_ho_008",
+        "split": "holdout",
+        "level": "L2",
+        "gt": -6.7,
+        "status": "accepted",
+        "offset": -6.6873469387755105,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": 0.012653061224489726,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0324,
+          "effective_bins": 96.49,
+          "n_bins": 143,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_ho_009",
+        "split": "holdout",
+        "level": "L1",
+        "gt": -2.3,
+        "status": "accepted",
+        "offset": -2.2987755102040817,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": 0.00122448979591816,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.029,
+          "effective_bins": 100.75,
+          "n_bins": 159,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_ho_010",
+        "split": "holdout",
+        "level": "L3",
+        "gt": 13.4,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_ho_011",
+        "split": "holdout",
+        "level": "L2",
+        "gt": 19.8,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_ho_012",
+        "split": "holdout",
+        "level": "L4",
+        "gt": 3.9,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_ho_013",
+        "split": "holdout",
+        "level": "L3",
+        "gt": 7.6,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_ho_014",
+        "split": "holdout",
+        "level": "L1",
+        "gt": -10.2,
+        "status": "accepted",
+        "offset": -10.193560090702947,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": 0.006439909297052182,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0208,
+          "effective_bins": 90.61,
+          "n_bins": 109,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_ho_015",
+        "split": "holdout",
+        "level": "L4",
+        "gt": 1.9,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_ho_016",
+        "split": "holdout",
+        "level": "L2",
+        "gt": 11.3,
+        "status": "accepted",
+        "offset": 11.3081179138322,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": 0.00811791383219962,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0222,
+          "effective_bins": 82.8,
+          "n_bins": 124,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_ho_017",
+        "split": "holdout",
+        "level": "L1",
+        "gt": 21.6,
+        "status": "accepted",
+        "offset": 21.59455782312925,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": -0.005442176870751325,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0175,
+          "effective_bins": 126.96,
+          "n_bins": 153,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_ho_018",
+        "split": "holdout",
+        "level": "L3",
+        "gt": -3.6,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "ss_ho_019",
+        "split": "holdout",
+        "level": "L2",
+        "gt": -7.4,
+        "status": "accepted",
+        "offset": -7.4071655328798185,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": -0.007165532879818137,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0321,
+          "effective_bins": 80.03,
+          "n_bins": 112,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "ss_ho_020",
+        "split": "holdout",
+        "level": "L4",
+        "gt": 9.7,
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "outcome": "SAFE_ABSTAIN",
+        "offset_error": null,
+        "temporal_support": null
+      },
+      {
+        "case_id": "lingduihua_132",
+        "split": "real",
+        "level": "positive_low_snr",
+        "gt": 12.4,
+        "status": "accepted",
+        "offset": 12.49233560090703,
+        "reason": "ACCEPT_PRIMARY_WITH_CORROBORATION",
+        "outcome": "CORRECT_ACCEPT",
+        "offset_error": 0.0923356009070293,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0836,
+          "effective_bins": 39.5,
+          "n_bins": 153,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "lividi_132",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 9.914920634920636,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0236,
+          "effective_bins": 101.93,
+          "n_bins": 124,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "drops_132",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 10.286439909297052,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0156,
+          "effective_bins": 134.55,
+          "n_bins": 159,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "yanwulieche_132",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 10.750839002267574,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0157,
+          "effective_bins": 129.99,
+          "n_bins": 149,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "baixiwang_132",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 10.634739229024943,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0177,
+          "effective_bins": 125.69,
+          "n_bins": 147,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "goganjue_niaojia_132",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 10.286439909297052,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0188,
+          "effective_bins": 97.81,
+          "n_bins": 140,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "dancerobotdance_133",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 10.448979591836734,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0176,
+          "effective_bins": 125.23,
+          "n_bins": 149,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "bai39_134",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 10.843718820861678,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0159,
+          "effective_bins": 104.09,
+          "n_bins": 120,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "hongzhoutian_135",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 32.71691609977324,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.025,
+          "effective_bins": 120.77,
+          "n_bins": 162,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "fenzhen_ds_1",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 9.195102040816327,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0304,
+          "effective_bins": 97.61,
+          "n_bins": 143,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "fenzhen_ds_2",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 10.588299319727891,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0292,
+          "effective_bins": 99.76,
+          "n_bins": 146,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "fenzhen_ds_3",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 6.617687074829932,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0295,
+          "effective_bins": 91.56,
+          "n_bins": 142,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "fenzhen_ds_4",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 10.193560090702947,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0203,
+          "effective_bins": 100.38,
+          "n_bins": 142,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "haiditan_ds_0",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 11.795736961451247,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0164,
+          "effective_bins": 112.31,
+          "n_bins": 138,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "haiditan_ds_1",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 11.19201814058957,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0199,
+          "effective_bins": 106.04,
+          "n_bins": 138,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "haiditan_ds_2",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 9.1718820861678,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.024,
+          "effective_bins": 93.62,
+          "n_bins": 137,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "haiditan_ds_3",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 14.094512471655328,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0194,
+          "effective_bins": 96.64,
+          "n_bins": 138,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "haiditan_ds_4",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 9.357641723356009,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0179,
+          "effective_bins": 99.49,
+          "n_bins": 138,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "haiditan_ds_5",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 9.195102040816327,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0201,
+          "effective_bins": 99.62,
+          "n_bins": 137,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "samesha_411",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 14.071292517006803,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0258,
+          "effective_bins": 113.17,
+          "n_bins": 149,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "decision90",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 9.380861678004536,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0166,
+          "effective_bins": 114.3,
+          "n_bins": 137,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "letudive",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 13.397913832199546,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0226,
+          "effective_bins": 97.24,
+          "n_bins": 124,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "queen",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 15.301950113378684,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0159,
+          "effective_bins": 123.75,
+          "n_bins": 145,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "leyixiaolao",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 11.42421768707483,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0145,
+          "effective_bins": 132.96,
+          "n_bins": 163,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "chiyaoshuijiao",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 9.05578231292517,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0208,
+          "effective_bins": 132.44,
+          "n_bins": 163,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "babieta",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 10.216780045351474,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0159,
+          "effective_bins": 129.77,
+          "n_bins": 150,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "caibushimo",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 14.303492063492063,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0172,
+          "effective_bins": 114.18,
+          "n_bins": 140,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "maodunxinli",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 15.998548752834466,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0163,
+          "effective_bins": 134.0,
+          "n_bins": 162,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "maodunxinli_niaojia",
+        "split": "real",
+        "level": "positive_strong",
+        "gt": null,
+        "status": "accepted",
+        "offset": 13.049614512471654,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "outcome": "CORRECT_ACCEPT (pairing evidence only)",
+        "offset_error": null,
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0184,
+          "effective_bins": 128.03,
+          "n_bins": 162,
+          "max_top_bin_share": 0.25
+        }
+      }
+    ],
+    "max_abs_error_exact_gt_semi_synthetic_s": 0.013650793650793247,
+    "ground_truth_note": "Construction-exact semi-synthetic GT; low-SNR real manual interval; other real rows mostly pairing evidence."
+  },
+  "safety": {
+    "rows": [
+      {
+        "case_id": "tr_bai39_x_tr_caibushimo",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_bai39_x_tr_chiyaoshuijiao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen",
+          "applied": true,
+          "top_bin_share": 0.6722,
+          "effective_bins": 1.86,
+          "n_bins": 120,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 1.464,
+          "total_signed": 6754.7907933824
+        }
+      },
+      {
+        "case_id": "tr_bai39_x_tr_decision90",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_bai39_x_tr_drops",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_bai39_x_tr_goganjue",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_bai39_x_tr_haiditan",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen",
+          "applied": true,
+          "top_bin_share": 0.8361,
+          "effective_bins": 1.4,
+          "n_bins": 120,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 1.627,
+          "total_signed": 13822.586255468446
+        }
+      },
+      {
+        "case_id": "tr_bai39_x_tr_hongzhoutian",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_bai39_x_tr_letudive",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_bai39_x_tr_leyixiaolao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_bai39_x_tr_lividi",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_bai39_x_tr_queen",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_bai39_x_tr_samesha",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_caibushimo_x_tr_bai39",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_caibushimo_x_tr_chiyaoshuijiao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_caibushimo_x_tr_decision90",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_caibushimo_x_tr_drops",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_caibushimo_x_tr_goganjue",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_caibushimo_x_tr_haiditan",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_caibushimo_x_tr_hongzhoutian",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_caibushimo_x_tr_letudive",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_caibushimo_x_tr_leyixiaolao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_caibushimo_x_tr_lividi",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_caibushimo_x_tr_queen",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_caibushimo_x_tr_samesha",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_chiyaoshuijiao_x_tr_bai39",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen",
+          "applied": true,
+          "top_bin_share": 0.6722,
+          "effective_bins": 1.86,
+          "n_bins": 120,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 1.0,
+          "total_signed": 6754.7907933824
+        }
+      },
+      {
+        "case_id": "tr_chiyaoshuijiao_x_tr_caibushimo",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_chiyaoshuijiao_x_tr_decision90",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_chiyaoshuijiao_x_tr_drops",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_chiyaoshuijiao_x_tr_goganjue",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_chiyaoshuijiao_x_tr_haiditan",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_chiyaoshuijiao_x_tr_hongzhoutian",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_chiyaoshuijiao_x_tr_letudive",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_chiyaoshuijiao_x_tr_leyixiaolao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_chiyaoshuijiao_x_tr_lividi",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_chiyaoshuijiao_x_tr_queen",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_chiyaoshuijiao_x_tr_samesha",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_decision90_x_tr_bai39",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_decision90_x_tr_caibushimo",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_decision90_x_tr_chiyaoshuijiao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_decision90_x_tr_drops",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_decision90_x_tr_goganjue",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_decision90_x_tr_haiditan",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_decision90_x_tr_hongzhoutian",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_decision90_x_tr_letudive",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_decision90_x_tr_leyixiaolao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_decision90_x_tr_lividi",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_decision90_x_tr_queen",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_decision90_x_tr_samesha",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_drops_x_tr_bai39",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_drops_x_tr_caibushimo",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_drops_x_tr_chiyaoshuijiao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_drops_x_tr_decision90",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_drops_x_tr_goganjue",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_drops_x_tr_haiditan",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_drops_x_tr_hongzhoutian",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_drops_x_tr_letudive",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_INSUFFICIENT_OVERLAP",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_drops_x_tr_leyixiaolao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_drops_x_tr_lividi",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_drops_x_tr_queen",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_drops_x_tr_samesha",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_goganjue_x_tr_bai39",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_goganjue_x_tr_caibushimo",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_goganjue_x_tr_chiyaoshuijiao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_goganjue_x_tr_decision90",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_goganjue_x_tr_drops",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_goganjue_x_tr_haiditan",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_goganjue_x_tr_hongzhoutian",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_goganjue_x_tr_letudive",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_goganjue_x_tr_leyixiaolao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_goganjue_x_tr_lividi",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_goganjue_x_tr_queen",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_goganjue_x_tr_samesha",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_haiditan_x_tr_bai39",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen",
+          "applied": true,
+          "top_bin_share": 0.8361,
+          "effective_bins": 1.4,
+          "n_bins": 120,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 1.0,
+          "total_signed": 13822.586255468446
+        }
+      },
+      {
+        "case_id": "tr_haiditan_x_tr_caibushimo",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_haiditan_x_tr_chiyaoshuijiao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_haiditan_x_tr_decision90",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_haiditan_x_tr_drops",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_haiditan_x_tr_goganjue",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_haiditan_x_tr_hongzhoutian",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_haiditan_x_tr_letudive",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_haiditan_x_tr_leyixiaolao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_haiditan_x_tr_lividi",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_haiditan_x_tr_queen",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_haiditan_x_tr_samesha",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_hongzhoutian_x_tr_bai39",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_hongzhoutian_x_tr_caibushimo",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_hongzhoutian_x_tr_chiyaoshuijiao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_hongzhoutian_x_tr_decision90",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_hongzhoutian_x_tr_drops",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_hongzhoutian_x_tr_goganjue",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_hongzhoutian_x_tr_haiditan",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_hongzhoutian_x_tr_letudive",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_hongzhoutian_x_tr_leyixiaolao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_hongzhoutian_x_tr_lividi",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_hongzhoutian_x_tr_queen",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_hongzhoutian_x_tr_samesha",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_letudive_x_tr_bai39",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_letudive_x_tr_caibushimo",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_letudive_x_tr_chiyaoshuijiao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_letudive_x_tr_decision90",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_letudive_x_tr_drops",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_INSUFFICIENT_OVERLAP",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_letudive_x_tr_goganjue",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_letudive_x_tr_haiditan",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_letudive_x_tr_hongzhoutian",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_letudive_x_tr_leyixiaolao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_letudive_x_tr_lividi",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_letudive_x_tr_queen",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_letudive_x_tr_samesha",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_INSUFFICIENT_OVERLAP",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_leyixiaolao_x_tr_bai39",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_leyixiaolao_x_tr_caibushimo",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_leyixiaolao_x_tr_chiyaoshuijiao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_leyixiaolao_x_tr_decision90",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_leyixiaolao_x_tr_drops",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_leyixiaolao_x_tr_goganjue",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_leyixiaolao_x_tr_haiditan",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_leyixiaolao_x_tr_hongzhoutian",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_leyixiaolao_x_tr_letudive",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_leyixiaolao_x_tr_lividi",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_leyixiaolao_x_tr_queen",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_leyixiaolao_x_tr_samesha",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_lividi_x_tr_bai39",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_lividi_x_tr_caibushimo",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_lividi_x_tr_chiyaoshuijiao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_lividi_x_tr_decision90",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_lividi_x_tr_drops",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_lividi_x_tr_goganjue",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_lividi_x_tr_haiditan",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_lividi_x_tr_hongzhoutian",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_lividi_x_tr_letudive",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_lividi_x_tr_leyixiaolao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_lividi_x_tr_queen",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_lividi_x_tr_samesha",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_queen_x_tr_bai39",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_queen_x_tr_caibushimo",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_queen_x_tr_chiyaoshuijiao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_queen_x_tr_decision90",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_queen_x_tr_drops",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_queen_x_tr_goganjue",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_queen_x_tr_haiditan",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_queen_x_tr_hongzhoutian",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_queen_x_tr_letudive",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_queen_x_tr_leyixiaolao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_queen_x_tr_lividi",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_queen_x_tr_samesha",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_samesha_x_tr_bai39",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_samesha_x_tr_caibushimo",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_samesha_x_tr_chiyaoshuijiao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_samesha_x_tr_decision90",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_samesha_x_tr_drops",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_samesha_x_tr_goganjue",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_samesha_x_tr_haiditan",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_samesha_x_tr_hongzhoutian",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_samesha_x_tr_letudive",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_INSUFFICIENT_OVERLAP",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_samesha_x_tr_leyixiaolao",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_samesha_x_tr_lividi",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tr_samesha_x_tr_queen",
+        "family": "clean_wrong_song",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "devwrong_tr_babieta_x_tr_baixiwang",
+        "family": "dev_concentrated",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.5786,
+          "effective_bins": 2.72,
+          "n_bins": 147,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 2.046,
+          "total_signed": 8946.894763434018
+        }
+      },
+      {
+        "case_id": "devwrong_tr_babieta_x_tr_lingduihua",
+        "family": "dev_concentrated",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen",
+          "applied": true,
+          "top_bin_share": 0.8075,
+          "effective_bins": 1.5,
+          "n_bins": 150,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 2.975,
+          "total_signed": 19876.496663519647
+        }
+      },
+      {
+        "case_id": "devwrong_tr_babieta_x_tr_yanwulieche",
+        "family": "dev_concentrated",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen",
+          "applied": true,
+          "top_bin_share": 0.6465,
+          "effective_bins": 2.31,
+          "n_bins": 149,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 1.0,
+          "total_signed": 18670.064231821263
+        }
+      },
+      {
+        "case_id": "devwrong_tr_baixiwang_x_tr_babieta",
+        "family": "dev_concentrated",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.5786,
+          "effective_bins": 2.72,
+          "n_bins": 147,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 2.0,
+          "total_signed": 8946.894763434018
+        }
+      },
+      {
+        "case_id": "devwrong_tr_baixiwang_x_tr_drd",
+        "family": "dev_concentrated",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen",
+          "applied": true,
+          "top_bin_share": 1.0483,
+          "effective_bins": 0.49,
+          "n_bins": 146,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 4.0,
+          "total_signed": 2042.2825246085101
+        }
+      },
+      {
+        "case_id": "devwrong_tr_baixiwang_x_tr_fenzhen",
+        "family": "dev_concentrated",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen",
+          "applied": true,
+          "top_bin_share": 0.7655,
+          "effective_bins": 1.61,
+          "n_bins": 146,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 1.0,
+          "total_signed": 13752.85304961572
+        }
+      },
+      {
+        "case_id": "devwrong_tr_baixiwang_x_tr_lingduihua",
+        "family": "dev_concentrated",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen",
+          "applied": true,
+          "top_bin_share": 0.863,
+          "effective_bins": 1.32,
+          "n_bins": 147,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 2.929,
+          "total_signed": 25181.17382730585
+        }
+      },
+      {
+        "case_id": "devwrong_tr_drd_x_tr_baixiwang",
+        "family": "dev_concentrated",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen",
+          "applied": true,
+          "top_bin_share": 1.0483,
+          "effective_bins": 0.49,
+          "n_bins": 146,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 4.813,
+          "total_signed": 2042.2825246085101
+        }
+      },
+      {
+        "case_id": "devwrong_tr_drd_x_tr_yanwulieche",
+        "family": "dev_concentrated",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen",
+          "applied": true,
+          "top_bin_share": 0.4803,
+          "effective_bins": 1.86,
+          "n_bins": 149,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 7.279,
+          "total_signed": 3950.7188539170147
+        }
+      },
+      {
+        "case_id": "devwrong_tr_fenzhen_x_tr_baixiwang",
+        "family": "dev_concentrated",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen",
+          "applied": true,
+          "top_bin_share": 0.7655,
+          "effective_bins": 1.61,
+          "n_bins": 146,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 1.836,
+          "total_signed": 13752.85304961572
+        }
+      },
+      {
+        "case_id": "devwrong_tr_lingduihua_x_tr_babieta",
+        "family": "dev_concentrated",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen",
+          "applied": true,
+          "top_bin_share": 0.8075,
+          "effective_bins": 1.5,
+          "n_bins": 150,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 2.0,
+          "total_signed": 19876.496663519647
+        }
+      },
+      {
+        "case_id": "devwrong_tr_lingduihua_x_tr_baixiwang",
+        "family": "dev_concentrated",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen",
+          "applied": true,
+          "top_bin_share": 0.863,
+          "effective_bins": 1.32,
+          "n_bins": 147,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 2.0,
+          "total_signed": 25181.17382730585
+        }
+      },
+      {
+        "case_id": "devwrong_tr_lingduihua_x_tr_yanwulieche",
+        "family": "dev_concentrated",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen",
+          "applied": true,
+          "top_bin_share": 0.9456,
+          "effective_bins": 1.1,
+          "n_bins": 149,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 1.0,
+          "total_signed": 19108.572222397637
+        }
+      },
+      {
+        "case_id": "devwrong_tr_maodunxinli_x_tr_yanwulieche",
+        "family": "dev_concentrated",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen",
+          "applied": true,
+          "top_bin_share": 0.8592,
+          "effective_bins": 1.33,
+          "n_bins": 149,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 1.348,
+          "total_signed": 15098.641985912554
+        }
+      },
+      {
+        "case_id": "devwrong_tr_yanwulieche_x_tr_babieta",
+        "family": "dev_concentrated",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen",
+          "applied": true,
+          "top_bin_share": 0.6465,
+          "effective_bins": 2.31,
+          "n_bins": 149,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 1.488,
+          "total_signed": 18670.064231821263
+        }
+      },
+      {
+        "case_id": "devwrong_tr_yanwulieche_x_tr_drd",
+        "family": "dev_concentrated",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen",
+          "applied": true,
+          "top_bin_share": 0.4803,
+          "effective_bins": 1.86,
+          "n_bins": 149,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 7.0,
+          "total_signed": 3950.7188539170147
+        }
+      },
+      {
+        "case_id": "devwrong_tr_yanwulieche_x_tr_lingduihua",
+        "family": "dev_concentrated",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen",
+          "applied": true,
+          "top_bin_share": 0.9456,
+          "effective_bins": 1.1,
+          "n_bins": 149,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 2.463,
+          "total_signed": 19108.572222397637
+        }
+      },
+      {
+        "case_id": "devwrong_tr_yanwulieche_x_tr_maodunxinli",
+        "family": "dev_concentrated",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen",
+          "applied": true,
+          "top_bin_share": 0.8592,
+          "effective_bins": 1.33,
+          "n_bins": 149,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 1.0,
+          "total_signed": 15098.641985912554
+        }
+      },
+      {
+        "case_id": "blocker_lingduihua_x_yanwulieche",
+        "family": "astra_blocker",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_CONCENTRATED_EVIDENCE",
+        "temporal_support": {
+          "verified_method": "pcen",
+          "applied": true,
+          "top_bin_share": 0.9456,
+          "effective_bins": 1.1,
+          "n_bins": 149,
+          "max_top_bin_share": 0.25,
+          "peak_bin_start_s": 1.0,
+          "total_signed": 19108.572222397637
+        }
+      },
+      {
+        "case_id": "haiditan_ds_1_x_tr_hongzhoutian",
+        "family": "known_unresolved_residual",
+        "status": "accepted",
+        "offset": 59.72172335600907,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0613,
+          "effective_bins": 40.26,
+          "n_bins": 93,
+          "max_top_bin_share": 0.25
+        }
+      },
+      {
+        "case_id": "tiled_cal_lividi",
+        "family": "tiled",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tiled_cal_samesha",
+        "family": "tiled",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+        "temporal_support": null
+      },
+      {
+        "case_id": "rhn_cal_lingduihua_132",
+        "family": "hard_negative",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "rhn_cal_drops_132",
+        "family": "hard_negative",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "rhn_cal_baixiwang_132",
+        "family": "hard_negative",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "rhn_cal_goganjue_niaojia_132",
+        "family": "hard_negative",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "rhn_cal_fenzhen_ds_2",
+        "family": "hard_negative",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "rhn_cal_decision90",
+        "family": "hard_negative",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tiled_ho_haiditan2",
+        "family": "tiled",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+        "temporal_support": null
+      },
+      {
+        "case_id": "tiled_ho_babieta",
+        "family": "tiled",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+        "temporal_support": null
+      },
+      {
+        "case_id": "rhn_ho_haiditan_ds_5",
+        "family": "hard_negative",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "rhn_ho_maodunxinli",
+        "family": "hard_negative",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "rhn_ho_dancerobotdance_133",
+        "family": "hard_negative",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "rhn_ho_chiyaoshuijiao",
+        "family": "hard_negative",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "mm_lingduihua_x_decision90",
+        "family": "ordinary_mismatch",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "mm_lingduihua_x_leyixiaolao",
+        "family": "ordinary_mismatch",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "mm_haiditan1_x_maodunxinli",
+        "family": "ordinary_mismatch",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "mm_fenzhen2_x_drops",
+        "family": "ordinary_mismatch",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "mm_maodunniujia_x_zhoutian",
+        "family": "ordinary_mismatch",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "mm_bai39_x_caibushimo",
+        "family": "ordinary_mismatch",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "mm_queen_x_lingduihua",
+        "family": "ordinary_mismatch",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "mm_drd_x_babieta",
+        "family": "ordinary_mismatch",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "mm_samesha_x_goganjue",
+        "family": "ordinary_mismatch",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      },
+      {
+        "case_id": "mm_hongzhoutian_x_yanwulieche",
+        "family": "ordinary_mismatch",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null
+      }
+    ],
+    "new_false_accepts": [],
+    "cached_curves_bit_exact_to_production": true,
+    "counts": {
+      "clean_wrong_song": 156,
+      "dev_concentrated": 18,
+      "astra_blocker": 1,
+      "known_unresolved_residual": 1,
+      "tiled": 4,
+      "hard_negative": 10,
+      "ordinary_mismatch": 10
+    }
+  },
+  "synthetic": {
+    "baseline": "c92e82763350d70e7d5982de2dcdcb99cebc1e83",
+    "rows": [
+      {
+        "case": "structural",
+        "before": {
+          "status": "abstained",
+          "offset": null,
+          "reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+          "temporal_support": null,
+          "false_primary": {
+            "methods": [
+              "pcen"
+            ],
+            "z_at_cluster": 23.676,
+            "margin_at_cluster": 3.125,
+            "best_member_offset_s": 10.0078
+          }
+        },
+        "after": {
+          "status": "accepted",
+          "offset": 10.00780045351474,
+          "reason": "ACCEPT_DUAL_FAMILY",
+          "temporal_support": null,
+          "false_primary": {
+            "methods": [
+              "pcen"
+            ],
+            "z_at_cluster": 5.175,
+            "margin_at_cluster": 0.963,
+            "best_member_offset_s": 10.2632,
+            "supplier_method": "pcen",
+            "supplier_peak_id": "pcen:2557",
+            "supplier_peak_index": 2557,
+            "supplier_peak_offset_s": 10.263219954648527,
+            "supplier_owned": true
+          }
+        }
+      },
+      {
+        "case": "same_method",
+        "before": {
+          "status": "abstained",
+          "offset": null,
+          "reason": "ABSTAIN_AMBIGUOUS_CLUSTER",
+          "temporal_support": null,
+          "false_primary": {
+            "methods": [
+              "pcen_hpss"
+            ],
+            "z_at_cluster": 23.715,
+            "margin_at_cluster": 6.25,
+            "best_member_offset_s": 10.0078
+          }
+        },
+        "after": {
+          "status": "accepted",
+          "offset": 10.00780045351474,
+          "reason": "ACCEPT_DUAL_FAMILY",
+          "temporal_support": null,
+          "false_primary": {
+            "methods": [
+              "pcen_hpss"
+            ],
+            "z_at_cluster": 4.928,
+            "margin_at_cluster": 0.208,
+            "best_member_offset_s": 11.5403,
+            "supplier_method": "pcen_hpss",
+            "supplier_peak_id": "pcen_hpss:2502",
+            "supplier_peak_index": 2502,
+            "supplier_peak_offset_s": 11.54031746031746,
+            "supplier_owned": true
+          }
+        }
+      }
+    ]
+  },
+  "product": {
+    "rows": [
+      {
+        "case_id": "ap_positive",
+        "status": "accepted",
+        "offset": 11.377777777777778,
+        "reason": "ACCEPT_DUAL_FAMILY",
+        "temporal_support": {
+          "verified_method": "pcen_hpss",
+          "applied": true,
+          "top_bin_share": 0.0241,
+          "effective_bins": 81.21,
+          "n_bins": 140,
+          "max_top_bin_share": 0.25
+        },
+        "export_calls_intercepted": 1
+      },
+      {
+        "case_id": "ap_wrong_reference",
+        "status": "abstained",
+        "offset": null,
+        "reason": "ABSTAIN_NO_CLUSTER_MEETS_FLOORS",
+        "temporal_support": null,
+        "export_calls_intercepted": 0
+      }
+    ],
+    "engine": "Engine v2 (evidence-gated)",
+    "entry_point_is_revised_production": true,
+    "legacy_fallback_calls": 0,
+    "physical_media_exports": 0
+  }
+}

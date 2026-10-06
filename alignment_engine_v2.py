@@ -188,10 +188,19 @@ class CandidateEvidence:
     runtime_s: float
     top_competing_offsets_s: tuple = ()
     notes: dict = field(default_factory=dict)
+    # Identity within this method's correlation curve, retained through
+    # clustering. An offset window is not an evidence ownership boundary.
+    peak_index: Optional[int] = None
+
+    @property
+    def peak_id(self):
+        return (None if self.peak_index is None
+                else f"{self.method}:{self.peak_index}")
 
     def as_dict(self):
         d = dataclasses.asdict(self)
         d["top_competing_offsets_s"] = list(self.top_competing_offsets_s)
+        d["peak_id"] = self.peak_id
         return d
 
 
@@ -292,14 +301,14 @@ def _independent_peak_indices(curve, min_separation_frames):
     return idx[np.argsort(curve[idx])[::-1]]
 
 
-def _margin_outside_cluster(curve, peak_idx, lo, hi):
-    """Uniqueness of one cluster: best value inside [lo, hi] divided by the
-    best independent peak value outside it."""
-    inside = [i for i in peak_idx if lo <= i <= hi]
-    outside = [i for i in peak_idx if not (lo <= i <= hi)]
-    if not inside:
-        return 0.0
-    inside_best = float(np.max(curve[inside]))
+def _margin_for_owned_peak(curve, peak_idx, owned_idx, supplier_idx):
+    """Owned supplier divided by the strongest unowned independent peak.
+
+    Include non-nominated peaks as competitors; overlapping scoring windows
+    must neither import their strength nor hide them from the denominator.
+    """
+    outside = [i for i in peak_idx if int(i) not in owned_idx]
+    inside_best = float(curve[supplier_idx])
     if not outside:
         return float("inf") if inside_best > 0 else 0.0
     outside_best = float(np.max(curve[outside]))
@@ -475,6 +484,7 @@ def _family_candidates(fr, policy, sr, hop_length, video_dur, music_dur):
             usable_overlap_s=_usable_overlap_s(offset, video_dur, music_dur),
             runtime_s=fr.runtime_s,
             top_competing_offsets_s=competing,
+            peak_index=int(idx),
         ))
     return cands
 
@@ -492,7 +502,9 @@ def _build_clusters(family_results, policy, sr, hop_length, video_dur,
     for fr in family_results:
         all_cands.extend(_family_candidates(fr, policy, sr, hop_length,
                                             video_dur, music_dur))
-    all_cands.sort(key=lambda c: c.offset_s)
+    # Equal-offset nominations must have a stable order too: otherwise a
+    # moving median can depend on generator enumeration order.
+    all_cands.sort(key=lambda c: (c.offset_s, c.method, c.peak_index))
 
     clusters = []
     for cand in all_cands:
@@ -506,43 +518,35 @@ def _build_clusters(family_results, policy, sr, hop_length, video_dur,
             clusters.append({"offset_s": cand.offset_s,
                              "candidates": [cand]})
 
-    win_frames = max(1, int(round(2 * policy.cluster_tol_s * sr / hop_length)))
-
     peak_cache = {}
     for cl in clusters:
         by_family = {}
-        for fr in family_results:
+        for fr in sorted(family_results, key=lambda f: f.method):
             fam_members = [c for c in cl["candidates"] if c.family == fr.family]
-            if fr.error or fr.curve.size == 0 or not fam_members:
+            owned = [c for c in fam_members if c.method == fr.method]
+            if fr.error or fr.curve.size == 0 or not owned:
                 continue
             if fr.method not in peak_cache:
                 min_sep = max(1, int(1.5 * sr / hop_length))
                 peak_cache[fr.method] = _independent_peak_indices(fr.curve,
                                                                   min_sep)
-            idx = int(np.clip(
-                _offset_to_index(cl["offset_s"], fr.n_video_frames,
-                                 hop_length, sr),
-                0, len(fr.curve) - 1))
-            lo, hi = idx - win_frames, idx + win_frames
-            # Family evidence for this cluster = the family's own best
-            # independent peak INSIDE the cluster window (never the curve
-            # value at the cluster representative: sharp real peaks must
-            # not be penalized for the representative's exact position).
-            inside = [(int(i), _z_at_index(fr.curve, int(i)))
-                      for i in peak_cache[fr.method] if lo <= i <= hi]
-            if inside:
-                best_idx, z_val = max(inside, key=lambda t: t[1])
-                best_off = _index_to_offset(best_idx, fr.n_video_frames,
-                                            hop_length, sr)
-            else:  # no peak of this family in the window: evaluate in place
-                z_val = _z_at_index(fr.curve, idx)
-                best_off = cl["offset_s"]
+            # Score only the nominated peaks assigned to this hypothesis.
+            # No sibling curve search, representative resampling, or wider
+            # window may substitute an independent peak owned elsewhere.
+            supplier = max(owned, key=lambda c: (c.z, -c.peak_index))
+            owned_idx = {c.peak_index for c in owned}
             entry = {
                 "methods": sorted({c.method for c in fam_members}),
-                "z_at_cluster": z_val,
-                "margin_at_cluster": _margin_outside_cluster(
-                    fr.curve, peak_cache[fr.method], lo, hi),
-                "best_member_offset_s": best_off,
+                "z_at_cluster": supplier.z,
+                "margin_at_cluster": _margin_for_owned_peak(
+                    fr.curve, peak_cache[fr.method], owned_idx,
+                    supplier.peak_index),
+                "best_member_offset_s": supplier.offset_s,
+                "supplier_method": supplier.method,
+                "supplier_peak_id": supplier.peak_id,
+                "supplier_peak_index": supplier.peak_index,
+                "supplier_peak_offset_s": supplier.offset_s,
+                "supplier_owned": True,
             }
             prev = by_family.get(fr.family)
             # Same family, multiple members (pcen_hpss + pcen): ONE vote —
@@ -555,11 +559,14 @@ def _build_clusters(family_results, policy, sr, hop_length, video_dur,
     return clusters
 
 
-def _serialize_cluster(cl):
+def _serialize_cluster(cl, policy):
     return {
         "offset_s": round(cl["offset_s"], 4),
+        "representative_offset_s": cl["offset_s"],
         "overlap_s": round(cl["overlap_s"], 2),
         "candidates": [c.as_dict() for c in cl["candidates"]],
+        "case_a_failed_checks": _case_a_failed_checks(cl, policy),
+        "case_b_failed_checks": _case_b_failed_checks(cl, policy),
         "families": {
             fam: {
                 "methods": v["methods"],
@@ -569,6 +576,11 @@ def _serialize_cluster(cl):
                     else round(float(v["margin_at_cluster"]), 3)
                 ),
                 "best_member_offset_s": round(v["best_member_offset_s"], 4),
+                "supplier_method": v["supplier_method"],
+                "supplier_peak_id": v["supplier_peak_id"],
+                "supplier_peak_index": v["supplier_peak_index"],
+                "supplier_peak_offset_s": v["supplier_peak_offset_s"],
+                "supplier_owned": v["supplier_owned"],
             }
             for fam, v in cl["families"].items()
         },
@@ -683,19 +695,20 @@ def _concentration_profile(feat_video, feat_music, offset_s, sr, hop_length,
 
 def _deciding_pcen_method(clusters, offset):
     """The pcen_spectral member that supplied the accepted cluster's family
-    evidence (highest member peak z inside the cluster). Plain PCEN and
+    evidence. Plain PCEN and
     PCEN+HPSS are correlated derivatives and count as ONE family; the gate
     verifies the member the decision actually stands on."""
-    best_method, best_z = None, None
     for cl in clusters:
-        if abs(cl["offset_s"] - offset) > 1.0:
+        if not any(c["offset_s"] == offset for c in cl["candidates"]):
             continue
-        for cand in cl["candidates"]:
-            if cand["family"] != FAMILY_PCEN:
-                continue
-            if best_z is None or cand["z"] > best_z:
-                best_z, best_method = cand["z"], cand["method"]
-    return best_method
+        family = cl["families"].get(FAMILY_PCEN, {})
+        if "supplier_method" in family:
+            return family["supplier_method"]
+        # Compatibility with older diagnostic/test decisions: still limit
+        # selection to the cluster that owns the chosen offset.
+        owned = [c for c in cl["candidates"] if c["family"] == FAMILY_PCEN]
+        return max(owned, key=lambda c: c["z"])["method"] if owned else None
+    return None
 
 
 def _apply_temporal_support(decision, family_results, policy, sr, hop_length):
@@ -829,7 +842,7 @@ def decide_from_families(family_results, sr, hop_length, policy,
     }
     return AlignmentDecision(
         status=status, offset=offset, reason_code=reason, evidence=evidence,
-        clusters=[_serialize_cluster(cl) for cl in clusters],
+        clusters=[_serialize_cluster(cl, policy) for cl in clusters],
         policy=dataclasses.asdict(policy),
         runtime_s=time.perf_counter() - t0,
     )
