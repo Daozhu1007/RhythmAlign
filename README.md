@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-v1.2.1-blue" alt="Version">
+  <img src="https://img.shields.io/badge/version-v1.2.2-blue" alt="Version">
   <img src="https://img.shields.io/badge/platform-Windows%2010%2F11-blue" alt="Platform">
   <img src="https://img.shields.io/badge/python-3.9%2B-blue" alt="Python">
   <img src="https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-lightgrey" alt="License">
@@ -58,7 +58,7 @@ This README describes the current app. Per-version change logs are kept in the R
 
 Raw waveform correlation is fragile. A phone microphone, arcade cabinet speakers, hand taps, compression, clipping, and background noise can make the recorded waveform look nothing like the clean music file.
 
-RhythmAlign v1.2.1 aligns by combining several independent kinds of musical evidence instead of trusting any single one:
+RhythmAlign v1.2.2 generates candidate offsets from spectral musical features, then cross-checks their supporting evidence:
 
 1. **Decode to analysis audio**
 
@@ -66,11 +66,11 @@ RhythmAlign v1.2.1 aligns by combining several independent kinds of musical evid
 
 2. **Gather several independent kinds of evidence**
 
-   The engine examines the recording through complementary lenses — melodic movement, rhythmic onsets, and noise-robust spectral texture. Each lens produces its own candidate placements; no single lens decides alone.
+   The engine examines melodic movement, rhythmic onsets, and noise-robust spectral texture. These features generate the candidate placements; raw waveform matching does not replace this step.
 
 3. **Cross-check the candidates**
 
-   A placement is only accepted when independent kinds of evidence agree on the same offset. Brief one-off matches (a single tap, a sound effect) cannot pass on their own: the engine checks that the matching evidence is spread across the song, not concentrated in a single moment.
+   A placement can pass through agreement between musical-feature families. A strong spectral candidate that lacks the usual corroboration can also be verified across separate waveform windows at that existing offset. This verification does not generate or refine offsets, and cannot override comparable competing candidates or protected rejection reasons. The engine still checks that supporting evidence is distributed in time, so a brief tap or sound effect cannot pass on its own.
 
 4. **Refuse to guess when unsure**
 
@@ -135,8 +135,10 @@ python ui_main.py
 Run the test suite:
 
 ```powershell
-python -m pytest -q
+python -m pytest tests/ -q
 ```
+
+The Awaken real-positive regression needs the private reproduction ZIP via `RHYTHMALIGN_AWAKEN_REPRO_ZIP`, or its verified PCM files in `results/awaken/bundle`. Without that fixture, the test explicitly skips; release validation must report that skip as an unmet gate.
 
 ## Usage
 
@@ -175,7 +177,7 @@ The diagnostic output includes audio duration, RMS/peak levels, Chroma variance,
 
 ## Reliability Notes
 
-RhythmAlign v1.2.1 is substantially more robust on difficult recordings — quiet handcams, heavy noise, repeated chart sections — and it now refuses to guess when the evidence does not support any placement. It is still a fixed-offset aligner, not a universal repair tool. It can still struggle when:
+RhythmAlign v1.2.2 fixes false abstentions for some valid same-song recordings while retaining ambiguity and temporal-support safeguards. It is still a fixed-offset aligner, not a universal repair tool. It can still struggle when:
 
 - the reference music is not the same version as the video audio,
 - the video was cut in the middle,
@@ -188,12 +190,15 @@ When RhythmAlign stops instead of exporting, it invents no number and produces n
 
 For these cases, use `diagnose_offset.py`, Analyze Only mode, or a manual offset check before final export.
 
+The reviewed waveform repair increased accepted coverage from **55/85 to 79/85** on reused historical cases (56 exact-insertion semi-synthetic cases and 29 real recordings); all 55 earlier accepts kept their offsets and reasons. A separate source-disjoint historical acoustic set increased from **22/26 to 24/26**, and all **484 designated rejection/ambiguity cases** abstained. These finite engineering regressions have different label provenance and do not establish a population-wide success rate. The Awaken timing label is a regression estimate, and one historical room-recording/reference pair still has unresolved identity. See [the repair evidence and limitations](docs/AWAKEN-FALSE-ABSTAIN.md).
+
 ## Project Layout
 
 ```text
 RhythmAlign/
 ├── ui_main.py              # PyQt GUI
 ├── alignment_engine_v2.py  # Evidence-gated alignment engine (default path)
+├── alignment_waveform.py   # Distributed verification of existing candidates
 ├── auto_sync.py            # FFmpeg extraction/export pipeline and legacy engine
 ├── diagnose_offset.py      # CLI diagnostic tool
 ├── tests/                  # Export and alignment reliability tests
