@@ -1,4 +1,5 @@
 import os
+import json
 import platform
 import shutil
 import subprocess
@@ -68,7 +69,8 @@ def _qt_versions():
         return "unknown", "unknown"
 
 
-def build_diagnostic_report(config, user_config_path, base_dir, recent_logs=None):
+def build_diagnostic_report(config, user_config_path, base_dir, recent_logs=None,
+                            alignment_decisions=None):
     qt_version, pyqt_version = _qt_versions()
     imageio_ffmpeg = _imageio_ffmpeg_path()
     path_ffmpeg = shutil.which("ffmpeg")
@@ -110,6 +112,14 @@ def build_diagnostic_report(config, user_config_path, base_dir, recent_logs=None
         f"PATH ffmpeg: {path_ffmpeg or 'not found'}",
         f"PATH ffmpeg version: {_probe_executable(path_ffmpeg)}",
     ]
+
+    if alignment_decisions:
+        lines.extend(["", "[Alignment Decisions]"])
+        # Structured decisions contain candidate evidence and checks, never
+        # raw audio or correlation arrays. Keep them out of ordinary UI logs.
+        for name, decision in alignment_decisions.items():
+            lines.extend([f"--- {name} ---", json.dumps(
+                decision, ensure_ascii=False, indent=2, allow_nan=False)])
 
     recent_logs = recent_logs or {}
     if recent_logs:

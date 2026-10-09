@@ -1,0 +1,14 @@
+{
+  "case_id": "awaken_real_positive",
+  "identity_label": "Owner confirmed the recording and reference contain the same target song",
+  "timing_label": "Regression placement from independently reproduced spectral and waveform agreement; not a sample-exact ground truth",
+  "reference_offset_s": 10.9552,
+  "tolerance_s": 0.15,
+  "sample_rate": 22050,
+  "audio_sha256": {
+    "recording_22k.wav": "8540bc14a251559b732ad3bf688c2477244b550f4557541592b0420396383edd",
+    "song_22k.wav": "a7690ef337e36154b959f0372a77e9b1062e1ce928d6c61103bceecae0673494"
+  },
+  "baseline_reason": "ABSTAIN_PRIMARY_NOT_CORROBORATED",
+  "distribution": "Audio stays in the privately supplied reproduction ZIP; this manifest is the public reproducible fixture contract"
+}

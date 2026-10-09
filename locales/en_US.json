@@ -43,6 +43,7 @@
     "log_evidence_path": "Evidence path: {0}",
     "evidence_path_dual_family": "dual-family agreement",
     "evidence_path_primary_corroboration": "primary evidence with corroboration",
+    "evidence_path_primary_waveform": "primary evidence with distributed waveform corroboration",
     "dir_right": "Delay replacement music",
     "dir_left": "Trim replacement music start",
     "dir_perfect": "Perfect sync",
