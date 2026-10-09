@@ -126,6 +126,7 @@ from auto_sync import mix_and_export, estimate_analysis_duration
 from alignment_engine_v2 import (
     ACCEPT_DUAL_FAMILY,
     ACCEPT_PRIMARY_WITH_CORROBORATION,
+    ACCEPT_PRIMARY_WITH_WAVEFORM,
     ABSTAIN_AMBIGUOUS_CLUSTER,
     ABSTAIN_CONCENTRATED_EVIDENCE,
     ABSTAIN_INSUFFICIENT_OVERLAP,
@@ -365,6 +366,7 @@ ABSTAIN_REASON_KEYS = {
 EVIDENCE_PATH_KEYS = {
     ACCEPT_DUAL_FAMILY: "evidence_path_dual_family",
     ACCEPT_PRIMARY_WITH_CORROBORATION: "evidence_path_primary_corroboration",
+    ACCEPT_PRIMARY_WITH_WAVEFORM: "evidence_path_primary_waveform",
 }
 
 
@@ -477,6 +479,10 @@ class BaseMediaWorker(QThread):
     log_signal = pyqtSignal(str, str)
     progress_signal = pyqtSignal(str, str, str)
 
+    def __init__(self):
+        super().__init__()
+        self.alignment_decision = None
+
     def _emit_start(self, task_key, progress_val):
         """子类可重写以定制启动时的信号发射序列。"""
         self.progress_signal.emit(i18n.tr(task_key), progress_val, format_eta(self._initial_eta))
@@ -515,11 +521,13 @@ class BaseMediaWorker(QThread):
         self.log_signal.emit(i18n.tr("err_run", str(e)), "error")
 
     def run(self):
+        self.alignment_decision = None
         self._initial_eta = self._estimate_initial_eta()
 
         try:
             self._emit_start(self._start_task_key, self._start_progress_val)
             decision = self._run_find_offset()
+            self.alignment_decision = decision.as_dict()
             if decision.accepted:
                 self.log_signal.emit(
                     i18n.tr("log_alignment_accepted", decision.offset), "normal")
@@ -1713,6 +1721,13 @@ class RhythmAlignApp(FluentWindow):
             _user_conf,
             _BASE_DIR,
             recent_logs=self._collect_recent_logs(),
+            alignment_decisions={
+                name: worker.alignment_decision
+                for name, interface in (("Sync", self.sync_interface),
+                                        ("Analyze", self.analyze_interface))
+                if (worker := getattr(interface, "worker", None)) is not None
+                and worker.alignment_decision is not None
+            },
         )
         QApplication.clipboard().setText(report)
         InfoBar.success(

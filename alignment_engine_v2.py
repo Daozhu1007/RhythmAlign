@@ -65,6 +65,7 @@ from auto_sync import (
 )
 import imageio_ffmpeg
 import librosa
+from alignment_waveform import verify_candidate
 
 # ---------------------------------------------------------------------------
 # evidence families
@@ -92,6 +93,7 @@ ENGINE_LABEL = "Engine v2 (evidence-gated)"
 # Reason codes (machine-actionable)
 ACCEPT_DUAL_FAMILY = "ACCEPT_DUAL_FAMILY"
 ACCEPT_PRIMARY_WITH_CORROBORATION = "ACCEPT_PRIMARY_WITH_CORROBORATION"
+ACCEPT_PRIMARY_WITH_WAVEFORM = "ACCEPT_PRIMARY_WITH_WAVEFORM"
 ABSTAIN_NO_CLUSTER_MEETS_FLOORS = "ABSTAIN_NO_CLUSTER_MEETS_FLOORS"
 ABSTAIN_PRIMARY_NOT_CORROBORATED = "ABSTAIN_PRIMARY_NOT_CORROBORATED"
 ABSTAIN_AMBIGUOUS_CLUSTER = "ABSTAIN_AMBIGUOUS_CLUSTER"
@@ -165,6 +167,20 @@ class DecisionPolicy:
     # docs/RA-1.2D1-TEMPORAL-SUPPORT-SAFEGUARD.md.
     bin_width_s: float = 1.0
     max_top_bin_share: float = 0.25
+
+    # Candidate-only rescue of missing onset corroboration. DEV comparison:
+    # 36 exact-insertion positives, 29 historical real pairs, Awaken and
+    # 78 wrong references/clean pairs, 2 tiled cases and 6 shared-event
+    # counterexamples. See docs/AWAKEN-FALSE-ABSTAIN.md.
+    # Local wrong-song peaks max Z~5, margin~1.25; weakest recovered real
+    # window Z~10, margin~2.59. These are development separations, not
+    # correctness probabilities. Four disjoint 8-25 s waveform windows
+    # must agree with the owned spectral supplier; A/B/D1 floors stay fixed.
+    waveform_corroboration: bool = True
+    waveform_z_floor: float = 7.0
+    waveform_margin_floor: float = 1.4
+    waveform_offset_tol_s: float = 0.1
+    waveform_max_spread_s: float = 0.05
 
 
 DEFAULT_POLICY = DecisionPolicy()
@@ -556,6 +572,33 @@ def _build_clusters(family_results, policy, sr, hop_length, video_dur,
         cl["families"] = by_family
         cl["overlap_s"] = _usable_overlap_s(cl["offset_s"], video_dur,
                                             music_dur)
+        # Read-only observations distinguish missing nominations from weak
+        # local scores. They never supply family evidence or change ownership.
+        observations = {}
+        for fr in family_results:
+            if fr.error or not fr.curve.size:
+                continue
+            idx = _offset_to_index(cl["offset_s"], fr.n_video_frames,
+                                   hop_length, sr)
+            radius = int(policy.cluster_tol_s * sr / hop_length)
+            a, b = max(0, idx - radius), min(fr.curve.size, idx + radius + 1)
+            if b <= a or not 0 <= idx < fr.curve.size:
+                continue
+            local = a + int(np.argmax(fr.curve[a:b]))
+            nominations = [c for c in all_cands if c.method == fr.method]
+            nearest = min(nominations, key=lambda c: abs(c.offset_s-cl["offset_s"]))
+            observations[fr.method] = {
+                "z_at_representative": _z_at_index(fr.curve, idx),
+                "local_max_z": _z_at_index(fr.curve, local),
+                "local_max_offset_s": _index_to_offset(local, fr.n_video_frames,
+                                                       hop_length, sr),
+                "local_radius_s": radius * hop_length / sr,
+                "nearest_nominated_offset_s": nearest.offset_s,
+                "nominated_in_cluster": any(c.method == fr.method
+                                             for c in cl["candidates"]),
+                "decision_evidence": False,
+            }
+        cl["curve_observations"] = observations
     return clusters
 
 
@@ -567,10 +610,12 @@ def _serialize_cluster(cl, policy):
         "candidates": [c.as_dict() for c in cl["candidates"]],
         "case_a_failed_checks": _case_a_failed_checks(cl, policy),
         "case_b_failed_checks": _case_b_failed_checks(cl, policy),
+        "curve_observations": cl["curve_observations"],
         "families": {
             fam: {
                 "methods": v["methods"],
                 "z_at_cluster": round(v["z_at_cluster"], 3),
+                "supplier_z": v["z_at_cluster"],
                 "margin_at_cluster": (
                     None if not np.isfinite(v["margin_at_cluster"])
                     else round(float(v["margin_at_cluster"]), 3)
@@ -581,6 +626,9 @@ def _serialize_cluster(cl, policy):
                 "supplier_peak_index": v["supplier_peak_index"],
                 "supplier_peak_offset_s": v["supplier_peak_offset_s"],
                 "supplier_owned": v["supplier_owned"],
+                "supplier_margin": (float(v["margin_at_cluster"])
+                                    if np.isfinite(v["margin_at_cluster"])
+                                    else None),
             }
             for fam, v in cl["families"].items()
         },
@@ -787,9 +835,77 @@ def decide_alignment(y_video, y_music, sr=22050, hop_length=512,
     family_results = _run_generators(y_video, y_music, sr, hop_length)
     decision = decide_from_families(family_results, sr, hop_length, policy,
                                     video_dur, music_dur)
+    decision = _apply_waveform_corroboration(
+        decision, family_results, y_video, y_music, policy, sr, hop_length,
+        video_dur, music_dur)
     decision = _apply_temporal_support(decision, family_results, policy,
                                        sr, hop_length)
     decision.runtime_s = time.perf_counter() - t0
+    return decision
+
+
+def _apply_waveform_corroboration(decision, family_results, y_video, y_music,
+                                  policy, sr, hop_length, video_dur, music_dur):
+    """Rescue only a strong, unique PCEN primary missing onset support.
+
+    Preserve existing accepts, ambiguous candidates, short overlap and D1
+    rejections. Waveform results verify the owned supplier without refining
+    or replacing its offset. Missing features/verifier failures fail closed.
+    """
+    if (not policy.waveform_corroboration or decision.reason_code
+            != ABSTAIN_PRIMARY_NOT_CORROBORATED or decision.accepted):
+        return decision
+    clusters = _build_clusters(family_results, policy, sr, hop_length,
+                               video_dur, music_dur)
+    verified = []
+    diagnostics = []
+    for cl, serialized in zip(clusters, decision.clusters):
+        b_failed = _case_b_failed_checks(cl, policy)
+        if not b_failed or set(b_failed) - {"onset_missing", "onset_z"}:
+            continue
+        pcen = cl["families"][FAMILY_PCEN]
+        offset = pcen["supplier_peak_offset_s"]
+        failed = []
+        if _usable_overlap_s(offset, video_dur, music_dur) < policy.min_overlap_s:
+            failed.append("insufficient_overlap")
+        if _comparable_competitor_exists(cl, ACCEPT_PRIMARY_WITH_WAVEFORM,
+                                        clusters, policy):
+            failed.append("comparable_pcen_competitor")
+        trial = dataclasses.replace(
+            decision, status=STATUS_ACCEPTED, offset=offset,
+            reason_code=ACCEPT_PRIMARY_WITH_WAVEFORM,
+            evidence=dict(decision.evidence))
+        trial = _apply_temporal_support(trial, family_results, policy, sr,
+                                        hop_length)
+        temporal = trial.evidence.get("temporal_support", {})
+        if not temporal.get("applied", False):
+            failed.append("temporal_features_unavailable")
+        elif not trial.accepted:
+            failed.append(trial.reason_code)
+        waveform = None
+        if not failed:
+            try:
+                waveform = verify_candidate(y_video, y_music, sr, offset, policy)
+                failed.extend(waveform["failed_checks"])
+            except Exception as exc:
+                # No exception text: a decoder/verifier could embed a path.
+                failed.append("waveform_error:" + type(exc).__name__)
+        report = {"candidate_offset_s": offset,
+                  "supplier_peak_id": pcen["supplier_peak_id"],
+                  "temporal_support": temporal, "waveform": waveform,
+                  "failed_checks": failed, "passed": not failed}
+        serialized["waveform_corroboration"] = report
+        diagnostics.append(report)
+        if not failed:
+            verified.append(trial)
+    decision.evidence["waveform_corroboration"] = {
+        "candidates": diagnostics, "n_verified": len(verified)}
+    if len(verified) == 1:
+        trial = verified[0]
+        trial.evidence["waveform_corroboration"] = decision.evidence["waveform_corroboration"]
+        return trial
+    if len(verified) > 1:
+        decision.reason_code = ABSTAIN_AMBIGUOUS_CLUSTER
     return decision
 
 

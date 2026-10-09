@@ -43,6 +43,7 @@
     "log_evidence_path": "证据路径: {0}",
     "evidence_path_dual_family": "双家族证据一致",
     "evidence_path_primary_corroboration": "主证据 + 佐证通过",
+    "evidence_path_primary_waveform": "主证据 + 分段波形佐证通过",
     "dir_right": "延迟替换音乐",
     "dir_left": "裁掉替换音乐开头",
     "dir_perfect": "完美对齐",

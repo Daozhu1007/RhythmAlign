@@ -1,0 +1,541 @@
+{
+  "verdict": "VALIDATION_PASS_RECOMMEND_REVIEW",
+  "baseline_commit": "552764763fc2dabb0e087f541c2e5646b050604d",
+  "baseline_engine_matches_v121_tag": true,
+  "policy_sha256": "a1a023907dd87a1d3446a50dd2de483bbf37eb8dce77bda81abaa97aaa249510",
+  "frozen_policy": {
+    "development_population": 146,
+    "groups": {
+      "positive_L1": 8,
+      "positive_L3": 10,
+      "positive_L4": 9,
+      "positive_L2": 9,
+      "tiled_": 2,
+      "hard_negative_": 6,
+      "positive_low_snr": 1,
+      "positive_strong": 28,
+      "negative_mismatch": 10,
+      "owner_confirmed_positive": 1,
+      "wrong_reference": 20,
+      "clean_wrong_song": 42
+    },
+    "dev_input_sha256": "a66c88cdaa644426fd86ec3c502ad3c03d8fd235b1c6d8f4c1158d071a5a2c84",
+    "adversarial_cases": 6,
+    "adversarial_input_sha256": "03fce5aec16d61b514dd1a1a1af0fed49aefb32b2a887b539fc78c344e487f14",
+    "comparisons": [
+      {
+        "z": 5,
+        "margin": 1.2,
+        "tolerance_s": 0.15,
+        "windows": 1,
+        "wrong_upgrades": 0,
+        "positive_upgrades": 17
+      },
+      {
+        "z": 5,
+        "margin": 1.2,
+        "tolerance_s": 0.15,
+        "windows": 4,
+        "wrong_upgrades": 0,
+        "positive_upgrades": 17
+      },
+      {
+        "z": 7,
+        "margin": 1.4,
+        "tolerance_s": 0.1,
+        "windows": 4,
+        "wrong_upgrades": 0,
+        "positive_upgrades": 17
+      },
+      {
+        "z": 9,
+        "margin": 2.0,
+        "tolerance_s": 0.05,
+        "windows": 4,
+        "wrong_upgrades": 0,
+        "positive_upgrades": 17
+      },
+      {
+        "z": 12,
+        "margin": 2.0,
+        "tolerance_s": 0.05,
+        "windows": 4,
+        "wrong_upgrades": 0,
+        "positive_upgrades": 16
+      }
+    ],
+    "selected": {
+      "window_s": 25.0,
+      "windows": 4,
+      "min_window_s": 8.0,
+      "min_overlap_fraction": 0.8,
+      "z_floor": 7.0,
+      "margin_floor": 1.4,
+      "offset_tolerance_s": 0.1,
+      "max_spread_s": 0.05,
+      "decimation": 3,
+      "independent_peak_separation_s": 1.5
+    },
+    "selection": "Four disjoint windows; stronger point-estimator checks than permissive comparator; 12 Z loses Awaken. No old global floor changes.",
+    "validation_status": "NOT_YET_EVALUATED"
+  },
+  "unchanged_functions_ast": [
+    "_run_generators",
+    "_family_candidates",
+    "_case_a_failed_checks",
+    "_case_b_failed_checks",
+    "_choose_offset",
+    "_comparable_competitor_exists",
+    "_concentration_profile",
+    "_apply_temporal_support",
+    "_independent_peak_indices",
+    "_margin_for_owned_peak"
+  ],
+  "old_policy_values_unchanged": {
+    "cluster_tol_s": 0.15,
+    "min_overlap_s": 30.0,
+    "margin_floor_a": 1.0,
+    "margin_floor_b": 1.4,
+    "tonal_z_floor": 5.0,
+    "pcen_z_floor": 5.6,
+    "pcen_primary_z_floor": 7.0,
+    "onset_corroboration_z_floor": 2.0,
+    "ambiguity_z_ratio": 0.95,
+    "top_candidates_per_family": 4,
+    "bin_width_s": 1.0,
+    "max_top_bin_share": 0.25
+  },
+  "historical_positives": {
+    "n": 85,
+    "before_accept": 55,
+    "after_accept": 79,
+    "wrong_accept": 0,
+    "old_accepts_preserved": true,
+    "max_exact_gt_abs_error_s": 0.01646258503401299
+  },
+  "semi_calibration": {
+    "n": 36,
+    "before_accept": 17,
+    "after_accept": 33,
+    "wrong_accept": 0,
+    "old_accepts_preserved": true,
+    "max_exact_gt_abs_error_s": 0.01646258503401299
+  },
+  "semi_holdout": {
+    "n": 20,
+    "before_accept": 9,
+    "after_accept": 17,
+    "wrong_accept": 0,
+    "old_accepts_preserved": true,
+    "max_exact_gt_abs_error_s": 0.016145124716553383
+  },
+  "real_pairing_positives": {
+    "n": 29,
+    "before_accept": 29,
+    "after_accept": 29,
+    "wrong_accept": 0,
+    "old_accepts_preserved": true,
+    "max_exact_gt_abs_error_s": null
+  },
+  "low_snr_manual_interval": {
+    "gt": 12.4,
+    "tolerance_s": 0.4,
+    "before": {
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "reason": "ACCEPT_PRIMARY_WITH_CORROBORATION",
+      "temporal_support": {
+        "verified_method": "pcen_hpss",
+        "applied": true,
+        "top_bin_share": 0.0836,
+        "effective_bins": 39.5,
+        "n_bins": 153,
+        "max_top_bin_share": 0.25
+      },
+      "waveform_corroboration": null
+    },
+    "after": {
+      "status": "accepted",
+      "offset": 12.49233560090703,
+      "reason": "ACCEPT_PRIMARY_WITH_CORROBORATION",
+      "temporal_support": {
+        "verified_method": "pcen_hpss",
+        "applied": true,
+        "top_bin_share": 0.0836,
+        "effective_bins": 39.5,
+        "n_bins": 153,
+        "max_top_bin_share": 0.25
+      },
+      "waveform_corroboration": null
+    }
+  },
+  "acoustic_positives": {
+    "n": 26,
+    "before_accept": 22,
+    "after_accept": 24,
+    "wrong_accept": 0,
+    "old_accepts_preserved": true,
+    "max_exact_gt_abs_error_s": 0.015675028344671382
+  },
+  "negative_groups": {
+    "clean_wrong_song": 380,
+    "real_mismatch": 10,
+    "tiled": 4,
+    "hard_negative": 10,
+    "awaken_wrong_reference": 20,
+    "shared_events": 6,
+    "no_shared_signal": 30,
+    "acoustic_ORDINARY": 10,
+    "acoustic_LOW_LEVEL": 3,
+    "acoustic_TAP_DOMINANT": 3,
+    "acoustic_INTERFERENCE": 4,
+    "acoustic_PARTIAL": 2,
+    "acoustic_DEVICE_VARIATION": 2
+  },
+  "rejection_or_ambiguity_cases": 484,
+  "new_confirmed_wrong_accepts": 0,
+  "upgrades": [
+    {
+      "case_id": "ss_cal_002",
+      "group": "calibration_L3",
+      "gt": 19.3,
+      "offset_s": 19.29578231292517,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_cal_003",
+      "group": "calibration_L4",
+      "gt": -6.2,
+      "offset_s": -6.199727891156463,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_cal_005",
+      "group": "calibration_L3",
+      "gt": -3.1,
+      "offset_s": -3.0882539682539685,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_cal_006",
+      "group": "calibration_L4",
+      "gt": 8.9,
+      "offset_s": 8.916462585034013,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_cal_011",
+      "group": "calibration_L3",
+      "gt": 2.2,
+      "offset_s": 2.2058956916099772,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_cal_014",
+      "group": "calibration_L4",
+      "gt": 21.4,
+      "offset_s": 21.408798185941045,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_cal_022",
+      "group": "calibration_L3",
+      "gt": -9.5,
+      "offset_s": -9.496961451247165,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_cal_025",
+      "group": "calibration_L4",
+      "gt": 7.1,
+      "offset_s": 7.1053061224489795,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_cal_026",
+      "group": "calibration_L2",
+      "gt": 23.8,
+      "offset_s": 23.800453514739228,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_cal_027",
+      "group": "calibration_L3",
+      "gt": -5.3,
+      "offset_s": -5.294149659863946,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_cal_029",
+      "group": "calibration_L3",
+      "gt": -11.6,
+      "offset_s": -11.586757369614512,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_cal_031",
+      "group": "calibration_L2",
+      "gt": -4.9,
+      "offset_s": -4.899410430839002,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_cal_032",
+      "group": "calibration_L4",
+      "gt": 10.6,
+      "offset_s": 10.611519274376418,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_cal_033",
+      "group": "calibration_L3",
+      "gt": 18.4,
+      "offset_s": 18.413424036281178,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_cal_034",
+      "group": "calibration_L3",
+      "gt": 3.3,
+      "offset_s": 3.297233560090703,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_cal_036",
+      "group": "calibration_L4",
+      "gt": -7.2,
+      "offset_s": -7.198185941043084,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_ho_004",
+      "group": "holdout_L3",
+      "gt": 1.1,
+      "offset_s": 1.1145578231292517,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_ho_005",
+      "group": "holdout_L3",
+      "gt": -4.4,
+      "offset_s": -4.388571428571429,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_ho_010",
+      "group": "holdout_L3",
+      "gt": 13.4,
+      "offset_s": 13.397913832199546,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_ho_011",
+      "group": "holdout_L2",
+      "gt": 19.8,
+      "offset_s": 19.806621315192743,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_ho_012",
+      "group": "holdout_L4",
+      "gt": 3.9,
+      "offset_s": 3.900952380952381,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_ho_013",
+      "group": "holdout_L3",
+      "gt": 7.6,
+      "offset_s": 7.616145124716553,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_ho_018",
+      "group": "holdout_L3",
+      "gt": -3.6,
+      "offset_s": -3.599092970521542,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "ss_ho_020",
+      "group": "holdout_L4",
+      "gt": 9.7,
+      "offset_s": 9.7059410430839,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "final08__positive",
+      "group": "acoustic_ORDINARY",
+      "gt": 4.2835833333333335,
+      "offset_s": 4.295691609977324,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    },
+    {
+      "case_id": "final24__positive",
+      "group": "acoustic_DEVICE_VARIATION",
+      "gt": 3.018895833333333,
+      "offset_s": 3.01859410430839,
+      "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM"
+    }
+  ],
+  "final_tests": {
+    "passed": 121,
+    "wall_s": 39.16
+  },
+  "awaken_fresh_processes": {
+    "deterministic": true,
+    "runs": 3,
+    "canonical_decision_sha256": "1e001b524a334a89d62864557033bc99ea5d0d03317161064c15ded49abb9897",
+    "verifier_wall_s": [
+      0.20955640000101994,
+      0.22071630000209552,
+      0.20658230000117328,
+      0.22791479999796138,
+      0.220575799998187,
+      0.21410349999860046,
+      0.21864189999905648,
+      0.21505220000108238,
+      0.22275900000022375
+    ]
+  },
+  "awaken": {
+    "status": "accepted",
+    "offset_s": 10.95981859410431,
+    "reason": "ACCEPT_PRIMARY_WITH_WAVEFORM",
+    "temporal_support": {
+      "verified_method": "pcen_hpss",
+      "applied": true,
+      "top_bin_share": 0.0204,
+      "effective_bins": 113.92,
+      "n_bins": 136,
+      "max_top_bin_share": 0.25
+    },
+    "waveform_corroboration": {
+      "candidates": [
+        {
+          "candidate_offset_s": 10.95981859410431,
+          "supplier_peak_id": "pcen_hpss:6583",
+          "temporal_support": {
+            "verified_method": "pcen_hpss",
+            "applied": true,
+            "top_bin_share": 0.0204,
+            "effective_bins": 113.92,
+            "n_bins": 136,
+            "max_top_bin_share": 0.25
+          },
+          "waveform": {
+            "available": true,
+            "windows": [
+              {
+                "reference_start_s": 0.0,
+                "duration_s": 25.0,
+                "offset_s": 10.956326530612245,
+                "available": true,
+                "lag_s": -0.0035374149659863946,
+                "z": 10.016829474496951,
+                "margin": 2.7415491102933762,
+                "peak": 0.022895993226344745,
+                "runner_up": 0.008351480241728961,
+                "search_min_s": -5.0,
+                "search_max_s": 5.0,
+                "failed_checks": []
+              },
+              {
+                "reference_start_s": 36.66585034013605,
+                "duration_s": 25.0,
+                "offset_s": 10.953877551020408,
+                "available": true,
+                "lag_s": -0.00598639455782313,
+                "z": 11.237035970032357,
+                "margin": 2.5939589159622223,
+                "peak": 0.02387066057490008,
+                "runner_up": 0.009202405029628359,
+                "search_min_s": -5.0,
+                "search_max_s": 5.0,
+                "failed_checks": []
+              },
+              {
+                "reference_start_s": 73.33156462585033,
+                "duration_s": 25.0,
+                "offset_s": 10.950204081632654,
+                "available": true,
+                "lag_s": -0.009659863945578231,
+                "z": 13.93447981713878,
+                "margin": 3.6494444470920904,
+                "peak": 0.032055819693925944,
+                "runner_up": 0.008783753296880106,
+                "search_min_s": -5.0,
+                "search_max_s": 5.0,
+                "failed_checks": []
+              },
+              {
+                "reference_start_s": 109.9974149659864,
+                "duration_s": 25.0,
+                "offset_s": 10.951428571428572,
+                "available": true,
+                "lag_s": -0.008435374149659863,
+                "z": 13.675791533375444,
+                "margin": 3.2852862145770247,
+                "peak": 0.037551067522994974,
+                "runner_up": 0.011430074906831096,
+                "search_min_s": -5.0,
+                "search_max_s": 5.0,
+                "failed_checks": []
+              }
+            ],
+            "failed_checks": [],
+            "passed": true,
+            "offset_spread_s": 0.0061224489795908,
+            "thresholds": {
+              "z_floor": 7.0,
+              "margin_floor": 1.4,
+              "offset_tolerance_s": 0.1,
+              "max_spread_s": 0.05
+            }
+          },
+          "failed_checks": [],
+          "passed": true
+        }
+      ],
+      "n_verified": 1
+    }
+  },
+  "product_scope": "decoded WAV fixture through real file entry/SyncWorker; original MP4 not supplied",
+  "physical_exports": 0,
+  "legacy_calls": 0,
+  "cache_equivalence": {
+    "all_four_curves_bit_equal": true
+  },
+  "unresolved_residual": {
+    "status": "accepted",
+    "offset": 59.72172335600907,
+    "reason": "ACCEPT_DUAL_FAMILY",
+    "temporal_support": {
+      "verified_method": "pcen_hpss",
+      "applied": true,
+      "top_bin_share": 0.0613,
+      "effective_bins": 40.26,
+      "n_bins": 93,
+      "max_top_bin_share": 0.25
+    },
+    "waveform_corroboration": null
+  },
+  "evidence_classes": [
+    "Construction-exact semi-synthetic GT",
+    "Historical marker-labelled acoustic GT (reused, not fresh confirmation)",
+    "Historical pairing-only real positives except one manual interval",
+    "Owner-confirmed Awaken identity; waveform agreement is not independent timing GT"
+  ],
+  "raw_result_sha256": {
+    "validation_positives.json": "77e054adfb3dbeab9b2c562f9f7afc64726d6f6a747f4d8781b3746ed2b0d6eb",
+    "validation_negatives.json": "b729ae0171a57aa824f8131c22fa381e1376d8470bad094524082a2a949cde7c",
+    "validation_acoustic.json": "c59932a922cba08199aeef18d3262066c42d50ac3d4dd33f947a97772863d00a",
+    "validation_adversarial.json": "8623c2271c612e6d3354b8f04222c8cccbb4d2728e3a43a99fc94838d780f74d"
+  },
+  "final_source_sha256": {
+    "alignment_engine_v2.py": "1f83016a611b6d11220f992773946b0ff333a4a9e67d6796fe4f80e2dc7451c4",
+    "alignment_waveform.py": "4d924373ff229db6477a2a7f6bdd6b0b24db6d7258770e46eb40198a1b456372",
+    "diagnostics.py": "d7fa32f76bf58964013d96bfef1933ee3045ce4c53c6e685daaa6539f41d3242",
+    "ui_main.py": "d001c0b49840f22f8a8db1e5eac52bfacc7ab53264ee7f65b2beec4d5f18e0b8"
+  }
+}
