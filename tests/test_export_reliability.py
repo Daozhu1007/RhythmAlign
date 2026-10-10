@@ -110,6 +110,7 @@ def test_mix_and_export_popen_passes_no_window_flag_on_windows(tmp_path, monkeyp
     monkeypatch.setattr(auto_sync.imageio_ffmpeg, "get_ffmpeg_exe", lambda: "ffmpeg")
     monkeypatch.setattr(auto_sync, "get_video_duration", lambda ffmpeg, path: 1.0)
     monkeypatch.setattr(auto_sync, "_has_audio_stream", lambda ffmpeg, path: False)
+    monkeypatch.setattr(auto_sync, "_measure_mix_peak", lambda *args: -20.0)
     calls = []
 
     class SuccessfulPopen:
@@ -344,6 +345,7 @@ def test_failed_export_cleans_partial_and_preserves_existing_destination(ffmpeg_
 
     monkeypatch.setattr(auto_sync, "get_video_duration", lambda ffmpeg, path: 1.0)
     monkeypatch.setattr(auto_sync, "_has_audio_stream", lambda ffmpeg, path: False)
+    monkeypatch.setattr(auto_sync, "_measure_mix_peak", lambda *args: -20.0)
     monkeypatch.setattr(auto_sync.subprocess, "Popen", FailingPopen)
 
     with pytest.raises(RuntimeError):

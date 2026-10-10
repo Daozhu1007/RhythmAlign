@@ -1,0 +1,254 @@
+{
+  "integrity": {
+    "baseline": "befa8379e14f150f801c74b7c7a9b470a8e707f4",
+    "unchanged_engine_definitions": 34,
+    "algorithm_and_release_files_unchanged": true,
+    "entrypoint_change": "optional observational stage callbacks only"
+  },
+  "synthetic": [
+    {
+      "preset": "arcade_120_70",
+      "percentages": [
+        120.0,
+        70.0
+      ],
+      "released": {
+        "original_gains": [
+          0.5998272915211125,
+          0.5998423057601013,
+          0.6663309483801005,
+          1.1997815308949962
+        ],
+        "music_gain_overlap": 0.3498648311452761,
+        "duration_s": 8.0,
+        "sample_peak": 0.24030880630016327,
+        "sample_peak_dbfs": -12.384606277014827,
+        "true_peak_4x": 0.2404617784968601,
+        "true_peak_4x_dbfs": -12.379078901983757,
+        "samples_at_or_above_full_scale": 0,
+        "rms_dbfs": -18.85082840026312,
+        "integrated_lufs": -16.5,
+        "ffmpeg_true_peak_dbfs": -12.4
+      },
+      "stable": {
+        "original_gains": [
+          0.5998272915211125,
+          0.5998423057601013,
+          0.5998710384421989,
+          0.5997575737647921
+        ],
+        "music_gain_overlap": 0.3498648311452761,
+        "duration_s": 8.0,
+        "sample_peak": 0.1974233239889145,
+        "sample_peak_dbfs": -14.092030804219291,
+        "true_peak_4x": 0.19754899678474225,
+        "true_peak_4x_dbfs": -14.086503429188221,
+        "samples_at_or_above_full_scale": 0,
+        "rms_dbfs": -21.52938085593023,
+        "integrated_lufs": -19.1,
+        "ffmpeg_true_peak_dbfs": -14.1
+      }
+    },
+    {
+      "preset": "mobile_200_50",
+      "percentages": [
+        200,
+        50.0
+      ],
+      "released": {
+        "original_gains": [
+          0.9998502712841639,
+          0.9998600412471168,
+          1.1102334568283154,
+          1.999733420174274
+        ],
+        "music_gain_overlap": 0.24983942089539335,
+        "duration_s": 8.0,
+        "sample_peak": 0.40042680501937866,
+        "sample_peak_dbfs": -7.9495371611992915,
+        "true_peak_4x": 0.40068170274419856,
+        "true_peak_4x_dbfs": -7.944009786168222,
+        "samples_at_or_above_full_scale": 0,
+        "rms_dbfs": -14.732912589914264,
+        "integrated_lufs": -12.4,
+        "ffmpeg_true_peak_dbfs": -7.9
+      },
+      "stable": {
+        "original_gains": [
+          0.9998502712841639,
+          0.9998600412471168,
+          0.9997881039277792,
+          0.9998201462228534
+        ],
+        "music_gain_overlap": 0.24983942089539335,
+        "duration_s": 8.0,
+        "sample_peak": 0.23985008895397186,
+        "sample_peak_dbfs": -12.401202322597332,
+        "true_peak_4x": 0.24000276914722032,
+        "true_peak_4x_dbfs": -12.395674947566262,
+        "samples_at_or_above_full_scale": 0,
+        "rms_dbfs": -17.70257273568625,
+        "integrated_lufs": -15.4,
+        "ffmpeg_true_peak_dbfs": -12.4
+      }
+    },
+    {
+      "preset": "mobile_200_35",
+      "percentages": [
+        200,
+        35.0
+      ],
+      "released": {
+        "original_gains": [
+          0.9998502712841639,
+          0.9998599904777979,
+          1.110233459066204,
+          1.999733420174274
+        ],
+        "music_gain_overlap": 0.17487685542764306,
+        "duration_s": 8.0,
+        "sample_peak": 0.40042680501937866,
+        "sample_peak_dbfs": -7.9495371611992915,
+        "true_peak_4x": 0.40068170274419856,
+        "true_peak_4x_dbfs": -7.944009786168222,
+        "samples_at_or_above_full_scale": 0,
+        "rms_dbfs": -14.771019129116649,
+        "integrated_lufs": -12.5,
+        "ffmpeg_true_peak_dbfs": -7.9
+      },
+      "stable": {
+        "original_gains": [
+          0.9998502712841639,
+          0.9998599904777979,
+          0.9997881051983648,
+          0.9998201464266282
+        ],
+        "music_gain_overlap": 0.17487685542764306,
+        "duration_s": 8.0,
+        "sample_peak": 0.22252503037452698,
+        "sample_peak_dbfs": -13.052422620210598,
+        "true_peak_4x": 0.22266668204031695,
+        "true_peak_4x_dbfs": -13.046895245179527,
+        "samples_at_or_above_full_scale": 0,
+        "rms_dbfs": -17.778525618850743,
+        "integrated_lufs": -15.4,
+        "ffmpeg_true_peak_dbfs": -13.0
+      }
+    },
+    {
+      "preset": "mobile_200_25",
+      "percentages": [
+        200,
+        25.0
+      ],
+      "released": {
+        "original_gains": [
+          0.9998502712841639,
+          0.9998597280218259,
+          1.1104553355625162,
+          1.999733420174274
+        ],
+        "music_gain_overlap": 0.12487661086655222,
+        "duration_s": 8.0,
+        "sample_peak": 0.40042680501937866,
+        "sample_peak_dbfs": -7.9495371611992915,
+        "true_peak_4x": 0.40068170274419856,
+        "true_peak_4x_dbfs": -7.944009786168222,
+        "samples_at_or_above_full_scale": 0,
+        "rms_dbfs": -14.789036508316503,
+        "integrated_lufs": -12.5,
+        "ffmpeg_true_peak_dbfs": -7.9
+      },
+      "stable": {
+        "original_gains": [
+          0.9998502712841639,
+          0.9998597280218259,
+          0.9997880705638348,
+          0.9998201463715047
+        ],
+        "music_gain_overlap": 0.12487661086655222,
+        "duration_s": 8.0,
+        "sample_peak": 0.21278196573257446,
+        "sample_peak_dbfs": -13.441303666141835,
+        "true_peak_4x": 0.2129174153035524,
+        "true_peak_4x_dbfs": -13.435776291110766,
+        "samples_at_or_above_full_scale": 0,
+        "rms_dbfs": -17.81466394402983,
+        "integrated_lufs": -15.5,
+        "ffmpeg_true_peak_dbfs": -13.4
+      }
+    },
+    {
+      "preset": "desktop_100_90",
+      "percentages": [
+        100,
+        90.0
+      ],
+      "released": {
+        "original_gains": [
+          0.4998363849978592,
+          0.49986056700499143,
+          0.5550467053728297,
+          0.9998201468362211
+        ],
+        "music_gain_overlap": 0.4499175277175225,
+        "duration_s": 8.0,
+        "sample_peak": 0.2103165239095688,
+        "sample_peak_dbfs": -13.542532096361038,
+        "true_peak_4x": 0.21045040406635296,
+        "true_peak_4x_dbfs": -13.537004721329968,
+        "samples_at_or_above_full_scale": 0,
+        "rms_dbfs": -19.944212625460487,
+        "integrated_lufs": -17.5,
+        "ffmpeg_true_peak_dbfs": -13.5
+      },
+      "stable": {
+        "original_gains": [
+          0.4998363849978592,
+          0.49986056700499143,
+          0.4999018226709782,
+          0.499844589326882
+        ],
+        "music_gain_overlap": 0.4499175277175225,
+        "duration_s": 8.0,
+        "sample_peak": 0.2103165239095688,
+        "sample_peak_dbfs": -13.542532096361038,
+        "true_peak_4x": 0.21045040406635296,
+        "true_peak_4x_dbfs": -13.537004721329968,
+        "samples_at_or_above_full_scale": 0,
+        "rms_dbfs": -22.243629771311166,
+        "integrated_lufs": -19.7,
+        "ffmpeg_true_peak_dbfs": -13.5
+      }
+    },
+    {
+      "preset": "correlated_full_peaks_200_200",
+      "released": {
+        "duration_s": 8.0,
+        "sample_peak": 1.9038925170898438,
+        "sample_peak_dbfs": 5.592848539032381,
+        "true_peak_4x": 1.9051044685996443,
+        "true_peak_4x_dbfs": 5.598375914063451,
+        "samples_at_or_above_full_scale": 285194,
+        "rms_dbfs": 0.09829404081665606,
+        "integrated_lufs": 2.4,
+        "ffmpeg_true_peak_dbfs": 5.6,
+        "original_gain_before": 0.9999766614035743,
+        "original_gain_after": 1.9994447465093017
+      },
+      "stable": {
+        "duration_s": 8.0,
+        "sample_peak": 0.7947806715965271,
+        "sample_peak_dbfs": -1.9950540622721706,
+        "true_peak_4x": 0.7952866012255663,
+        "true_peak_4x_dbfs": -1.989526687241102,
+        "samples_at_or_above_full_scale": 0,
+        "rms_dbfs": -9.462899653386154,
+        "integrated_lufs": -7.1,
+        "ffmpeg_true_peak_dbfs": -2.0,
+        "original_gain_before": 0.4180232725549664,
+        "original_gain_after": 0.4180147628365244
+      }
+    }
+  ]
+}

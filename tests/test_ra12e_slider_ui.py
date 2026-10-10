@@ -19,18 +19,18 @@ LOCALES_DIR = Path(__file__).resolve().parent.parent / "locales"
 
 EXPECTED = {
     "zh_CN": {
-        "orig": "原声(敲击声): 120%",
-        "music": "纯净音乐: 60%",
+        "orig": "录像原声增益: 120%",
+        "music": "替换音乐增益: 60%",
         "offset": "手动微调: 0 ms",
         "offset_min": "手动微调: -500 ms",
-        "orig_max": "原声(敲击声): 200%",
+        "orig_max": "录像原声增益: 200%",
     },
     "en_US": {
-        "orig": "Original Vol: 120%",
-        "music": "Music Vol: 60%",
+        "orig": "Recording gain: 120%",
+        "music": "Music gain: 60%",
         "offset": "Manual fine-adjust: 0 ms",
         "offset_min": "Manual fine-adjust: -500 ms",
-        "orig_max": "Original Vol: 200%",
+        "orig_max": "Recording gain: 200%",
     },
 }
 

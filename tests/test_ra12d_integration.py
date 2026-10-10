@@ -64,7 +64,7 @@ def make_sync_worker(tmp_path, manual_offset=0.25):
 
 def patch_product_path(monkeypatch, decision, export_recorder=None):
     """Replace the Engine v2 entry point and the export call in ui_main."""
-    monkeypatch.setattr(ui_main, "find_offset_v2", lambda v, m: decision)
+    monkeypatch.setattr(ui_main, "find_offset_v2", lambda v, m, **kw: decision)
     calls = []
 
     def fake_mix_and_export(**kwargs):
@@ -188,7 +188,7 @@ def test_abstained_progress_reports_safe_stop_not_generic_failure(
 
 def test_analyze_worker_accept_reports_offset(tmp_path, monkeypatch):
     monkeypatch.setattr(ui_main, "find_offset_v2",
-                        lambda v, m: accepted(OFFSET_ZERO_DUIHUA))
+                        lambda v, m, **kw: accepted(OFFSET_ZERO_DUIHUA))
     worker = ui_main.AnalyzeWorker("v.mp4", "m.wav")
     result = SignalCapture(worker.result_signal)
 
@@ -203,7 +203,7 @@ def test_analyze_worker_accept_reports_offset(tmp_path, monkeypatch):
 def test_analyze_worker_abstain_shows_no_fake_numeric_offset(
         tmp_path, monkeypatch):
     monkeypatch.setattr(ui_main, "find_offset_v2",
-                        lambda v, m: abstained(eng.ABSTAIN_AMBIGUOUS_CLUSTER))
+                        lambda v, m, **kw: abstained(eng.ABSTAIN_AMBIGUOUS_CLUSTER))
     worker = ui_main.AnalyzeWorker("v.mp4", "m.wav")
     result = SignalCapture(worker.result_signal)
 
@@ -317,7 +317,7 @@ def test_locale_files_cover_engine_v2_product_strings():
 def test_analyze_accept_hint_for_accepted_offset_unchanged(tmp_path, monkeypatch):
     """The accepted-path hint semantics (positive => delay) are preserved."""
     monkeypatch.setattr(ui_main, "find_offset_v2",
-                        lambda v, m: accepted(2.0))
+                        lambda v, m, **kw: accepted(2.0))
     worker = ui_main.AnalyzeWorker("v.mp4", "m.wav")
     result = SignalCapture(worker.result_signal)
 

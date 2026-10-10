@@ -2,7 +2,7 @@ import numpy as np
 import librosa
 from scipy import signal
 import os
-import time
+import math
 import tempfile
 import subprocess
 import re
@@ -86,35 +86,6 @@ _CONFIDENCE_THRESHOLD = 2.0
 _FALLBACK_PEAK_RATIO_THRESHOLD = 1.05
 _INDEPENDENT_PEAK_SEPARATION_SECONDS = 1.5
 _HYBRID_ONSET_WEIGHT = 0.2
-_ANALYSIS_ESTIMATE_MIN_SECONDS = 4.0
-_ANALYSIS_ESTIMATE_MAX_SECONDS = 240.0
-_ANALYSIS_ESTIMATE_OVERHEAD_SECONDS = 2.0
-# RA-1.2D: recalibrated for the Engine v2 default analysis path (full product
-# run: FFmpeg extraction + multi-family evidence + decision measured at
-# 3.3–6.7 s for 273–332 s media pairs). Deliberately biased toward a slight
-# overestimate; the legacy-v1 factor (45) overestimated by up to ~140%.
-_ANALYSIS_ESTIMATE_REALTIME_FACTOR = 75.0
-
-
-def estimate_analysis_duration(video_path, music_path):
-    """Return a rough analysis ETA in seconds, based on media duration."""
-    ffmpeg_bin = imageio_ffmpeg.get_ffmpeg_exe()
-    durations = [
-        get_video_duration(ffmpeg_bin, path)
-        for path in (video_path, music_path)
-    ]
-    total_duration = sum(max(0.0, duration) for duration in durations)
-    if total_duration <= 0:
-        return None
-
-    estimate = (
-        _ANALYSIS_ESTIMATE_OVERHEAD_SECONDS
-        + total_duration / _ANALYSIS_ESTIMATE_REALTIME_FACTOR
-    )
-    return max(
-        _ANALYSIS_ESTIMATE_MIN_SECONDS,
-        min(_ANALYSIS_ESTIMATE_MAX_SECONDS, estimate),
-    )
 
 
 def _correlation_z_score(correlation):
@@ -324,36 +295,119 @@ def _remove_file_if_exists(path):
         pass
 
 
+# Fixed compatibility gain, followed by whole-file peak protection. Percentages
+# are per-source multipliers relative to this baseline, NOT output loudness.
+# The 192 kHz scan approximates intersample peaks; -2 dB leaves AAC headroom.
+_MIX_PEAK_CEILING_DB = -2.0
+_MIX_PEAK_SCAN_RATE = 192000
+
+
+def _build_mix_filter(has_original, offset, duration, vol_original, vol_music):
+    """Return the unprotected mix. Both sources have constant gain throughout.
+
+    With original audio: gains are original/2 and music/2, matching the old
+    overlapping section. With no original: music keeps its legacy unity base.
+    Pad and trim explicitly so neither EOF changes gain or output duration.
+    """
+    base = 0.5 if has_original else 1.0
+    music = f"aformat=channel_layouts=stereo,volume={vol_music * base:.12g}"
+    if offset > 0:
+        # Fractional milliseconds are supported; do not truncate small offsets.
+        music += f",adelay={offset * 1000:.9f}:all=1"
+    elif offset < 0:
+        music += f",atrim=start={-offset:.12g},asetpts=PTS-STARTPTS"
+    music += ",apad"
+    tail = f"atrim=duration={duration:.12g},asetpts=PTS-STARTPTS[mixed]"
+    if has_original:
+        return (
+            f"[0:a:0]volume={vol_original * base:.12g},apad[a0];"
+            f"[1:a:0]{music}[a1];"
+            f"[a0][a1]amix=inputs=2:duration=first:normalize=0,{tail}"
+        )
+    return f"[1:a:0]{music},{tail}"
+
+
+def _measure_mix_peak(ffmpeg_bin, video_path, music_path, mix_filter):
+    """Decode the exact mix once, measuring an oversampled peak without files.
+
+    Fail closed if peak evidence is unavailable. No compressor or limiter is
+    involved: one attenuation is selected before export for the entire file.
+    """
+    graph = (mix_filter + f";[mixed]aresample={_MIX_PEAK_SCAN_RATE},"
+             "astats=reset=0:measure_perchannel=none:measure_overall=Peak_level[peak]")
+    result = subprocess.run(
+        [ffmpeg_bin, "-nostdin", "-hide_banner", "-nostats", "-i", video_path,
+         "-i", music_path, "-filter_complex", graph, "-map", "[peak]",
+         "-vn", "-c:a", "pcm_f32le", "-f", "null", "-"],
+        **_subprocess_no_window_kwargs(
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            text=True, errors="replace",
+        ),
+    )
+    if result.returncode:
+        raise RuntimeError(f"Audio peak scan failed:\n{result.stderr[-6000:]}")
+    values = re.findall(r"Peak level dB:\s*([^\s]+)", result.stderr)
+    try:
+        peak_db = float(values[-1])
+    except (ValueError, IndexError) as exc:
+        raise RuntimeError("Audio peak scan did not return a valid peak.") from exc
+    if peak_db != -math.inf and not math.isfinite(peak_db):
+        raise RuntimeError("Audio peak scan returned a non-finite peak.")
+    return peak_db
+
+
+def _mix_attenuation(peak_db):
+    if peak_db <= _MIX_PEAK_CEILING_DB:
+        return 1.0
+    return 10 ** ((_MIX_PEAK_CEILING_DB - peak_db) / 20)
+
+
+def _ffmpeg_progress_percent(line, duration, previous):
+    """Machine progress is elapsed MEDIA time in microseconds, never an ETA."""
+    match = re.fullmatch(r"out_time_us=(\d+)", line.strip())
+    if not match or not math.isfinite(duration) or duration <= 0:
+        return None
+    # Reject implausibly large/malformed integers without converting huge input.
+    if len(match[1]) > 18:
+        return None
+    seconds = int(match[1]) / 1_000_000
+    return max(previous, min(99, int(seconds * 100 / duration)))
+
+
 def mix_and_export(video_path, music_path, offset, output_path, vol_original=1.0, vol_music=1.0,
                    use_gpu=False, bitrate="10000k", manual_offset=0.0, stream_copy=True,
-                   tr=None, ui_log_callback=None, ui_progress_callback=None):
+                   tr=None, ui_log_callback=None, ui_progress_callback=None,
+                   ui_stage_callback=None):
     if tr is None:
         tr = lambda k, *args: k
 
     ffmpeg_bin = imageio_ffmpeg.get_ffmpeg_exe()
     final_offset = offset + manual_offset
+    if (not all(math.isfinite(v) for v in (final_offset, vol_original, vol_music))
+            or min(vol_original, vol_music) < 0):
+        raise ValueError("Offsets and gains must be finite; gains must be nonnegative.")
     output_path, temp_output_path = _make_temporary_output_path(output_path)
 
     # 使用正则原生提取时长
     total_duration = get_video_duration(ffmpeg_bin, video_path)
-
-    if abs(final_offset) < 0.001:
-        music_filter = f"aformat=channel_layouts=stereo,volume={vol_music}"
-    elif final_offset > 0:
-        delay_ms = int(final_offset * 1000)
-        music_filter = f"aformat=channel_layouts=stereo,volume={vol_music},adelay={delay_ms}|{delay_ms}"
-    else:
-        abs_delay = abs(final_offset)
-        music_filter = f"aformat=channel_layouts=stereo,volume={vol_music},atrim=start={abs_delay},asetpts=PTS-STARTPTS"
-
-    # 探测视频音轨：无声视频时仅使用音乐轨
-    if _has_audio_stream(ffmpeg_bin, video_path):
-        filter_complex = f"[0:a:0]volume={vol_original}[a0];[1:a:0]{music_filter}[a1];[a0][a1]amix=inputs=2:duration=first[aout]"
-    else:
-        filter_complex = f"[1:a:0]{music_filter}[aout]"
+    if not math.isfinite(total_duration) or total_duration <= 0:
+        raise ValueError("Video duration must be finite and positive.")
+    if ui_stage_callback:
+        ui_stage_callback(tr("stage_mix_peaks"))
+    mix_filter = _build_mix_filter(
+        _has_audio_stream(ffmpeg_bin, video_path), final_offset,
+        total_duration, vol_original, vol_music,
+    )
+    peak_db = _measure_mix_peak(ffmpeg_bin, video_path, music_path, mix_filter)
+    attenuation = _mix_attenuation(peak_db)
+    filter_complex = mix_filter + f";[mixed]volume={attenuation:.12g}[aout]"
+    if ui_log_callback:
+        attenuation_db = 20 * math.log10(attenuation)
+        ui_log_callback(tr("log_mix_gain", attenuation_db))
 
     cmd = [
-        ffmpeg_bin, "-y",
+        ffmpeg_bin, "-nostdin", "-hide_banner", "-y",
+        "-progress", "pipe:1", "-nostats", "-stats_period", "0.2",
         "-fflags", "+genpts",
         "-avoid_negative_ts", "make_zero",
         "-i", video_path,
@@ -374,11 +428,13 @@ def mix_and_export(video_path, music_path, offset, output_path, vol_original=1.0
 
     # 剥离源文件私有元数据 (如 iPhone QuickTime atoms)，优化 MP4 结构
     cmd.extend(["-map_metadata", "-1", "-movflags", "+faststart"])
+    cmd.extend(["-t", f"{total_duration:.12g}"])
     cmd.append(temp_output_path)
 
     if ui_log_callback:
         ui_log_callback(tr("log_target_offset", final_offset))
 
+    process = None
     try:
         process = subprocess.Popen(
             cmd,
@@ -388,7 +444,10 @@ def mix_and_export(video_path, music_path, offset, output_path, vol_original=1.0
             )
         )
 
-        start_time_real = time.time()
+        previous_percent = 0
+        task_name = tr("task_copy_ing") if stream_copy else tr("task_rendering")
+        if ui_progress_callback:
+            ui_progress_callback(task_name, 0)
         error_log = []
         critical_errors = []
 
@@ -403,21 +462,11 @@ def mix_and_export(video_path, music_path, offset, output_path, vol_original=1.0
             if any(kw in lowline for kw in ('error', 'failed', 'invalid')):
                 critical_errors.append(stripped)
 
-            time_match = re.search(r"time=(\d+):(\d+):(\d+\.\d+)", line)
-            if time_match and ui_progress_callback:
-                h, m, s = time_match.groups()
-                current_sec = int(h) * 3600 + int(m) * 60 + float(s)
-                percent = min(int((current_sec / total_duration) * 100), 99)
-
-                elapsed = time.time() - start_time_real
-                eta_str = tr("status_calc")
-                if percent > 0:
-                    eta_sec = (elapsed / (percent / 100.0)) - elapsed
-                    eta_m, eta_s = divmod(int(eta_sec), 60)
-                    eta_str = f"{eta_m:02d}:{eta_s:02d}"
-
-                task_name = tr("task_copy_ing") if stream_copy else tr("task_rendering")
-                ui_progress_callback(task_name, percent, eta_str)
+            percent = _ffmpeg_progress_percent(line, total_duration, previous_percent)
+            if percent is not None and percent > previous_percent:
+                previous_percent = percent
+                if ui_progress_callback:
+                    ui_progress_callback(task_name, percent)
 
         process.wait()
 
@@ -429,10 +478,18 @@ def mix_and_export(video_path, music_path, offset, output_path, vol_original=1.0
                 err_msg = "\n".join(error_log)
             raise RuntimeError(tr("err_ffmpeg_crash", err_msg))
 
+        if ui_stage_callback:
+            ui_stage_callback(tr("stage_finalizing"))
         os.replace(temp_output_path, output_path)
     except Exception:
+        if process is not None and getattr(process, "poll", lambda: 0)() is None:
+            process.kill()
+            process.wait()
         _remove_file_if_exists(temp_output_path)
         raise
+    finally:
+        if process is not None and hasattr(process.stdout, "close"):
+            process.stdout.close()
 
     if ui_progress_callback:
-        ui_progress_callback(tr("task_done_export"), 100, "00:00")
+        ui_progress_callback(tr("task_done_export"), 100)

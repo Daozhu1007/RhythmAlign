@@ -14,7 +14,6 @@ def test_worker_retains_abstention_candidates_and_clears_stale_result(monkeypatc
         [{"representative_offset_s":10.96,"case_a_failed_checks":["tonal_z"],
           "case_b_failed_checks":["onset_missing"]}],{},0)
     worker=ui_main.AnalyzeWorker("unused.wav","unused.wav")
-    monkeypatch.setattr(worker,"_estimate_initial_eta",lambda:None)
     monkeypatch.setattr(worker,"_run_find_offset",lambda:decision)
     worker.run()
     assert worker.alignment_decision==decision.as_dict()
