@@ -1004,7 +1004,8 @@ def _abstain_reason(clusters, policy):
 
 
 def find_offset_v2(video_path, music_path, sr=22050,
-                   policy: Optional[DecisionPolicy] = None) -> AlignmentDecision:
+                   policy: Optional[DecisionPolicy] = None,
+                   stage_callback=None) -> AlignmentDecision:
     """Engine v2 file entry point. Returns an AlignmentDecision; does NOT
     raise CorrelationLowConfidenceError (abstention is a decision, not an
     exception)."""
@@ -1016,10 +1017,18 @@ def find_offset_v2(video_path, music_path, sr=22050,
         os.path.join(temp_dir, f"ra_v2_music_{uuid.uuid4().hex}.wav"))
     ffmpeg_bin = imageio_ffmpeg.get_ffmpeg_exe()
     try:
+        if stage_callback:
+            stage_callback("stage_extract_video")
         extract_audio(ffmpeg_bin, video_path, temp_audio_path, sr)
+        if stage_callback:
+            stage_callback("stage_extract_music")
         extract_audio(ffmpeg_bin, music_path, temp_music_path, sr)
+        if stage_callback:
+            stage_callback("stage_load_audio")
         y_video, _ = librosa.load(temp_audio_path, sr=None, mono=True)
         y_music, _ = librosa.load(temp_music_path, sr=None, mono=True)
+        if stage_callback:
+            stage_callback("stage_alignment")
         return decide_alignment(y_video, y_music, sr=sr, policy=policy)
     finally:
         for p in (temp_audio_path, temp_music_path):

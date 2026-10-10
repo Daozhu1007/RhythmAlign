@@ -3,7 +3,6 @@ import os
 import subprocess
 import json
 import shutil
-import time
 import urllib.error
 from functools import partial
 
@@ -122,7 +121,7 @@ from qfluentwidgets import (FluentWindow, NavigationItemPosition, SubtitleLabel,
                             QConfig, ConfigItem, OptionsConfigItem, OptionsValidator, BoolValidator, qconfig,
                             SystemThemeListener, isDarkTheme)
 
-from auto_sync import mix_and_export, estimate_analysis_duration
+from auto_sync import mix_and_export
 from alignment_engine_v2 import (
     ACCEPT_DUAL_FAMILY,
     ACCEPT_PRIMARY_WITH_CORROBORATION,
@@ -349,6 +348,7 @@ class BrandingWidget(QWidget):
 
 # ================= 2. 后台工作线程 =================
 INDETERMINATE_PROGRESS = "__indeterminate__"
+FINISHED_PROGRESS = "__finished__"
 
 # Engine v2 reason codes -> locale keys. Abstention is a safe product stop:
 # the machine-readable reason_code is always preserved in logs/diagnostics,
@@ -388,41 +388,6 @@ def abstain_user_message(decision):
         i18n.tr("abstain_safe_stop"),
         analyze_abstain_hint_text(decision.reason_code),
     ])
-
-
-def format_eta(seconds):
-    if seconds is None:
-        return "--:--"
-
-    seconds = max(0, int(round(seconds)))
-    if seconds < 1:
-        return "<00:01"
-
-    minutes, seconds = divmod(seconds, 60)
-    hours, minutes = divmod(minutes, 60)
-    if hours:
-        return f"{hours}:{minutes:02d}:{seconds:02d}"
-    return f"{minutes:02d}:{seconds:02d}"
-
-
-def parse_eta_seconds(eta):
-    if not eta or eta == "--:--":
-        return None
-    if eta.startswith("<"):
-        return 0
-
-    try:
-        parts = [int(part) for part in eta.split(":")]
-    except ValueError:
-        return None
-
-    if len(parts) == 2:
-        minutes, seconds = parts
-        return minutes * 60 + seconds
-    if len(parts) == 3:
-        hours, minutes, seconds = parts
-        return hours * 3600 + minutes * 60 + seconds
-    return None
 
 
 class UpdateCheckWorker(QThread):
@@ -477,7 +442,7 @@ class BaseMediaWorker(QThread):
     默认路径绝不回退 legacy v1 引擎。
     """
     log_signal = pyqtSignal(str, str)
-    progress_signal = pyqtSignal(str, str, str)
+    progress_signal = pyqtSignal(str, str)
 
     def __init__(self):
         super().__init__()
@@ -485,7 +450,7 @@ class BaseMediaWorker(QThread):
 
     def _emit_start(self, task_key, progress_val):
         """子类可重写以定制启动时的信号发射序列。"""
-        self.progress_signal.emit(i18n.tr(task_key), progress_val, format_eta(self._initial_eta))
+        self.progress_signal.emit(i18n.tr(task_key), progress_val)
         self.log_signal.emit("-" * 40, "normal")
         self.log_signal.emit(i18n.tr("log_engine_v2", ENGINE_LABEL), "normal")
         self.log_signal.emit(i18n.tr("log_extract"), "normal")
@@ -498,13 +463,10 @@ class BaseMediaWorker(QThread):
         an unreliable alignment must stop before export, not guess.
         子类提供 v_path / m_path 属性。
         """
-        return find_offset_v2(self.v_path, self.m_path)
+        return find_offset_v2(self.v_path, self.m_path, stage_callback=self._analysis_stage)
 
-    def _estimate_initial_eta(self):
-        try:
-            return estimate_analysis_duration(self.v_path, self.m_path)
-        except Exception:
-            return None
+    def _analysis_stage(self, key):
+        self.progress_signal.emit(i18n.tr(key), INDETERMINATE_PROGRESS)
 
     def _on_offset_found(self, offset):
         """子类必须重写：定义 ACCEPT 后的行为。"""
@@ -522,7 +484,6 @@ class BaseMediaWorker(QThread):
 
     def run(self):
         self.alignment_decision = None
-        self._initial_eta = self._estimate_initial_eta()
 
         try:
             self._emit_start(self._start_task_key, self._start_progress_val)
@@ -574,8 +535,16 @@ class SyncWorker(BaseMediaWorker):
         def log_cb(msg):
             self.log_signal.emit(msg, "normal")
 
-        def prog_cb(task, pct, eta):
-            self.progress_signal.emit(task, str(pct), eta)
+        export_percent = None
+
+        def prog_cb(task, pct):
+            nonlocal export_percent
+            export_percent = pct
+            self.progress_signal.emit(task, str(pct))
+
+        def stage_cb(task):
+            self.progress_signal.emit(task, INDETERMINATE_PROGRESS
+                                      if export_percent is None else str(export_percent))
 
         mix_and_export(
             video_path=self.kwargs['v_path'], music_path=self.kwargs['m_path'],
@@ -584,18 +553,19 @@ class SyncWorker(BaseMediaWorker):
             use_gpu=self.kwargs['use_gpu'], bitrate=self.kwargs['bitrate'],
             manual_offset=manual_offset, stream_copy=self.kwargs['stream_copy'],
             tr=i18n.tr, ui_log_callback=log_cb, ui_progress_callback=prog_cb,
+            ui_stage_callback=stage_cb,
         )
 
-        self.progress_signal.emit(i18n.tr("task_done"), "100", "00:00")
+        self.progress_signal.emit(i18n.tr("task_done"), "100")
         self.finished_signal.emit(True, self.kwargs['save_path'], "")
 
     def _on_abstained(self, decision):
         super()._on_abstained(decision)
-        self.progress_signal.emit(i18n.tr("task_abstained"), "0", "--:--")
+        self.progress_signal.emit(i18n.tr("task_abstained"), FINISHED_PROGRESS)
         self.finished_signal.emit(False, "", abstain_user_message(decision))
 
     def _fail(self):
-        self.progress_signal.emit(i18n.tr("task_failed"), "0", "--:--")
+        self.progress_signal.emit(i18n.tr("task_failed"), FINISHED_PROGRESS)
         self.finished_signal.emit(False, "", "")
 
 
@@ -611,17 +581,17 @@ class AnalyzeWorker(BaseMediaWorker):
 
     def _on_offset_found(self, offset):
         self.log_signal.emit(i18n.tr("log_analyze_ok", offset), "success")
-        self.progress_signal.emit(i18n.tr("analyze_done"), "100", "00:00")
+        self.progress_signal.emit(i18n.tr("analyze_done"), FINISHED_PROGRESS)
         self.result_signal.emit(True, offset, "")
 
     def _on_abstained(self, decision):
         super()._on_abstained(decision)
-        self.progress_signal.emit(i18n.tr("task_abstained"), "0", "--:--")
+        self.progress_signal.emit(i18n.tr("task_abstained"), FINISHED_PROGRESS)
         # Safe stop: carry the reason_code, never a displayable fake offset.
         self.result_signal.emit(False, 0.0, decision.reason_code)
 
     def _fail(self):
-        self.progress_signal.emit(i18n.tr("analyze_failed"), "0", "--:--")
+        self.progress_signal.emit(i18n.tr("analyze_failed"), FINISHED_PROGRESS)
         self.result_signal.emit(False, 0.0, "")
 
 
@@ -737,12 +707,7 @@ class BaseMediaInterface(ScrollArea):
         self.prog_bar = ProgressBar()
         self.busy_prog_bar = IndeterminateProgressBar(start=False)
         self.busy_prog_bar.hide()
-        self.busy_eta_timer = QTimer(self)
-        self.busy_eta_timer.setInterval(1000)
-        self.busy_eta_timer.timeout.connect(self.update_busy_eta_label)
-        self.busy_eta_task = ""
-        self.busy_eta_seconds = None
-        self.busy_eta_started_at = None
+        self._export_percent = 0
         prog_layout.addWidget(self.prog_lbl)
         prog_layout.addWidget(self.prog_bar)
         prog_layout.addWidget(self.busy_prog_bar)
@@ -750,55 +715,51 @@ class BaseMediaInterface(ScrollArea):
         prog_layout.setStretchFactor(self.busy_prog_bar, 1)
         return prog_layout
 
-    def update_busy_eta_label(self):
-        eta = "--:--"
-        if self.busy_eta_seconds is not None and self.busy_eta_started_at is not None:
-            elapsed = time.monotonic() - self.busy_eta_started_at
-            eta = format_eta(self.busy_eta_seconds - elapsed)
-        self.prog_lbl.setText(i18n.tr("msg_progress_busy", self.busy_eta_task, eta))
-
-    def start_busy_eta(self, task, eta):
-        self.busy_eta_task = task
-        self.busy_eta_seconds = parse_eta_seconds(eta)
-        self.busy_eta_started_at = time.monotonic() if self.busy_eta_seconds is not None else None
-        self.update_busy_eta_label()
-
-        if self.busy_eta_seconds is not None:
-            self.busy_eta_timer.start()
-        else:
-            self.busy_eta_timer.stop()
-
-    def stop_busy_eta(self):
-        self.busy_eta_timer.stop()
-        self.busy_eta_task = ""
-        self.busy_eta_seconds = None
-        self.busy_eta_started_at = None
-
-    def set_progress_busy(self, busy, task=None, eta=None):
+    def set_progress_busy(self, busy):
         if busy:
             self.prog_bar.hide()
             self.busy_prog_bar.show()
             if not self.busy_prog_bar.isStarted():
                 self.busy_prog_bar.start()
-            if task is not None:
-                self.start_busy_eta(task, eta)
             return
 
-        self.stop_busy_eta()
         if self.busy_prog_bar.isStarted():
             self.busy_prog_bar.stop()
         self.busy_prog_bar.hide()
         self.prog_bar.show()
 
-    def update_progress(self, task, pct, eta):
-        is_busy = pct == INDETERMINATE_PROGRESS
-        if is_busy:
-            self.set_progress_busy(True, task, eta)
-        else:
+    def reset_progress(self, task):
+        self._export_percent = 0
+        self.prog_bar.setValue(0)
+        self.update_progress(task, INDETERMINATE_PROGRESS)
+
+    def update_progress(self, task, pct):
+        if pct == INDETERMINATE_PROGRESS:
+            self.set_progress_busy(True)
+            self.prog_lbl.setText(i18n.tr("msg_progress_busy", task))
+        elif pct == FINISHED_PROGRESS:
             self.set_progress_busy(False)
-            self.prog_lbl.setText(i18n.tr("msg_progress", task, pct, eta))
-        if not is_busy:
-            self.prog_bar.setValue(int(pct))
+            self._export_percent = 0
+            self.prog_bar.setValue(0)
+            self.prog_lbl.setText(task)
+        elif pct.isascii() and pct.isdecimal() and len(pct) <= 3:
+            value = int(pct)
+            if not 0 <= value <= 100:
+                return
+            self._export_percent = max(self._export_percent, value)
+            self.set_progress_busy(False)
+            self.prog_bar.setValue(self._export_percent)
+            self.prog_lbl.setText(i18n.tr("msg_progress", task, self._export_percent))
+
+    def set_task_running(self, running):
+        self.setAcceptDrops(not running)
+        controls = [self.btn_vid, self.btn_mus]
+        for name in ("btn_start", "btn_analyze", "orig_slider", "music_slider", "offset_slider"):
+            if hasattr(self, name):
+                controls.append(getattr(self, name))
+        controls.extend(getattr(self, "preset_buttons", []))
+        for control in controls:
+            control.setEnabled(not running)
 
 
 # ================= 4. 主对齐页面 =================
@@ -844,15 +805,22 @@ class SyncInterface(BaseMediaInterface):
 
         preset_layout = QHBoxLayout()
         preset_layout.addWidget(BodyLabel(i18n.tr("lbl_preset")))
+        self.preset_buttons = []
         for name, ov, mv in [(i18n.tr("preset_arcade"), 1.2, 0.7), (i18n.tr("preset_mobile"), 2.0, 0.5), (i18n.tr("preset_desktop"), 1.0, 0.9)]:
             btn = PushButton(name)
             btn.clicked.connect(lambda ch, o=ov, m=mv: self.apply_preset(o, m))
+            self.preset_buttons.append(btn)
             preset_layout.addWidget(btn)
         preset_layout.addStretch(1)
         card2_layout.addLayout(preset_layout)
 
         self.orig_slider, self.orig_lbl = self.create_slider_row(card2_layout, i18n.tr("lbl_orig_vol"), 0, 200, 120)
         self.music_slider, self.music_lbl = self.create_slider_row(card2_layout, i18n.tr("lbl_music_vol"), 0, 200, 60)
+        self.mix_hint = BodyLabel(i18n.tr("mix_hint"))
+        self.mix_hint.setWordWrap(True)
+        card2_layout.addWidget(self.mix_hint)
+        for control in (self.orig_slider, self.orig_lbl, self.music_slider, self.music_lbl):
+            control.setToolTip(i18n.tr("mix_gain_tooltip"))
         self.offset_slider, self.offset_lbl = self.create_slider_row(card2_layout, i18n.tr("lbl_offset"), -500, 500, 0, unit=" ms")
         self.layout.addWidget(card2)
 
@@ -903,7 +871,8 @@ class SyncInterface(BaseMediaInterface):
         save_path, _ = QFileDialog.getSaveFileName(self, i18n.tr("dialog_save"), f"{base_name}_synced{ext}", "MP4 Video (*.mp4)")
         if not save_path: return
 
-        self.btn_start.setEnabled(False)
+        self.set_task_running(True)
+        self.reset_progress(i18n.tr("log_start_analyze"))
 
         kwargs = {
             'v_path': v_path, 'm_path': m_path, 'save_path': save_path,
@@ -923,7 +892,10 @@ class SyncInterface(BaseMediaInterface):
         self.worker.start()
 
     def task_finished(self, success, path, abstain_message, open_folder):
-        self.btn_start.setEnabled(True)
+        self.set_task_running(False)
+        self.update_progress(i18n.tr("task_done") if success else i18n.tr(
+            "task_abstained" if abstain_message else "task_failed"),
+            "100" if success else FINISHED_PROGRESS)
         if success:
             self.log(i18n.tr("log_saved_to", os.path.basename(path)), "success")
             if open_folder: subprocess.Popen(['explorer', '/select,', os.path.normpath(path)])
@@ -1048,7 +1020,8 @@ class AnalyzeInterface(BaseMediaInterface):
             InfoBar.error(title=i18n.tr("msg_error"), content=i18n.tr("err_select_files"), parent=self, position=InfoBarPosition.TOP)
             return
 
-        self.btn_analyze.setEnabled(False)
+        self.set_task_running(True)
+        self.reset_progress(i18n.tr("log_analyzing_track"))
         self.result_display.setText(i18n.tr("status_calc"))
         self._set_result_display_style("muted")
         self.result_hint.setText(i18n.tr("hint_analyzing_wave"))
@@ -1060,7 +1033,9 @@ class AnalyzeInterface(BaseMediaInterface):
         self.worker.start()
 
     def analysis_finished(self, success, offset, reason_code=""):
-        self.btn_analyze.setEnabled(True)
+        self.set_task_running(False)
+        self.update_progress(i18n.tr("analyze_done") if success else i18n.tr(
+            "task_abstained" if reason_code else "analyze_failed"), FINISHED_PROGRESS)
         if success:
             sign = "+" if offset > 0 else ""
             self.result_display.setText(f"{sign}{offset:.4f} " + ("秒" if i18n.locale == "zh_CN" else "s"))

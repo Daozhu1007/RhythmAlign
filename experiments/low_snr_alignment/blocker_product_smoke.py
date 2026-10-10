@@ -69,7 +69,7 @@ def main():
     worker = ui_main.SyncWorker(kwargs)
     worker.log_signal.connect(lambda msg, state: logs.append((state, msg)))
     worker.progress_signal.connect(
-        lambda task, pct, eta: progress.append((task, pct, eta)))
+        lambda task, pct: progress.append((task, pct)))
     worker.finished_signal.connect(
         lambda ok, path, abstain: finished.append((ok, path, abstain)))
 
@@ -81,7 +81,7 @@ def main():
         print(f"  [{state}] {msg}")
     ok, path, abstain_msg = finished[-1]
     exists = os.path.exists(save_path)
-    export_progress = [t for t, _, _ in progress
+    export_progress = [t for t, _ in progress
                        if t == ui_main.i18n.tr("task_done_export")]
     reason_ok = any("ABSTAIN_CONCENTRATED_EVIDENCE" in m for _, m in logs)
     passed = (ok is False and not exists and bool(abstain_msg)
